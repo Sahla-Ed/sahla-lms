@@ -10,7 +10,7 @@ export default function LayoutPublic({ children }: { children: ReactNode }) {
       <Navbar />
       <main className="">
         {children}
-      </main>
+      </main>  
       <Footer />
     </div>
   );
