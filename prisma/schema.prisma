@@ -85,7 +85,7 @@ model Course {
 
   title       String
   description String
-  fileKey     String
+  fileKey     String?
   price       Int
   duration    Int
   level       CourseLevel @default(Beginner)
