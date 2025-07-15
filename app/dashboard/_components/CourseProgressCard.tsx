@@ -8,9 +8,10 @@ import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 
+import { useCourseProgress } from "@/hooks/use-course-progress";
+
 //todo: implement this component
 // import { useConstructUrl } from "@/hooks/use-construct-url";
-// import { useCourseProgress } from "@/hooks/use-course-progress";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -26,14 +27,11 @@ export function CourseProgressCard({ data }: any) {
   // const thumbnailUrl = useConstructUrl(data.Course.fileKey);
   const thumbnailUrl =
     "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp";
-  //todo: uncomment when useCourseProgress is implemented, replace dummy values
-  // const { totalLessons, completedLessons, progressPercentage } =
-  //   useCourseProgress({ courseData: data.Course as any });
-  const { totalLessons, completedLessons, progressPercentage } = {
-    totalLessons: 10,
-    completedLessons: 5,
-    progressPercentage: 50,
-  };
+
+  const { totalLessons, completedLessons, progressPercentage } =
+    useCourseProgress({ courseData: data.Course as any });
+
+
   return (
     <Card className="group relative py-0 gap-0">
       <Badge className="absolute top-2 right-2 z-10">{data.Course.level}</Badge>
