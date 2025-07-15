@@ -49,7 +49,7 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero Section with Video Background */}
+   
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <video
           autoPlay
@@ -62,7 +62,7 @@ export default function Home() {
           Your browser does not support the video tag.
         </video>
 
-        {/* Overlay */}
+
         <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-10" />
 
         <div className="relative z-20 text-white w-full px-8 max-w-7xl mx-auto">
@@ -120,7 +120,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
+
       <section className="py-20 px-8 bg-gradient-to-b from-background to-secondary/20">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -157,7 +157,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
+     
       <section className="py-20 px-8 bg-primary/5">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
