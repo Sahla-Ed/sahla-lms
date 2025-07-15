@@ -272,10 +272,10 @@ export default function AboutPage() {
                 <CardContent>
                   <p className="text-muted-foreground text-sm leading-relaxed mb-4">{member.bio}</p>
                   <div className="flex justify-center space-x-3">
-                    <Link href={member.github} className="text-muted-foreground hover:text-primary transition-colors">
+                    <Link href={member.github} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                       <Github className="h-5 w-5" />
                     </Link>
-                    <Link href={member.linkedin} className="text-muted-foreground hover:text-primary transition-colors">
+                    <Link href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                       <Linkedin className="h-5 w-5" />
                     </Link>
                   </div>
