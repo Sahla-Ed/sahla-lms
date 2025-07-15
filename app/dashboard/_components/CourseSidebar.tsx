@@ -12,8 +12,8 @@ import { Progress } from "@/components/ui/progress";
 import { ChevronDown, Play } from "lucide-react";
 import { LessonItem } from "./LessonItem";
 import { usePathname } from "next/navigation";
-//todo: implement useCourseProgress hook
-// import { useCourseProgress } from "@/hooks/use-course-progress";
+import { useCourseProgress } from "@/hooks/use-course-progress";
+
 
 interface iAppProps {
   // todo: uncomment when CourseSidebarDataType is implemented, replace any with CourseSidebarDataType["course"]
@@ -25,14 +25,9 @@ export function CourseSidebar({ course }: iAppProps) {
   const pathname = usePathname();
   const currentLessonId = pathname.split("/").pop();
 
-  //todo: uncomment when useCourseProgress hook is implemented
-  // const { completedLessons, totalLessons, progressPercentage } =
-  //   useCourseProgress({ courseData: course });
-  const { completedLessons, totalLessons, progressPercentage } = {
-    completedLessons: 0,
-    totalLessons: 0,
-    progressPercentage: 0,
-  };
+  const { completedLessons, totalLessons, progressPercentage } =
+    useCourseProgress({ courseData: course });
+
 
   return (
     <div className="flex flex-col h-full">

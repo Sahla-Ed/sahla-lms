@@ -1,11 +1,9 @@
 "use client";
 
-//todo: uncomment when LessonContentType is implemented
-// import { LessonContentType } from "@/app/data/course/get-lesson-content";
+import { LessonContentType } from "@/app/data/course/get-lesson-content";
 import { RenderDescription } from "@/components/rich-text-editor/RenderDescription";
 import { Button } from "@/components/ui/button";
 import { tryCatch } from "@/hooks/try-catch";
-//todo: uncomment when useConstructUrl is implemented
 // import { useConstructUrl } from "@/hooks/use-construct-url";
 import { BookIcon, CheckCircle } from "lucide-react";
 import { useTransition } from "react";
@@ -14,9 +12,7 @@ import { toast } from "sonner";
 import { useConfetti } from "@/hooks/use-confetti";
 
 interface iAppProps {
-  //todo: uncomment when LessonContentType is implemented
-  // data: LessonContentType;
-  data: any;
+  data: LessonContentType;
 }
 
 export function CourseContent({ data }: iAppProps) {
@@ -30,13 +26,8 @@ export function CourseContent({ data }: iAppProps) {
     thumbnailKey: string;
     videoKey: string;
   }) {
-    //todo: uncomment when useConstructUrl is implemented, replace dummy_url with useConstructUrl(videoKey)
     // const videoUrl = useConstructUrl(videoKey);
     // const thumbnailUrl = useConstructUrl(thumbnailKey);
-    const videoUrl =
-      "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp";
-    const thumbnailUrl =
-      "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp";
 
     if (!videoKey) {
       return (
@@ -51,7 +42,7 @@ export function CourseContent({ data }: iAppProps) {
 
     return (
       <div className="aspect-video bg-black rounded-lg relative overflow-hidden">
-        <video
+        {/* <video
           className="w-full h-full object-cover"
           controls
           poster={thumbnailUrl}
@@ -60,7 +51,7 @@ export function CourseContent({ data }: iAppProps) {
           <source src={videoUrl} type="video/webm" />
           <source src={videoUrl} type="video/ogg" />
           Your browser does not support the video tag.
-        </video>
+        </video> */}
       </div>
     );
   }
@@ -68,7 +59,7 @@ export function CourseContent({ data }: iAppProps) {
   function onSubmit() {
     startTransition(async () => {
       const { data: result, error } = await tryCatch(
-        markLessonComplete(data.id, data.Chapter.Course.slug),
+        markLessonComplete(data.id, data.Chapter.Course.slug)
       );
 
       if (error) {

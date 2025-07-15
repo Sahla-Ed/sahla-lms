@@ -1,5 +1,4 @@
-//todo: uncomment when getLessonContent is implemented
-// import { getLessonContent } from "@/app/data/course/get-lesson-content";
+import { getLessonContent } from "@/app/data/course/get-lesson-content";
 import { CourseContent } from "./_components/CourseContent";
 import { Suspense } from "react";
 import { LessonSkeleton } from "./_components/LessonSkeleton";
@@ -21,25 +20,6 @@ export default async function LessonContentPage({
 }
 
 async function LessonContentLoader({ lessonId }: { lessonId: string }) {
-  //todo: uncomment when getLessonContent is implemented, remove dummy data
-  // const data = await getLessonContent(lessonId);
-  //dummy data
-  const data = {
-    id: lessonId,
-    title: "Lesson Title",
-    description: "Lesson Description",
-    content: "Lesson Content",
-    Chapter: {
-      id: "chapter-id",
-      Course: {
-        id: "course-id",
-        slug: "course-slug",
-      },
-    },
-    thumbnailKey: "thumbnail-key",
-    videoKey: "video-key",
-    lessonProgress: [{ id: "progress-id", status: "completed" }],
-    completed: false,
-  };
+  const data = await getLessonContent(lessonId);
   return <CourseContent data={data} />;
 }
