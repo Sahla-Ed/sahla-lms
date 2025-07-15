@@ -9,7 +9,7 @@ export async function markLessonComplete(
   lessonId: string,
   slug: string
 ): Promise<ApiResponse> {
-//   const session = await requireUser();
+  //   const session = await requireUser();
 
   try {
     // await prisma.lessonProgress.upsert({
