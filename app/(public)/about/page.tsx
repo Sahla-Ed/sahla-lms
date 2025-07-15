@@ -75,7 +75,7 @@ const team = [
     name: "Mohamed Badran",
     role: "Full-Stack Developer",
     image: "/team/badran.jpeg",
-    bio: "Full-stack developer specializing in learning platforms",
+    bio: "Full-Stack Developer with MERN specialization",
     github: "https://github.com/B-a-d-r-a-n",
     linkedin: "https://www.linkedin.com/in/mohamed-ahmed-badran/"
   },
@@ -83,7 +83,7 @@ const team = [
     name: "Mohammed Saleh",
     role: "Full-Stack Developer",
     image: "/team/saled.jpg",
-    bio: "Full-stack developer specializing in learning platforms",
+    bio: "Full-Stack Developer with MERN specialization",
     github: "https://github.com/mosaleh-dev",
     linkedin: "https://www.linkedin.com/in/mosaleh-dev/"
   },
@@ -91,7 +91,7 @@ const team = [
     name: "Eslam Rizk",
     role: "Full-Stack Developer",
     image: "/team/rizkk.jpeg",
-    bio: "Full-stack developer specializing in learning platforms",
+    bio: "Full-Stack Developer with MERN specialization",
     github: "https://github.com/Eslam-Rizk",
     linkedin: "https://www.linkedin.com/in/eslam-rizk-6a029a145/"
   },
@@ -99,7 +99,7 @@ const team = [
     name: "Amr Ibrahim",
     role: "Full-Stack Developer",
     image: "/team/tolba.jpg",
-    bio: "Full-stack developer specializing in learning platforms",
+    bio: "Full-Stack Developer with MERN specialization",
     github: "https://github.com/amr-ibrahim7",
     linkedin: "https://www.linkedin.com/in/amribrahimwebdev/"
   },
@@ -107,7 +107,7 @@ const team = [
     name: "Mohamed Elnagar",
     role: "Full-Stack Developer",
     image: "/team/elnegar.jpeg",
-    bio: "Full-stack developer specializing in learning platforms",
+    bio: "Full-Stack Developer with MERN specialization",
     github: "https://github.com/Mohamed-Elnagar7",
     linkedin: "https://www.linkedin.com/in/mohamed-elnegar/"
   }

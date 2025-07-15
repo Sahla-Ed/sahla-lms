@@ -17,24 +17,57 @@ import {
 import Marquee from "react-fast-marquee";
 import Link from "next/link";
 import RenderFooterSection from "@/components/RenderFooterSection";
+import Footer1 from "@/public/footer/footer1.jpg";
+import Footer2 from "@/public/footer/footer2.jpg";
 
+// const footerLinks = {
+//   support: ["Contact us", "Help Center", "FAQs", "Technical Support", "Live Chat"],
+//   courses: [
+//     "Browse Courses",
+//     "Free Courses",
+//     "Certificates",
+//     "Course Catalog",
+//     "Learning Paths",
+//   ],
+//   about: ["About us", "Our Mission", "Careers", "Instructor Program"],
+//   community: [
+//     "Student Community",
+//     "Discussion Forums",
+//     "Study Groups",
+//     "Success Stories",
+//   ],
+// };
 const footerLinks = {
-  support: ["Contact us", "Help Center", "FAQs", "Technical Support", "Live Chat"],
+  support: [
+    { name: "Contact us",        href: "/contact" },
+    { name: "Help Center",       href: "/help-center" },
+    { name: "FAQs",              href: "/faqs" },
+    { name: "Technical Support", href: "/technical-support" },
+    { name: "Live Chat",         href: "/live-chat" },
+  ],
+
   courses: [
-    "Browse Courses",
-    "Free Courses",
-    "Certificates",
-    "Course Catalog",
-    "Learning Paths",
+    { name: "Browse Courses", href: "/courses" },
+    { name: "Free Courses",   href: "/courses/free" },
+    { name: "Certificates",   href: "/certificates" },
+    { name: "Course Catalog", href: "/catalog" },
+    { name: "Learning Paths", href: "/learning-paths" },
   ],
-  about: ["About us", "Our Mission", "Careers", "Instructor Program"],
+
+  about: [
+    { name: "About us",        href: "/about" },
+    { name: "Our Mission",     href: "/about#mission" },
+    { name: "Careers",         href: "/careers" },
+    { name: "Instructor Program", href: "/instructor-program" },
+  ],
+
   community: [
-    "Student Community",
-    "Discussion Forums",
-    "Study Groups",
-    "Success Stories",
+    { name: "Student Community",  href: "/community/students" },
+    { name: "Discussion Forums",  href: "/forums" },
+    { name: "Study Groups",       href: "/study-groups" },
+    { name: "Success Stories",    href: "/success-stories" },
   ],
-};
+}
 
 const benefits = [
   "24/7 Learning Support",
@@ -53,13 +86,12 @@ export default function Footer() {
   const [showErrorDialog, setShowErrorDialog] = useState(false);
 
   const handleSubmit = () => {
-    // Email validation
     if (!email || !email.includes('@')) {
       setShowErrorDialog(true);
       return;
     }
 
-    // Show success dialog
+    
     setShowSuccessDialog(true);
     
     // Clear email field
@@ -78,7 +110,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-muted text-muted-foreground py-10 border-t">
+    <footer className="bg-background text-muted-foreground py-10 border-t">
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
@@ -147,8 +179,8 @@ export default function Footer() {
             <div className="grid grid-cols-2 gap-3">
               <div className="aspect-square rounded-lg overflow-hidden w-full h-40 sm:h-48 lg:h-56">
                 <Image
-                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=600&fit=crop"
-                  alt="Students learning"
+                  src={Footer1}
+                  alt="learning"
                   width={600}
                   height={600}
                   className="w-full h-full object-cover"
@@ -156,8 +188,8 @@ export default function Footer() {
               </div>
               <div className="aspect-square rounded-lg overflow-hidden w-full h-40 sm:h-48 lg:h-56">
                 <Image
-                  src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=600&h=600&fit=crop"
-                  alt="Online learning"
+                  src={Footer2}
+                  alt="learning"
                   width={600}
                   height={600}
                   className="w-full h-full object-cover"

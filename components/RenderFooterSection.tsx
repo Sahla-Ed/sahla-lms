@@ -2,7 +2,7 @@ import Link from "next/link";
 
 interface RenderFooterSectionProps {
   title: string;
-  links: string[];
+  links: { name: string; href: string }[];
   type: string;
   hoveredSection: string | null;
   hoveredIndex: number | null;
@@ -26,7 +26,7 @@ export default function RenderFooterSection({
         {links.map((link, index) => (
           <li key={index}>
             <Link
-              href="#"
+              href={link.href}
               className={`text-muted-foreground hover:text-foreground transition-colors duration-200 relative block ${
                 hoveredSection === type && hoveredIndex === index
                   ? "text-foreground"
@@ -35,7 +35,7 @@ export default function RenderFooterSection({
               onMouseEnter={() => handleMouseEnter(type, index)}
               onMouseLeave={handleMouseLeave}
             >
-              {link}
+             {link.name}
               {hoveredSection === type && hoveredIndex === index && (
                 <span className="absolute -left-2 top-1/2 -translate-y-1/2 text-primary">
                   →

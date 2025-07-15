@@ -5,37 +5,32 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { BookOpen, Gamepad2, BarChart3 } from "lucide-react";
 
 interface featureProps {
   title: string;
   description: string;
-  icon: string;
+  icon: React.ComponentType<{ className?: string }>;
 }
 
 const features: featureProps[] = [
   {
-    title: "Comprehensive Courses",
+    title: "Empower Your Teaching",
     description:
-      "Access a wide range of carefully curated courses designed by industry experts.",
-    icon: "📚",
+      "Seamless tools for instructors to create, publish, and manage high-quality educational content with ease.",
+    icon: BookOpen,
   },
   {
-    title: "Interactive Learning",
+    title: "Discover Your Learning Path",
     description:
-      "Engage with interactive content, quizzes, and assignments to enhance your learning experience.",
-    icon: "🎮",
+      "Students easily find relevant courses and engage with modern, interactive content tailored to their needs.",
+    icon: Gamepad2, 
   },
   {
-    title: "Progress Tracking",
+    title: "Diverse & In-Demand Content",
     description:
-      "Monitor your progress and achievements with detailed analytics and personalized dashboards.",
-    icon: "📊",
-  },
-  {
-    title: "Community Support",
-    description:
-      "Join a vibrant community of learners and instructors to collaborate and share knowledge.",
-    icon: "👥",
+      "Access a rich library of specialized courses, continuously updated to align with current industry demands.",
+    icon: BarChart3, 
   },
 ];
 
@@ -137,15 +132,15 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
              <Card 
                 key={index} 
                 className="group hover:shadow-2xl transition-all duration-500 border-0 bg-white/50 dark:bg-white/10 backdrop-blur-sm hover:-translate-y-2 hover:bg-white/80 dark:hover:bg-white/20"
               >
                 <CardHeader className="text-center">
-                  <div className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                    {feature.icon}
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110">
+                    <feature.icon className="w-8 h-8 text-primary" />
                   </div>
                   <CardTitle className="text-xl font-semibold group-hover:text-primary transition-colors dark:text-white">
                     {feature.title}

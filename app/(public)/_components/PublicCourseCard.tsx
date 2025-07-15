@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import courseImage from '@/public/course.jpg'
 
+
 interface iAppProps {
   data: PublicCourseType;
 }
