@@ -1,7 +1,7 @@
-import { EmptyState } from "@/components/general/EmptyState";
 //todo: import getAllCourses
 //todo: import getEnrolledCourses
 //todo: import PublicCourseCard
+import { EmptyState } from "@/components/general/EmptyState";
 
 import { CourseProgressCard } from "./_components/CourseProgressCard";
 
@@ -79,8 +79,8 @@ export default async function DashboardPage() {
         {courses.filter(
           (course) =>
             !enrolledCourses.some(
-              ({ Course: enrolled }) => enrolled.id === course.id,
-            ),
+              ({ Course: enrolled }) => enrolled.id === course.id
+            )
         ).length === 0 ? (
           <EmptyState
             title="No courses available"
@@ -94,8 +94,8 @@ export default async function DashboardPage() {
               .filter(
                 (course) =>
                   !enrolledCourses.some(
-                    ({ Course: enrolled }) => enrolled.id === course.id,
-                  ),
+                    ({ Course: enrolled }) => enrolled.id === course.id
+                  )
               )
               .map((course) => (
                 // todo: uncomment if PublicCourseCard is implemented
