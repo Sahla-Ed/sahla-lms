@@ -2,7 +2,14 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Mail, Phone, MessageCircle } from "lucide-react";
 import { ContactForm } from "../_components/ContactForm";
+import { Metadata } from "next";
 
+
+export const metadata: Metadata = {
+  title: "Contact Us | Get in Touch with Sahla",
+  description:
+    "Have questions or need support? Reach out to the Sahla team through our contact page. We're here to help with course inquiries, feedback, or collaboration opportunities.",
+};
 
 export default function ContactUsPage() {
   return (

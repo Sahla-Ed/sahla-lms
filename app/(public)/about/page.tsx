@@ -4,6 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ChevronRight, Users, Target, Zap, Globe, BookOpen, GraduationCap, MessageSquare, Award, Github, Linkedin } from "lucide-react";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Sahla | Empowering Learners Across the Globe",
+  description:
+    "Learn more about Sahla – our mission, values, and vision. We're committed to making high-quality education accessible, engaging, and transformative for everyone.",
+};
+
 
 const values = [
   {

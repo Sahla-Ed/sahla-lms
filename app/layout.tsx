@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sahla",
+  title: "Sahla Learning Platform",
   description: "Sahla is a web-based Learning Management System",
 };
 

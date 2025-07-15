@@ -5,7 +5,13 @@ import {
 import { getAllCourses } from "@/app/data/course/get-all-courses";
 import { Suspense } from "react";
 import { CourseSearchWrapper } from "../_components/CourseSearchWrapperProps";
+import { Metadata } from "next";
 
+
+export const metadata: Metadata = {
+  title: "Explore Top Online Courses in Tech, Design, and Business | Sahla",
+  description: "Start your learning journey with Sahla. Browse expertly curated online courses in programming, design, business, and more – designed to boost your skills and career.",
+};
 
 export const dynamic = "force-dynamic";
 

@@ -8,7 +8,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Separator } from "@/components/ui/separator";
-import { env } from "@/lib/env";
+// import { env } from "@/lib/env";
 import {
   IconBook,
   IconCategory,
@@ -27,11 +27,30 @@ import { EnrollmentButton } from "./_components/EnrollmentButton";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import courseImage from '@/public/course.jpg'
-       
+import { Metadata } from "next";
 
-type Params = Promise<{ slug: string }>;
 
-export default async function SlugPage({ params }: { params: Params }) {
+
+type PageParams = Promise<{ slug: string }>;
+
+
+type MetadataParams = {
+  params: PageParams;
+};
+
+
+
+export async function generateMetadata({ params }: MetadataParams): Promise<Metadata> {
+  const resolvedParams = await params;
+  const course = await getIndividualCourse(resolvedParams.slug);
+
+  return {
+    title: course.title,
+    description: course.smallDescription,
+  };
+}
+
+export default async function SlugPage({ params }: { params: PageParams }) {
   const { slug } = await params;
   const course = await getIndividualCourse(slug);
   const isEnrolled = await checkIfCourseBought(course.id);
