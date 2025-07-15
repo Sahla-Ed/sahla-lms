@@ -14,6 +14,7 @@ import { LessonItem } from "./LessonItem";
 import { usePathname } from "next/navigation";
 import { useCourseProgress } from "@/hooks/use-course-progress";
 
+
 interface iAppProps {
   // todo: uncomment when CourseSidebarDataType is implemented, replace any with CourseSidebarDataType["course"]
   // course: CourseSidebarDataType["course"];
@@ -26,6 +27,7 @@ export function CourseSidebar({ course }: iAppProps) {
 
   const { completedLessons, totalLessons, progressPercentage } =
     useCourseProgress({ courseData: course });
+
 
   return (
     <div className="flex flex-col h-full">

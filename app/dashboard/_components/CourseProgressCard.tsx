@@ -10,6 +10,9 @@ import { Progress } from "@/components/ui/progress";
 
 import { useCourseProgress } from "@/hooks/use-course-progress";
 
+//todo: implement this component
+// import { useConstructUrl } from "@/hooks/use-construct-url";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -27,6 +30,7 @@ export function CourseProgressCard({ data }: any) {
 
   const { totalLessons, completedLessons, progressPercentage } =
     useCourseProgress({ courseData: data.Course as any });
+
 
   return (
     <Card className="group relative py-0 gap-0">
