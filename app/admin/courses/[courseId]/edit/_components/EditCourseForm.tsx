@@ -38,8 +38,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { RichTextEditor } from "@/components/rich-text-editor/Editor";
-//todo:implement a file uploader
-// import { Uploader } from "@/components/file-uploader/Uploader";
+import { Uploader } from "@/components/file-uploader/Uploader";
 import { useTransition } from "react";
 import { tryCatch } from "@/hooks/try-catch";
 import { toast } from "sonner";
@@ -76,7 +75,7 @@ export function EditCourseForm({ data }: iAppProps) {
   function onSubmit(values: CourseSchemaType) {
     startTransition(async () => {
       const { data: result, error } = await tryCatch(
-        editCourse(values, data.id)
+        editCourse(values, data.id),
       );
 
       if (error) {
@@ -200,12 +199,11 @@ export function EditCourseForm({ data }: iAppProps) {
                   <FormItem className="w-full">
                     <FormLabel>Thumbnail image</FormLabel>
                     <FormControl>
-                      {/* todo:implement s3 bucket url */}
-                      {/* <Uploader
+                      <Uploader
                         fileTypeAccepted="image"
                         onChange={field.onChange}
                         value={field.value}
-                      /> */}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

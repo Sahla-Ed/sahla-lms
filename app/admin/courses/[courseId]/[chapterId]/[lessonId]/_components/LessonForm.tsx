@@ -22,8 +22,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RichTextEditor } from "@/components/rich-text-editor/Editor";
-// todo:implement s3 bucket url
-// import { Uploader } from "@/components/file-uploader/Uploader";
+import { Uploader } from "@/components/file-uploader/Uploader";
 import { useTransition } from "react";
 import { updateLesson } from "../actions";
 import { toast } from "sonner";
@@ -55,7 +54,7 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
   function onSubmit(values: LessonSchemaType) {
     startTransition(async () => {
       const { data: result, error } = await tryCatch(
-        updateLesson(values, data.id)
+        updateLesson(values, data.id),
       );
 
       if (error) {
@@ -125,12 +124,11 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
                   <FormItem>
                     <FormLabel>Thumbnail image</FormLabel>
                     <FormControl>
-                      {/* todo:implement s3 bucket url */}
-                      {/* <Uploader
+                      <Uploader
                         fileTypeAccepted="image"
                         onChange={field.onChange}
                         value={field.value}
-                      /> */}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -143,12 +141,11 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
                   <FormItem>
                     <FormLabel>Video File</FormLabel>
                     <FormControl>
-                      {/* todo:implement s3 bucket url */}
-                      {/* <Uploader
+                      <Uploader
                         onChange={field.onChange}
                         value={field.value}
                         fileTypeAccepted="video"
-                      /> */}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
