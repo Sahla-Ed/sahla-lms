@@ -14,7 +14,7 @@ import {
   IconSettings,
   IconUsers,
 } from "@tabler/icons-react";
-import Logo from "@/public/logo.svg";
+import Logo from "@/public/logo.png";
 
 import { NavMain } from "@/components/sidebar/nav-main";
 import { NavSecondary } from "@/components/sidebar/nav-secondary";

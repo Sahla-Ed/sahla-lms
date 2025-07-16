@@ -13,7 +13,8 @@ export async function enrollInCourseAction(
 ): Promise<ApiResponse | never> {
   const user = await requireUser();
 
-  let checkoutUrl: string;
+  let checkoutUrl: string | null = null;
+
   try {
     const course = await prisma.course.findUnique({
       where: {
@@ -27,10 +28,17 @@ export async function enrollInCourseAction(
       },
     });
 
-    if (!course) {
+    if (!course || course.price === null) {
       return {
         status: "error",
-        message: "Course not found",
+        message: "Course not found or has no price.",
+      };
+    }
+
+    if (course.price === 0) {
+      return {
+        status: "error",
+        message: "This course is free, use a different enrollment method.",
       };
     }
 
@@ -48,8 +56,8 @@ export async function enrollInCourseAction(
       stripeCustomerId = userWithStripeCustomerId.stripeCustomerId;
     } else {
       const customer = await stripe.customers.create({
-        email: user.email,
-        name: user.name,
+        email: user.email ?? undefined,
+        name: user.name ?? undefined,
         metadata: {
           userId: user.id,
         },
@@ -82,13 +90,15 @@ export async function enrollInCourseAction(
       });
 
       if (existingEnrollment?.status === "Active") {
+        redirect(`/courses/${course.slug}`);
         return {
           status: "success",
-          message: "You are alredy enrolled in this Course",
+          message: "You are already enrolled in this Course",
         };
       }
 
       let enrollment;
+      const priceInCents = Math.round(course.price * 100);
 
       if (existingEnrollment) {
         enrollment = await tx.enrollment.update({
@@ -96,7 +106,7 @@ export async function enrollInCourseAction(
             id: existingEnrollment.id,
           },
           data: {
-            amount: course.price,
+            amount: priceInCents,
             status: "Pending",
             updatedAt: new Date(),
           },
@@ -106,7 +116,7 @@ export async function enrollInCourseAction(
           data: {
             userId: user.id,
             courseId: course.id,
-            amount: course.price,
+            amount: priceInCents,
             status: "Pending",
           },
         });
@@ -114,15 +124,22 @@ export async function enrollInCourseAction(
 
       const checkoutSession = await stripe.checkout.sessions.create({
         customer: stripeCustomerId,
+        mode: "payment",
         line_items: [
           {
-            price: "" + course.price,
+            price_data: {
+              currency: "usd",
+              unit_amount: priceInCents,
+              product_data: {
+                name: course.title,
+                description: `Enrollment for ${course.title}`,
+              },
+            },
             quantity: 1,
           },
         ],
-        mode: "payment",
         success_url: `${env.BETTER_AUTH_URL}/payment/success`,
-        cancel_url: `${env.BETTER_AUTH_URL}/payment/cancel`,
+        cancel_url: `${env.BETTER_AUTH_URL}/courses/${course.slug}`,
         metadata: {
           userId: user.id,
           courseId: course.id,
@@ -130,26 +147,33 @@ export async function enrollInCourseAction(
         },
       });
 
+      if (!checkoutSession.url) {
+        throw new Error("Could not create Stripe Checkout session.");
+      }
+
       return {
-        enrollment: enrollment,
         checkoutUrl: checkoutSession.url,
       };
     });
 
-    checkoutUrl = result.checkoutUrl as string;
+    if (result.checkoutUrl) {
+      checkoutUrl = result.checkoutUrl;
+    } else {
+      throw new Error(result.message || "Failed to create checkout session.");
+    }
   } catch (error) {
+    console.error("Enrollment Action Error:", error);
     if (error instanceof Stripe.errors.StripeError) {
-      console.log(error);
-
       return {
         status: "error",
-        message: "Payment system error. Please try again later.",
+        message:
+          error.message || "Payment system error. Please try again later.",
       };
     }
 
     return {
       status: "error",
-      message: "Failed to enroll in course",
+      message: "Failed to enroll in course. Please try again.",
     };
   }
 
