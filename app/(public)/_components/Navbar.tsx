@@ -94,7 +94,7 @@ export function Navbar() {
             ) : (
               <>
                 <Link
-                  href="/login"
+                  href="/auth/login"
                   className={buttonVariants({ variant: "ghost" })}
                 >
                   Login
@@ -167,15 +167,20 @@ export function Navbar() {
               <div className="pt-4 pb-3 border-t border-border">
                 <div className="flex flex-col space-y-2 px-3">
                   <Link
-                    href="/login"
-                    className={buttonVariants({ variant: "ghost", className: "w-full justify-start" })}
+                    href="/auth/login"
+                    className={buttonVariants({
+                      variant: "ghost",
+                      className: "w-full justify-start",
+                    })}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Login
                   </Link>
-                  <Link 
-                    href="/about" 
-                    className={buttonVariants({ className: "w-full justify-start" })}
+                  <Link
+                    href="/about"
+                    className={buttonVariants({
+                      className: "w-full justify-start",
+                    })}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Discover More

@@ -107,7 +107,7 @@ export default function Home() {
                     variant="outline"
                     className="group relative bg-transparent text-white border border-white/50 hover:border-white/70 backdrop-blur-sm transition-all duration-500 px-10 py-4 rounded-full text-lg font-light overflow-hidden"
                   >
-                    <Link href="/login" className="relative z-10">
+                    <Link href="/auth/login" className="relative z-10">
                       <span className="inline-block transition-transform duration-500 group-hover:-translate-y-full group-hover:opacity-0">
                         Sign In
                       </span>
