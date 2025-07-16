@@ -21,6 +21,7 @@ export const auth = betterAuth({
     emailOTP({
       async sendVerificationOTP({ email, otp }) {
         //TODO: customize the email template
+        console.log(otp);
         await resend.emails.send({
           from: "sahla lms <onboarding@resend.dev>",
           to: [email],

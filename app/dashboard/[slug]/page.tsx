@@ -1,5 +1,4 @@
-//todo: uncomment when getCourseSidebarData is implemented
-// import { getCourseSidebarData } from "@/app/data/course/get-course-sidebar-data";
+import { getCourseSidebarData } from "@/app/data/course/get-course-sidebar-data";
 import { redirect } from "next/navigation";
 
 interface iAppProps {
@@ -9,36 +8,7 @@ interface iAppProps {
 export default async function CourseSlugRoute({ params }: iAppProps) {
   const { slug } = await params;
 
-  //todo: uncomment when getCourseSidebarData is implemented, remove dummy data
-  // const course = await getCourseSidebarData(slug);
-  //dummy data
-  const course = {
-    course: {
-      id: "",
-      title: "",
-      description: "",
-      chapter: [
-        {
-          id: "",
-          title: "",
-          lessons: [
-            {
-              id: "",
-              title: "",
-              description: "",
-              duration: "",
-              videoUrl: "",
-              slidesUrl: "",
-              quizUrl: "",
-              status: "",
-              createdAt: "",
-              updatedAt: "",
-            },
-          ],
-        },
-      ],
-    },
-  };
+  const course = await getCourseSidebarData(slug);
 
   const firstChapter = course.course.chapter[0];
   const firstLesson = firstChapter.lessons[0];

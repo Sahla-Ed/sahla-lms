@@ -1,49 +1,15 @@
 import { EmptyState } from "@/components/general/EmptyState";
-//todo: import getAllCourses
-//todo: import getEnrolledCourses
-//todo: import PublicCourseCard
-
+import { getAllCourses } from "../data/course/get-all-courses";
+import { getEnrolledCourses } from "../data/user/get-enrolled-courses";
+import { PublicCourseCard } from "../(public)/_components/PublicCourseCard";
 
 import { CourseProgressCard } from "./_components/CourseProgressCard";
 
 export default async function DashboardPage() {
-  // todo: uncomment when implemented, remove dummy Courses
-  // const [courses, enrolledCourses] = await Promise.all([
-  //   getAllCourses(),
-  //   getEnrolledCourses(),
-
-  // ]);
-  // dummy Courses
-  const [courses, enrolledCourses] = [
-    [
-      {
-        id: 1,
-        title: "Course Title 1",
-        description: "Course Description",
-      },
-      {
-        id: 2,
-        title: "Course Title 2",
-        description: "Course Description 2",
-      },
-    ],
-    [
-      {
-        Course: {
-          id: 2,
-          title: "Course Title 3",
-          description: "Course Description 3",
-        },
-      },
-      {
-        Course: {
-          id: 3,
-          title: "Course Title 4",
-          description: "Course Description 4",
-        },
-      },
-    ],
-  ];
+  const [courses, enrolledCourses] = await Promise.all([
+    getAllCourses(),
+    getEnrolledCourses(),
+  ]);
 
   return (
     <>
@@ -80,9 +46,8 @@ export default async function DashboardPage() {
         {courses.filter(
           (course) =>
             !enrolledCourses.some(
-              ({ Course: enrolled }) => enrolled.id === course.id,
-            ),
-
+              ({ Course: enrolled }) => enrolled.id === course.id
+            )
         ).length === 0 ? (
           <EmptyState
             title="No courses available"
@@ -96,17 +61,11 @@ export default async function DashboardPage() {
               .filter(
                 (course) =>
                   !enrolledCourses.some(
-                    ({ Course: enrolled }) => enrolled.id === course.id,
-                  ),
-
+                    ({ Course: enrolled }) => enrolled.id === course.id
+                  )
               )
               .map((course) => (
-                // todo: uncomment if PublicCourseCard is implemented
-                // <PublicCourseCard key={course.id} data={course} />
-                <div key={course.id} className="flex flex-col gap-2">
-                  <h2 className="text-xl font-semibold">{course.title}</h2>
-                  <p className="text-muted-foreground">{course.description}</p>
-                </div>
+                <PublicCourseCard key={course.id} data={course} />
               ))}
           </div>
         )}

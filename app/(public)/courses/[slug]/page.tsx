@@ -8,7 +8,6 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Separator } from "@/components/ui/separator";
-// import { env } from "@/lib/env";
 import {
   IconBook,
   IconCategory,
@@ -26,21 +25,18 @@ import Link from "next/link";
 import { EnrollmentButton } from "./_components/EnrollmentButton";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import courseImage from '@/public/course.jpg'
 import { Metadata } from "next";
-
-
+import { useConstructUrl } from "@/hooks/use-construct-url";
 
 type PageParams = Promise<{ slug: string }>;
-
 
 type MetadataParams = {
   params: PageParams;
 };
 
-
-
-export async function generateMetadata({ params }: MetadataParams): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: MetadataParams): Promise<Metadata> {
   const resolvedParams = await params;
   const course = await getIndividualCourse(resolvedParams.slug);
 
@@ -72,15 +68,14 @@ export default async function SlugPage({ params }: { params: PageParams }) {
               {/* Course Image */}
               <div className="group relative aspect-video w-full overflow-hidden rounded-2xl shadow-2xl shadow-primary/10 border border-border/50">
                 <Image
-                  // src={`https://${env.NEXT_PUBLIC_S3_BUCKET_NAME_IMAGES}.fly.storage.tigris.dev/${course.fileKey}`}
-                   src={courseImage}
+                  src={useConstructUrl(course.fileKey!)}
                   alt={course.title}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-                
+
                 {/* Play Button Overlay */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="rounded-full bg-white/20 backdrop-blur-sm p-6 border border-white/30">
@@ -93,16 +88,19 @@ export default async function SlugPage({ params }: { params: PageParams }) {
               <div className="mt-8 space-y-6">
                 <div className="space-y-4">
                   <div className="flex flex-wrap items-center gap-2">
-                    <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
+                    <Badge
+                      variant="secondary"
+                      className="bg-primary/10 text-primary border-primary/20"
+                    >
                       <IconStar className="size-3 mr-1" />
                       Featured Course
                     </Badge>
                   </div>
-                  
+
                   <h1 className="text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
                     {course.title}
                   </h1>
-                  
+
                   <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl">
                     {course.smallDescription}
                   </p>
@@ -116,7 +114,9 @@ export default async function SlugPage({ params }: { params: PageParams }) {
                         <BarChart3 className="size-5" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-muted-foreground">Level</p>
+                        <p className="text-sm font-medium text-muted-foreground">
+                          Level
+                        </p>
                         <p className="font-semibold">{course.level}</p>
                       </div>
                     </div>
@@ -128,7 +128,9 @@ export default async function SlugPage({ params }: { params: PageParams }) {
                         <Clock className="size-5" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-muted-foreground">Duration</p>
+                        <p className="text-sm font-medium text-muted-foreground">
+                          Duration
+                        </p>
                         <p className="font-semibold">{course.duration}h</p>
                       </div>
                     </div>
@@ -140,7 +142,9 @@ export default async function SlugPage({ params }: { params: PageParams }) {
                         <BookOpen className="size-5" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-muted-foreground">Lessons</p>
+                        <p className="text-sm font-medium text-muted-foreground">
+                          Lessons
+                        </p>
                         <p className="font-semibold">{totalLessons}</p>
                       </div>
                     </div>
@@ -152,7 +156,9 @@ export default async function SlugPage({ params }: { params: PageParams }) {
                         <IconCategory className="size-5" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-muted-foreground">Category</p>
+                        <p className="text-sm font-medium text-muted-foreground">
+                          Category
+                        </p>
                         <p className="font-semibold">{course.category}</p>
                       </div>
                     </div>
@@ -190,7 +196,8 @@ export default async function SlugPage({ params }: { params: PageParams }) {
                         Course Content
                       </h2>
                       <p className="text-muted-foreground">
-                        {course.chapter.length} chapters • {totalLessons} lessons
+                        {course.chapter.length} chapters • {totalLessons}{" "}
+                        lessons
                       </p>
                     </div>
                   </div>
@@ -212,21 +219,26 @@ export default async function SlugPage({ params }: { params: PageParams }) {
                                     {chapter.title}
                                   </h3>
                                   <p className="text-sm text-muted-foreground">
-                                    {chapter.lessons.length} lesson{chapter.lessons.length !== 1 ? "s" : ""}
+                                    {chapter.lessons.length} lesson
+                                    {chapter.lessons.length !== 1 ? "s" : ""}
                                   </p>
                                 </div>
                               </div>
 
                               <div className="flex items-center gap-3">
-                                <Badge variant="secondary" className="bg-primary/10 text-primary">
-                                  {chapter.lessons.length} lesson{chapter.lessons.length !== 1 ? "s" : ""}
+                                <Badge
+                                  variant="secondary"
+                                  className="bg-primary/10 text-primary"
+                                >
+                                  {chapter.lessons.length} lesson
+                                  {chapter.lessons.length !== 1 ? "s" : ""}
                                 </Badge>
                                 <IconChevronDown className="size-5 text-muted-foreground group-hover:text-primary transition-colors" />
                               </div>
                             </div>
                           </CardContent>
                         </CollapsibleTrigger>
-                        
+
                         <CollapsibleContent>
                           <div className="border-t bg-muted/10 backdrop-blur-sm">
                             <div className="p-6 pt-4 space-y-2">
@@ -249,7 +261,10 @@ export default async function SlugPage({ params }: { params: PageParams }) {
                                   </div>
 
                                   <div className="opacity-0 group-hover/lesson:opacity-100 transition-opacity">
-                                    <Badge variant="outline" className="text-xs">
+                                    <Badge
+                                      variant="outline"
+                                      className="text-xs"
+                                    >
                                       Preview
                                     </Badge>
                                   </div>
@@ -273,7 +288,9 @@ export default async function SlugPage({ params }: { params: PageParams }) {
                     {/* Price Header */}
                     <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-6 border-b border-border/50">
                       <div className="text-center">
-                        <p className="text-sm font-medium text-muted-foreground mb-2">Course Price</p>
+                        <p className="text-sm font-medium text-muted-foreground mb-2">
+                          Course Price
+                        </p>
                         <div className="flex items-center justify-center gap-2">
                           <span className="text-4xl font-bold text-primary">
                             {new Intl.NumberFormat("en-US", {
@@ -288,24 +305,47 @@ export default async function SlugPage({ params }: { params: PageParams }) {
                     <div className="p-6 space-y-6">
                       {/* Course Features */}
                       <div className="space-y-4">
-                        <h4 className="font-semibold text-lg">This course includes:</h4>
+                        <h4 className="font-semibold text-lg">
+                          This course includes:
+                        </h4>
                         <div className="grid gap-3">
                           {[
-                            { icon: IconInfinity, text: "Full lifetime access", highlight: true },
-                            { icon: IconDownload, text: "Downloadable resources" },
-                            { icon: IconCertificate, text: "Certificate of completion" },
+                            {
+                              icon: IconInfinity,
+                              text: "Full lifetime access",
+                              highlight: true,
+                            },
+                            {
+                              icon: IconDownload,
+                              text: "Downloadable resources",
+                            },
+                            {
+                              icon: IconCertificate,
+                              text: "Certificate of completion",
+                            },
                           ].map((feature, index) => (
-                            <div key={index} className={cn(
-                              "flex items-center gap-3 p-3 rounded-lg transition-all duration-200",
-                              feature.highlight ? "bg-primary/5 border border-primary/20" : "hover:bg-muted/50"
-                            )}>
-                              <div className={cn(
-                                "p-2 rounded-lg",
-                                feature.highlight ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"
-                              )}>
+                            <div
+                              key={index}
+                              className={cn(
+                                "flex items-center gap-3 p-3 rounded-lg transition-all duration-200",
+                                feature.highlight
+                                  ? "bg-primary/5 border border-primary/20"
+                                  : "hover:bg-muted/50"
+                              )}
+                            >
+                              <div
+                                className={cn(
+                                  "p-2 rounded-lg",
+                                  feature.highlight
+                                    ? "bg-primary/10 text-primary"
+                                    : "bg-muted text-muted-foreground"
+                                )}
+                              >
                                 <feature.icon className="size-4" />
                               </div>
-                              <span className="text-sm font-medium">{feature.text}</span>
+                              <span className="text-sm font-medium">
+                                {feature.text}
+                              </span>
                             </div>
                           ))}
                         </div>
@@ -314,12 +354,20 @@ export default async function SlugPage({ params }: { params: PageParams }) {
                       {/* Course Stats */}
                       <div className="grid grid-cols-2 gap-4">
                         <div className="text-center p-4 rounded-lg bg-muted/50">
-                          <div className="text-2xl font-bold text-primary">{course.duration}</div>
-                          <div className="text-xs text-muted-foreground">Hours</div>
+                          <div className="text-2xl font-bold text-primary">
+                            {course.duration}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            Hours
+                          </div>
                         </div>
                         <div className="text-center p-4 rounded-lg bg-muted/50">
-                          <div className="text-2xl font-bold text-primary">{totalLessons}</div>
-                          <div className="text-xs text-muted-foreground">Lessons</div>
+                          <div className="text-2xl font-bold text-primary">
+                            {totalLessons}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            Lessons
+                          </div>
                         </div>
                       </div>
 
@@ -327,8 +375,9 @@ export default async function SlugPage({ params }: { params: PageParams }) {
                       <div className="space-y-3">
                         {isEnrolled ? (
                           <Link
-                            className={buttonVariants({ 
-                              className: "w-full h-12 text-lg font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 shadow-lg shadow-primary/25" 
+                            className={buttonVariants({
+                              className:
+                                "w-full h-12 text-lg font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 shadow-lg shadow-primary/25",
                             })}
                             href="/dashboard"
                           >

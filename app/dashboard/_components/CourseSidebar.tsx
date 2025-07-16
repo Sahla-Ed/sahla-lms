@@ -1,7 +1,6 @@
 "use client";
 
-//todo: uncomment when CourseSidebarDataType is implemented
-// import { CourseSidebarDataType } from "@/app/data/course/get-course-sidebar-data";
+import { CourseSidebarDataType } from "@/app/data/course/get-course-sidebar-data";
 import { Button } from "@/components/ui/button";
 import {
   CollapsibleContent,
@@ -14,11 +13,8 @@ import { LessonItem } from "./LessonItem";
 import { usePathname } from "next/navigation";
 import { useCourseProgress } from "@/hooks/use-course-progress";
 
-
 interface iAppProps {
-  // todo: uncomment when CourseSidebarDataType is implemented, replace any with CourseSidebarDataType["course"]
-  // course: CourseSidebarDataType["course"];
-  course: any;
+  course: CourseSidebarDataType["course"];
 }
 
 export function CourseSidebar({ course }: iAppProps) {
@@ -27,8 +23,6 @@ export function CourseSidebar({ course }: iAppProps) {
 
   const { completedLessons, totalLessons, progressPercentage } =
     useCourseProgress({ courseData: course });
-
-
   return (
     <div className="flex flex-col h-full">
       <div className="pb-4 pr-4 border-b border-border">
@@ -62,9 +56,7 @@ export function CourseSidebar({ course }: iAppProps) {
       </div>
 
       <div className="py-4 pr-4 space-y-3">
-        {/*uncomment when CourseSidebarDataType is implemented*/}
-        {/*{course.chapter.map((chapter, index) => (    */}
-        {course.chapter.map((chapter: any, index: any) => (
+        {course.chapter.map((chapter, index) => (
           <Collapsible key={chapter.id} defaultOpen={index === 0}>
             <CollapsibleTrigger asChild>
               <Button
@@ -86,9 +78,7 @@ export function CourseSidebar({ course }: iAppProps) {
               </Button>
             </CollapsibleTrigger>
             <CollapsibleContent className="mt-3 pl-6 border-l-2 space-y-3">
-              {/*uncomment when CourseSidebarDataType is implemented*/}
-              {/*{chapter.lessons.map((lesson) => (*/}
-              {chapter.lessons.map((lesson: any) => (
+              {chapter.lessons.map((lesson) => (
                 <LessonItem
                   key={lesson.id}
                   lesson={lesson}
@@ -96,9 +86,7 @@ export function CourseSidebar({ course }: iAppProps) {
                   isActive={currentLessonId === lesson.id}
                   completed={
                     lesson.lessonProgress.find(
-                      //uncomment when CourseSidebarDataType is implemented
-                      // (progress) => progress.lessonId === lesson.id,
-                      (progress: any) => progress.lessonId === lesson.id,
+                      (progress) => progress.lessonId === lesson.id
                     )?.completed || false
                   }
                 />

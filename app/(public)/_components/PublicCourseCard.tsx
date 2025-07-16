@@ -3,19 +3,17 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-// import { useConstructUrl } from "@/hooks/use-construct-url";
 import { Clock, BookOpen, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import courseImage from '@/public/course.jpg'
-
+import { useConstructUrl } from "@/hooks/use-construct-url";
 
 interface iAppProps {
   data: PublicCourseType;
 }
 
 export function PublicCourseCard({ data }: iAppProps) {
-  // const thumbnailUrl = useConstructUrl(data.fileKey);
+  const thumbnailUrl = useConstructUrl(data.fileKey!);
   return (
     <Card className="group relative overflow-hidden bg-white/50 dark:bg-white/5 backdrop-blur-sm border-0 shadow-lg hover:shadow-2xl transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 dark:hover:bg-white/10">
       {/* Image Container */}
@@ -24,11 +22,9 @@ export function PublicCourseCard({ data }: iAppProps) {
           width={600}
           height={300}
           className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-          // src={thumbnailUrl}
-          src={courseImage}
+          src={thumbnailUrl}
           alt={data.title}
         />
-        
 
         <Badge className="absolute top-3 right-3 bg-background text-primary border-0 shadow-lg backdrop-blur-sm">
           {data.level}
@@ -36,7 +32,6 @@ export function PublicCourseCard({ data }: iAppProps) {
       </div>
 
       <CardContent className="p-6 space-y-4">
- 
         <Link
           className="block font-bold text-lg line-clamp-2 hover:text-primary transition-colors duration-200"
           href={`/courses/${data.slug}`}
@@ -44,29 +39,27 @@ export function PublicCourseCard({ data }: iAppProps) {
           {data.title}
         </Link>
 
-       
         <p className="line-clamp-3 text-sm text-muted-foreground leading-relaxed">
           {data.smallDescription}
         </p>
 
-   
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           <div className="flex items-center gap-1">
             <Clock className="w-4 h-4" />
             <span className="font-medium">{data.duration}h</span>
           </div>
-          
+
           <div className="flex items-center gap-1">
             <BookOpen className="w-4 h-4" />
             <span className="font-medium">{data.category}</span>
           </div>
         </div>
 
-        
         <Link
           href={`/courses/${data.slug}`}
-          className={buttonVariants({ 
-            className: "w-full group/btn relative overflow-hidden bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 border-0 shadow-lg hover:shadow-xl transition-all duration-500 rounded-xl py-3" 
+          className={buttonVariants({
+            className:
+              "w-full group/btn relative overflow-hidden bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 border-0 shadow-lg hover:shadow-xl transition-all duration-500 rounded-xl py-3",
           })}
         >
           <span className="relative z-10 flex items-center justify-center gap-2 font-medium">

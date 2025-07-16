@@ -4,7 +4,7 @@ import { LessonContentType } from "@/app/data/course/get-lesson-content";
 import { RenderDescription } from "@/components/rich-text-editor/RenderDescription";
 import { Button } from "@/components/ui/button";
 import { tryCatch } from "@/hooks/try-catch";
-// import { useConstructUrl } from "@/hooks/use-construct-url";
+import { useConstructUrl } from "@/hooks/use-construct-url";
 import { BookIcon, CheckCircle } from "lucide-react";
 import { useTransition } from "react";
 import { markLessonComplete } from "../actions";
@@ -26,8 +26,8 @@ export function CourseContent({ data }: iAppProps) {
     thumbnailKey: string;
     videoKey: string;
   }) {
-    // const videoUrl = useConstructUrl(videoKey);
-    // const thumbnailUrl = useConstructUrl(thumbnailKey);
+    const videoUrl = useConstructUrl(videoKey);
+    const thumbnailUrl = useConstructUrl(thumbnailKey);
 
     if (!videoKey) {
       return (
@@ -42,7 +42,7 @@ export function CourseContent({ data }: iAppProps) {
 
     return (
       <div className="aspect-video bg-black rounded-lg relative overflow-hidden">
-        {/* <video
+        <video
           className="w-full h-full object-cover"
           controls
           poster={thumbnailUrl}
@@ -51,7 +51,7 @@ export function CourseContent({ data }: iAppProps) {
           <source src={videoUrl} type="video/webm" />
           <source src={videoUrl} type="video/ogg" />
           Your browser does not support the video tag.
-        </video> */}
+        </video>
       </div>
     );
   }

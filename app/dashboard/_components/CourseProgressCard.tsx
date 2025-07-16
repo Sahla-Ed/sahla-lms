@@ -1,37 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-//todo: implement this component
-// import { EnrolledCourseType } from "@/app/data/user/get-enrolled-courses";
+import { EnrolledCourseType } from "@/app/data/user/get-enrolled-courses";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 
+import { useConstructUrl } from "@/hooks/use-construct-url";
 import { useCourseProgress } from "@/hooks/use-course-progress";
-
-//todo: implement this component
-// import { useConstructUrl } from "@/hooks/use-construct-url";
 
 import Image from "next/image";
 import Link from "next/link";
 
 interface iAppProps {
-  //todo uncomment when EnrolledCourseType is implemented, replace (any) type
-  // data: EnrolledCourseType;
-  data: any;
+  data: EnrolledCourseType;
 }
 
-export function CourseProgressCard({ data }: any) {
-  //todo: uncomment when useConstructUrl is implemented, replace dummy_url
-  // const thumbnailUrl = useConstructUrl(data.Course.fileKey);
-  const thumbnailUrl =
-    "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp";
-
+export function CourseProgressCard({ data }: iAppProps) {
+  const thumbnailUrl = useConstructUrl(data.Course.fileKey!);
   const { totalLessons, completedLessons, progressPercentage } =
     useCourseProgress({ courseData: data.Course as any });
-
-
   return (
     <Card className="group relative py-0 gap-0">
       <Badge className="absolute top-2 right-2 z-10">{data.Course.level}</Badge>
