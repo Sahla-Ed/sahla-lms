@@ -1,4 +1,3 @@
-
 import {
   PublicCourseCardSkeleton,
 } from "../_components/PublicCourseCard";
@@ -7,7 +6,6 @@ import { Suspense } from "react";
 import { CourseSearchWrapper } from "../_components/CourseSearchWrapperProps";
 import { Metadata } from "next";
 
-
 export const metadata: Metadata = {
   title: "Explore Top Online Courses in Tech, Design, and Business | Sahla",
   description: "Start your learning journey with Sahla. Browse expertly curated online courses in programming, design, business, and more – designed to boost your skills and career.",
@@ -15,11 +13,13 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-export default function PublicCoursesroute({
+export default async function PublicCoursesroute({
   searchParams,
 }: {
-  searchParams?: { q?: string; category?: string };
+  searchParams?: Promise<{ q?: string; category?: string }>;
 }) {
+  const resolvedSearchParams = await searchParams;
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-secondary/10 to-background">
       {/* Hero Section */}
@@ -53,7 +53,7 @@ export default function PublicCoursesroute({
         </div>
       </section>
 
-      {/* Courses Grid Section */}
+
       <section className="py-16 px-6 md:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
@@ -67,14 +67,13 @@ export default function PublicCoursesroute({
           </div>
 
           <Suspense fallback={<LoadingSkeletonLayout />}>
-              <RenderCourses searchParams={searchParams} />
+              <RenderCourses searchParams={resolvedSearchParams} />
           </Suspense>
         </div>
       </section>
     </div>
   );
 }
-
 
 async function RenderCourses({
   searchParams,
@@ -88,7 +87,6 @@ async function RenderCourses({
 
   return <CourseSearchWrapper courses={courses} />;
 }
-
 
 function LoadingSkeletonLayout() {
   return (
