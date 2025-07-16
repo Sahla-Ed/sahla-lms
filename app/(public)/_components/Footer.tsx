@@ -20,23 +20,6 @@ import RenderFooterSection from "@/components/RenderFooterSection";
 import Footer1 from "@/public/footer/footer1.jpg";
 import Footer2 from "@/public/footer/footer2.jpg";
 
-// const footerLinks = {
-//   support: ["Contact us", "Help Center", "FAQs", "Technical Support", "Live Chat"],
-//   courses: [
-//     "Browse Courses",
-//     "Free Courses",
-//     "Certificates",
-//     "Course Catalog",
-//     "Learning Paths",
-//   ],
-//   about: ["About us", "Our Mission", "Careers", "Instructor Program"],
-//   community: [
-//     "Student Community",
-//     "Discussion Forums",
-//     "Study Groups",
-//     "Success Stories",
-//   ],
-// };
 const footerLinks = {
   support: [
     { name: "Contact us",        href: "/contact" },
@@ -94,7 +77,7 @@ export default function Footer() {
     
     setShowSuccessDialog(true);
     
-    // Clear email field
+   
     setEmail("");
     
   };

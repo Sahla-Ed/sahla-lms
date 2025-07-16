@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { BookOpen, Gamepad2, BarChart3 } from "lucide-react";
+import { authClient } from "@/lib/auth-client";
 
 interface featureProps {
   title: string;
@@ -35,6 +36,7 @@ const features: featureProps[] = [
 ];
 
 export default function Home() {
+  const { data: session, isPending } = authClient.useSession();
   const [lineFullWidth, setLineFullWidth] = useState(false);
 
   useEffect(() => {
@@ -49,7 +51,6 @@ export default function Home() {
 
   return (
     <>
-   
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <video
           autoPlay
@@ -61,7 +62,6 @@ export default function Home() {
           <source src="/shlavv.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-
 
         <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-10" />
 
@@ -100,26 +100,46 @@ export default function Home() {
                   </Link>
                 </Button>
 
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="group relative bg-transparent text-white border border-white/50 hover:border-white/70 backdrop-blur-sm transition-all duration-500 px-10 py-4 rounded-full text-lg font-light overflow-hidden"
-                >
-                  <Link href="/login" className="relative z-10">
-                    <span className="inline-block transition-transform duration-500 group-hover:-translate-y-full group-hover:opacity-0">
-                      Sign In
-                    </span>
-                    <span className="absolute inset-0 inline-block transition-transform duration-500 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
-                      Sign In
-                    </span>
-                  </Link>
-                </Button>
+                {/* Show Sign In button only if not logged in */}
+                {!isPending && !session && (
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="group relative bg-transparent text-white border border-white/50 hover:border-white/70 backdrop-blur-sm transition-all duration-500 px-10 py-4 rounded-full text-lg font-light overflow-hidden"
+                  >
+                    <Link href="/login" className="relative z-10">
+                      <span className="inline-block transition-transform duration-500 group-hover:-translate-y-full group-hover:opacity-0">
+                        Sign In
+                      </span>
+                      <span className="absolute inset-0 inline-block transition-transform duration-500 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+                        Sign In
+                      </span>
+                    </Link>
+                  </Button>
+                )}
+
+                {/* Show Dashboard button if logged in */}
+                {!isPending && session && (
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="group relative bg-transparent text-white border border-white/50 hover:border-white/70 backdrop-blur-sm transition-all duration-500 px-10 py-4 rounded-full text-lg font-light overflow-hidden"
+                  >
+                    <Link href="/dashboard" className="relative z-10">
+                      <span className="inline-block transition-transform duration-500 group-hover:-translate-y-full group-hover:opacity-0">
+                        Go to Dashboard
+                      </span>
+                      <span className="absolute inset-0 inline-block transition-transform duration-500 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+                        Go to Dashboard
+                      </span>
+                    </Link>
+                  </Button>
+                )}
               </div>
             </div>
           </div>
         </div>
       </section>
-
 
       <section className="py-20 px-8 bg-gradient-to-b from-background to-secondary/20">
         <div className="max-w-7xl mx-auto">
@@ -157,7 +177,6 @@ export default function Home() {
         </div>
       </section>
 
-     
       <section className="py-20 px-8 bg-primary/5">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
@@ -166,19 +185,37 @@ export default function Home() {
           <p className="text-muted-foreground md:text-xl mb-8 max-w-2xl mx-auto">
             Join thousands of learners who have already transformed their careers with our platform
           </p>
-          <Button 
-            size="lg" 
-            className="group relative px-12 py-6 text-lg font-medium rounded-full overflow-hidden transition-all duration-500 hover:scale-105"
-          >
-            <Link href="/register" className="relative z-10">
-              <span className="inline-block transition-transform duration-500 group-hover:-translate-y-full group-hover:opacity-0">
-                Get Started Today
-              </span>
-              <span className="absolute inset-0 inline-block transition-transform duration-500 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
-                Get Started Today
-              </span>
-            </Link>
-          </Button>
+          
+          {/* Show different CTA based on auth status */}
+          {!isPending && !session ? (
+            <Button 
+              size="lg" 
+              className="group relative px-12 py-6 text-lg font-medium rounded-full overflow-hidden transition-all duration-500 hover:scale-105"
+            >
+              <Link href="/login" className="relative z-10">
+                <span className="inline-block transition-transform duration-500 group-hover:-translate-y-full group-hover:opacity-0">
+                  Get Started Today
+                </span>
+                <span className="absolute inset-0 inline-block transition-transform duration-500 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+                  Get Started Today
+                </span>
+              </Link>
+            </Button>
+          ) : (
+            <Button 
+              size="lg" 
+              className="group relative px-12 py-6 text-lg font-medium rounded-full overflow-hidden transition-all duration-500 hover:scale-105"
+            >
+              <Link href="/courses" className="relative z-10">
+                <span className="inline-block transition-transform duration-500 group-hover:-translate-y-full group-hover:opacity-0">
+                  Explore More Courses
+                </span>
+                <span className="absolute inset-0 inline-block transition-transform duration-500 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+                  Explore More Courses
+                </span>
+              </Link>
+            </Button>
+          )}
         </div>
       </section>
     </>

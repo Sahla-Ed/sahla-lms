@@ -6,31 +6,44 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Mail, Phone, User, CheckCircle, MessageCircle, AlertCircle } from "lucide-react";
+import { 
+  AlertDialog, 
+  AlertDialogAction, 
+  AlertDialogContent, 
+  AlertDialogDescription, 
+  AlertDialogFooter, 
+  AlertDialogHeader, 
+  AlertDialogTitle 
+} from "@/components/ui/alert-dialog";
+import { Mail, Phone, User, MessageCircle } from "lucide-react";
+
+interface FormData {
+  name: string;
+  email: string;
+  phone: string;
+  role: string;
+}
+
+type FormField = keyof FormData;
 
 export function ContactForm() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     phone: "",
     role: ""
   });
-  const [showAlert, setShowAlert] = useState(false);
-  const [showErrorAlert, setShowErrorAlert] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState<boolean>(false);
+  const [showErrorDialog, setShowErrorDialog] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (field: FormField, value: string): void => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (): Promise<void> => {
     if (!formData.name || !formData.email || !formData.phone || !formData.role) {
-      setShowErrorAlert(true);
-      
-      setTimeout(() => {
-        setShowErrorAlert(false);
-      }, 5000);
+      setShowErrorDialog(true);
       return;
     }
 
@@ -38,43 +51,61 @@ export function ContactForm() {
     
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    setShowAlert(true);
+    setShowSuccessDialog(true);
     setIsSubmitting(false);
     
-
-
     setFormData({
       name: "",
       email: "",
       phone: "",
       role: ""
     });
-
-   
-    setTimeout(() => {
-      setShowAlert(false);
-    }, 5000);
   };
 
   return (
     <div className="max-w-2xl mx-auto">
-      {showAlert && (
-        <Alert className="mb-8 border-green-200 bg-green-50 text-green-800">
-          <CheckCircle className="h-4 w-4" />
-          <AlertDescription>
-            Thank you for contacting us! We&apos;ve received your message and will get back to you within 24 hours.
-          </AlertDescription>
-        </Alert>
-      )}
+      <AlertDialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
+        <AlertDialogContent className="max-w-md">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-2xl font-semibold text-center">
+              🎉 Thank You!
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-center text-base leading-relaxed">
+              Thank you for contacting us! We&apos;ve received your message and will get back to you within 24 hours.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction 
+              onClick={() => setShowSuccessDialog(false)}
+              className="w-full bg-primary hover:bg-primary/90"
+            >
+              Great!
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
-      {showErrorAlert && (
-        <Alert className="mb-8 border-red-200 bg-red-50 text-red-800">
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>
-            Please fill in all fields before submitting the form.
-          </AlertDescription>
-        </Alert>
-      )}
+
+      <AlertDialog open={showErrorDialog} onOpenChange={setShowErrorDialog}>
+        <AlertDialogContent className="max-w-md">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-2xl font-semibold text-center text-red-600">
+              ⚠️ Error
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-center text-base leading-relaxed">
+              Please fill in all fields before submitting the form.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction 
+              onClick={() => setShowErrorDialog(false)}
+              className="w-full bg-red-600 hover:bg-red-700"
+            >
+              OK
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       <Card className="border-0 shadow-2xl bg-gradient-to-br from-card to-muted/5">
         <CardHeader className="text-center pb-8">

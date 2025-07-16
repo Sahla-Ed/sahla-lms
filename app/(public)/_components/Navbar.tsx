@@ -14,15 +14,6 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
-const navigationItems = [
-  { name: "Home", href: "/" },
-  { name: "Courses", href: "/courses" },
-  { name: "Dashboard", href: "/dashboard" },
-];
-
-
-
-
 export function Navbar() {
   const { data: session, isPending } = authClient.useSession();
   const { theme, systemTheme } = useTheme();
@@ -37,8 +28,16 @@ export function Navbar() {
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
-
   const currentTheme = theme === 'system' ? systemTheme : theme;
+
+  // Dynamic navigation items based on session
+  const navigationItems = [
+    { name: "Home", href: "/" },
+    { name: "Courses", href: "/courses" },
+    session 
+      ? { name: "Dashboard", href: "/dashboard" }
+      : { name: "Contact", href: "/contact" }
+  ];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background backdrop-blur-[backdrop-filter]:bg-background/60">
