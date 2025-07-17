@@ -11,7 +11,7 @@ export const requireUser = cache(async () => {
   });
 
   if (!session) {
-    return redirect("/login");
+    return redirect("/auth/login");
   }
 
   return session.user;
