@@ -10,7 +10,10 @@ import {
   IconSearch,
   IconSettings,
 } from "@tabler/icons-react";
-import Logo from "@/public/logo.png";
+import LogoLight from "@/public/logoLight.png";
+import LogoDark from "@/public/logoDark.png";
+import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
 
 import { NavMain } from "@/components/sidebar/nav-main";
 import { NavSecondary } from "@/components/sidebar/nav-secondary";
@@ -103,29 +106,47 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { theme, systemTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Mount state for hydration
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const currentTheme = theme === 'system' ? systemTheme : theme;
+
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
-      <SidebarHeader>
+    <Sidebar collapsible="offcanvas" className="border-r bg-background" {...props}>
+      <SidebarHeader className="border-b bg-background">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
+              className="data-[slot=sidebar-menu-button]:!p-3 hover:bg-accent hover:text-accent-foreground transition-colors"
             >
-              <Link href="/">
-                <Image src={Logo} alt="Logo" className="size-5" />
-                <span className="text-base font-semibold">Sahla.</span>
+              <Link href="/" className="flex items-center space-x-3">
+                {mounted ? (
+                  <Image 
+                    src={currentTheme === 'dark' ? LogoDark : LogoLight} 
+                    alt="Logo" 
+                    className="size-12"
+                    priority
+                  />
+                ) : (
+                  <div className="size-8 bg-muted animate-pulse rounded" />
+                )}
+                <span className="text-lg font-semibold text-foreground">Sahla.</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="bg-background">
         <NavMain items={data.navMain} />
-
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="border-t bg-background">
         <NavUser />
       </SidebarFooter>
     </Sidebar>
