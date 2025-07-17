@@ -1,78 +1,3 @@
-// import { EmptyState } from "@/components/general/EmptyState";
-// import { getAllCourses } from "../data/course/get-all-courses";
-// import { getEnrolledCourses } from "../data/user/get-enrolled-courses";
-// import { PublicCourseCard } from "../(public)/_components/PublicCourseCard";
-
-// import { CourseProgressCard } from "./_components/CourseProgressCard";
-
-// export default async function DashboardPage() {
-//   const [courses, enrolledCourses] = await Promise.all([
-//     getAllCourses(),
-//     getEnrolledCourses(),
-//   ]);
-
-//   return (
-//     <>
-//       <div className="flex flex-col gap-2">
-//         <h1 className="text-3xl font-bold">Enrolled Courses</h1>
-//         <p className="text-muted-foreground">
-//           Here you can see all the courses you have access to
-//         </p>
-//       </div>
-
-//       {enrolledCourses.length === 0 ? (
-//         <EmptyState
-//           title="No courses purchased"
-//           description="You haven't purchased any courses yet."
-//           buttonText="Browse Courses"
-//           href="/courses"
-//         />
-//       ) : (
-//         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//           {enrolledCourses.map((course) => (
-//             <CourseProgressCard key={course.Course.id} data={course} />
-//           ))}
-//         </div>
-//       )}
-
-//       <section className="mt-10">
-//         <div className="flex flex-col gap-2 mb-5">
-//           <h1 className="text-3xl font-bold">Available Courses</h1>
-//           <p className="text-muted-foreground">
-//             Here you can see all the courses you can purchase
-//           </p>
-//         </div>
-
-//         {courses.filter(
-//           (course) =>
-//             !enrolledCourses.some(
-//               ({ Course: enrolled }) => enrolled.id === course.id
-//             )
-//         ).length === 0 ? (
-//           <EmptyState
-//             title="No courses available"
-//             description="You have already purchased all available courses."
-//             buttonText="Browse Courses"
-//             href="/courses"
-//           />
-//         ) : (
-//           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//             {courses
-//               .filter(
-//                 (course) =>
-//                   !enrolledCourses.some(
-//                     ({ Course: enrolled }) => enrolled.id === course.id
-//                   )
-//               )
-//               .map((course) => (
-//                 <PublicCourseCard key={course.id} data={course} />
-//               ))}
-//           </div>
-//         )}
-//       </section>
-//     </>
-//   );
-// }
 import { EmptyState } from "@/components/general/EmptyState";
 import { getAllCourses } from "../data/course/get-all-courses";
 import { getEnrolledCourses } from "../data/user/get-enrolled-courses";
@@ -87,7 +12,7 @@ import {
   IconTrophy, 
   IconChartBar,
 } from "@tabler/icons-react";
-import {  BookOpen, PlayCircle, Target, TrendingUp } from "lucide-react";
+import { BookOpen, PlayCircle,TrendingUp } from "lucide-react";
 
 export default async function DashboardPage() {
   const [courses, enrolledCourses] = await Promise.all([
@@ -110,7 +35,7 @@ export default async function DashboardPage() {
     0
   );
 
-  
+
   const availableCourses = courses.filter(
     (course) =>
       !enrolledCourses.some(
@@ -135,7 +60,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* Stats Overview */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-6">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-6">
         <Card className="bg-card/50 backdrop-blur-sm border-border/50">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
@@ -179,22 +104,6 @@ export default async function DashboardPage() {
               </div>
               <div className="p-2 bg-blue-500/10 rounded-lg">
                 <TrendingUp className="size-4 text-blue-600" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">
-                  Available
-                </p>
-                <p className="text-2xl font-bold">{availableCourses.length}</p>
-              </div>
-              <div className="p-2 bg-purple-500/10 rounded-lg">
-                <Target className="size-4 text-purple-600" />
               </div>
             </div>
           </CardContent>
