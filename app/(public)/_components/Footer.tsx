@@ -286,7 +286,7 @@ export default function Footer() {
             <AlertDialogDescription className="text-center text-base leading-relaxed">
               Your email has been successfully registered to our newsletter.
               <br />
-              We&quot;ll be in touch soon with the latest courses and exclusive offers from Sahla Learning Platform.
+              We"ll be in touch soon with the latest courses and exclusive offers from Sahla Learning Platform.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -310,7 +310,7 @@ export default function Footer() {
             <AlertDialogDescription className="text-center text-base leading-relaxed">
               Please enter a valid email address to subscribe to our newsletter.
               <br />
-              Make sure your email includes an &quot;@&quot; symbol and domain.
+              Make sure your email includes an "@" symbol and domain.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
