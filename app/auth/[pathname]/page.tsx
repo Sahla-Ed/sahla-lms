@@ -13,7 +13,7 @@ export default async function AuthPage({
   params: Promise<{ pathname: string }>;
 }) {
   const { pathname } = await params;
-  const user = await requireUser();
+  const user = await requireUser(false);
   if (
     user &&
     (pathname === "sign-up" ||
