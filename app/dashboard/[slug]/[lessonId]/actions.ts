@@ -15,7 +15,7 @@ export async function markLessonComplete(
     await prisma.lessonProgress.upsert({
       where: {
         userId_lessonId: {
-          userId: session.id,
+          userId: session?.id as string,
           lessonId: lessonId,
         },
       },
@@ -24,7 +24,7 @@ export async function markLessonComplete(
       },
       create: {
         lessonId: lessonId,
-        userId: session.id,
+        userId: session?.id as string,
         completed: true,
       },
     });

@@ -37,7 +37,7 @@ export async function getCourseSidebarData(slug: string) {
               description: true,
               lessonProgress: {
                 where: {
-                  userId: session.id,
+                  userId: session?.id,
                 },
                 select: {
                   completed: true,
@@ -58,7 +58,7 @@ export async function getCourseSidebarData(slug: string) {
   const enrollment = await prisma.enrollment.findUnique({
     where: {
       userId_courseId: {
-        userId: session.id,
+        userId: session?.id as string,
         courseId: course.id,
       },
     },

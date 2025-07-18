@@ -1,15 +1,14 @@
 import { prisma } from "@/lib/db";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@/lib/generated/prisma";
 import "server-only";
 
-
 export interface CourseFilters {
-  q?: string; 
+  q?: string;
   category?: string;
 }
 
 export async function getAllCourses(filters: CourseFilters = {}) {
-  // await new Promise((resolve) => setTimeout(resolve, 1000)); 
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const { q, category } = filters;
 
@@ -31,7 +30,7 @@ export async function getAllCourses(filters: CourseFilters = {}) {
   }
 
   const data = await prisma.course.findMany({
-    where: whereClause, 
+    where: whereClause,
     orderBy: {
       createdAt: "desc",
     },

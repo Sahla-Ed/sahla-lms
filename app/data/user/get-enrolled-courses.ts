@@ -7,7 +7,7 @@ export async function getEnrolledCourses() {
 
   const data = await prisma.enrollment.findMany({
     where: {
-      userId: user.id,
+      userId: user?.id as string,
       status: "Active",
     },
     select: {
@@ -28,7 +28,7 @@ export async function getEnrolledCourses() {
                   id: true,
                   lessonProgress: {
                     where: {
-                      userId: user.id,
+                      userId: user?.id as string,
                     },
                     select: {
                       id: true,

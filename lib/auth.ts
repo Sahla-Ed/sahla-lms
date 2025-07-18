@@ -18,7 +18,7 @@ export const auth = betterAuth({
   },
   emailAndPassword: {
     enabled: true,
-    sendResetPassword: async ({ user, url, token }, request) => {
+    sendResetPassword: async ({ user, url, token }) => {
       console.log(user, token, url);
       await resend.emails.send({
         from: "sahla lms <onboarding@sahla.mosaleh.dev>",
@@ -32,7 +32,7 @@ export const auth = betterAuth({
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
     expiresIn: 3600,
-    sendVerificationEmail: async ({ user, url, token }, request) => {
+    sendVerificationEmail: async ({ user, url, token }) => {
       //TODO: customize the email template with name and info
       console.log(user, token, url);
       await resend.emails.send({

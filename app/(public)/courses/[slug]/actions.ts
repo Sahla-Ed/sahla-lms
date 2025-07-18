@@ -41,7 +41,7 @@ export async function enrollInCourseAction(
         message: "This course is free, use a different enrollment method.",
       };
     }
-
+    if (!user) redirect("/");
     let stripeCustomerId: string;
     const userWithStripeCustomerId = await prisma.user.findUnique({
       where: {

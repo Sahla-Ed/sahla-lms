@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Facebook, Instagram, Youtube, Twitter,} from "lucide-react";
+import { Facebook, Instagram, Youtube, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -22,35 +22,35 @@ import Footer2 from "@/public/footer/footer2.jpg";
 
 const footerLinks = {
   support: [
-    { name: "Contact us",        href: "/contact" },
-    { name: "Help Center",       href: "/help-center" },
-    { name: "FAQs",              href: "/faqs" },
+    { name: "Contact us", href: "/contact" },
+    { name: "Help Center", href: "/help-center" },
+    { name: "FAQs", href: "/faqs" },
     { name: "Technical Support", href: "/technical-support" },
-    { name: "Live Chat",         href: "/live-chat" },
+    { name: "Live Chat", href: "/live-chat" },
   ],
 
   courses: [
     { name: "Browse Courses", href: "/courses" },
-    { name: "Free Courses",   href: "/courses/free" },
-    { name: "Certificates",   href: "/certificates" },
+    { name: "Free Courses", href: "/courses/free" },
+    { name: "Certificates", href: "/certificates" },
     { name: "Course Catalog", href: "/catalog" },
     { name: "Learning Paths", href: "/learning-paths" },
   ],
 
   about: [
-    { name: "About us",        href: "/about" },
-    { name: "Our Mission",     href: "/about#mission" },
-    { name: "Careers",         href: "/careers" },
+    { name: "About us", href: "/about" },
+    { name: "Our Mission", href: "/about#mission" },
+    { name: "Careers", href: "/careers" },
     { name: "Instructor Program", href: "/instructor-program" },
   ],
 
   community: [
-    { name: "Student Community",  href: "/community/students" },
-    { name: "Discussion Forums",  href: "/forums" },
-    { name: "Study Groups",       href: "/study-groups" },
-    { name: "Success Stories",    href: "/success-stories" },
+    { name: "Student Community", href: "/community/students" },
+    { name: "Discussion Forums", href: "/forums" },
+    { name: "Study Groups", href: "/study-groups" },
+    { name: "Success Stories", href: "/success-stories" },
   ],
-}
+};
 
 const benefits = [
   "24/7 Learning Support",
@@ -69,17 +69,14 @@ export default function Footer() {
   const [showErrorDialog, setShowErrorDialog] = useState(false);
 
   const handleSubmit = () => {
-    if (!email || !email.includes('@')) {
+    if (!email || !email.includes("@")) {
       setShowErrorDialog(true);
       return;
     }
 
-    
     setShowSuccessDialog(true);
-    
-   
+
     setEmail("");
-    
   };
 
   const handleMouseEnter = (section: string, index: number) => {
@@ -113,7 +110,7 @@ export default function Footer() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="flex-1 bg-transparent border-muted-foreground/30 placeholder:text-muted-foreground focus:border-foreground"
-                onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
+                onKeyPress={(e) => e.key === "Enter" && handleSubmit()}
               />
               <Button
                 onClick={handleSubmit}
@@ -181,10 +178,10 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        
+
         {/* Thin divider line */}
         <div className="border-t border-sidebar-foreground"></div>
-        
+
         {/* Footer Links positioned next to images and Benefits Banner below */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-16">
           {/* Footer Links */}
@@ -286,11 +283,12 @@ export default function Footer() {
             <AlertDialogDescription className="text-center text-base leading-relaxed">
               Your email has been successfully registered to our newsletter.
               <br />
-              We"ll be in touch soon with the latest courses and exclusive offers from Sahla Learning Platform.
+              We&apos;ll be in touch soon with the latest courses and exclusive
+              offers from Sahla Learning Platform.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogAction 
+            <AlertDialogAction
               onClick={() => setShowSuccessDialog(false)}
               className="w-full bg-primary hover:bg-primary/90"
             >
@@ -310,11 +308,11 @@ export default function Footer() {
             <AlertDialogDescription className="text-center text-base leading-relaxed">
               Please enter a valid email address to subscribe to our newsletter.
               <br />
-              Make sure your email includes an "@" symbol and domain.
+              Make sure your email includes an &quot;@&quot; symbol and domain.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogAction 
+            <AlertDialogAction
               onClick={() => setShowErrorDialog(false)}
               className="w-full bg-destructive hover:bg-destructive/90"
             >

@@ -20,7 +20,7 @@ export async function getLessonContent(lessonId: string) {
       position: true,
       lessonProgress: {
         where: {
-          userId: session.id,
+          userId: session?.id as string,
         },
         select: {
           completed: true,
@@ -43,11 +43,10 @@ export async function getLessonContent(lessonId: string) {
   if (!lesson) {
     return notFound();
   }
-
   const enrollment = await prisma.enrollment.findUnique({
     where: {
       userId_courseId: {
-        userId: session.id,
+        userId: session?.id as string,
         courseId: lesson.Chapter.courseId,
       },
     },

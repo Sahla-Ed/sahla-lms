@@ -94,7 +94,7 @@ const data = {
     },
     {
       title: "Get Help",
-      url: "#",
+      url: "/faqs",
       icon: IconHelp,
     },
     {
@@ -114,10 +114,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     setMounted(true);
   }, []);
 
-  const currentTheme = theme === 'system' ? systemTheme : theme;
+  const currentTheme = theme === "system" ? systemTheme : theme;
 
   return (
-    <Sidebar collapsible="offcanvas" className="border-r bg-background" {...props}>
+    <Sidebar
+      collapsible="offcanvas"
+      className="border-r bg-background"
+      {...props}
+    >
       <SidebarHeader className="border-b bg-background">
         <SidebarMenu>
           <SidebarMenuItem>
@@ -127,16 +131,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <Link href="/" className="flex items-center space-x-3">
                 {mounted ? (
-                  <Image 
-                    src={currentTheme === 'dark' ? LogoDark : LogoLight} 
-                    alt="Logo" 
+                  <Image
+                    src={currentTheme === "dark" ? LogoDark : LogoLight}
+                    alt="Logo"
                     className="size-12"
                     priority
                   />
                 ) : (
                   <div className="size-8 bg-muted animate-pulse rounded" />
                 )}
-                <span className="text-lg font-semibold text-foreground">Sahla.</span>
+                <span className="text-lg font-semibold text-foreground">
+                  Sahla.
+                </span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

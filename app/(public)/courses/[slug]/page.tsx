@@ -26,7 +26,7 @@ import { EnrollmentButton } from "./_components/EnrollmentButton";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Metadata } from "next";
-import { useConstructUrl } from "@/hooks/use-construct-url";
+import { constructUrl } from "@/hooks/use-construct-url";
 
 type PageParams = Promise<{ slug: string }>;
 
@@ -68,7 +68,7 @@ export default async function SlugPage({ params }: { params: PageParams }) {
               {/* Course Image */}
               <div className="group relative aspect-video w-full overflow-hidden rounded-2xl shadow-2xl shadow-primary/10 border border-border/50">
                 <Image
-                  src={useConstructUrl(course.fileKey!)}
+                  src={constructUrl(course.fileKey!)}
                   alt={course.title}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"

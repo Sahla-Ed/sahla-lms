@@ -14,7 +14,6 @@ import {
   IconSettings,
   IconUsers,
 } from "@tabler/icons-react";
-import Logo from "@/public/logo.png";
 
 import { NavMain } from "@/components/sidebar/nav-main";
 import { NavSecondary } from "@/components/sidebar/nav-secondary";
@@ -30,7 +29,9 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import Image from "next/image";
-
+import LogoLight from "@/public/logoLight.png";
+import LogoDark from "@/public/logoDark.png";
+import { useTheme } from "next-themes";
 const data = {
   navMain: [
     {
@@ -115,7 +116,7 @@ const data = {
     },
     {
       title: "Get Help",
-      url: "#",
+      url: "/faqs",
       icon: IconHelp,
     },
     {
@@ -127,6 +128,10 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { theme, systemTheme } = useTheme();
+
+  const currentTheme = theme === "system" ? systemTheme : theme;
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -136,9 +141,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <Link href="/">
-                <Image src={Logo} alt="Logo" className="size-5" />
-                <span className="text-base font-semibold">Sahla Admin</span>
+              <Link href="/" className="flex items-center space-x-2 mr-4">
+                <Image
+                  src={currentTheme === "dark" ? LogoDark : LogoLight}
+                  alt="Logo"
+                  className="object-cover h-12 w-12"
+                  priority
+                />
+                Sahla
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

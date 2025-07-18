@@ -1,29 +1,38 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { LifeBuoy, Book, Wrench, MessageSquare, Search } from "lucide-react";
 import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Help Center | Sahla",
-  description: "Find answers to your questions and get support for the Sahla platform. Browse FAQs, articles, and contact our support team.",
+  description:
+    "Find answers to your questions and get support for the Sahla platform. Browse FAQs, articles, and contact our support team.",
 };
 
 const faqItems = [
   {
     question: "How do I reset my password?",
-    answer: "You can reset your password by clicking the 'Forgot Password' link on the login page. We will send a reset link to your registered email address."
+    answer:
+      "You can reset your password by clicking the 'Forgot Password' link on the login page. We will send a reset link to your registered email address.",
   },
   {
     question: "How do I enroll in a course?",
-    answer: "To enroll, navigate to the course page you are interested in and click the 'Enroll Now' button. You will be guided through the payment and registration process."
+    answer:
+      "To enroll, navigate to the course page you are interested in and click the 'Enroll Now' button. You will be guided through the payment and registration process.",
   },
   {
     question: "Where can I find my enrolled courses?",
-    answer: "All your enrolled courses are available in your personal Dashboard. You can access it by clicking the 'Dashboard' link in the navigation bar after logging in."
-  }
+    answer:
+      "All your enrolled courses are available in your personal Dashboard. You can access it by clicking the 'Dashboard' link in the navigation bar after logging in.",
+  },
 ];
 
 export default function HelpCenterPage() {
@@ -32,17 +41,26 @@ export default function HelpCenterPage() {
       {/* Hero Section */}
       <section className="relative py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <Badge variant="outline" className="text-primary border-primary/20 bg-primary/5 mb-6">
+          <Badge
+            variant="outline"
+            className="text-primary border-primary/20 bg-primary/5 mb-6"
+          >
             <LifeBuoy className="h-4 w-4 mr-2" />
             Help Center
           </Badge>
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight">How can we help?</h1>
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight">
+            How can we help?
+          </h1>
           <p className="max-w-2xl mx-auto text-xl text-muted-foreground mt-4">
-            We're here to assist you. Search for a topic or browse the categories below.
+            We&apos;re here to assist you. Search for a topic or browse the
+            categories below.
           </p>
           <div className="relative max-w-xl mx-auto mt-8">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
-            <Input placeholder="Search for help..." className="h-14 pl-12 rounded-full text-lg" />
+            <Input
+              placeholder="Search for help..."
+              className="h-14 pl-12 rounded-full text-lg"
+            />
           </div>
         </div>
       </section>
@@ -59,7 +77,10 @@ export default function HelpCenterPage() {
                 <CardTitle>FAQs</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">Find answers to common questions about accounts, courses, and payments.</p>
+                <p className="text-muted-foreground">
+                  Find answers to common questions about accounts, courses, and
+                  payments.
+                </p>
               </CardContent>
             </Card>
           </Link>
@@ -72,7 +93,10 @@ export default function HelpCenterPage() {
                 <CardTitle>Technical Support</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">Get help with technical issues, bugs, and platform performance.</p>
+                <p className="text-muted-foreground">
+                  Get help with technical issues, bugs, and platform
+                  performance.
+                </p>
               </CardContent>
             </Card>
           </Link>
@@ -85,7 +109,10 @@ export default function HelpCenterPage() {
                 <CardTitle>Contact Us</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">Reach out to our support team directly for personalized assistance.</p>
+                <p className="text-muted-foreground">
+                  Reach out to our support team directly for personalized
+                  assistance.
+                </p>
               </CardContent>
             </Card>
           </Link>
@@ -95,11 +122,15 @@ export default function HelpCenterPage() {
       {/* FAQ Accordion */}
       <section className="py-20 px-4 bg-muted/10">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+          <h2 className="text-3xl font-bold text-center mb-8">
+            Frequently Asked Questions
+          </h2>
           <Accordion type="single" collapsible className="w-full">
             {faqItems.map((item, index) => (
               <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger className="text-lg text-left">{item.question}</AccordionTrigger>
+                <AccordionTrigger className="text-lg text-left">
+                  {item.question}
+                </AccordionTrigger>
                 <AccordionContent className="text-base text-muted-foreground">
                   {item.answer}
                 </AccordionContent>

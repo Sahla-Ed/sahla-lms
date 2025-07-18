@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { authClient } from "@/lib/auth-client";
-import { socialProviderList } from "better-auth/social-providers";
 
 export function Providers({ children }: { children: ReactNode }) {
   const router = useRouter();
