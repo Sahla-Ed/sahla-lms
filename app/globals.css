@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@source "../node_modules/@daveyplate/better-auth-ui";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -45,7 +46,7 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: rgb(249, 248, 244);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -79,7 +80,8 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: rgb(26, 26, 26);
+  /* --background:  oklch(0.166 0.000 0); */
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
