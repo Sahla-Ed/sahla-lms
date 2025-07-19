@@ -89,6 +89,8 @@ export async function generateQuizQuestions(
   try {
     parsed = JSON.parse(text);
   } catch (e) {
+    console.log(e);
+
     throw new Error("AI response is not valid JSON");
   }
   const result = aiQuizGenerationSchema.safeParse(parsed);

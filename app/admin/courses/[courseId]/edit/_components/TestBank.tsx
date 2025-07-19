@@ -257,7 +257,7 @@ export function TestBank({ courseId }: TestBankProps) {
                 </DialogTitle>
                 <DialogDescription id="add-question-desc">
                   Fill in the details to add or edit a question for this
-                  course's quiz.
+                  course&apos;s quiz.
                 </DialogDescription>
               </DialogHeader>
               <form
@@ -344,7 +344,7 @@ export function TestBank({ courseId }: TestBankProps) {
                       ))}
                       {(form.watch("options") || []).length === 0 && (
                         <p className="text-sm text-muted-foreground">
-                          Click "Add Option" to start adding choices
+                          Click &quot;Add Option&quot; to start adding choices
                         </p>
                       )}
                     </div>
