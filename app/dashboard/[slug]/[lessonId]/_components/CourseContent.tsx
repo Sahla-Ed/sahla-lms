@@ -11,6 +11,7 @@ import { markLessonComplete } from "../actions";
 import { toast } from "sonner";
 import { useConfetti } from "@/hooks/use-confetti";
 
+
 interface iAppProps {
   data: LessonContentType;
 }

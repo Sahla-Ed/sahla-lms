@@ -109,7 +109,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { theme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Mount state for hydration
+  
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -140,9 +140,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 ) : (
                   <div className="size-8 bg-muted animate-pulse rounded" />
                 )}
-                <span className="text-lg font-semibold text-foreground">
+                {/* <span className="text-lg font-semibold text-foreground">
                   Sahla.
-                </span>
+                </span> */}
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

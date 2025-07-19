@@ -51,7 +51,7 @@ export function LessonItem({
             </div>
           ) : quizFailed ? (
             <div className="size-5 rounded-full bg-red-600 dark:bg-red-500 flex items-center justify-center">
-              {/* You can use an X or retry icon here */}
+              
               <svg
                 className="size-3 text-white"
                 fill="none"
