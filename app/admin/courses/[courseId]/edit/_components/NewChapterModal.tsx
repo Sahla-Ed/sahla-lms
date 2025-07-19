@@ -72,10 +72,13 @@ export function NewChapterModal({ courseId }: { courseId: string }) {
           <Plus className="size-4" /> New Chapter
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent
+        className="sm:max-w-[425px]"
+        aria-describedby="new-chapter-desc"
+      >
         <DialogHeader>
           <DialogTitle>Create new chapter</DialogTitle>
-          <DialogDescription>
+          <DialogDescription id="new-chapter-desc">
             What would you like to name your chapter?
           </DialogDescription>
         </DialogHeader>

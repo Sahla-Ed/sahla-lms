@@ -20,6 +20,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
 import {
@@ -199,7 +200,6 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
 
   const handleSave = async () => {
     setIsLoading(true);
-    // Save timer value (convert to int or null)
     const { error } = await tryCatch(
       updateQuizQuestions({
         lessonId: lesson.id,
@@ -342,9 +342,15 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
 
       {/* Question Selection Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+        <DialogContent
+          className="max-w-4xl max-h-[80vh] overflow-y-auto"
+          aria-describedby="select-questions-desc"
+        >
           <DialogHeader>
             <DialogTitle>Select Questions from Test Bank</DialogTitle>
+            <DialogDescription id="select-questions-desc">
+              Choose questions from the test bank to add to this quiz.
+            </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             {availableQuestions.length === 0 ? (

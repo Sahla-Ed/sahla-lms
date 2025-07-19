@@ -82,10 +82,13 @@ export function NewLessonModal({
           <Plus className="size-4" /> New Lesson
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent
+        className="sm:max-w-[425px]"
+        aria-describedby="new-lesson-desc"
+      >
         <DialogHeader>
           <DialogTitle>Create new lesson</DialogTitle>
-          <DialogDescription>
+          <DialogDescription id="new-lesson-desc">
             What would you like to name your lesson?
           </DialogDescription>
         </DialogHeader>

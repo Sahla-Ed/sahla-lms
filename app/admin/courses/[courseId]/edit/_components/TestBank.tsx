@@ -19,6 +19,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Edit, Trash2, Brain, Loader2, X } from "lucide-react";
@@ -69,7 +70,6 @@ export function TestBank({ courseId }: TestBankProps) {
     },
   });
 
-  // IMPROVEMENT: Abstracted data fetching into a single function
   const fetchAndSetQuestions = useCallback(async () => {
     setIsFetching(true);
     try {
@@ -153,7 +153,6 @@ export function TestBank({ courseId }: TestBankProps) {
       toast.error("Failed to delete question");
     } else {
       toast.success("Question deleted successfully");
-      // Use optimistic UI update for instant feedback
       setQuestions((prev) => prev.filter((q) => q.id !== questionId));
     }
   };
@@ -248,11 +247,18 @@ export function TestBank({ courseId }: TestBankProps) {
                 Add Question
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl">
+            <DialogContent
+              className="max-w-2xl"
+              aria-describedby="add-question-desc"
+            >
               <DialogHeader>
                 <DialogTitle>
                   {editingQuestion ? "Edit Question" : "Add New Question"}
                 </DialogTitle>
+                <DialogDescription id="add-question-desc">
+                  Fill in the details to add or edit a question for this
+                  course's quiz.
+                </DialogDescription>
               </DialogHeader>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -422,9 +428,13 @@ export function TestBank({ courseId }: TestBankProps) {
                 Generate with AI
               </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent aria-describedby="ai-generate-desc">
               <DialogHeader>
                 <DialogTitle>Generate Questions with AI</DialogTitle>
+                <DialogDescription id="ai-generate-desc">
+                  Use AI to generate quiz questions based on a topic and number
+                  of questions.
+                </DialogDescription>
               </DialogHeader>
               <div className="space-y-4">
                 <div>
