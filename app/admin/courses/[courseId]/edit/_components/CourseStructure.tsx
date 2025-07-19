@@ -47,8 +47,6 @@ import { DeleteChapter } from "./DeleteChapter";
 interface iAppProps {
   data: AdminCourseSingularType;
 }
-//todo:find out what's this
-// type LessonItem = AdminCourseSingularType["chapter"][0]["lessons"][0];
 
 interface SortableItemProps {
   id: string;
