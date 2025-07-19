@@ -28,6 +28,7 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  DragEndEvent,
 } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -142,7 +143,7 @@ function SortableQuestion({
   );
 }
 
-export function QuizForm({ lesson, courseId, chapterId }: QuizFormProps) {
+export function QuizForm({ lesson, courseId }: QuizFormProps) {
   const router = useRouter();
   const [title, setTitle] = useState(lesson.title);
   const [description, setDescription] = useState(lesson.description || "");
@@ -230,22 +231,14 @@ export function QuizForm({ lesson, courseId, chapterId }: QuizFormProps) {
     setQuestions((prev) => prev.filter((q) => q.id !== questionId));
   };
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    if (active.id !== over.id) {
+    if (active.id !== over?.id) {
       const oldIndex = questions.findIndex((q) => q.id === active.id);
-      const newIndex = questions.findIndex((q) => q.id === over.id);
+      const newIndex = questions.findIndex((q) => q.id === over?.id);
       setQuestions((items) => arrayMove(items, oldIndex, newIndex));
     }
   };
-
-  //todo:add this
-  // const moveQuestion = (fromIndex: number, toIndex: number) => {
-  //   const newQuestions = [...questions];
-  //   const [movedQuestion] = newQuestions.splice(fromIndex, 1);
-  //   newQuestions.splice(toIndex, 0, movedQuestion);
-  //   setQuestions(newQuestions);
-  // };
 
   if (isFetching) {
     return (

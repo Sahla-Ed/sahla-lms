@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -57,34 +57,6 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
   const [startTime, setStartTime] = useState<number | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Timer effect
-  useEffect(() => {
-    if (startTime && !quizState.isSubmitted) {
-      timerRef.current = setInterval(() => {
-        setQuizState((prev) => {
-          const elapsed = Math.floor((Date.now() - startTime) / 1000);
-          // If timer is set and time is up, auto-submit
-          if (
-            typeof data.timer === "number" &&
-            data.timer > 0 &&
-            elapsed >= data.timer * 60
-          ) {
-            clearInterval(timerRef.current!);
-            submitQuiz();
-            return { ...prev, timeElapsed: data.timer * 60 };
-          }
-          return { ...prev, timeElapsed: elapsed };
-        });
-      }, 1000);
-      return () => {
-        if (timerRef.current) clearInterval(timerRef.current);
-      };
-    }
-    if (quizState.isSubmitted && timerRef.current) {
-      clearInterval(timerRef.current);
-    }
-  }, [startTime, quizState.isSubmitted]);
-
   // Safely extract questions from data
   const questions: Question[] = (data.questions || [])
     .filter((q) => q.question && q.question.text)
@@ -96,6 +68,78 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
       answer: q.question.answer,
       explanation: q.question.explanation || undefined,
     }));
+
+  const submitQuiz = useCallback(async () => {
+    setIsLoading(true);
+    const timeElapsed = startTime
+      ? Math.floor((Date.now() - startTime) / 1000)
+      : 0;
+
+    // Calculate score
+    let correctAnswers = 0;
+    questions.forEach((question) => {
+      const userAnswer = quizState.answers[question.id];
+      if (userAnswer === question.answer) {
+        correctAnswers++;
+      }
+    });
+
+    const score = Math.round((correctAnswers / questions.length) * 100);
+
+    const { error } = await tryCatch(
+      submitQuizAttempt({
+        lessonId: data.id,
+        answers: quizState.answers,
+        score,
+        timeElapsed,
+      })
+    );
+
+    if (error) {
+      toast.error("Failed to submit quiz");
+    } else {
+      setQuizState((prev) => ({
+        ...prev,
+        isSubmitted: true,
+        score,
+        timeElapsed,
+      }));
+      toast.success("Quiz submitted successfully!");
+    }
+    setIsLoading(false);
+  }, [startTime, questions, quizState.answers, data.id]);
+  // Timer effect
+  useEffect(() => {
+    if (!startTime || quizState.isSubmitted) {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+      return;
+    }
+
+    const intervalId = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - startTime) / 1000);
+      const hasTimeLimit = typeof data.timer === "number" && data.timer > 0;
+      const timeIsUp = hasTimeLimit && elapsed >= (data.timer ?? 0) * 60;
+
+      if (timeIsUp) {
+        // Time is up. Stop the timer and submit the quiz.
+        clearInterval(intervalId);
+        // This is a side effect, called directly from the interval callback.
+        submitQuiz();
+      } else {
+        // Time is not up, so we just update the elapsed time in state.
+        setQuizState((prev) => ({ ...prev, timeElapsed: elapsed }));
+      }
+    }, 1000);
+
+    timerRef.current = intervalId;
+
+    // Cleanup function
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [startTime, quizState.isSubmitted, data.timer, submitQuiz]);
 
   // Early return if no questions
   if (questions.length === 0) {
@@ -155,6 +199,7 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
               {questions.map((question, index) => {
                 const userAnswer =
                   attempt &&
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   attempt.answers.find((a: any) => a.questionId === question.id)
                     ?.answer;
                 const isCorrect = userAnswer === question.answer;
@@ -271,46 +316,6 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
         currentQuestion: prev.currentQuestion - 1,
       }));
     }
-  };
-
-  const submitQuiz = async () => {
-    setIsLoading(true);
-    const timeElapsed = startTime
-      ? Math.floor((Date.now() - startTime) / 1000)
-      : 0;
-
-    // Calculate score
-    let correctAnswers = 0;
-    questions.forEach((question) => {
-      const userAnswer = quizState.answers[question.id];
-      if (userAnswer === question.answer) {
-        correctAnswers++;
-      }
-    });
-
-    const score = Math.round((correctAnswers / questions.length) * 100);
-
-    const { error } = await tryCatch(
-      submitQuizAttempt({
-        lessonId: data.id,
-        answers: quizState.answers,
-        score,
-        timeElapsed,
-      })
-    );
-
-    if (error) {
-      toast.error("Failed to submit quiz");
-    } else {
-      setQuizState((prev) => ({
-        ...prev,
-        isSubmitted: true,
-        score,
-        timeElapsed,
-      }));
-      toast.success("Quiz submitted successfully!");
-    }
-    setIsLoading(false);
   };
 
   if (!startTime) {

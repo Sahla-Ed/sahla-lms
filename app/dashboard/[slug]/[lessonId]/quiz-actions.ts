@@ -49,7 +49,7 @@ export async function submitQuizAttempt(data: {
         attemptId: attempt.id,
         questionId,
         answer,
-        isCorrect: false, // Will be updated below
+        isCorrect: false,
       })
     );
 

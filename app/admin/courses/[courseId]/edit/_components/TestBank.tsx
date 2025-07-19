@@ -342,7 +342,10 @@ export function TestBank({ courseId }: TestBankProps) {
                     </div>
                     <div className="space-y-2">
                       {(form.watch("options") || []).map((option, index) => (
-                        <div key={index} className="flex gap-2">
+                        <div
+                          key={`option-input-${index}`}
+                          className="flex gap-2"
+                        >
                           <Input
                             placeholder={`Option ${index + 1}`}
                             value={option}
@@ -364,7 +367,7 @@ export function TestBank({ courseId }: TestBankProps) {
                       ))}
                       {(form.watch("options") || []).length === 0 && (
                         <p className="text-sm text-muted-foreground">
-                          Click "Add Option" to start adding choices
+                          Click &quot;Add Option&quot; to start adding choices
                         </p>
                       )}
                     </div>
@@ -382,14 +385,19 @@ export function TestBank({ courseId }: TestBankProps) {
                         <SelectValue placeholder="Select correct answer" />
                       </SelectTrigger>
                       <SelectContent>
-                        {form
-                          .watch("options")
-                          ?.filter((option) => option.trim() !== "")
-                          .map((option, index) => (
-                            <SelectItem key={index} value={option}>
-                              {option}
-                            </SelectItem>
-                          ))}
+                        {Array.from(
+                          new Set(
+                            form
+                              .watch("options")
+                              ?.filter(
+                                (option) => option && option.trim() !== ""
+                              )
+                          )
+                        ).map((option) => (
+                          <SelectItem key={option} value={option}>
+                            {option}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   ) : (

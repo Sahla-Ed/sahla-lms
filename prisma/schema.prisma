@@ -145,7 +145,7 @@ model Lesson {
   position     Int
 
   type LessonType @default(VIDEO)
-  timer Int? // Time limit in minutes for quizzes
+  timer Int? 
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -205,7 +205,7 @@ enum QuestionType {
   TRUE_FALSE
 }
 
-// A Question is an item in the course's test bank
+
 model Question {
   id        String  @id @default(uuid())
   courseId  String
@@ -223,7 +223,7 @@ model Question {
   updatedAt DateTime @updatedAt
 }
 
-// Join table to link a Lesson (Quiz) with questions from the test bank
+
 model LessonQuestion {
   lessonId   String
   lesson     Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
@@ -234,7 +234,7 @@ model LessonQuestion {
   @@id([lessonId, questionId])
 }
 
-// User's attempt at a quiz (which is a Lesson)
+
 model QuizAttempt {
   id          String    @id @default(uuid())
   userId      String
@@ -251,7 +251,7 @@ model QuizAttempt {
   @@index([userId, lessonId])
 }
 
-// A user's specific answer in an attempt
+
 model UserAnswer {
   id         String      @id @default(uuid())
   attemptId  String
