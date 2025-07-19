@@ -32,6 +32,7 @@ import {
   ChevronDown,
   ChevronRight,
   FileText,
+  HelpCircle,
   GripVertical,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -46,6 +47,8 @@ import { DeleteChapter } from "./DeleteChapter";
 interface iAppProps {
   data: AdminCourseSingularType;
 }
+//todo:find out what's this
+// type LessonItem = AdminCourseSingularType["chapter"][0]["lessons"][0];
 
 interface SortableItemProps {
   id: string;
@@ -67,6 +70,7 @@ export function CourseStructure({ data }: iAppProps) {
       lessons: chapter.lessons.map((lesson) => ({
         id: lesson.id,
         title: lesson.title,
+        type: lesson.type,
         order: lesson.position,
       })),
     })) || [];
@@ -87,6 +91,7 @@ export function CourseStructure({ data }: iAppProps) {
           lessons: chapter.lessons.map((lesson) => ({
             id: lesson.id,
             title: lesson.title,
+            type: lesson.type,
             order: lesson.position,
           })),
         })) || [];
@@ -357,9 +362,13 @@ export function CourseStructure({ data }: iAppProps) {
                                       >
                                         <GripVertical className="size-4" />
                                       </Button>
-                                      <FileText className="size-4" />
+                                      {lesson.type === "QUIZ" ? (
+                                        <HelpCircle className="size-4 text-blue-500" />
+                                      ) : (
+                                        <FileText className="size-4" />
+                                      )}
                                       <Link
-                                        href={`/admin/courses/${data.id}/${item.id}/${lesson.id}`}
+                                        href={`/admin/courses/${data.id}/${item.id}/${lesson.id}/edit`}
                                       >
                                         {lesson.title}
                                       </Link>

@@ -30,6 +30,7 @@ export async function adminGetCourse(id: string) {
           lessons: {
             select: {
               id: true,
+              type: true,
               title: true,
               description: true,
               thumbnailKey: true,

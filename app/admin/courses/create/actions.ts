@@ -5,8 +5,7 @@ import { prisma } from "@/lib/db";
 import { stripe } from "@/lib/stripe";
 import { ApiResponse } from "@/lib/types";
 import { courseSchema, CourseSchemaType } from "@/lib/zodSchemas";
-const DEFAULT_COURSE_IMAGE_KEY =
-  "../../../../public/placeholder-course-image.webp";
+
 export async function CreateCourse(
   values: CourseSchemaType
 ): Promise<ApiResponse> {
@@ -34,7 +33,9 @@ export async function CreateCourse(
     await prisma.course.create({
       data: {
         ...restOfData,
-        fileKey: fileKey ? fileKey : DEFAULT_COURSE_IMAGE_KEY,
+        fileKey: fileKey
+          ? fileKey
+          : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGh5WFH8TOIfRKxUrIgJZoDCs1yvQ4hIcppw&s",
         userId: session?.user.id as string,
         stripePriceId: data.default_price as string,
       },

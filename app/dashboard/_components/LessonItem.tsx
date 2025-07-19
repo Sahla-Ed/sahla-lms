@@ -1,12 +1,13 @@
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Check, Play } from "lucide-react";
+import { Check, HelpCircle, Play } from "lucide-react";
 import Link from "next/link";
 
 interface iAppProps {
   lesson: {
     id: string;
     title: string;
+    type: "VIDEO" | "QUIZ";
     position: number;
     description: string | null;
   };
@@ -39,21 +40,32 @@ export function LessonItem({ lesson, slug, isActive, completed }: iAppProps) {
               <Check className="size-3 text-white" />
             </div>
           ) : (
-            <div
-              className={cn(
-                "size-5 rounded-full border-2 bg-background flex justify-center items-center",
-                isActive
-                  ? "border-primary bg-primary/10 dark:bg-primary/20"
-                  : "border-muted-foreground/60"
+            <>
+              {lesson.type === "QUIZ" ? (
+                <HelpCircle
+                  className={cn(
+                    "size-5",
+                    isActive ? "text-primary" : "text-muted-foreground"
+                  )}
+                />
+              ) : (
+                <div
+                  className={cn(
+                    "size-5 rounded-full border-2 bg-background flex justify-center items-center",
+                    isActive
+                      ? "border-primary bg-primary/10 dark:bg-primary/20"
+                      : "border-muted-foreground/60"
+                  )}
+                >
+                  <Play
+                    className={cn(
+                      "size-2.5 fill-current",
+                      isActive ? "text-primary" : "text-muted-foreground"
+                    )}
+                  />
+                </div>
               )}
-            >
-              <Play
-                className={cn(
-                  "size-2.5 fill-current",
-                  isActive ? "text-primary" : "text-muted-foreground"
-                )}
-              />
-            </div>
+            </>
           )}
         </div>
 

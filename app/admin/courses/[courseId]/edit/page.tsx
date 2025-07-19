@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { TestBank } from "./_components/TestBank";
 import { EditCourseForm } from "./_components/EditCourseForm";
 import { CourseStructure } from "./_components/CourseStructure";
 
@@ -23,9 +24,10 @@ export default async function EditRoute({ params }: { params: Params }) {
       </h1>
 
       <Tabs defaultValue="basic-info" className="w-full">
-        <TabsList className="grid grid-cols-2 w-full">
+        <TabsList className="grid grid-cols-3 w-full">
           <TabsTrigger value="basic-info">Basic Info</TabsTrigger>
           <TabsTrigger value="course-structure">Course Structure</TabsTrigger>
+          <TabsTrigger value="test-bank">Test Bank</TabsTrigger>
         </TabsList>
         <TabsContent value="basic-info">
           <Card>
@@ -50,6 +52,19 @@ export default async function EditRoute({ params }: { params: Params }) {
             </CardHeader>
             <CardContent>
               <CourseStructure data={data} />
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="test-bank">
+          <Card>
+            <CardHeader>
+              <CardTitle>Test Bank</CardTitle>
+              <CardDescription>
+                Manage the questions for this course.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <TestBank courseId={courseId} />
             </CardContent>
           </Card>
         </TabsContent>

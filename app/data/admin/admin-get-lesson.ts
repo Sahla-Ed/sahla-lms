@@ -17,6 +17,16 @@ export async function adminGetLesson(id: string) {
       description: true,
       id: true,
       position: true,
+      type: true,
+      questions: {
+        select: {
+          question: true,
+          questionId: true,
+        },
+        orderBy: {
+          position: "asc",
+        },
+      },
     },
   });
 

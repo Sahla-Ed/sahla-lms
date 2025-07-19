@@ -33,6 +33,7 @@ export async function getCourseSidebarData(slug: string) {
             select: {
               id: true,
               title: true,
+              type: true,
               position: true,
               description: true,
               lessonProgress: {
