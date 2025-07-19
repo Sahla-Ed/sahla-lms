@@ -9,12 +9,13 @@ import {
   courseSchema,
   CourseSchemaType,
   lessonSchema,
+  LessonSchemaType,
 } from "@/lib/zodSchemas";
 import { revalidatePath } from "next/cache";
 
 export async function editCourse(
   data: CourseSchemaType,
-  courseId: string,
+  courseId: string
 ): Promise<ApiResponse> {
   const user = await requireAdmin();
 
@@ -53,7 +54,7 @@ export async function editCourse(
 export async function reorderLessons(
   chapterId: string,
   lessons: { id: string; position: number }[],
-  courseId: string,
+  courseId: string
 ): Promise<ApiResponse> {
   await requireAdmin();
   try {
@@ -73,7 +74,7 @@ export async function reorderLessons(
         data: {
           position: lesson.position,
         },
-      }),
+      })
     );
 
     await prisma.$transaction(updates);
@@ -94,7 +95,7 @@ export async function reorderLessons(
 
 export async function reorderChapters(
   courseId: string,
-  chapters: { id: string; position: number }[],
+  chapters: { id: string; position: number }[]
 ): Promise<ApiResponse> {
   await requireAdmin();
   try {
@@ -114,7 +115,7 @@ export async function reorderChapters(
         data: {
           position: chapter.position,
         },
-      }),
+      })
     );
 
     await prisma.$transaction(updates);
@@ -134,7 +135,7 @@ export async function reorderChapters(
 }
 
 export async function createChapter(
-  values: ChapterSchemaType,
+  values: ChapterSchemaType
 ): Promise<ApiResponse> {
   await requireAdmin();
   try {
@@ -184,7 +185,7 @@ export async function createChapter(
 }
 
 export async function createLesson(
-  values: ChapterSchemaType,
+  values: LessonSchemaType
 ): Promise<ApiResponse> {
   await requireAdmin();
   try {
@@ -217,6 +218,7 @@ export async function createLesson(
           videoKey: result.data.videoKey,
           thumbnailKey: result.data.thumbnailKey,
           chapterId: result.data.chapterId,
+          type: result.data.type,
           position: (maxPos?.position ?? 0) + 1,
         },
       });

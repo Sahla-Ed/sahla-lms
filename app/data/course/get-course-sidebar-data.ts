@@ -33,6 +33,7 @@ export async function getCourseSidebarData(slug: string) {
             select: {
               id: true,
               title: true,
+              type: true,
               position: true,
               description: true,
               lessonProgress: {
@@ -43,6 +44,20 @@ export async function getCourseSidebarData(slug: string) {
                   completed: true,
                   lessonId: true,
                   id: true,
+                },
+              },
+              // Always include latest quiz attempt (if any)
+              attempts: {
+                where: {
+                  userId: session?.id,
+                },
+                orderBy: {
+                  completedAt: "desc",
+                },
+                take: 1,
+                select: {
+                  score: true,
+                  completedAt: true,
                 },
               },
             },
