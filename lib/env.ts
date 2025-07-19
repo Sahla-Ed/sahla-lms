@@ -15,6 +15,7 @@ export const env = createEnv({
     AWS_SECRET_ACCESS_KEY: z.string().min(1),
     AWS_ENDPOINT_URL_S3: z.string().min(1),
     AWS_REGION: z.string().min(1),
+    OPEN_ROUTER_API_KEY: z.string().min(1).optional(),
   },
 
   client: {
@@ -29,5 +30,4 @@ export const env = createEnv({
     NEXT_PUBLIC_AWS_ENDPOINT_URL_S3:
       process.env.NEXT_PUBLIC_AWS_ENDPOINT_URL_S3,
   },
-
 });

@@ -77,7 +77,34 @@ export const quizQuestionSchema = z.object({
   lessonId: z.string(),
   timer: z.number().int().min(1).optional().nullable(),
 });
+const aiQuestionSchema = questionSchema
+  .omit({ courseId: true })
+  .refine(
+    (data) => {
+      if (data.type === "MCQ") {
+        return data.options && data.options.length >= 2;
+      }
 
+      return true;
+    },
+    {
+      message: "MCQ questions must have at least 2 options.",
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.type === "MCQ" && data.options) {
+        return data.options.includes(data.answer);
+      }
+      if (data.type === "TRUE_FALSE") {
+        return ["True", "False"].includes(data.answer);
+      }
+      return true;
+    },
+    {
+      message: "The answer must be one of the provided options.",
+    }
+  );
 export const lessonSchema = z.object({
   name: z
     .string()
@@ -99,3 +126,6 @@ export type QuestionSchemaType = z.infer<typeof questionSchema>;
 export type QuizQuestionSchemaType = z.infer<typeof quizQuestionSchema>;
 export type ChapterSchemaType = z.infer<typeof chapterSchema>;
 export type LessonSchemaType = z.infer<typeof lessonSchema>;
+export const aiQuizGenerationSchema = z.object({
+  questions: z.array(aiQuestionSchema),
+});

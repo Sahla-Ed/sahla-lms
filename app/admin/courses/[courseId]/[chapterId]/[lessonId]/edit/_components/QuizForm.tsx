@@ -200,7 +200,6 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
   const handleSave = async () => {
     setIsLoading(true);
     // Save timer value (convert to int or null)
-    // TODO: Update lesson with timer value (requires server action update)
     const { error } = await tryCatch(
       updateQuizQuestions({
         lessonId: lesson.id,

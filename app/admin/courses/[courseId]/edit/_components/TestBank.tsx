@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -54,6 +54,8 @@ export function TestBank({ courseId }: TestBankProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
   const [isFetching, setIsFetching] = useState(true);
+  const [aiTopic, setAiTopic] = useState("");
+  const [aiCount, setAiCount] = useState(5);
 
   const form = useForm<QuestionSchemaType>({
     resolver: zodResolver(questionSchema),
@@ -67,110 +69,79 @@ export function TestBank({ courseId }: TestBankProps) {
     },
   });
 
-  // Fetch existing questions on component mount
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const fetchedQuestions = await getCourseQuestions(courseId);
-        setQuestions(
-          fetchedQuestions.map((q) => ({
-            id: q.id,
-            text: q.text,
-            type: q.type,
-            options: q.options as string[],
-            answer: q.answer,
-            explanation: q.explanation || undefined,
-          }))
-        );
-      } catch (error) {
-        console.error("Failed to fetch questions:", error);
-        toast.error("Failed to load questions");
-      } finally {
-        setIsFetching(false);
-      }
-    };
-
-    fetchQuestions();
+  // IMPROVEMENT: Abstracted data fetching into a single function
+  const fetchAndSetQuestions = useCallback(async () => {
+    setIsFetching(true);
+    try {
+      const fetchedQuestions = await getCourseQuestions(courseId);
+      setQuestions(
+        fetchedQuestions.map((q) => ({
+          id: q.id,
+          text: q.text,
+          type: q.type,
+          options: q.options as string[],
+          answer: q.answer,
+          explanation: q.explanation || undefined,
+        }))
+      );
+    } catch (error) {
+      console.error("Failed to fetch questions:", error);
+      toast.error("Failed to load questions");
+    } finally {
+      setIsFetching(false);
+    }
   }, [courseId]);
 
-  // Reset form when dialog opens/closes
+  // Fetch initial questions
   useEffect(() => {
-    if (!isDialogOpen) {
-      setEditingQuestion(null);
-      form.reset({
-        courseId,
-        text: "",
-        type: "MCQ",
-        options: [],
-        answer: "",
-        explanation: "",
-      });
-    }
-  }, [isDialogOpen, form, courseId]);
+    fetchAndSetQuestions();
+  }, [fetchAndSetQuestions]);
 
-  // Populate form when editing
+  // Reset form when dialog opens/closes or when editing state changes
   useEffect(() => {
-    if (editingQuestion) {
-      form.reset({
-        courseId,
-        text: editingQuestion.text,
-        type: editingQuestion.type,
-        options: editingQuestion.options,
-        answer: editingQuestion.answer,
-        explanation: editingQuestion.explanation || "",
-      });
+    if (isDialogOpen) {
+      if (editingQuestion) {
+        form.reset({
+          courseId,
+          text: editingQuestion.text,
+          type: editingQuestion.type,
+          options: editingQuestion.options,
+          answer: editingQuestion.answer,
+          explanation: editingQuestion.explanation || "",
+        });
+      } else {
+        form.reset({
+          courseId,
+          text: "",
+          type: "MCQ",
+          options: [],
+          answer: "",
+          explanation: "",
+        });
+      }
+    } else {
+      setEditingQuestion(null);
     }
-  }, [editingQuestion, form, courseId]);
+  }, [isDialogOpen, editingQuestion, form, courseId]);
 
   const onSubmit = async (data: QuestionSchemaType) => {
     setIsLoading(true);
+    const action = editingQuestion
+      ? updateQuestion(editingQuestion.id, data)
+      : createQuestion(data);
 
-    if (editingQuestion) {
-      // Update existing question
-      const { error } = await tryCatch(
-        updateQuestion(editingQuestion.id, data)
+    const { error } = await tryCatch(action);
+
+    if (error) {
+      toast.error(
+        `Failed to ${editingQuestion ? "update" : "create"} question`
       );
-
-      if (error) {
-        toast.error("Failed to update question");
-      } else {
-        toast.success("Question updated successfully");
-        setIsDialogOpen(false);
-        // Refresh questions list
-        const fetchedQuestions = await getCourseQuestions(courseId);
-        setQuestions(
-          fetchedQuestions.map((q) => ({
-            id: q.id,
-            text: q.text,
-            type: q.type,
-            options: q.options as string[],
-            answer: q.answer,
-            explanation: q.explanation || undefined,
-          }))
-        );
-      }
     } else {
-      // Create new question
-      const { error } = await tryCatch(createQuestion(data));
-
-      if (error) {
-        toast.error("Failed to create question");
-      } else {
-        toast.success("Question created successfully");
-        setIsDialogOpen(false);
-        // Refresh questions list
-        const fetchedQuestions = await getCourseQuestions(courseId);
-        setQuestions(
-          fetchedQuestions.map((q) => ({
-            id: q.id,
-            text: q.text,
-            type: q.type,
-            options: q.options as string[],
-            answer: q.answer,
-            explanation: q.explanation || undefined,
-          }))
-        );
-      }
+      toast.success(
+        `Question ${editingQuestion ? "updated" : "created"} successfully`
+      );
+      setIsDialogOpen(false);
+      await fetchAndSetQuestions();
     }
     setIsLoading(false);
   };
@@ -182,6 +153,7 @@ export function TestBank({ courseId }: TestBankProps) {
       toast.error("Failed to delete question");
     } else {
       toast.success("Question deleted successfully");
+      // Use optimistic UI update for instant feedback
       setQuestions((prev) => prev.filter((q) => q.id !== questionId));
     }
   };
@@ -191,63 +163,63 @@ export function TestBank({ courseId }: TestBankProps) {
     setIsDialogOpen(true);
   };
 
-  //todo: implement actual ai generation
   const generateQuestions = async (topic: string, count: number) => {
     setIsGenerating(true);
-    // Mock AI generation - replace with actual AI service
-    const mockQuestions: Question[] = [
-      {
-        id: `mock-${Date.now()}-1`,
-        text: `What is ${topic}?`,
-        type: "MCQ",
-        options: ["Option A", "Option B", "Option C", "Option D"],
-        answer: "Option B",
-        explanation: "This is the correct answer because...",
-      },
-      {
-        id: `mock-${Date.now()}-2`,
-        text: `${topic} is always true.`,
-        type: "TRUE_FALSE",
-        options: ["True", "False"],
-        answer: "False",
-        explanation: "This statement is not always true because...",
-      },
-    ];
+    try {
+      const res = await fetch("/api/quiz/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topic, numQuestions: count }),
+      });
 
-    // Add generated questions to the list
-    setQuestions((prev) => [...prev, ...mockQuestions.slice(0, count)]);
-    setIsGenerating(false);
-    toast.success(`Generated ${Math.min(count, 2)} questions`);
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || "Failed to generate questions");
+      }
+
+      const { questions: generatedQuestions } = await res.json();
+
+      if (!generatedQuestions || generatedQuestions.length === 0) {
+        toast.warning(
+          "AI did not generate any questions. Please try a different topic."
+        );
+        return;
+      }
+
+      for (const q of generatedQuestions) {
+        await createQuestion({ ...q, courseId });
+      }
+
+      toast.success(
+        `Generated and saved ${generatedQuestions.length} new questions!`
+      );
+      await fetchAndSetQuestions();
+    } catch (e) {
+      toast.error((e as Error).message || "An unexpected error occurred.");
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   const addOption = () => {
-    const currentOptions = form.watch("options") || [];
-    form.setValue("options", [...currentOptions, ""]);
+    form.setValue("options", [...(form.getValues("options") || []), ""]);
   };
 
   const removeOption = (index: number) => {
-    const currentOptions = form.watch("options") || [];
+    const currentOptions = form.getValues("options") || [];
+    const optionToRemove = currentOptions[index];
     const newOptions = currentOptions.filter((_, i) => i !== index);
     form.setValue("options", newOptions);
 
-    // If the removed option was the correct answer, clear the answer
-    const currentAnswer = form.watch("answer");
-    if (currentAnswer === currentOptions[index]) {
+    if (form.getValues("answer") === optionToRemove) {
       form.setValue("answer", "");
     }
   };
 
   const updateOption = (index: number, value: string) => {
-    const currentOptions = form.watch("options") || [];
-    const newOptions = [...currentOptions];
+    const newOptions = [...(form.getValues("options") || [])];
     newOptions[index] = value;
     form.setValue("options", newOptions);
-
-    // If this option was the correct answer and it's being cleared, clear the answer
-    const currentAnswer = form.watch("answer");
-    if (currentAnswer === currentOptions[index] && !value) {
-      form.setValue("answer", "");
-    }
   };
 
   if (isFetching) {
@@ -306,7 +278,6 @@ export function TestBank({ courseId }: TestBankProps) {
                     value={form.watch("type")}
                     onValueChange={(value) => {
                       form.setValue("type", value as "MCQ" | "TRUE_FALSE");
-                      // Reset options and answer when changing type
                       if (value === "TRUE_FALSE") {
                         form.setValue("options", ["True", "False"]);
                         form.setValue("answer", "");
@@ -367,7 +338,7 @@ export function TestBank({ courseId }: TestBankProps) {
                       ))}
                       {(form.watch("options") || []).length === 0 && (
                         <p className="text-sm text-muted-foreground">
-                          Click &quot;Add Option&quot; to start adding choices
+                          Click "Add Option" to start adding choices
                         </p>
                       )}
                     </div>
@@ -461,11 +432,16 @@ export function TestBank({ courseId }: TestBankProps) {
                   <Input
                     id="topic"
                     placeholder="e.g., JavaScript fundamentals"
+                    value={aiTopic}
+                    onChange={(e) => setAiTopic(e.target.value)}
                   />
                 </div>
                 <div>
                   <Label htmlFor="count">Number of Questions</Label>
-                  <Select defaultValue="5">
+                  <Select
+                    value={String(aiCount)}
+                    onValueChange={(v) => setAiCount(Number(v))}
+                  >
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -477,8 +453,8 @@ export function TestBank({ courseId }: TestBankProps) {
                   </Select>
                 </div>
                 <Button
-                  onClick={() => generateQuestions("JavaScript", 5)}
-                  disabled={isGenerating}
+                  onClick={() => generateQuestions(aiTopic, aiCount)}
+                  disabled={isGenerating || !aiTopic}
                   className="w-full"
                 >
                   {isGenerating && (
