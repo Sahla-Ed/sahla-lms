@@ -34,6 +34,7 @@ export async function getLessonContent(lessonId: string) {
             select: {
               id: true,
               text: true,
+              answer: true,
               type: true,
               options: true,
               explanation: true,

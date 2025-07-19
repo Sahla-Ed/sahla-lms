@@ -44,8 +44,6 @@ export function NewLessonModal({
       courseId: courseId,
       type: "VIDEO",
       chapterId: chapterId,
-      thumbnailKey:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGh5WFH8TOIfRKxUrIgJZoDCs1yvQ4hIcppw&s",
     },
   });
 

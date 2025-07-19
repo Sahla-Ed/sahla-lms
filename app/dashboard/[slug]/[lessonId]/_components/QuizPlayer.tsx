@@ -20,6 +20,7 @@ interface Question {
   text: string;
   type: "MCQ" | "TRUE_FALSE";
   options: string[];
+  answer: string;
   explanation?: string;
 }
 
@@ -43,13 +44,44 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [startTime, setStartTime] = useState<number | null>(null);
 
-  const questions: Question[] = data.questions.map((q) => ({
-    id: q.question.id,
-    text: q.question.text,
-    type: q.question.type,
-    options: q.question.options as string[],
-    explanation: q.question.explanation || undefined,
-  }));
+  // Safely extract questions from data
+  const questions: Question[] = (data.questions || [])
+    .filter((q) => q.question && q.question.text) // Filter out any undefined questions
+    .map((q) => ({
+      id: q.question.id,
+      text: q.question.text,
+      type: q.question.type,
+      options: q.question.options as string[],
+      answer: q.question.answer,
+      explanation: q.question.explanation || undefined,
+    }));
+
+  // Early return if no questions
+  if (questions.length === 0) {
+    return (
+      <div className="max-w-4xl mx-auto p-6">
+        <Card>
+          <CardHeader className="text-center">
+            <div className="flex justify-center mb-4">
+              <HelpCircle className="w-16 h-16 text-blue-500" />
+            </div>
+            <CardTitle className="text-2xl">Quiz: {data.title}</CardTitle>
+            <p className="text-muted-foreground">
+              {data.description || "Test your knowledge with this quiz"}
+            </p>
+          </CardHeader>
+          <CardContent className="text-center space-y-4">
+            <div className="text-center py-8 text-muted-foreground">
+              <p>No questions available for this quiz</p>
+              <p className="text-sm">
+                Please contact your instructor to add questions
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   const currentQuestion = questions[quizState.currentQuestion];
   const progress = (quizState.currentQuestion / questions.length) * 100;
@@ -97,8 +129,7 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
     let correctAnswers = 0;
     questions.forEach((question) => {
       const userAnswer = quizState.answers[question.id];
-      if (userAnswer === question.options[0]) {
-        // Assuming first option is correct for now
+      if (userAnswer === question.answer) {
         correctAnswers++;
       }
     });
@@ -184,7 +215,7 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
             <div className="space-y-4">
               {questions.map((question, index) => {
                 const userAnswer = quizState.answers[question.id];
-                const isCorrect = userAnswer === question.options[0]; // Assuming first option is correct
+                const isCorrect = userAnswer === question.answer;
 
                 return (
                   <Card key={question.id}>
@@ -208,14 +239,14 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
                                     ? isCorrect
                                       ? "bg-green-50 border-green-200 dark:bg-green-950 dark:border-green-800"
                                       : "bg-red-50 border-red-200 dark:bg-red-950 dark:border-red-800"
-                                    : option === question.options[0]
+                                    : option === question.answer
                                       ? "bg-green-50 border-green-200 dark:bg-green-950 dark:border-green-800"
                                       : "bg-gray-50 border-gray-200 dark:bg-gray-950 dark:border-gray-800"
                                 }`}
                               >
                                 <div className="flex items-center gap-2">
                                   {option}
-                                  {option === question.options[0] && (
+                                  {option === question.answer && (
                                     <CheckCircle className="w-4 h-4 text-green-500" />
                                   )}
                                   {option === userAnswer && !isCorrect && (

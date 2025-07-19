@@ -1,17 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { GripVertical, Plus, Trash2, HelpCircle } from "lucide-react";
+import { GripVertical, Plus, Trash2, HelpCircle, Loader2 } from "lucide-react";
 import { AdminLessonType } from "@/app/data/admin/admin-get-lesson";
 import { toast } from "sonner";
 import { tryCatch } from "@/hooks/try-catch";
-import { updateQuizQuestions } from "../../../../edit/quiz-actions";
+import {
+  updateQuizQuestions,
+  getCourseQuestions,
+} from "../../../../edit/quiz-actions";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface QuizFormProps {
   lesson: AdminLessonType;
@@ -28,11 +37,55 @@ interface Question {
   explanation?: string;
 }
 
-export function QuizForm({ lesson }: QuizFormProps) {
+export function QuizForm({ lesson, courseId }: QuizFormProps) {
   const [title, setTitle] = useState(lesson.title);
   const [description, setDescription] = useState(lesson.description || "");
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [availableQuestions, setAvailableQuestions] = useState<Question[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  // Fetch available questions from test bank
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const fetchedQuestions = await getCourseQuestions(courseId);
+        setAvailableQuestions(
+          fetchedQuestions.map((q) => ({
+            id: q.id,
+            text: q.text,
+            type: q.type,
+            options: q.options as string[],
+            answer: q.answer,
+            explanation: q.explanation || undefined,
+          }))
+        );
+      } catch (error) {
+        console.error("Failed to fetch questions:", error);
+        toast.error("Failed to load questions from test bank");
+      } finally {
+        setIsFetching(false);
+      }
+    };
+
+    fetchQuestions();
+  }, [courseId]);
+
+  // Load existing quiz questions
+  useEffect(() => {
+    if (lesson.questions && lesson.questions.length > 0) {
+      const quizQuestions = lesson.questions.map((q) => ({
+        id: q.question.id,
+        text: q.question.text,
+        type: q.question.type,
+        options: q.question.options as string[],
+        answer: q.question.answer,
+        explanation: q.question.explanation || undefined,
+      }));
+      setQuestions(quizQuestions);
+    }
+  }, [lesson.questions]);
 
   const handleSave = async () => {
     setIsLoading(true);
@@ -51,17 +104,14 @@ export function QuizForm({ lesson }: QuizFormProps) {
     setIsLoading(false);
   };
 
-  const addQuestion = (questionId: string) => {
-    // This would typically fetch the question details from the test bank
-    const mockQuestion: Question = {
-      id: questionId,
-      text: "Sample question text",
-      type: "MCQ",
-      options: ["Option A", "Option B", "Option C", "Option D"],
-      answer: "Option B",
-      explanation: "This is the correct answer because...",
-    };
-    setQuestions((prev) => [...prev, mockQuestion]);
+  const addQuestion = (question: Question) => {
+    // Check if question is already added
+    if (questions.find((q) => q.id === question.id)) {
+      toast.error("This question is already added to the quiz");
+      return;
+    }
+    setQuestions((prev) => [...prev, question]);
+    setIsDialogOpen(false);
   };
 
   const removeQuestion = (questionId: string) => {
@@ -75,6 +125,15 @@ export function QuizForm({ lesson }: QuizFormProps) {
   //   newQuestions.splice(toIndex, 0, movedQuestion);
   //   setQuestions(newQuestions);
   // };
+
+  if (isFetching) {
+    return (
+      <div className="flex items-center justify-center py-8">
+        <Loader2 className="w-6 h-6 animate-spin" />
+        <span className="ml-2">Loading questions...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -113,9 +172,9 @@ export function QuizForm({ lesson }: QuizFormProps) {
         <CardHeader>
           <div className="flex justify-between items-center">
             <CardTitle>Quiz Questions</CardTitle>
-            <Button onClick={() => addQuestion(`question-${Date.now()}`)}>
+            <Button onClick={() => setIsDialogOpen(true)}>
               <Plus className="w-4 h-4 mr-2" />
-              Add Question
+              Add Question from Test Bank
             </Button>
           </div>
         </CardHeader>
@@ -197,6 +256,84 @@ export function QuizForm({ lesson }: QuizFormProps) {
           )}
         </CardContent>
       </Card>
+
+      {/* Question Selection Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Select Questions from Test Bank</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            {availableQuestions.length === 0 ? (
+              <div className="text-center py-8 text-muted-foreground">
+                <p>No questions available in test bank</p>
+                <p className="text-sm">
+                  Create questions in the Test Bank tab first
+                </p>
+              </div>
+            ) : (
+              availableQuestions.map((question) => (
+                <Card key={question.id}>
+                  <CardContent className="p-4">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Badge variant="outline">{question.type}</Badge>
+                          {questions.find((q) => q.id === question.id) && (
+                            <Badge variant="secondary">Already Added</Badge>
+                          )}
+                        </div>
+                        <p className="font-medium mb-2">{question.text}</p>
+                        <div className="space-y-1">
+                          {question.options.map((option, index) => (
+                            <div
+                              key={index}
+                              className={`p-2 rounded text-sm ${
+                                option === question.answer
+                                  ? "bg-green-50 border border-green-200 dark:bg-green-950 dark:border-green-800"
+                                  : "bg-gray-50 border border-gray-200 dark:bg-gray-950 dark:border-gray-800"
+                              }`}
+                            >
+                              {option}
+                              {option === question.answer && (
+                                <Badge
+                                  variant="secondary"
+                                  className="ml-2 text-xs"
+                                >
+                                  Correct
+                                </Badge>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                        {question.explanation && (
+                          <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-950 rounded">
+                            <p className="text-sm font-medium text-blue-900 dark:text-blue-100">
+                              Explanation:
+                            </p>
+                            <p className="text-sm text-blue-700 dark:text-blue-300">
+                              {question.explanation}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      {!questions.find((q) => q.id === question.id) && (
+                        <Button
+                          onClick={() => addQuestion(question)}
+                          className="ml-4"
+                        >
+                          <Plus className="w-4 h-4 mr-2" />
+                          Add
+                        </Button>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <div className="flex justify-end gap-2">
         <Button variant="outline">Cancel</Button>

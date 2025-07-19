@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -21,13 +21,18 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Edit, Trash2, Brain, Loader2 } from "lucide-react";
+import { Plus, Edit, Trash2, Brain, Loader2, X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { questionSchema, QuestionSchemaType } from "@/lib/zodSchemas";
 import { toast } from "sonner";
 import { tryCatch } from "@/hooks/try-catch";
-import { createQuestion } from "../quiz-actions";
+import {
+  createQuestion,
+  getCourseQuestions,
+  deleteQuestion,
+  updateQuestion,
+} from "../quiz-actions";
 
 interface Question {
   id: string;
@@ -48,6 +53,7 @@ export function TestBank({ courseId }: TestBankProps) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
+  const [isFetching, setIsFetching] = useState(true);
 
   const form = useForm<QuestionSchemaType>({
     resolver: zodResolver(questionSchema),
@@ -61,20 +67,130 @@ export function TestBank({ courseId }: TestBankProps) {
     },
   });
 
+  // Fetch existing questions on component mount
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const fetchedQuestions = await getCourseQuestions(courseId);
+        setQuestions(
+          fetchedQuestions.map((q) => ({
+            id: q.id,
+            text: q.text,
+            type: q.type,
+            options: q.options as string[],
+            answer: q.answer,
+            explanation: q.explanation || undefined,
+          }))
+        );
+      } catch (error) {
+        console.error("Failed to fetch questions:", error);
+        toast.error("Failed to load questions");
+      } finally {
+        setIsFetching(false);
+      }
+    };
+
+    fetchQuestions();
+  }, [courseId]);
+
+  // Reset form when dialog opens/closes
+  useEffect(() => {
+    if (!isDialogOpen) {
+      setEditingQuestion(null);
+      form.reset({
+        courseId,
+        text: "",
+        type: "MCQ",
+        options: [],
+        answer: "",
+        explanation: "",
+      });
+    }
+  }, [isDialogOpen, form, courseId]);
+
+  // Populate form when editing
+  useEffect(() => {
+    if (editingQuestion) {
+      form.reset({
+        courseId,
+        text: editingQuestion.text,
+        type: editingQuestion.type,
+        options: editingQuestion.options,
+        answer: editingQuestion.answer,
+        explanation: editingQuestion.explanation || "",
+      });
+    }
+  }, [editingQuestion, form, courseId]);
+
   const onSubmit = async (data: QuestionSchemaType) => {
     setIsLoading(true);
-    const { error } = await tryCatch(createQuestion(data));
 
-    if (error) {
-      toast.error("Failed to create question");
+    if (editingQuestion) {
+      // Update existing question
+      const { error } = await tryCatch(
+        updateQuestion(editingQuestion.id, data)
+      );
+
+      if (error) {
+        toast.error("Failed to update question");
+      } else {
+        toast.success("Question updated successfully");
+        setIsDialogOpen(false);
+        // Refresh questions list
+        const fetchedQuestions = await getCourseQuestions(courseId);
+        setQuestions(
+          fetchedQuestions.map((q) => ({
+            id: q.id,
+            text: q.text,
+            type: q.type,
+            options: q.options as string[],
+            answer: q.answer,
+            explanation: q.explanation || undefined,
+          }))
+        );
+      }
     } else {
-      toast.success("Question created successfully");
-      setIsDialogOpen(false);
-      form.reset();
-      // Refresh questions list
+      // Create new question
+      const { error } = await tryCatch(createQuestion(data));
+
+      if (error) {
+        toast.error("Failed to create question");
+      } else {
+        toast.success("Question created successfully");
+        setIsDialogOpen(false);
+        // Refresh questions list
+        const fetchedQuestions = await getCourseQuestions(courseId);
+        setQuestions(
+          fetchedQuestions.map((q) => ({
+            id: q.id,
+            text: q.text,
+            type: q.type,
+            options: q.options as string[],
+            answer: q.answer,
+            explanation: q.explanation || undefined,
+          }))
+        );
+      }
     }
     setIsLoading(false);
   };
+
+  const handleDeleteQuestion = async (questionId: string) => {
+    const { error } = await tryCatch(deleteQuestion(questionId, courseId));
+
+    if (error) {
+      toast.error("Failed to delete question");
+    } else {
+      toast.success("Question deleted successfully");
+      setQuestions((prev) => prev.filter((q) => q.id !== questionId));
+    }
+  };
+
+  const handleEditQuestion = (question: Question) => {
+    setEditingQuestion(question);
+    setIsDialogOpen(true);
+  };
+
   //todo: implement actual ai generation
   const generateQuestions = async (topic: string, count: number) => {
     setIsGenerating(true);
@@ -103,6 +219,45 @@ export function TestBank({ courseId }: TestBankProps) {
     setIsGenerating(false);
     toast.success(`Generated ${Math.min(count, 2)} questions`);
   };
+
+  const addOption = () => {
+    const currentOptions = form.watch("options") || [];
+    form.setValue("options", [...currentOptions, ""]);
+  };
+
+  const removeOption = (index: number) => {
+    const currentOptions = form.watch("options") || [];
+    const newOptions = currentOptions.filter((_, i) => i !== index);
+    form.setValue("options", newOptions);
+
+    // If the removed option was the correct answer, clear the answer
+    const currentAnswer = form.watch("answer");
+    if (currentAnswer === currentOptions[index]) {
+      form.setValue("answer", "");
+    }
+  };
+
+  const updateOption = (index: number, value: string) => {
+    const currentOptions = form.watch("options") || [];
+    const newOptions = [...currentOptions];
+    newOptions[index] = value;
+    form.setValue("options", newOptions);
+
+    // If this option was the correct answer and it's being cleared, clear the answer
+    const currentAnswer = form.watch("answer");
+    if (currentAnswer === currentOptions[index] && !value) {
+      form.setValue("answer", "");
+    }
+  };
+
+  if (isFetching) {
+    return (
+      <div className="flex items-center justify-center py-8">
+        <Loader2 className="w-6 h-6 animate-spin" />
+        <span className="ml-2">Loading questions...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -149,9 +304,17 @@ export function TestBank({ courseId }: TestBankProps) {
                   <Label htmlFor="type">Question Type</Label>
                   <Select
                     value={form.watch("type")}
-                    onValueChange={(value) =>
-                      form.setValue("type", value as "MCQ" | "TRUE_FALSE")
-                    }
+                    onValueChange={(value) => {
+                      form.setValue("type", value as "MCQ" | "TRUE_FALSE");
+                      // Reset options and answer when changing type
+                      if (value === "TRUE_FALSE") {
+                        form.setValue("options", ["True", "False"]);
+                        form.setValue("answer", "");
+                      } else {
+                        form.setValue("options", []);
+                        form.setValue("answer", "");
+                      }
+                    }}
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -165,24 +328,45 @@ export function TestBank({ courseId }: TestBankProps) {
 
                 {form.watch("type") === "MCQ" && (
                   <div>
-                    <Label>Options</Label>
+                    <div className="flex items-center justify-between mb-2">
+                      <Label>Options</Label>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={addOption}
+                      >
+                        <Plus className="w-4 h-4 mr-1" />
+                        Add Option
+                      </Button>
+                    </div>
                     <div className="space-y-2">
-                      {["A", "B", "C", "D"].map((option) => (
-                        <Input
-                          key={option}
-                          placeholder={`Option ${option}`}
-                          value={
-                            form.watch(
-                              `options.${option.charCodeAt(0) - 65}`
-                            ) || ""
-                          }
-                          onChange={(e) => {
-                            const options = form.watch("options") || [];
-                            options[option.charCodeAt(0) - 65] = e.target.value;
-                            form.setValue("options", options);
-                          }}
-                        />
+                      {(form.watch("options") || []).map((option, index) => (
+                        <div key={`option-${index}`} className="flex gap-2">
+                          <Input
+                            placeholder={`Option ${index + 1}`}
+                            value={option}
+                            onChange={(e) =>
+                              updateOption(index, e.target.value)
+                            }
+                          />
+                          {(form.watch("options") || []).length > 2 && (
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="icon"
+                              onClick={() => removeOption(index)}
+                            >
+                              <X className="w-4 h-4" />
+                            </Button>
+                          )}
+                        </div>
                       ))}
+                      {(form.watch("options") || []).length === 0 && (
+                        <p className="text-sm text-muted-foreground">
+                          Click "Add Option" to start adding choices
+                        </p>
+                      )}
                     </div>
                   </div>
                 )}
@@ -198,11 +382,14 @@ export function TestBank({ courseId }: TestBankProps) {
                         <SelectValue placeholder="Select correct answer" />
                       </SelectTrigger>
                       <SelectContent>
-                        {form.watch("options")?.map((option, index) => (
-                          <SelectItem key={index} value={option}>
-                            {option}
-                          </SelectItem>
-                        ))}
+                        {form
+                          .watch("options")
+                          ?.filter((option) => option.trim() !== "")
+                          .map((option, index) => (
+                            <SelectItem key={`answer-${index}`} value={option}>
+                              {option}
+                            </SelectItem>
+                          ))}
                       </SelectContent>
                     </Select>
                   ) : (
@@ -326,22 +513,14 @@ export function TestBank({ courseId }: TestBankProps) {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => {
-                        setEditingQuestion(question);
-                        setIsDialogOpen(true);
-                      }}
+                      onClick={() => handleEditQuestion(question)}
                     >
                       <Edit className="w-4 h-4" />
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => {
-                        setQuestions((prev) =>
-                          prev.filter((q) => q.id !== question.id)
-                        );
-                        toast.success("Question deleted");
-                      }}
+                      onClick={() => handleDeleteQuestion(question.id)}
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>
@@ -352,7 +531,7 @@ export function TestBank({ courseId }: TestBankProps) {
                 <div className="space-y-2">
                   {question.options.map((option, index) => (
                     <div
-                      key={index}
+                      key={`question-${question.id}-option-${index}`}
                       className={`p-2 rounded border ${
                         option === question.answer
                           ? "bg-green-50 border-green-200 dark:bg-green-950 dark:border-green-800"
