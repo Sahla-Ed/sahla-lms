@@ -239,6 +239,19 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
       }
     }
   }
+  function resetErrorState() {
+    setFileState((prev) => ({
+      error: false,
+      file: null,
+      id: null,
+      uploading: false,
+      progress: 0,
+      isDeleting: false,
+      fileType: fileTypeAccepted,
+      key: value,
+      objectUrl: undefined,
+    }));
+  }
 
   function renderContent() {
     if (fileState.uploading) {
@@ -251,7 +264,12 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
     }
 
     if (fileState.error) {
-      return <RenderErrorState />;
+      return (
+        <RenderErrorState
+          onRetry={() => uploadFile(fileState.file!)}
+          onReset={resetErrorState}
+        />
+      );
     }
 
     if (fileState.objectUrl) {
