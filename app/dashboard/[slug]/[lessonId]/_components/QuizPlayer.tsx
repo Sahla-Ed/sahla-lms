@@ -43,6 +43,7 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
   // If a completed attempt exists, show result page with retake option
   const completedAttempt =
     data.latestQuizAttempt && data.latestQuizAttempt.completedAt;
+  const [retakeMode, setRetakeMode] = useState(false);
   const [quizState, setQuizState] = useState<QuizState>({
     currentQuestion: 0,
     answers: {},
@@ -124,7 +125,7 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
   }
 
   // If completedAttempt, show result page with retake option
-  if (quizState.isSubmitted && completedAttempt) {
+  if (quizState.isSubmitted && completedAttempt && !retakeMode) {
     const attempt = data.latestQuizAttempt;
     const isFail = quizState.score < 50;
     return (
@@ -214,7 +215,19 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
               })}
             </div>
             <div className="flex justify-center mt-6">
-              <Button onClick={() => window.location.reload()}>
+              <Button
+                onClick={() => {
+                  setRetakeMode(true);
+                  setQuizState({
+                    currentQuestion: 0,
+                    answers: {},
+                    isSubmitted: false,
+                    score: 0,
+                    timeElapsed: 0,
+                  });
+                  setStartTime(null);
+                }}
+              >
                 Retake Quiz
               </Button>
             </div>

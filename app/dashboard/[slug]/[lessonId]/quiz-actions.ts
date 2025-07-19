@@ -14,6 +14,24 @@ export async function submitQuizAttempt(data: {
   const session = await requireUser();
 
   try {
+    // Delete previous attempts and their user answers
+    const previousAttempts = await prisma.quizAttempt.findMany({
+      where: {
+        userId: session?.id as string,
+        lessonId: data.lessonId,
+      },
+      select: { id: true },
+    });
+    if (previousAttempts.length > 0) {
+      const attemptIds = previousAttempts.map((a) => a.id);
+      await prisma.userAnswer.deleteMany({
+        where: { attemptId: { in: attemptIds } },
+      });
+      await prisma.quizAttempt.deleteMany({
+        where: { id: { in: attemptIds } },
+      });
+    }
+
     // Create quiz attempt
     const attempt = await prisma.quizAttempt.create({
       data: {
