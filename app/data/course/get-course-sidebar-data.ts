@@ -46,6 +46,20 @@ export async function getCourseSidebarData(slug: string) {
                   id: true,
                 },
               },
+              // Always include latest quiz attempt (if any)
+              attempts: {
+                where: {
+                  userId: session?.id,
+                },
+                orderBy: {
+                  completedAt: "desc",
+                },
+                take: 1,
+                select: {
+                  score: true,
+                  completedAt: true,
+                },
+              },
             },
           },
         },

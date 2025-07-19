@@ -89,6 +89,13 @@ export function CourseSidebar({ course }: iAppProps) {
                       (progress) => progress.lessonId === lesson.id
                     )?.completed || false
                   }
+                  quizFailed={
+                    lesson.type === "QUIZ" &&
+                    lesson.attempts &&
+                    lesson.attempts.length > 0 &&
+                    typeof lesson.attempts[0].score === "number" &&
+                    lesson.attempts[0].score < 50
+                  }
                 />
               ))}
             </CollapsibleContent>
