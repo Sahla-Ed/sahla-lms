@@ -7,6 +7,11 @@ import { resend } from "./resend";
 import { admin } from "better-auth/plugins";
 
 export const auth = betterAuth({
+  trustedOrigins: [
+    "localhost:3000",
+    "https://sahla-*-mosaleh52s-projects.vercel.app",
+    "https://sahla-lms.vercel.app",
+  ],
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),

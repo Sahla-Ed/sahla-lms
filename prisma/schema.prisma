@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../lib/generated/prisma"
+  provider        = "prisma-client-js"
+  output          = "../lib/generated/prisma"
+  previewFeatures = ["queryCompiler", "driverAdapters"]
 }
 
 datasource db {
@@ -144,8 +145,8 @@ model Lesson {
   videoKey     String?
   position     Int
 
-  type LessonType @default(VIDEO)
-  timer Int? 
+  type  LessonType @default(VIDEO)
+  timer Int?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -205,15 +206,14 @@ enum QuestionType {
   TRUE_FALSE
 }
 
-
 model Question {
-  id        String  @id @default(uuid())
-  courseId  String
-  course    Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  text      String
-  type      QuestionType
-  options   Json // For MCQ: ["Option A", "Option B", "Option C"], For T/F: ["True", "False"]
-  answer    String // For MCQ: "Option B", For T/F: "True"
+  id          String       @id @default(uuid())
+  courseId    String
+  course      Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  text        String
+  type        QuestionType
+  options     Json // For MCQ: ["Option A", "Option B", "Option C"], For T/F: ["True", "False"]
+  answer      String // For MCQ: "Option B", For T/F: "True"
   explanation String?
 
   lessons LessonQuestion[]
@@ -222,7 +222,6 @@ model Question {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-
 
 model LessonQuestion {
   lessonId   String
@@ -233,7 +232,6 @@ model LessonQuestion {
 
   @@id([lessonId, questionId])
 }
-
 
 model QuizAttempt {
   id          String    @id @default(uuid())
@@ -250,7 +248,6 @@ model QuizAttempt {
 
   @@index([userId, lessonId])
 }
-
 
 model UserAnswer {
   id         String      @id @default(uuid())
