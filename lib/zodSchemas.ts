@@ -18,6 +18,8 @@ export const courseCategories = [
   "Teaching & Academics",
 ] as const;
 
+export const lessonTypes = ["VIDEO", "QUIZ"] as const;
+
 export const courseSchema = z.object({
   title: z
     .string()
@@ -59,10 +61,55 @@ export const chapterSchema = z.object({
   courseId: z.string().uuid({ message: "Invalid course id" }),
 });
 
+export const questionTypes = ["MCQ", "TRUE_FALSE"] as const;
+
+export const questionSchema = z.object({
+  courseId: z.string().min(1, "Course ID is required"),
+  text: z.string().min(1, "Question text is required"),
+  type: z.enum(questionTypes),
+  explanation: z.string().optional(),
+  options: z.array(z.string()).optional(),
+  answer: z.string().min(1, "Answer is required"),
+});
+
+export const quizQuestionSchema = z.object({
+  questionIds: z.array(z.string()),
+  lessonId: z.string(),
+  timer: z.number().int().min(1).optional().nullable(),
+});
+const aiQuestionSchema = questionSchema
+  .omit({ courseId: true })
+  .refine(
+    (data) => {
+      if (data.type === "MCQ") {
+        return data.options && data.options.length >= 2;
+      }
+
+      return true;
+    },
+    {
+      message: "MCQ questions must have at least 2 options.",
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.type === "MCQ" && data.options) {
+        return data.options.includes(data.answer);
+      }
+      if (data.type === "TRUE_FALSE") {
+        return ["True", "False"].includes(data.answer);
+      }
+      return true;
+    },
+    {
+      message: "The answer must be one of the provided options.",
+    }
+  );
 export const lessonSchema = z.object({
   name: z
     .string()
     .min(3, { message: "Name must be at least 3 characters long" }),
+  type: z.enum(lessonTypes),
   chapterId: z.string().uuid({ message: "Invalid chapter ID" }),
   courseId: z.string().uuid({ message: "Invalid course ID" }),
   description: z
@@ -75,5 +122,10 @@ export const lessonSchema = z.object({
 });
 
 export type CourseSchemaType = z.infer<typeof courseSchema>;
+export type QuestionSchemaType = z.infer<typeof questionSchema>;
+export type QuizQuestionSchemaType = z.infer<typeof quizQuestionSchema>;
 export type ChapterSchemaType = z.infer<typeof chapterSchema>;
 export type LessonSchemaType = z.infer<typeof lessonSchema>;
+export const aiQuizGenerationSchema = z.object({
+  questions: z.array(aiQuestionSchema),
+});

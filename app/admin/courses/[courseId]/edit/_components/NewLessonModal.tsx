@@ -22,6 +22,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { tryCatch } from "@/hooks/try-catch";
 import { createLesson } from "../actions";
 import { toast } from "sonner";
@@ -41,6 +42,7 @@ export function NewLessonModal({
     defaultValues: {
       name: "",
       courseId: courseId,
+      type: "VIDEO",
       chapterId: chapterId,
     },
   });
@@ -55,7 +57,8 @@ export function NewLessonModal({
       }
 
       if (result.status === "success") {
-        toast.success(result.message);
+        const isQuiz = values.type === "QUIZ";
+        toast.success(isQuiz ? "Quiz created successfully" : result.message);
         form.reset();
         setIsOpen(false);
       } else if (result.status === "error") {
@@ -79,10 +82,13 @@ export function NewLessonModal({
           <Plus className="size-4" /> New Lesson
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent
+        className="sm:max-w-[425px]"
+        aria-describedby="new-lesson-desc"
+      >
         <DialogHeader>
           <DialogTitle>Create new lesson</DialogTitle>
-          <DialogDescription>
+          <DialogDescription id="new-lesson-desc">
             What would you like to name your lesson?
           </DialogDescription>
         </DialogHeader>
@@ -98,6 +104,35 @@ export function NewLessonModal({
                     <Input placeholder="Lesson Name" {...field} />
                   </FormControl>
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="type"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Lesson Type</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex space-x-4"
+                    >
+                      <FormItem className="flex items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="VIDEO" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Video</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="QUIZ" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Quiz</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
                 </FormItem>
               )}
             />
