@@ -19,6 +19,7 @@ export async function getLessonContent(lessonId: string) {
       videoKey: true,
       position: true,
       type: true,
+      timer: true,
       lessonProgress: {
         where: {
           userId: session?.id as string,
@@ -74,7 +75,24 @@ export async function getLessonContent(lessonId: string) {
   if (!enrollment || enrollment.status !== "Active") {
     return notFound();
   }
-  return lesson;
+  // Fetch latest quiz attempt for this lesson and user
+  const latestQuizAttempt = await prisma.quizAttempt.findFirst({
+    where: {
+      userId: session?.id as string,
+      lessonId,
+    },
+    include: {
+      answers: {
+        include: {
+          question: true,
+        },
+      },
+    },
+    orderBy: {
+      completedAt: "desc",
+    },
+  });
+  return { ...lesson, latestQuizAttempt };
 }
 
 export type LessonContentType = Awaited<ReturnType<typeof getLessonContent>>;

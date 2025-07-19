@@ -128,6 +128,14 @@ export async function updateQuizQuestions(
       };
     }
 
+    // Update timer if provided
+    if (typeof result.data.timer === "number" || result.data.timer === null) {
+      await prisma.lesson.update({
+        where: { id: result.data.lessonId },
+        data: { timer: result.data.timer },
+      });
+    }
+
     // Delete existing question associations
     await prisma.lessonQuestion.deleteMany({
       where: { lessonId: result.data.lessonId },

@@ -18,6 +18,7 @@ export async function adminGetLesson(id: string) {
       id: true,
       position: true,
       type: true,
+      timer: true,
       questions: {
         select: {
           question: true,

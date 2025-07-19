@@ -21,6 +21,7 @@ export async function submitQuizAttempt(data: {
         lessonId: data.lessonId,
         score: data.score,
         completedAt: new Date(),
+        timeElapsed: data.timeElapsed,
       },
     });
 

@@ -145,6 +145,7 @@ model Lesson {
   position     Int
 
   type LessonType @default(VIDEO)
+  timer Int? // Time limit in minutes for quizzes
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -243,6 +244,7 @@ model QuizAttempt {
   score       Int // e.g., 80 for 80%
   startedAt   DateTime  @default(now())
   completedAt DateTime?
+  timeElapsed Int? // Time taken in seconds
 
   answers UserAnswer[]
 

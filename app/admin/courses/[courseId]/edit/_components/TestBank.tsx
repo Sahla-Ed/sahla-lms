@@ -342,7 +342,7 @@ export function TestBank({ courseId }: TestBankProps) {
                     </div>
                     <div className="space-y-2">
                       {(form.watch("options") || []).map((option, index) => (
-                        <div key={`option-${index}`} className="flex gap-2">
+                        <div key={index} className="flex gap-2">
                           <Input
                             placeholder={`Option ${index + 1}`}
                             value={option}
@@ -386,7 +386,7 @@ export function TestBank({ courseId }: TestBankProps) {
                           .watch("options")
                           ?.filter((option) => option.trim() !== "")
                           .map((option, index) => (
-                            <SelectItem key={`answer-${index}`} value={option}>
+                            <SelectItem key={index} value={option}>
                               {option}
                             </SelectItem>
                           ))}

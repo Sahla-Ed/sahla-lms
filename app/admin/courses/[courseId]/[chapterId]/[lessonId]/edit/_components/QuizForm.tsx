@@ -21,6 +21,21 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useRouter } from "next/navigation";
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 interface QuizFormProps {
   lesson: AdminLessonType;
@@ -37,14 +52,108 @@ interface Question {
   explanation?: string;
 }
 
-export function QuizForm({ lesson, courseId }: QuizFormProps) {
+function SortableQuestion({
+  question,
+  index,
+  onRemove,
+}: {
+  question: Question;
+  index: number;
+  onRemove: (id: string) => void;
+}) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: question.id });
+  return (
+    <div
+      ref={setNodeRef}
+      style={{
+        transform: CSS.Transform.toString(transform),
+        transition,
+        opacity: isDragging ? 0.5 : 1,
+      }}
+      {...attributes}
+      {...listeners}
+    >
+      <Card>
+        <CardContent className="p-4">
+          <div className="flex items-start gap-3">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="mt-1 cursor-grab"
+              {...attributes}
+              {...listeners}
+            >
+              <GripVertical className="w-4 h-4" />
+            </Button>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <Badge variant="secondary">Question {index + 1}</Badge>
+                <Badge variant="outline">{question.type}</Badge>
+              </div>
+              <p className="font-medium mb-2">{question.text}</p>
+              <div className="space-y-1">
+                {question.options.map((option, optionIndex) => (
+                  <div
+                    key={optionIndex}
+                    className={`p-2 rounded text-sm ${
+                      option === question.answer
+                        ? "bg-green-50 border border-green-200 dark:bg-green-950 dark:border-green-800"
+                        : "bg-gray-50 border border-gray-200 dark:bg-gray-950 dark:border-gray-800"
+                    }`}
+                  >
+                    {option}
+                    {option === question.answer && (
+                      <Badge variant="secondary" className="ml-2 text-xs">
+                        Correct
+                      </Badge>
+                    )}
+                  </div>
+                ))}
+              </div>
+              {question.explanation && (
+                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-950 rounded">
+                  <p className="text-sm font-medium text-blue-900 dark:text-blue-100">
+                    Explanation:
+                  </p>
+                  <p className="text-sm text-blue-700 dark:text-blue-300">
+                    {question.explanation}
+                  </p>
+                </div>
+              )}
+            </div>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => onRemove(question.id)}
+            >
+              <Trash2 className="w-4 h-4" />
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+export function QuizForm({ lesson, courseId, chapterId }: QuizFormProps) {
+  const router = useRouter();
   const [title, setTitle] = useState(lesson.title);
   const [description, setDescription] = useState(lesson.description || "");
+  const [timer, setTimer] = useState(lesson.timer ?? "");
   const [questions, setQuestions] = useState<Question[]>([]);
   const [availableQuestions, setAvailableQuestions] = useState<Question[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const sensors = useSensors(useSensor(PointerSensor));
 
   // Fetch available questions from test bank
   useEffect(() => {
@@ -89,10 +198,13 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
 
   const handleSave = async () => {
     setIsLoading(true);
+    // Save timer value (convert to int or null)
+    // TODO: Update lesson with timer value (requires server action update)
     const { error } = await tryCatch(
       updateQuizQuestions({
         lessonId: lesson.id,
         questionIds: questions.map((q) => q.id),
+        timer: timer ? parseInt(timer as string, 10) : null,
       })
     );
 
@@ -116,6 +228,15 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
 
   const removeQuestion = (questionId: string) => {
     setQuestions((prev) => prev.filter((q) => q.id !== questionId));
+  };
+
+  const handleDragEnd = (event: any) => {
+    const { active, over } = event;
+    if (active.id !== over.id) {
+      const oldIndex = questions.findIndex((q) => q.id === active.id);
+      const newIndex = questions.findIndex((q) => q.id === over.id);
+      setQuestions((items) => arrayMove(items, oldIndex, newIndex));
+    }
   };
 
   //todo:add this
@@ -165,6 +286,20 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
               placeholder="Enter quiz description..."
             />
           </div>
+          <div>
+            <Label htmlFor="timer">
+              Time limit (minutes){" "}
+              <span className="text-muted-foreground">[optional]</span>
+            </Label>
+            <Input
+              id="timer"
+              type="number"
+              min={1}
+              value={timer}
+              onChange={(e) => setTimer(e.target.value)}
+              placeholder="e.g. 30"
+            />
+          </div>
         </CardContent>
       </Card>
 
@@ -188,71 +323,27 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
               </p>
             </div>
           ) : (
-            <div className="space-y-4">
-              {questions.map((question, index) => (
-                <Card key={question.id}>
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-3">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="mt-1 cursor-grab"
-                      >
-                        <GripVertical className="w-4 h-4" />
-                      </Button>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Badge variant="secondary">
-                            Question {index + 1}
-                          </Badge>
-                          <Badge variant="outline">{question.type}</Badge>
-                        </div>
-                        <p className="font-medium mb-2">{question.text}</p>
-                        <div className="space-y-1">
-                          {question.options.map((option, optionIndex) => (
-                            <div
-                              key={optionIndex}
-                              className={`p-2 rounded text-sm ${
-                                option === question.answer
-                                  ? "bg-green-50 border border-green-200 dark:bg-green-950 dark:border-green-800"
-                                  : "bg-gray-50 border border-gray-200 dark:bg-gray-950 dark:border-gray-800"
-                              }`}
-                            >
-                              {option}
-                              {option === question.answer && (
-                                <Badge
-                                  variant="secondary"
-                                  className="ml-2 text-xs"
-                                >
-                                  Correct
-                                </Badge>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                        {question.explanation && (
-                          <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-950 rounded">
-                            <p className="text-sm font-medium text-blue-900 dark:text-blue-100">
-                              Explanation:
-                            </p>
-                            <p className="text-sm text-blue-700 dark:text-blue-300">
-                              {question.explanation}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        onClick={() => removeQuestion(question.id)}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext
+                items={questions.map((q) => q.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                <div className="space-y-4">
+                  {questions.map((question, index) => (
+                    <SortableQuestion
+                      key={question.id}
+                      question={question}
+                      index={index}
+                      onRemove={removeQuestion}
+                    />
+                  ))}
+                </div>
+              </SortableContext>
+            </DndContext>
           )}
         </CardContent>
       </Card>
@@ -336,7 +427,12 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
       </Dialog>
 
       <div className="flex justify-end gap-2">
-        <Button variant="outline">Cancel</Button>
+        <Button
+          variant="outline"
+          onClick={() => router.push(`/admin/courses/${courseId}/edit`)}
+        >
+          Cancel
+        </Button>
         <Button onClick={handleSave} disabled={isLoading}>
           {isLoading ? "Saving..." : "Save Quiz"}
         </Button>

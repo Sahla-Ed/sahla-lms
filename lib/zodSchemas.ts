@@ -75,6 +75,7 @@ export const questionSchema = z.object({
 export const quizQuestionSchema = z.object({
   questionIds: z.array(z.string()),
   lessonId: z.string(),
+  timer: z.number().int().min(1).optional().nullable(),
 });
 
 export const lessonSchema = z.object({

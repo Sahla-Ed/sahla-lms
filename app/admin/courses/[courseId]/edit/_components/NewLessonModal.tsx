@@ -57,7 +57,8 @@ export function NewLessonModal({
       }
 
       if (result.status === "success") {
-        toast.success(result.message);
+        const isQuiz = values.type === "QUIZ";
+        toast.success(isQuiz ? "Quiz created successfully" : result.message);
         form.reset();
         setIsOpen(false);
       } else if (result.status === "error") {
