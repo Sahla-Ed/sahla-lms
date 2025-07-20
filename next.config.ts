@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import { env } from "./lib/env";
+const { PrismaPlugin } = require("@prisma/nextjs-monorepo-workaround-plugin");
 
 const nextConfig: NextConfig = {
   images: {
@@ -13,6 +14,13 @@ const nextConfig: NextConfig = {
       "encrypted-tbn0.gstatic.com",
     ],
     remotePatterns: [new URL(env.NEXT_PUBLIC_AWS_ENDPOINT_URL_S3)],
+  },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.plugins = [...config.plugins, new PrismaPlugin()];
+    }
+
+    return config;
   },
 };
 
