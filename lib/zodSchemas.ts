@@ -54,6 +54,7 @@ export const courseSchema = z.object({
   }),
 });
 
+
 export const chapterSchema = z.object({
   name: z
     .string()
@@ -129,3 +130,5 @@ export type LessonSchemaType = z.infer<typeof lessonSchema>;
 export const aiQuizGenerationSchema = z.object({
   questions: z.array(aiQuestionSchema),
 });
+
+

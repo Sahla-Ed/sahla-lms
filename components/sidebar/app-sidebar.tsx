@@ -148,7 +148,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   className="object-cover h-12 w-12"
                   priority
                 />
-                Sahla
+                {/* Sahla */}
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

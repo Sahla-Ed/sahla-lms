@@ -12,12 +12,17 @@ import { ChevronDown, Play } from "lucide-react";
 import { LessonItem } from "./LessonItem";
 import { usePathname } from "next/navigation";
 import { useCourseProgress } from "@/hooks/use-course-progress";
+import { authClient } from "@/lib/auth-client";
+import { CertificateDownloader } from "./CertificateDownloader";
+
+
 
 interface iAppProps {
   course: CourseSidebarDataType["course"];
 }
 
 export function CourseSidebar({ course }: iAppProps) {
+  const { data: session } = authClient.useSession(); 
   const pathname = usePathname();
   const currentLessonId = pathname.split("/").pop();
 
@@ -53,6 +58,14 @@ export function CourseSidebar({ course }: iAppProps) {
             {progressPercentage}% complete
           </p>
         </div>
+      </div>
+
+      <div className="p-4 border-b border-border">
+        <CertificateDownloader
+          courseId={course.id}
+          courseTitle={course.title}
+          userName={session?.user.name ?? "Student"}
+        />
       </div>
 
       <div className="py-4 pr-4 space-y-3">
