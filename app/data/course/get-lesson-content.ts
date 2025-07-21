@@ -1,8 +1,8 @@
-import "server-only";
+import 'server-only';
 
-import { prisma } from "@/lib/db";
-import { notFound } from "next/navigation";
-import { requireUser } from "../user/require-user";
+import { prisma } from '@/lib/db';
+import { notFound } from 'next/navigation';
+import { requireUser } from '../user/require-user';
 
 export async function getLessonContent(lessonId: string) {
   const session = await requireUser();
@@ -42,7 +42,7 @@ export async function getLessonContent(lessonId: string) {
             },
           },
         },
-        orderBy: { position: "asc" },
+        orderBy: { position: 'asc' },
       },
       Chapter: {
         select: {
@@ -72,7 +72,7 @@ export async function getLessonContent(lessonId: string) {
     },
   });
 
-  if (!enrollment || enrollment.status !== "Active") {
+  if (!enrollment || enrollment.status !== 'Active') {
     return notFound();
   }
   // Fetch latest quiz attempt for this lesson and user
@@ -89,7 +89,7 @@ export async function getLessonContent(lessonId: string) {
       },
     },
     orderBy: {
-      completedAt: "desc",
+      completedAt: 'desc',
     },
   });
   return { ...lesson, latestQuizAttempt };

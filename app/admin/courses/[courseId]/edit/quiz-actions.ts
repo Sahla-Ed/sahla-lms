@@ -1,18 +1,18 @@
-"use server";
+'use server';
 
-import { requireAdmin } from "@/app/data/admin/require-admin";
-import { prisma } from "@/lib/db";
-import { ApiResponse } from "@/lib/types";
+import { requireAdmin } from '@/app/data/admin/require-admin';
+import { prisma } from '@/lib/db';
+import { ApiResponse } from '@/lib/types';
 import {
   questionSchema,
   QuestionSchemaType,
   quizQuestionSchema,
   QuizQuestionSchemaType,
-} from "@/lib/zodSchemas";
-import { revalidatePath } from "next/cache";
+} from '@/lib/zodSchemas';
+import { revalidatePath } from 'next/cache';
 
 export async function createQuestion(
-  data: QuestionSchemaType
+  data: QuestionSchemaType,
 ): Promise<ApiResponse> {
   await requireAdmin();
   try {
@@ -20,8 +20,8 @@ export async function createQuestion(
 
     if (!result.success) {
       return {
-        status: "error",
-        message: "Invalid data",
+        status: 'error',
+        message: 'Invalid data',
       };
     }
 
@@ -39,20 +39,20 @@ export async function createQuestion(
     revalidatePath(`/admin/courses/${result.data.courseId}/edit`);
 
     return {
-      status: "success",
-      message: "Question created successfully",
+      status: 'success',
+      message: 'Question created successfully',
     };
   } catch {
     return {
-      status: "error",
-      message: "Failed to create question",
+      status: 'error',
+      message: 'Failed to create question',
     };
   }
 }
 
 export async function updateQuestion(
   questionId: string,
-  data: QuestionSchemaType
+  data: QuestionSchemaType,
 ): Promise<ApiResponse> {
   await requireAdmin();
   try {
@@ -60,8 +60,8 @@ export async function updateQuestion(
 
     if (!result.success) {
       return {
-        status: "error",
-        message: "Invalid data",
+        status: 'error',
+        message: 'Invalid data',
       };
     }
 
@@ -79,20 +79,20 @@ export async function updateQuestion(
     revalidatePath(`/admin/courses/${result.data.courseId}/edit`);
 
     return {
-      status: "success",
-      message: "Question updated successfully",
+      status: 'success',
+      message: 'Question updated successfully',
     };
   } catch {
     return {
-      status: "error",
-      message: "Failed to update question",
+      status: 'error',
+      message: 'Failed to update question',
     };
   }
 }
 
 export async function deleteQuestion(
   questionId: string,
-  courseId: string
+  courseId: string,
 ): Promise<ApiResponse> {
   await requireAdmin();
   try {
@@ -103,19 +103,19 @@ export async function deleteQuestion(
     revalidatePath(`/admin/courses/${courseId}/edit`);
 
     return {
-      status: "success",
-      message: "Question deleted successfully",
+      status: 'success',
+      message: 'Question deleted successfully',
     };
   } catch {
     return {
-      status: "error",
-      message: "Failed to delete question",
+      status: 'error',
+      message: 'Failed to delete question',
     };
   }
 }
 
 export async function updateQuizQuestions(
-  data: QuizQuestionSchemaType
+  data: QuizQuestionSchemaType,
 ): Promise<ApiResponse> {
   await requireAdmin();
   try {
@@ -123,13 +123,13 @@ export async function updateQuizQuestions(
 
     if (!result.success) {
       return {
-        status: "error",
-        message: "Invalid data",
+        status: 'error',
+        message: 'Invalid data',
       };
     }
 
     // Update timer if provided
-    if (typeof result.data.timer === "number" || result.data.timer === null) {
+    if (typeof result.data.timer === 'number' || result.data.timer === null) {
       await prisma.lesson.update({
         where: { id: result.data.lessonId },
         data: { timer: result.data.timer },
@@ -153,13 +153,13 @@ export async function updateQuizQuestions(
     }
 
     return {
-      status: "success",
-      message: "Quiz questions updated successfully",
+      status: 'success',
+      message: 'Quiz questions updated successfully',
     };
   } catch {
     return {
-      status: "error",
-      message: "Failed to update quiz questions",
+      status: 'error',
+      message: 'Failed to update quiz questions',
     };
   }
 }
@@ -169,7 +169,7 @@ export async function getCourseQuestions(courseId: string) {
 
   const questions = await prisma.question.findMany({
     where: { courseId },
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: 'desc' },
   });
 
   return questions;

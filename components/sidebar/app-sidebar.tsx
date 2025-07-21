@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { useState, useEffect } from "react";
+import * as React from 'react';
+import { useState, useEffect } from 'react';
 
 import {
   IconChartBar,
@@ -12,11 +12,11 @@ import {
   IconSettings,
   IconUsers,
   IconFolder,
-} from "@tabler/icons-react";
+} from '@tabler/icons-react';
 
-import { NavMain } from "@/components/sidebar/nav-main";
-import { NavSecondary } from "@/components/sidebar/nav-secondary";
-import { NavUser } from "@/components/sidebar/nav-user";
+import { NavMain } from '@/components/sidebar/nav-main';
+import { NavSecondary } from '@/components/sidebar/nav-secondary';
+import { NavUser } from '@/components/sidebar/nav-user';
 import {
   Sidebar,
   SidebarContent,
@@ -24,26 +24,26 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
-import Link from "next/link";
-import Image from "next/image";
-import LogoLight from "@/public/logoLight.png";
-import LogoDark from "@/public/logoDark.png";
-import { useTheme } from "next-themes";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/sidebar';
+import Link from 'next/link';
+import Image from 'next/image';
+import LogoLight from '@/public/logoLight.png';
+import LogoDark from '@/public/logoDark.png';
+import { useTheme } from 'next-themes';
+import { cn } from '@/lib/utils';
 
 const data = {
   navMain: [
-    { title: "Dashboard", url: "/admin", icon: IconDashboard },
-    { title: "Courses", url: "/admin/courses", icon: IconListDetails },
-    { title: "Analytics", url: "/admin/analytics", icon: IconChartBar },
-    { title: "Projects", url: "/admin/projects", icon: IconFolder },
-    { title: "Team", url: "/admin/teams", icon: IconUsers },
+    { title: 'Dashboard', url: '/admin', icon: IconDashboard },
+    { title: 'Courses', url: '/admin/courses', icon: IconListDetails },
+    { title: 'Analytics', url: '/admin/analytics', icon: IconChartBar },
+    { title: 'Projects', url: '/admin/projects', icon: IconFolder },
+    { title: 'Team', url: '/admin/teams', icon: IconUsers },
   ],
   navSecondary: [
-    { title: "Settings", url: "/admin/settings", icon: IconSettings },
-    { title: "Get Help", url: "/faqs", icon: IconHelp },
-    { title: "Search", url: "/admin/search", icon: IconSearch },
+    { title: 'Settings', url: '/admin/settings', icon: IconSettings },
+    { title: 'Get Help', url: '/faqs', icon: IconHelp },
+    { title: 'Search', url: '/admin/search', icon: IconSearch },
   ],
 };
 
@@ -57,31 +57,31 @@ export function AppSidebar({
     setMounted(true);
   }, []);
 
-  const currentTheme = theme === "system" ? systemTheme : theme;
+  const currentTheme = theme === 'system' ? systemTheme : theme;
 
   return (
     <Sidebar
-      collapsible="offcanvas"
-      className={cn("border-r", className)}
+      collapsible='offcanvas'
+      className={cn('border-r', className)}
       {...props}
     >
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <div className="p-2">
+            <div className='p-2'>
               <Link
-                href="/"
-                className="flex items-center justify-center transition-none hover:scale-100 focus:outline-none"
+                href='/'
+                className='flex items-center justify-center transition-none hover:scale-100 focus:outline-none'
               >
                 {mounted ? (
                   <Image
-                    src={currentTheme === "dark" ? LogoDark : LogoLight}
-                    alt="Logo"
-                    className="object-cover h-16 w-16"
+                    src={currentTheme === 'dark' ? LogoDark : LogoLight}
+                    alt='Logo'
+                    className='h-16 w-16 object-cover'
                     priority
                   />
                 ) : (
-                  <div className="h-16 w-16 bg-muted rounded-md" />
+                  <div className='bg-muted h-16 w-16 rounded-md' />
                 )}
               </Link>
             </div>
@@ -90,7 +90,7 @@ export function AppSidebar({
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavSecondary items={data.navSecondary} className='mt-auto' />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />

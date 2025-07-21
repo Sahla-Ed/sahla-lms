@@ -1,15 +1,14 @@
-"use server";
+'use server';
 
-import "server-only";
-import { requireUser } from "../user/require-user";
-import { prisma } from "@/lib/db";
-
+import 'server-only';
+import { requireUser } from '../user/require-user';
+import { prisma } from '@/lib/db';
 
 export async function checkCourseCompletion(courseId: string) {
   const user = await requireUser();
 
   if (!user) {
-    throw new Error("User not authenticated");
+    throw new Error('User not authenticated');
   }
 
   const course = await prisma.course.findUnique({
@@ -24,12 +23,12 @@ export async function checkCourseCompletion(courseId: string) {
   });
 
   if (!course) {
-    throw new Error("Course not found");
+    throw new Error('Course not found');
   }
 
   const totalLessons = course.chapter.reduce(
     (acc, chap) => acc + chap.lessons.length,
-    0
+    0,
   );
 
   if (totalLessons === 0) {
@@ -55,21 +54,18 @@ export async function checkCourseCompletion(courseId: string) {
   };
 }
 
-
 export async function issueCertificate(courseId: string) {
   const user = await requireUser();
 
-
   if (!user) {
-    throw new Error("User not authenticated");
+    throw new Error('User not authenticated');
   }
 
   const { isCompleted } = await checkCourseCompletion(courseId);
   if (!isCompleted) {
-    throw new Error("Course is not completed yet.");
+    throw new Error('Course is not completed yet.');
   }
 
- 
   const existingCertificate = await prisma.certificate.findUnique({
     where: { userId_courseId: { userId: user.id, courseId } },
   });

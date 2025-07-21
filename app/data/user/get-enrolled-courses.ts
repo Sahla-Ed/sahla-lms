@@ -1,6 +1,6 @@
-import "server-only";
-import { requireUser } from "./require-user";
-import { prisma } from "@/lib/db";
+import 'server-only';
+import { requireUser } from './require-user';
+import { prisma } from '@/lib/db';
 
 export async function getEnrolledCourses() {
   const user = await requireUser();
@@ -8,7 +8,7 @@ export async function getEnrolledCourses() {
   const data = await prisma.enrollment.findMany({
     where: {
       userId: user?.id as string,
-      status: "Active",
+      status: 'Active',
     },
     select: {
       Course: {

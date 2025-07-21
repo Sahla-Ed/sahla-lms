@@ -1,9 +1,9 @@
-"use server";
+'use server';
 
-import { requireUser } from "@/app/data/user/require-user";
-import { prisma } from "@/lib/db";
-import { ApiResponse } from "@/lib/types";
-import { revalidatePath } from "next/cache";
+import { requireUser } from '@/app/data/user/require-user';
+import { prisma } from '@/lib/db';
+import { ApiResponse } from '@/lib/types';
+import { revalidatePath } from 'next/cache';
 
 export async function submitQuizAttempt(data: {
   lessonId: string;
@@ -50,7 +50,7 @@ export async function submitQuizAttempt(data: {
         questionId,
         answer,
         isCorrect: false,
-      })
+      }),
     );
 
     // Get correct answers to determine if user answers are correct
@@ -115,14 +115,14 @@ export async function submitQuizAttempt(data: {
     }
 
     return {
-      status: "success",
-      message: "Quiz submitted successfully",
+      status: 'success',
+      message: 'Quiz submitted successfully',
     };
   } catch (error) {
-    console.error("Error submitting quiz:", error);
+    console.error('Error submitting quiz:', error);
     return {
-      status: "error",
-      message: "Failed to submit quiz",
+      status: 'error',
+      message: 'Failed to submit quiz',
     };
   }
 }
@@ -143,7 +143,7 @@ export async function getQuizAttempt(lessonId: string) {
       },
     },
     orderBy: {
-      completedAt: "desc",
+      completedAt: 'desc',
     },
   });
 

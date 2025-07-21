@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Page,
@@ -7,8 +7,8 @@ import {
   Document,
   StyleSheet,
   Image,
-} from "@react-pdf/renderer";
-import { colors } from "./design-tokens";
+} from '@react-pdf/renderer';
+import { colors } from './design-tokens';
 
 const styles = StyleSheet.create({
   page: {
@@ -19,14 +19,14 @@ const styles = StyleSheet.create({
     flex: 1,
     border: `5px solid ${colors.primary}`,
     padding: 20,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   mainContent: {
     flexGrow: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   logo: {
     width: 70,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 42,
     marginBottom: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: colors.primary,
   },
   presentedTo: {
@@ -46,31 +46,31 @@ const styles = StyleSheet.create({
   },
   userName: {
     fontSize: 30,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: colors.destructive,
     marginBottom: 30,
-    textTransform: "capitalize",
+    textTransform: 'capitalize',
   },
   completionText: {
     fontSize: 16,
-    textAlign: "center",
+    textAlign: 'center',
     marginBottom: 10,
     color: colors.foreground,
   },
   courseTitle: {
     fontSize: 22,
-    fontWeight: "bold",
-    textAlign: "center",
+    fontWeight: 'bold',
+    textAlign: 'center',
     color: colors.primary,
     marginBottom: 40,
   },
   footer: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
     marginTop: 40,
-    alignItems: "flex-end",
+    alignItems: 'flex-end',
   },
   date: {
     fontSize: 12,
@@ -82,15 +82,15 @@ const styles = StyleSheet.create({
     borderTop: `1px solid ${colors.primary}`,
     paddingTop: 5,
     width: 200,
-    textAlign: "center",
+    textAlign: 'center',
   },
 
   certificateId: {
-    position: "absolute",
+    position: 'absolute',
     bottom: -15,
     left: 0,
     right: 0,
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 8,
     color: colors.mutedForeground,
   },
@@ -111,12 +111,12 @@ export const CertificateDocument = ({
 }: CertificateDocumentProps) => (
   <Document
     title={`${userName} - ${courseTitle} Certificate`}
-    author="Sahla Platform"
+    author='Sahla Platform'
   >
-    <Page size="A4" orientation="landscape" style={styles.page}>
+    <Page size='A4' orientation='landscape' style={styles.page}>
       <View style={styles.container}>
         <View style={styles.mainContent}>
-          <Image src="/logoDark.png" style={styles.logo} />
+          <Image src='/logoDark.png' style={styles.logo} />
           <Text style={styles.header}>Certificate of Completion</Text>
           <Text style={styles.presentedTo}>
             This certificate is proudly presented to

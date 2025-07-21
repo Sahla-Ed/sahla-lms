@@ -1,7 +1,7 @@
-import "server-only";
-import { requireUser } from "../user/require-user";
-import { prisma } from "@/lib/db";
-import { notFound } from "next/navigation";
+import 'server-only';
+import { requireUser } from '../user/require-user';
+import { prisma } from '@/lib/db';
+import { notFound } from 'next/navigation';
 
 export async function getCourseSidebarData(slug: string) {
   const session = await requireUser();
@@ -20,7 +20,7 @@ export async function getCourseSidebarData(slug: string) {
       slug: true,
       chapter: {
         orderBy: {
-          position: "asc",
+          position: 'asc',
         },
         select: {
           id: true,
@@ -28,7 +28,7 @@ export async function getCourseSidebarData(slug: string) {
           position: true,
           lessons: {
             orderBy: {
-              position: "asc",
+              position: 'asc',
             },
             select: {
               id: true,
@@ -52,7 +52,7 @@ export async function getCourseSidebarData(slug: string) {
                   userId: session?.id,
                 },
                 orderBy: {
-                  completedAt: "desc",
+                  completedAt: 'desc',
                 },
                 take: 1,
                 select: {
@@ -79,7 +79,7 @@ export async function getCourseSidebarData(slug: string) {
     },
   });
 
-  if (!enrollment || enrollment.status !== "Active") {
+  if (!enrollment || enrollment.status !== 'Active') {
     return notFound();
   }
 

@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { CertificateDocument } from "@/app/(public)/_components/CertificateDocument";
-import { Button } from "@/components/ui/button";
+import { CertificateDocument } from '@/app/(public)/_components/CertificateDocument';
+import { Button } from '@/components/ui/button';
 import {
   checkCourseCompletion,
   issueCertificate,
-} from "@/app/data/course/certificate-actions";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import { Award, Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
+} from '@/app/data/course/certificate-actions';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import { Award, Loader2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 interface CertificateDownloaderProps {
   courseId: string;
@@ -44,7 +44,7 @@ export function CertificateDownloader({
       .catch((err) => {
         console.log(err);
 
-        setError("Failed to check course completion. Please try again later.");
+        setError('Failed to check course completion. Please try again later.');
       })
       .finally(() => {
         setIsLoading(false);
@@ -57,14 +57,14 @@ export function CertificateDownloader({
       const certificate = await issueCertificate(courseId);
       if (certificate && certificate.id) {
         setCertificateId(certificate.id);
-        toast.success("Your certificate is ready!");
+        toast.success('Your certificate is ready!');
       } else {
-        throw new Error("Could not retrieve certificate ID.");
+        throw new Error('Could not retrieve certificate ID.');
       }
     } catch (error) {
       console.log(error);
 
-      toast.error("Failed to prepare certificate. Please try again.");
+      toast.error('Failed to prepare certificate. Please try again.');
     } finally {
       setIsPreparing(false);
     }
@@ -72,8 +72,8 @@ export function CertificateDownloader({
 
   if (!isClient || isLoading) {
     return (
-      <Button variant="outline" className="w-full" disabled>
-        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+      <Button variant='outline' className='w-full' disabled>
+        <Loader2 className='mr-2 h-4 w-4 animate-spin' />
         Checking Completion...
       </Button>
     );
@@ -81,7 +81,7 @@ export function CertificateDownloader({
 
   if (error) {
     return (
-      <Button variant="destructive" className="w-full" disabled>
+      <Button variant='destructive' className='w-full' disabled>
         {error}
       </Button>
     );
@@ -94,19 +94,19 @@ export function CertificateDownloader({
   if (!certificateId) {
     return (
       <Button
-        variant="default"
-        className="w-full bg-amber-500 hover:bg-amber-600"
+        variant='default'
+        className='w-full bg-amber-500 hover:bg-amber-600'
         disabled={isPreparing}
         onClick={handlePrepareCertificate}
       >
         {isPreparing ? (
           <>
-            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
             Preparing...
           </>
         ) : (
           <>
-            <Award className="w-4 h-4 mr-2" />
+            <Award className='mr-2 h-4 w-4' />
             Generate Certificate
           </>
         )}
@@ -119,26 +119,26 @@ export function CertificateDownloader({
         <CertificateDocument
           userName={userName}
           courseTitle={courseTitle}
-          completionDate={new Date().toLocaleDateString("en-US")}
+          completionDate={new Date().toLocaleDateString('en-US')}
           certificateId={certificateId}
         />
       }
-      fileName={`${courseTitle.replace(/\s+/g, "_")}-Certificate.pdf`}
+      fileName={`${courseTitle.replace(/\s+/g, '_')}-Certificate.pdf`}
     >
       {({ loading }) => (
         <Button
-          variant="default"
-          className="w-full bg-green-500 hover:bg-green-600"
+          variant='default'
+          className='w-full bg-green-500 hover:bg-green-600'
           disabled={loading}
         >
           {loading ? (
             <>
-              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              <Loader2 className='mr-2 h-4 w-4 animate-spin' />
               Generating PDF...
             </>
           ) : (
             <>
-              <Award className="w-4 h-4 mr-2" />
+              <Award className='mr-2 h-4 w-4' />
               Download Now
             </>
           )}

@@ -1,13 +1,13 @@
-import { getIndividualCourse } from "@/app/data/course/get-course";
-import { RenderDescription } from "@/components/rich-text-editor/RenderDescription";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { getIndividualCourse } from '@/app/data/course/get-course';
+import { RenderDescription } from '@/components/rich-text-editor/RenderDescription';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { Separator } from "@/components/ui/separator";
+} from '@/components/ui/collapsible';
+import { Separator } from '@/components/ui/separator';
 import {
   IconBook,
   IconCategory,
@@ -17,16 +17,16 @@ import {
   IconDownload,
   IconCertificate,
   IconInfinity,
-} from "@tabler/icons-react";
-import { PlayCircle, Clock, BarChart3, BookOpen } from "lucide-react";
-import Image from "next/image";
-import { checkIfCourseBought } from "@/app/data/user/user-is-enrolled";
-import Link from "next/link";
-import { EnrollmentButton } from "./_components/EnrollmentButton";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { Metadata } from "next";
-import { constructUrl } from "@/hooks/use-construct-url";
+} from '@tabler/icons-react';
+import { PlayCircle, Clock, BarChart3, BookOpen } from 'lucide-react';
+import Image from 'next/image';
+import { checkIfCourseBought } from '@/app/data/user/user-is-enrolled';
+import Link from 'next/link';
+import { EnrollmentButton } from './_components/EnrollmentButton';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { Metadata } from 'next';
+import { constructUrl } from '@/hooks/use-construct-url';
 
 type PageParams = Promise<{ slug: string }>;
 
@@ -53,217 +53,217 @@ export default async function SlugPage({ params }: { params: PageParams }) {
 
   const totalLessons = course.chapter.reduce(
     (total, chapter) => total + chapter.lessons.length,
-    0
+    0,
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
+    <div className='from-background via-background to-muted/20 min-h-screen bg-gradient-to-br'>
       {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5"></div>
-        <div className="container mx-auto px-4 py-8">
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+      <div className='relative overflow-hidden'>
+        <div className='from-primary/5 to-primary/5 absolute inset-0 bg-gradient-to-r via-transparent'></div>
+        <div className='container mx-auto px-4 py-8'>
+          <div className='grid grid-cols-1 gap-8 lg:grid-cols-12'>
             {/* Left Content */}
-            <div className="order-2 lg:order-1 lg:col-span-8">
+            <div className='order-2 lg:order-1 lg:col-span-8'>
               {/* Course Image */}
-              <div className="group relative aspect-video w-full overflow-hidden rounded-2xl shadow-2xl shadow-primary/10 border border-border/50">
+              <div className='group shadow-primary/10 border-border/50 relative aspect-video w-full overflow-hidden rounded-2xl border shadow-2xl'>
                 <Image
                   src={constructUrl(course.fileKey!)}
                   alt={course.title}
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  className='object-cover transition-transform duration-700 group-hover:scale-105'
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent'></div>
 
                 {/* Play Button Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="rounded-full bg-white/20 backdrop-blur-sm p-6 border border-white/30">
-                    <PlayCircle className="size-16 text-white" />
+                <div className='absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100'>
+                  <div className='rounded-full border border-white/30 bg-white/20 p-6 backdrop-blur-sm'>
+                    <PlayCircle className='size-16 text-white' />
                   </div>
                 </div>
               </div>
 
               {/* Course Header */}
-              <div className="mt-8 space-y-6">
-                <div className="space-y-4">
-                  <div className="flex flex-wrap items-center gap-2">
+              <div className='mt-8 space-y-6'>
+                <div className='space-y-4'>
+                  <div className='flex flex-wrap items-center gap-2'>
                     <Badge
-                      variant="secondary"
-                      className="bg-primary/10 text-primary border-primary/20"
+                      variant='secondary'
+                      className='bg-primary/10 text-primary border-primary/20'
                     >
-                      <IconStar className="size-3 mr-1" />
+                      <IconStar className='mr-1 size-3' />
                       Featured Course
                     </Badge>
                   </div>
 
-                  <h1 className="text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+                  <h1 className='from-foreground to-foreground/70 bg-gradient-to-r bg-clip-text text-4xl font-bold tracking-tight text-transparent lg:text-5xl'>
                     {course.title}
                   </h1>
 
-                  <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl">
+                  <p className='text-muted-foreground max-w-3xl text-xl leading-relaxed'>
                     {course.smallDescription}
                   </p>
                 </div>
 
                 {/* Stats Row */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="group p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-border/50 hover:shadow-lg transition-all duration-300">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
-                        <BarChart3 className="size-5" />
+                <div className='grid grid-cols-2 gap-4 md:grid-cols-4'>
+                  <div className='group bg-card/50 border-border/50 rounded-xl border p-4 backdrop-blur-sm transition-all duration-300 hover:shadow-lg'>
+                    <div className='flex items-center gap-3'>
+                      <div className='bg-primary/10 text-primary group-hover:bg-primary/20 rounded-lg p-2 transition-colors'>
+                        <BarChart3 className='size-5' />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-muted-foreground">
+                        <p className='text-muted-foreground text-sm font-medium'>
                           Level
                         </p>
-                        <p className="font-semibold">{course.level}</p>
+                        <p className='font-semibold'>{course.level}</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="group p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-border/50 hover:shadow-lg transition-all duration-300">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
-                        <Clock className="size-5" />
+                  <div className='group bg-card/50 border-border/50 rounded-xl border p-4 backdrop-blur-sm transition-all duration-300 hover:shadow-lg'>
+                    <div className='flex items-center gap-3'>
+                      <div className='bg-primary/10 text-primary group-hover:bg-primary/20 rounded-lg p-2 transition-colors'>
+                        <Clock className='size-5' />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-muted-foreground">
+                        <p className='text-muted-foreground text-sm font-medium'>
                           Duration
                         </p>
-                        <p className="font-semibold">{course.duration}h</p>
+                        <p className='font-semibold'>{course.duration}h</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="group p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-border/50 hover:shadow-lg transition-all duration-300">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
-                        <BookOpen className="size-5" />
+                  <div className='group bg-card/50 border-border/50 rounded-xl border p-4 backdrop-blur-sm transition-all duration-300 hover:shadow-lg'>
+                    <div className='flex items-center gap-3'>
+                      <div className='bg-primary/10 text-primary group-hover:bg-primary/20 rounded-lg p-2 transition-colors'>
+                        <BookOpen className='size-5' />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-muted-foreground">
+                        <p className='text-muted-foreground text-sm font-medium'>
                           Lessons
                         </p>
-                        <p className="font-semibold">{totalLessons}</p>
+                        <p className='font-semibold'>{totalLessons}</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="group p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-border/50 hover:shadow-lg transition-all duration-300">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
-                        <IconCategory className="size-5" />
+                  <div className='group bg-card/50 border-border/50 rounded-xl border p-4 backdrop-blur-sm transition-all duration-300 hover:shadow-lg'>
+                    <div className='flex items-center gap-3'>
+                      <div className='bg-primary/10 text-primary group-hover:bg-primary/20 rounded-lg p-2 transition-colors'>
+                        <IconCategory className='size-5' />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-muted-foreground">
+                        <p className='text-muted-foreground text-sm font-medium'>
                           Category
                         </p>
-                        <p className="font-semibold">{course.category}</p>
+                        <p className='font-semibold'>{course.category}</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <Separator className="my-12" />
+              <Separator className='my-12' />
 
               {/* Course Description */}
-              <div className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <div className="p-3 rounded-xl bg-primary/10 text-primary">
-                    <IconBook className="size-6" />
+              <div className='space-y-6'>
+                <div className='flex items-center gap-3'>
+                  <div className='bg-primary/10 text-primary rounded-xl p-3'>
+                    <IconBook className='size-6' />
                   </div>
-                  <h2 className="text-3xl font-bold tracking-tight">
+                  <h2 className='text-3xl font-bold tracking-tight'>
                     What You&apos;ll Learn
                   </h2>
                 </div>
 
-                <Card className="p-6 bg-card/50 backdrop-blur-sm border-border/50">
+                <Card className='bg-card/50 border-border/50 p-6 backdrop-blur-sm'>
                   <RenderDescription json={JSON.parse(course.description)} />
                 </Card>
               </div>
 
               {/* Course Content */}
-              <div className="mt-16 space-y-8">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-primary/10 text-primary">
-                      <IconPlayerPlay className="size-6" />
+              <div className='mt-16 space-y-8'>
+                <div className='flex items-center justify-between'>
+                  <div className='flex items-center gap-3'>
+                    <div className='bg-primary/10 text-primary rounded-xl p-3'>
+                      <IconPlayerPlay className='size-6' />
                     </div>
                     <div>
-                      <h2 className="text-3xl font-bold tracking-tight">
+                      <h2 className='text-3xl font-bold tracking-tight'>
                         Course Content
                       </h2>
-                      <p className="text-muted-foreground">
-                        {course.chapter.length} chapters • {totalLessons}{" "}
+                      <p className='text-muted-foreground'>
+                        {course.chapter.length} chapters • {totalLessons}{' '}
                         lessons
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="space-y-4">
+                <div className='space-y-4'>
                   {course.chapter.map((chapter, index) => (
                     <Collapsible key={chapter.id} defaultOpen={index === 0}>
-                      <Card className="group overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm hover:shadow-lg transition-all duration-300">
-                        <CollapsibleTrigger className="w-full">
-                          <CardContent className="p-6 hover:bg-muted/30 transition-all duration-300">
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center gap-4">
-                                <div className="flex size-12 items-center justify-center rounded-full bg-gradient-to-r from-primary/20 to-primary/10 text-primary font-bold text-lg border-2 border-primary/20">
+                      <Card className='group border-border/50 bg-card/50 overflow-hidden backdrop-blur-sm transition-all duration-300 hover:shadow-lg'>
+                        <CollapsibleTrigger className='w-full'>
+                          <CardContent className='hover:bg-muted/30 p-6 transition-all duration-300'>
+                            <div className='flex items-center justify-between'>
+                              <div className='flex items-center gap-4'>
+                                <div className='from-primary/20 to-primary/10 text-primary border-primary/20 flex size-12 items-center justify-center rounded-full border-2 bg-gradient-to-r text-lg font-bold'>
                                   {index + 1}
                                 </div>
-                                <div className="text-left">
-                                  <h3 className="text-xl font-bold mb-1">
+                                <div className='text-left'>
+                                  <h3 className='mb-1 text-xl font-bold'>
                                     {chapter.title}
                                   </h3>
-                                  <p className="text-sm text-muted-foreground">
+                                  <p className='text-muted-foreground text-sm'>
                                     {chapter.lessons.length} lesson
-                                    {chapter.lessons.length !== 1 ? "s" : ""}
+                                    {chapter.lessons.length !== 1 ? 's' : ''}
                                   </p>
                                 </div>
                               </div>
 
-                              <div className="flex items-center gap-3">
+                              <div className='flex items-center gap-3'>
                                 <Badge
-                                  variant="secondary"
-                                  className="bg-primary/10 text-primary"
+                                  variant='secondary'
+                                  className='bg-primary/10 text-primary'
                                 >
                                   {chapter.lessons.length} lesson
-                                  {chapter.lessons.length !== 1 ? "s" : ""}
+                                  {chapter.lessons.length !== 1 ? 's' : ''}
                                 </Badge>
-                                <IconChevronDown className="size-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                                <IconChevronDown className='text-muted-foreground group-hover:text-primary size-5 transition-colors' />
                               </div>
                             </div>
                           </CardContent>
                         </CollapsibleTrigger>
 
                         <CollapsibleContent>
-                          <div className="border-t bg-muted/10 backdrop-blur-sm">
-                            <div className="p-6 pt-4 space-y-2">
+                          <div className='bg-muted/10 border-t backdrop-blur-sm'>
+                            <div className='space-y-2 p-6 pt-4'>
                               {chapter.lessons.map((lesson, lessonIndex) => (
                                 <div
                                   key={lesson.id}
-                                  className="group/lesson flex items-center gap-4 rounded-lg p-4 hover:bg-accent/50 transition-all duration-200 border border-transparent hover:border-border/50"
+                                  className='group/lesson hover:bg-accent/50 hover:border-border/50 flex items-center gap-4 rounded-lg border border-transparent p-4 transition-all duration-200'
                                 >
-                                  <div className="flex size-10 items-center justify-center rounded-full bg-gradient-to-r from-primary/20 to-primary/10 border-2 border-primary/20 group-hover/lesson:border-primary/40 transition-all duration-200">
-                                    <IconPlayerPlay className="size-4 text-primary" />
+                                  <div className='from-primary/20 to-primary/10 border-primary/20 group-hover/lesson:border-primary/40 flex size-10 items-center justify-center rounded-full border-2 bg-gradient-to-r transition-all duration-200'>
+                                    <IconPlayerPlay className='text-primary size-4' />
                                   </div>
 
-                                  <div className="flex-1">
-                                    <p className="font-medium text-sm group-hover/lesson:text-primary transition-colors">
+                                  <div className='flex-1'>
+                                    <p className='group-hover/lesson:text-primary text-sm font-medium transition-colors'>
                                       {lesson.title}
                                     </p>
-                                    <p className="text-xs text-muted-foreground mt-1">
+                                    <p className='text-muted-foreground mt-1 text-xs'>
                                       Lesson {lessonIndex + 1} • 5 min
                                     </p>
                                   </div>
 
-                                  <div className="opacity-0 group-hover/lesson:opacity-100 transition-opacity">
+                                  <div className='opacity-0 transition-opacity group-hover/lesson:opacity-100'>
                                     <Badge
-                                      variant="outline"
-                                      className="text-xs"
+                                      variant='outline'
+                                      className='text-xs'
                                     >
                                       Preview
                                     </Badge>
@@ -281,69 +281,69 @@ export default async function SlugPage({ params }: { params: PageParams }) {
             </div>
 
             {/* Right Sidebar - Enrollment Card */}
-            <div className="order-1 lg:order-2 lg:col-span-4">
-              <div className="sticky top-8">
-                <Card className="overflow-hidden border-border/50 bg-card/80 backdrop-blur-sm shadow-2xl shadow-primary/10">
-                  <CardContent className="p-0">
+            <div className='order-1 lg:order-2 lg:col-span-4'>
+              <div className='sticky top-8'>
+                <Card className='border-border/50 bg-card/80 shadow-primary/10 overflow-hidden shadow-2xl backdrop-blur-sm'>
+                  <CardContent className='p-0'>
                     {/* Price Header */}
-                    <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-6 border-b border-border/50">
-                      <div className="text-center">
-                        <p className="text-sm font-medium text-muted-foreground mb-2">
+                    <div className='from-primary/10 to-primary/5 border-border/50 border-b bg-gradient-to-r p-6'>
+                      <div className='text-center'>
+                        <p className='text-muted-foreground mb-2 text-sm font-medium'>
                           Course Price
                         </p>
-                        <div className="flex items-center justify-center gap-2">
-                          <span className="text-4xl font-bold text-primary">
-                            {new Intl.NumberFormat("en-US", {
-                              style: "currency",
-                              currency: "USD",
+                        <div className='flex items-center justify-center gap-2'>
+                          <span className='text-primary text-4xl font-bold'>
+                            {new Intl.NumberFormat('en-US', {
+                              style: 'currency',
+                              currency: 'USD',
                             }).format(course.price)}
                           </span>
                         </div>
                       </div>
                     </div>
 
-                    <div className="p-6 space-y-6">
+                    <div className='space-y-6 p-6'>
                       {/* Course Features */}
-                      <div className="space-y-4">
-                        <h4 className="font-semibold text-lg">
+                      <div className='space-y-4'>
+                        <h4 className='text-lg font-semibold'>
                           This course includes:
                         </h4>
-                        <div className="grid gap-3">
+                        <div className='grid gap-3'>
                           {[
                             {
                               icon: IconInfinity,
-                              text: "Full lifetime access",
+                              text: 'Full lifetime access',
                               highlight: true,
                             },
                             {
                               icon: IconDownload,
-                              text: "Downloadable resources",
+                              text: 'Downloadable resources',
                             },
                             {
                               icon: IconCertificate,
-                              text: "Certificate of completion",
+                              text: 'Certificate of completion',
                             },
                           ].map((feature, index) => (
                             <div
                               key={index}
                               className={cn(
-                                "flex items-center gap-3 p-3 rounded-lg transition-all duration-200",
+                                'flex items-center gap-3 rounded-lg p-3 transition-all duration-200',
                                 feature.highlight
-                                  ? "bg-primary/5 border border-primary/20"
-                                  : "hover:bg-muted/50"
+                                  ? 'bg-primary/5 border-primary/20 border'
+                                  : 'hover:bg-muted/50',
                               )}
                             >
                               <div
                                 className={cn(
-                                  "p-2 rounded-lg",
+                                  'rounded-lg p-2',
                                   feature.highlight
-                                    ? "bg-primary/10 text-primary"
-                                    : "bg-muted text-muted-foreground"
+                                    ? 'bg-primary/10 text-primary'
+                                    : 'bg-muted text-muted-foreground',
                                 )}
                               >
-                                <feature.icon className="size-4" />
+                                <feature.icon className='size-4' />
                               </div>
-                              <span className="text-sm font-medium">
+                              <span className='text-sm font-medium'>
                                 {feature.text}
                               </span>
                             </div>
@@ -352,36 +352,36 @@ export default async function SlugPage({ params }: { params: PageParams }) {
                       </div>
 
                       {/* Course Stats */}
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="text-center p-4 rounded-lg bg-muted/50">
-                          <div className="text-2xl font-bold text-primary">
+                      <div className='grid grid-cols-2 gap-4'>
+                        <div className='bg-muted/50 rounded-lg p-4 text-center'>
+                          <div className='text-primary text-2xl font-bold'>
                             {course.duration}
                           </div>
-                          <div className="text-xs text-muted-foreground">
+                          <div className='text-muted-foreground text-xs'>
                             Hours
                           </div>
                         </div>
-                        <div className="text-center p-4 rounded-lg bg-muted/50">
-                          <div className="text-2xl font-bold text-primary">
+                        <div className='bg-muted/50 rounded-lg p-4 text-center'>
+                          <div className='text-primary text-2xl font-bold'>
                             {totalLessons}
                           </div>
-                          <div className="text-xs text-muted-foreground">
+                          <div className='text-muted-foreground text-xs'>
                             Lessons
                           </div>
                         </div>
                       </div>
 
                       {/* CTA Button */}
-                      <div className="space-y-3">
+                      <div className='space-y-3'>
                         {isEnrolled ? (
                           <Link
                             className={buttonVariants({
                               className:
-                                "w-full h-12 text-lg font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 shadow-lg shadow-primary/25",
+                                'from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 shadow-primary/25 h-12 w-full bg-gradient-to-r text-lg font-semibold shadow-lg',
                             })}
-                            href="/dashboard"
+                            href='/dashboard'
                           >
-                            <IconPlayerPlay className="size-5 mr-2" />
+                            <IconPlayerPlay className='mr-2 size-5' />
                             Continue Learning
                           </Link>
                         ) : (

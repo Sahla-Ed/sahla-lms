@@ -1,5 +1,5 @@
 export type ApiResponse = {
-  status: "success" | "error";
+  status: 'success' | 'error';
 
   message: string;
 };

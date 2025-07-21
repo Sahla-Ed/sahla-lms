@@ -1,9 +1,9 @@
-import "server-only";
+import 'server-only';
 
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
-import { cache } from "react";
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { cache } from 'react';
 
 export const requireAdmin = cache(async () => {
   const session = await auth.api.getSession({
@@ -11,11 +11,11 @@ export const requireAdmin = cache(async () => {
   });
 
   if (!session) {
-    return redirect("/auth/login");
+    return redirect('/auth/login');
   }
 
-  if (session.user.role !== "admin") {
-    return redirect("/not-admin");
+  if (session.user.role !== 'admin') {
+    return redirect('/not-admin');
   }
 
   return session;

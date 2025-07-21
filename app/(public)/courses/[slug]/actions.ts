@@ -1,15 +1,15 @@
-"use server";
+'use server';
 
-import { requireUser } from "@/app/data/user/require-user";
-import { prisma } from "@/lib/db";
-import { env } from "@/lib/env";
-import { stripe } from "@/lib/stripe";
-import { ApiResponse } from "@/lib/types";
-import { redirect } from "next/navigation";
-import Stripe from "stripe";
+import { requireUser } from '@/app/data/user/require-user';
+import { prisma } from '@/lib/db';
+import { env } from '@/lib/env';
+import { stripe } from '@/lib/stripe';
+import { ApiResponse } from '@/lib/types';
+import { redirect } from 'next/navigation';
+import Stripe from 'stripe';
 
 export async function enrollInCourseAction(
-  courseId: string
+  courseId: string,
 ): Promise<ApiResponse | never> {
   const user = await requireUser();
 
@@ -30,18 +30,18 @@ export async function enrollInCourseAction(
 
     if (!course || course.price === null) {
       return {
-        status: "error",
-        message: "Course not found or has no price.",
+        status: 'error',
+        message: 'Course not found or has no price.',
       };
     }
 
     if (course.price === 0) {
       return {
-        status: "error",
-        message: "This course is free, use a different enrollment method.",
+        status: 'error',
+        message: 'This course is free, use a different enrollment method.',
       };
     }
-    if (!user) redirect("/");
+    if (!user) redirect('/');
     let stripeCustomerId: string;
     const userWithStripeCustomerId = await prisma.user.findUnique({
       where: {
@@ -89,11 +89,11 @@ export async function enrollInCourseAction(
         },
       });
 
-      if (existingEnrollment?.status === "Active") {
+      if (existingEnrollment?.status === 'Active') {
         redirect(`/courses/${course.slug}`);
         return {
-          status: "success",
-          message: "You are already enrolled in this Course",
+          status: 'success',
+          message: 'You are already enrolled in this Course',
         };
       }
 
@@ -107,7 +107,7 @@ export async function enrollInCourseAction(
           },
           data: {
             amount: priceInCents,
-            status: "Pending",
+            status: 'Pending',
             updatedAt: new Date(),
           },
         });
@@ -117,18 +117,18 @@ export async function enrollInCourseAction(
             userId: user.id,
             courseId: course.id,
             amount: priceInCents,
-            status: "Pending",
+            status: 'Pending',
           },
         });
       }
 
       const checkoutSession = await stripe.checkout.sessions.create({
         customer: stripeCustomerId,
-        mode: "payment",
+        mode: 'payment',
         line_items: [
           {
             price_data: {
-              currency: "usd",
+              currency: 'usd',
               unit_amount: priceInCents,
               product_data: {
                 name: course.title,
@@ -148,7 +148,7 @@ export async function enrollInCourseAction(
       });
 
       if (!checkoutSession.url) {
-        throw new Error("Could not create Stripe Checkout session.");
+        throw new Error('Could not create Stripe Checkout session.');
       }
 
       return {
@@ -159,21 +159,21 @@ export async function enrollInCourseAction(
     if (result.checkoutUrl) {
       checkoutUrl = result.checkoutUrl;
     } else {
-      throw new Error(result.message || "Failed to create checkout session.");
+      throw new Error(result.message || 'Failed to create checkout session.');
     }
   } catch (error) {
-    console.error("Enrollment Action Error:", error);
+    console.error('Enrollment Action Error:', error);
     if (error instanceof Stripe.errors.StripeError) {
       return {
-        status: "error",
+        status: 'error',
         message:
-          error.message || "Payment system error. Please try again later.",
+          error.message || 'Payment system error. Please try again later.',
       };
     }
 
     return {
-      status: "error",
-      message: "Failed to enroll in course. Please try again.",
+      status: 'error',
+      message: 'Failed to enroll in course. Please try again.',
     };
   }
 

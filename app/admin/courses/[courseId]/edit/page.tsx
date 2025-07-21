@@ -1,15 +1,15 @@
-import { adminGetCourse } from "@/app/data/admin/admin-get-course";
+import { adminGetCourse } from '@/app/data/admin/admin-get-course';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TestBank } from "./_components/TestBank";
-import { EditCourseForm } from "./_components/EditCourseForm";
-import { CourseStructure } from "./_components/CourseStructure";
+} from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { TestBank } from './_components/TestBank';
+import { EditCourseForm } from './_components/EditCourseForm';
+import { CourseStructure } from './_components/CourseStructure';
 
 type Params = Promise<{ courseId: string }>;
 
@@ -18,18 +18,18 @@ export default async function EditRoute({ params }: { params: Params }) {
   const data = await adminGetCourse(courseId);
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-8">
-        Edit Course:{" "}
-        <span className="text-primary underline">{data.title}</span>
+      <h1 className='mb-8 text-3xl font-bold'>
+        Edit Course:{' '}
+        <span className='text-primary underline'>{data.title}</span>
       </h1>
 
-      <Tabs defaultValue="basic-info" className="w-full">
-        <TabsList className="grid grid-cols-3 w-full">
-          <TabsTrigger value="basic-info">Basic Info</TabsTrigger>
-          <TabsTrigger value="course-structure">Course Structure</TabsTrigger>
-          <TabsTrigger value="test-bank">Test Bank</TabsTrigger>
+      <Tabs defaultValue='basic-info' className='w-full'>
+        <TabsList className='grid w-full grid-cols-3'>
+          <TabsTrigger value='basic-info'>Basic Info</TabsTrigger>
+          <TabsTrigger value='course-structure'>Course Structure</TabsTrigger>
+          <TabsTrigger value='test-bank'>Test Bank</TabsTrigger>
         </TabsList>
-        <TabsContent value="basic-info">
+        <TabsContent value='basic-info'>
           <Card>
             <CardHeader>
               <CardTitle>Basic Info</CardTitle>
@@ -42,7 +42,7 @@ export default async function EditRoute({ params }: { params: Params }) {
             </CardContent>
           </Card>
         </TabsContent>
-        <TabsContent value="course-structure">
+        <TabsContent value='course-structure'>
           <Card>
             <CardHeader>
               <CardTitle>Course Structure</CardTitle>
@@ -55,7 +55,7 @@ export default async function EditRoute({ params }: { params: Params }) {
             </CardContent>
           </Card>
         </TabsContent>
-        <TabsContent value="test-bank">
+        <TabsContent value='test-bank'>
           <Card>
             <CardHeader>
               <CardTitle>Test Bank</CardTitle>

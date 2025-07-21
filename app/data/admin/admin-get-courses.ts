@@ -1,14 +1,14 @@
-import "server-only";
+import 'server-only';
 
-import { prisma } from "@/lib/db";
-import { requireAdmin } from "./require-admin";
+import { prisma } from '@/lib/db';
+import { requireAdmin } from './require-admin';
 
 export async function adminGetCourses() {
   await requireAdmin();
 
   const data = await prisma.course.findMany({
     orderBy: {
-      createdAt: "desc",
+      createdAt: 'desc',
     },
     select: {
       id: true,

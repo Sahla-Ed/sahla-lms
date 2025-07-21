@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { CourseSidebarDataType } from "@/app/data/course/get-course-sidebar-data";
-import { useMemo } from "react";
+import { CourseSidebarDataType } from '@/app/data/course/get-course-sidebar-data';
+import { useMemo } from 'react';
 
 interface iAppProps {
-  courseData: CourseSidebarDataType["course"];
+  courseData: CourseSidebarDataType['course'];
 }
 
 interface CourseProgressResult {

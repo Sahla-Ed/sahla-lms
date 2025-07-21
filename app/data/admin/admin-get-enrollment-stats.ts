@@ -1,7 +1,7 @@
-import "server-only";
+import 'server-only';
 
-import { prisma } from "@/lib/db";
-import { requireAdmin } from "./require-admin";
+import { prisma } from '@/lib/db';
+import { requireAdmin } from './require-admin';
 
 export async function adminGetEnrollmentStats() {
   await requireAdmin();
@@ -20,7 +20,7 @@ export async function adminGetEnrollmentStats() {
       createdAt: true,
     },
     orderBy: {
-      createdAt: "asc",
+      createdAt: 'asc',
     },
   });
 
@@ -32,13 +32,13 @@ export async function adminGetEnrollmentStats() {
     date.setDate(date.getDate() - i);
 
     last30Days.push({
-      date: date.toISOString().split("T")[0], //yyyy-mm-dd
+      date: date.toISOString().split('T')[0], //yyyy-mm-dd
       enrollments: 0,
     });
   }
 
   enrollments.forEach((enrollment: { createdAt: Date }) => {
-    const enrollmentDate = enrollment.createdAt.toISOString().split("T")[0];
+    const enrollmentDate = enrollment.createdAt.toISOString().split('T')[0];
     const dayIndex = last30Days.findIndex((day) => day.date === enrollmentDate);
 
     if (dayIndex !== -1) {

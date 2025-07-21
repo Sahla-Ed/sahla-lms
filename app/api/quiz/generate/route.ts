@@ -1,12 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
-import { generateQuizQuestions } from "@/lib/quiz-generator";
+import { NextRequest, NextResponse } from 'next/server';
+import { generateQuizQuestions } from '@/lib/quiz-generator';
 
 export async function POST(req: NextRequest) {
   const { topic, numQuestions } = await req.json();
   if (!topic || !numQuestions) {
     return NextResponse.json(
-      { error: "Missing topic or numQuestions" },
-      { status: 400 }
+      { error: 'Missing topic or numQuestions' },
+      { status: 400 },
     );
   }
   try {
@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       { error: (error as Error).message },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

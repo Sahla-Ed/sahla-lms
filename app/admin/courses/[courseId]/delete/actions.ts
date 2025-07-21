@@ -1,11 +1,11 @@
-"use server";
+'use server';
 
-import { requireAdmin } from "@/app/data/admin/require-admin";
+import { requireAdmin } from '@/app/data/admin/require-admin';
 
-import { prisma } from "@/lib/db";
+import { prisma } from '@/lib/db';
 
-import { ApiResponse } from "@/lib/types";
-import { revalidatePath } from "next/cache";
+import { ApiResponse } from '@/lib/types';
+import { revalidatePath } from 'next/cache';
 
 export async function deleteCourse(courseId: string): Promise<ApiResponse> {
   await requireAdmin();
@@ -17,17 +17,17 @@ export async function deleteCourse(courseId: string): Promise<ApiResponse> {
       },
     });
 
-    revalidatePath("/admin/courses");
+    revalidatePath('/admin/courses');
 
     return {
-      status: "success",
-      message: "Course deleted successfully",
+      status: 'success',
+      message: 'Course deleted successfully',
     };
   } catch (error) {
     console.log(error);
     return {
-      status: "error",
-      message: "Failed to delete Course!",
+      status: 'error',
+      message: 'Failed to delete Course!',
     };
   }
 }

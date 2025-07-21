@@ -7,14 +7,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { tryCatch } from "@/hooks/try-catch";
-import { Trash2 } from "lucide-react";
+} from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import { tryCatch } from '@/hooks/try-catch';
+import { Trash2 } from 'lucide-react';
 
-import { useState, useTransition } from "react";
-import { deleteChapter } from "../actions";
-import { toast } from "sonner";
+import { useState, useTransition } from 'react';
+import { deleteChapter } from '../actions';
+import { toast } from 'sonner';
 
 export function DeleteChapter({
   chapterId,
@@ -29,18 +29,18 @@ export function DeleteChapter({
   async function onSubmit() {
     startTransition(async () => {
       const { data: result, error } = await tryCatch(
-        deleteChapter({ chapterId, courseId })
+        deleteChapter({ chapterId, courseId }),
       );
 
       if (error) {
-        toast.error("An unexpected error occurred. Please try again.");
+        toast.error('An unexpected error occurred. Please try again.');
         return;
       }
 
-      if (result.status === "success") {
+      if (result.status === 'success') {
         toast.success(result.message);
         setOpen(false);
-      } else if (result.status === "error") {
+      } else if (result.status === 'error') {
         toast.error(result.message);
       }
     });
@@ -48,8 +48,8 @@ export function DeleteChapter({
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <Trash2 className="size-4" />
+        <Button variant='ghost' size='icon'>
+          <Trash2 className='size-4' />
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -63,7 +63,7 @@ export function DeleteChapter({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <Button onClick={onSubmit} disabled={pending}>
-            {pending ? "Deleting..." : "Delete"}
+            {pending ? 'Deleting...' : 'Delete'}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
