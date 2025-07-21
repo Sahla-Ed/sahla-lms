@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "pnpx prisma generate && next build",
+    "build": "prettier . write && pnpx prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
+    "format": "prettier --write .",
     "postinstall": "prisma generate",
-    "vercel-build": "prisma generate && prisma migrate deploy && next build"
+    "vercel-build": "pnpx prettier --check . && prisma generate && prisma migrate deploy && next build",
+    "prepare": "husky"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.846.0",
@@ -65,12 +67,11 @@
     "html-react-parser": "^5.2.5",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.525.0",
-    "next": "15.3.5",
+    "next": "15.4.2",
     "next-themes": "^0.4.6",
-    "prettier": "^3.6.2",
-    "react": "^19.0.0",
+    "react": "^19.1.0",
     "react-day-picker": "^9.8.0",
-    "react-dom": "^19.0.0",
+    "react-dom": "^19.1.0",
     "react-dropzone": "^14.3.8",
     "react-fast-marquee": "^1.6.5",
     "react-hook-form": "^7.60.0",
@@ -94,11 +95,18 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.3.5",
+    "eslint-config-next": "15.4.2",
+    "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "prisma": "^6.12.0",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.5",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    ".{ts,tsx,js,jsx}": "eslint --fix",
+    ".{js,css,md,html,json,cjs,mjs,yaml,yml}": "prettier --write"
   }
 }
