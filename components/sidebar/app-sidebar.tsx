@@ -1,18 +1,17 @@
 "use client";
 
 import * as React from "react";
+import { useState, useEffect } from "react";
+
 import {
-  IconCamera,
   IconChartBar,
   IconDashboard,
-  IconFileAi,
-  IconFileDescription,
-  IconFolder,
   IconHelp,
   IconListDetails,
   IconSearch,
   IconSettings,
   IconUsers,
+  IconFolder,
 } from "@tabler/icons-react";
 
 import { NavMain } from "@/components/sidebar/nav-main";
@@ -24,7 +23,6 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
@@ -32,131 +30,66 @@ import Image from "next/image";
 import LogoLight from "@/public/logoLight.png";
 import LogoDark from "@/public/logoDark.png";
 import { useTheme } from "next-themes";
+import { cn } from "@/lib/utils";
+
 const data = {
   navMain: [
-    {
-      title: "Dashboard",
-      url: "/admin",
-      icon: IconDashboard,
-    },
-    {
-      title: "Courses",
-      url: "/admin/courses",
-      icon: IconListDetails,
-    },
-    {
-      title: "Analytics",
-      url: "#",
-      icon: IconChartBar,
-    },
-    {
-      title: "Projects",
-      url: "#",
-      icon: IconFolder,
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: IconUsers,
-    },
-  ],
-  navClouds: [
-    {
-      title: "Capture",
-      icon: IconCamera,
-      isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Proposal",
-      icon: IconFileDescription,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Prompts",
-      icon: IconFileAi,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
+    { title: "Dashboard", url: "/admin", icon: IconDashboard },
+    { title: "Courses", url: "/admin/courses", icon: IconListDetails },
+    { title: "Analytics", url: "/admin/analytics", icon: IconChartBar },
+    { title: "Projects", url: "/admin/projects", icon: IconFolder },
+    { title: "Team", url: "/admin/teams", icon: IconUsers },
   ],
   navSecondary: [
-    {
-      title: "Settings",
-      url: "/admin/settings",
-      icon: IconSettings,
-    },
-    {
-      title: "Get Help",
-      url: "/faqs",
-      icon: IconHelp,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
-    },
+    { title: "Settings", url: "/admin/settings", icon: IconSettings },
+    { title: "Get Help", url: "/faqs", icon: IconHelp },
+    { title: "Search", url: "/admin/search", icon: IconSearch },
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  className,
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
   const { theme, systemTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const currentTheme = theme === "system" ? systemTheme : theme;
 
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar
+      collapsible="offcanvas"
+      className={cn("border-r", className)}
+      {...props}
+    >
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
-            >
-              <Link href="/" className="flex items-center space-x-2 mr-4">
-                <Image
-                  src={currentTheme === "dark" ? LogoDark : LogoLight}
-                  alt="Logo"
-                  className="object-cover h-12 w-12"
-                  priority
-                />
-                {/* Sahla */}
+            <div className="p-2">
+              <Link
+                href="/"
+                className="flex items-center justify-center transition-none hover:scale-100 focus:outline-none"
+              >
+                {mounted ? (
+                  <Image
+                    src={currentTheme === "dark" ? LogoDark : LogoLight}
+                    alt="Logo"
+                    className="object-cover h-16 w-16"
+                    priority
+                  />
+                ) : (
+                  <div className="h-16 w-16 bg-muted rounded-md" />
+                )}
               </Link>
-            </SidebarMenuButton>
+            </div>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
