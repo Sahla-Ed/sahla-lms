@@ -27,6 +27,7 @@ export function CertificateDownloader({
   const [isClient, setIsClient] = useState(false);
   const [certificateId, setCertificateId] = useState<string | null>(null);
   const [isPreparing, setIsPreparing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -35,9 +36,15 @@ export function CertificateDownloader({
   useEffect(() => {
     if (!isClient) return;
 
+    setError(null);
     checkCourseCompletion(courseId)
       .then((result) => {
         setIsCompleted(result.isCompleted);
+      })
+      .catch((err) => {
+        console.log(err);
+
+        setError("Failed to check course completion. Please try again later.");
       })
       .finally(() => {
         setIsLoading(false);
@@ -68,6 +75,14 @@ export function CertificateDownloader({
       <Button variant="outline" className="w-full" disabled>
         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
         Checking Completion...
+      </Button>
+    );
+  }
+
+  if (error) {
+    return (
+      <Button variant="destructive" className="w-full" disabled>
+        {error}
       </Button>
     );
   }

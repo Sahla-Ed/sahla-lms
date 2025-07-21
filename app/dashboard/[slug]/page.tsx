@@ -10,10 +10,25 @@ export default async function CourseSlugRoute({ params }: iAppProps) {
 
   const course = await getCourseSidebarData(slug);
 
-  const firstChapter = course.course.chapter[0];
-  const firstLesson = firstChapter.lessons[0];
+  // Find the first incomplete lesson
+  let firstIncompleteLesson = null;
+  let firstLesson = null;
+  for (const chapter of course.course.chapter) {
+    for (const lesson of chapter.lessons) {
+      if (!firstLesson) firstLesson = lesson;
+      const isCompleted =
+        lesson.lessonProgress &&
+        lesson.lessonProgress.length > 0 &&
+        lesson.lessonProgress[0].completed;
+      if (!isCompleted && !firstIncompleteLesson) {
+        firstIncompleteLesson = lesson;
+      }
+    }
+  }
 
-  if (firstLesson) {
+  if (firstIncompleteLesson) {
+    redirect(`/dashboard/${slug}/${firstIncompleteLesson.id}`);
+  } else if (firstLesson) {
     redirect(`/dashboard/${slug}/${firstLesson.id}`);
   }
   return (

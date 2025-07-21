@@ -12,6 +12,7 @@ import {
   Mail,
 } from "lucide-react";
 import Link from "next/link";
+import { PrivacySettingsButton } from "./PrivacySettingsButton";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Sahla",
@@ -144,12 +145,7 @@ export default function PrivacyPolicyPage() {
             personalized account dashboard.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/dashboard/privacy">
-              <Button size="lg" className="group">
-                Privacy Settings
-                <Settings className="ml-2 h-4 w-4 group-hover:rotate-90 transition-transform" />
-              </Button>
-            </Link>
+            <PrivacySettingsButton />
             <Link href="/terms-and-conditions">
               <Button
                 size="lg"

@@ -42,3 +42,41 @@ export async function markLessonComplete(
     };
   }
 }
+
+export async function markLessonIncomplete(
+  lessonId: string,
+  slug: string
+): Promise<ApiResponse> {
+  const session = await requireUser();
+
+  try {
+    await prisma.lessonProgress.upsert({
+      where: {
+        userId_lessonId: {
+          userId: session?.id as string,
+          lessonId: lessonId,
+        },
+      },
+      update: {
+        completed: false,
+      },
+      create: {
+        lessonId: lessonId,
+        userId: session?.id as string,
+        completed: false,
+      },
+    });
+
+    revalidatePath(`/dashboard/${slug}`);
+
+    return {
+      status: "success",
+      message: "Progress updated (marked as incomplete)",
+    };
+  } catch {
+    return {
+      status: "error",
+      message: "Failed to mark lesson as incomplete",
+    };
+  }
+}
