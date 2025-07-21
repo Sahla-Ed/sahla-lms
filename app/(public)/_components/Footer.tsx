@@ -249,25 +249,25 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center text-sm">
           <div className="flex flex-wrap gap-6 mb-4 md:mb-0">
             <Link
-              href="#"
-              className="text-primary hover:text-primary-foreground transition-colors"
+              href="/terms-and-conditions"
+              className="text-primary transition-colors"
             >
               Terms & conditions
             </Link>
             <Link
-              href="#"
-              className="text-primary hover:text-primary-foreground transition-colors"
+              href="/privacy-policy"
+              className="text-primary transition-colors"
             >
               Privacy Policy
             </Link>
             <Link
-              href="#"
-              className="text-primary hover:text-primary-foreground transition-colors"
+              href="/student-agreement"
+              className="text-primary transition-colors"
             >
               Student Agreement
             </Link>
           </div>
-          <p className="text-primary hover:text-primary-foreground">
+          <p className="text-primary">
             © Sahla Learning Platform 2025
           </p>
         </div>

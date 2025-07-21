@@ -22,6 +22,7 @@ model User {
   enrollment     Enrollment[]
   lessonProgress LessonProgress[]
   quizAttempts   QuizAttempt[]
+   certificates Certificate[]
 
   stripeCustomerId String? @unique
 
@@ -107,6 +108,7 @@ model Course {
   chapter    Chapter[]
   enrollment Enrollment[]
   questions  Question[]
+  certificates Certificate[]
 }
 
 enum CourseLevel {
@@ -259,3 +261,15 @@ model UserAnswer {
 
   @@unique([attemptId, questionId])
 }
+
+model Certificate {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  issuedAt  DateTime @default(now())
+
+  @@unique([userId, courseId])
+}
+

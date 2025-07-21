@@ -24,7 +24,6 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
@@ -89,7 +88,7 @@ const data = {
   navSecondary: [
     {
       title: "Settings",
-      url: "#",
+      url: "/dashboard/settings",
       icon: IconSettings,
     },
     {
@@ -109,7 +108,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { theme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Mount state for hydration
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -125,26 +123,23 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader className="border-b bg-background">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:!p-3 hover:bg-accent hover:text-accent-foreground transition-colors"
-            >
-              <Link href="/" className="flex items-center space-x-3">
+            <div className="p-2">
+              <Link
+                href="/"
+                className="flex items-center justify-center transition-none hover:scale-100 focus:outline-none"
+              >
                 {mounted ? (
                   <Image
                     src={currentTheme === "dark" ? LogoDark : LogoLight}
                     alt="Logo"
-                    className="size-12"
+                    className="object-cover h-16 w-16"
                     priority
                   />
                 ) : (
-                  <div className="size-8 bg-muted animate-pulse rounded" />
+                  <div className="h-16 w-16 bg-muted rounded-md" />
                 )}
-                <span className="text-lg font-semibold text-foreground">
-                  Sahla.
-                </span>
               </Link>
-            </SidebarMenuButton>
+            </div>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>

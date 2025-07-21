@@ -7,7 +7,7 @@ import { tryCatch } from "@/hooks/try-catch";
 import { useConstructUrl } from "@/hooks/use-construct-url";
 import { BookIcon, CheckCircle } from "lucide-react";
 import { useTransition } from "react";
-import { markLessonComplete } from "../actions";
+import { markLessonComplete, markLessonIncomplete } from "../actions";
 import { toast } from "sonner";
 import { useConfetti } from "@/hooks/use-confetti";
 
@@ -56,10 +56,13 @@ export function CourseContent({ data }: iAppProps) {
     );
   }
 
-  function onSubmit() {
+  function onToggleCompletion(isCurrentlyComplete: boolean) {
     startTransition(async () => {
+      const action = isCurrentlyComplete
+        ? markLessonIncomplete
+        : markLessonComplete;
       const { data: result, error } = await tryCatch(
-        markLessonComplete(data.id, data.Chapter.Course.slug)
+        action(data.id, data.Chapter.Course.slug)
       );
 
       if (error) {
@@ -69,7 +72,7 @@ export function CourseContent({ data }: iAppProps) {
 
       if (result.status === "success") {
         toast.success(result.message);
-        triggerConfetti();
+        if (!isCurrentlyComplete) triggerConfetti();
       } else if (result.status === "error") {
         toast.error(result.message);
       }
@@ -83,16 +86,22 @@ export function CourseContent({ data }: iAppProps) {
       />
 
       <div className="py-4 border-b">
-        {data.lessonProgress.length > 0 ? (
+        {data.lessonProgress.length > 0 && data.lessonProgress[0].completed ? (
           <Button
             variant="outline"
             className="bg-green-500/10 text-green-500 hover:text-green-600"
+            onClick={() => onToggleCompletion(true)}
+            disabled={pending}
           >
             <CheckCircle className="size-4 mr-2 text-green-500" />
-            Completed
+            Mark as Incomplete
           </Button>
         ) : (
-          <Button variant="outline" onClick={onSubmit} disabled={pending}>
+          <Button
+            variant="outline"
+            onClick={() => onToggleCompletion(false)}
+            disabled={pending}
+          >
             <CheckCircle className="size-4 mr-2 text-green-500" />
             Mark as Complete
           </Button>
