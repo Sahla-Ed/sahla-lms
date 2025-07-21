@@ -6,12 +6,9 @@ import {
   View,
   Document,
   StyleSheet,
-  Font,
   Image,
 } from "@react-pdf/renderer";
 import { colors } from "./design-tokens";
-
-
 
 const styles = StyleSheet.create({
   page: {
@@ -19,19 +16,19 @@ const styles = StyleSheet.create({
     padding: 30,
   },
   container: {
-   flex: 1,
+    flex: 1,
     border: `5px solid ${colors.primary}`,
     padding: 20,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
-   mainContent: {
+  mainContent: {
     flexGrow: 1,
     alignItems: "center",
-    justifyContent: "center", 
+    justifyContent: "center",
   },
-   logo: {
+  logo: {
     width: 70,
     height: 70,
     marginBottom: 15,
@@ -90,7 +87,7 @@ const styles = StyleSheet.create({
 
   certificateId: {
     position: "absolute",
-    bottom: -15, 
+    bottom: -15,
     left: 0,
     right: 0,
     textAlign: "center",
@@ -103,7 +100,7 @@ interface CertificateDocumentProps {
   userName: string;
   courseTitle: string;
   completionDate: string;
-   certificateId: string | null; 
+  certificateId: string | null;
 }
 
 export const CertificateDocument = ({
@@ -128,7 +125,7 @@ export const CertificateDocument = ({
           <Text style={styles.completionText}>
             for successfully completing the online course
           </Text>
-          <Text style={styles.courseTitle}>"{courseTitle}"</Text>
+          <Text style={styles.courseTitle}>&quot;{courseTitle}&quot;</Text>
         </View>
 
         <View style={styles.footer}>

@@ -28,7 +28,6 @@ export function CertificateDownloader({
   const [certificateId, setCertificateId] = useState<string | null>(null);
   const [isPreparing, setIsPreparing] = useState(false);
 
-
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -45,7 +44,6 @@ export function CertificateDownloader({
       });
   }, [courseId, isClient]);
 
-
   const handlePrepareCertificate = async () => {
     setIsPreparing(true);
     try {
@@ -57,6 +55,8 @@ export function CertificateDownloader({
         throw new Error("Could not retrieve certificate ID.");
       }
     } catch (error) {
+      console.log(error);
+
       toast.error("Failed to prepare certificate. Please try again.");
     } finally {
       setIsPreparing(false);
@@ -72,11 +72,9 @@ export function CertificateDownloader({
     );
   }
 
-
   if (!isCompleted) {
     return null;
   }
-
 
   if (!certificateId) {
     return (

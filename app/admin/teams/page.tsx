@@ -1,4 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Users, UserPlus, ShieldCheck, Clock } from "lucide-react";
 import { Metadata } from "next";
 
@@ -12,10 +18,12 @@ export default function TeamsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">Team Management</h1>
-          <p className="text-muted-foreground">Manage users, roles, and permissions</p>
+          <p className="text-muted-foreground">
+            Manage users, roles, and permissions
+          </p>
         </div>
       </div>
-      
+
       <Card className="border-dashed border-2 border-primary/20 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5">
         <CardHeader className="text-center pb-6">
           <div className="mx-auto bg-gradient-to-br from-primary to-primary/80 rounded-full p-6 w-fit mb-6 shadow-lg">
@@ -25,11 +33,12 @@ export default function TeamsPage() {
             Coming Soon!
           </CardTitle>
           <CardDescription className="max-w-lg mx-auto text-base leading-relaxed">
-            We are putting the final touches on the comprehensive team management dashboard. 
-            Soon you will be able to manage all users and their roles seamlessly.
+            We are putting the final touches on the comprehensive team
+            management dashboard. Soon you will be able to manage all users and
+            their roles seamlessly.
           </CardDescription>
         </CardHeader>
-        
+
         <CardContent className="pt-0">
           <div className="max-w-2xl mx-auto space-y-4">
             <div className="group flex items-start p-6 bg-white/50 hover:bg-white/80 border border-primary/10 rounded-xl transition-all duration-300 hover:shadow-md hover:scale-[1.02]">
@@ -37,9 +46,12 @@ export default function TeamsPage() {
                 <UserPlus className="size-6 text-primary" />
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-lg mb-1">Invite & Manage Users</h3>
+                <h3 className="font-semibold text-lg mb-1">
+                  Invite & Manage Users
+                </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Easily invite new members to your team and view all registered users in one centralized dashboard.
+                  Easily invite new members to your team and view all registered
+                  users in one centralized dashboard.
                 </p>
               </div>
             </div>
@@ -49,9 +61,13 @@ export default function TeamsPage() {
                 <ShieldCheck className="size-6 text-primary" />
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-lg mb-1">Assign Roles & Permissions</h3>
+                <h3 className="font-semibold text-lg mb-1">
+                  Assign Roles & Permissions
+                </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Control access levels by assigning specific roles like 'Admin', 'Instructor', or 'Student' with granular permissions.
+                  Control access levels by assigning specific roles like
+                  &apos;Admin&apos;, &apos;Instructor&apos;, or
+                  &apos;Student&apos; with granular permissions.
                 </p>
               </div>
             </div>
@@ -61,9 +77,12 @@ export default function TeamsPage() {
                 <Clock className="size-6 text-primary" />
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-lg mb-1">Activity Monitoring</h3>
+                <h3 className="font-semibold text-lg mb-1">
+                  Activity Monitoring
+                </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Track user activity, login sessions, and engagement metrics to keep your team productive and secure.
+                  Track user activity, login sessions, and engagement metrics to
+                  keep your team productive and secure.
                 </p>
               </div>
             </div>
