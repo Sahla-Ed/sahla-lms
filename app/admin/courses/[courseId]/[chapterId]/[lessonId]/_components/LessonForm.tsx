@@ -71,9 +71,7 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
     });
   }
 
-  // Add this for validation errors
-  function onInvalid(errors: any) {
-    console.error("Validation errors:", errors);
+  function onInvalid() {
     toast.error("Please fix the highlighted errors before saving.");
   }
   return (
