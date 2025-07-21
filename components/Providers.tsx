@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { AuthUIProvider } from "@daveyplate/better-auth-ui";
-import { ThemeProvider } from "@/components/theme-provider";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import type { ReactNode } from "react";
+import { AuthUIProvider } from '@daveyplate/better-auth-ui';
+import { ThemeProvider } from '@/components/theme-provider';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import type { ReactNode } from 'react';
 
-import { authClient } from "@/lib/auth-client";
+import { authClient } from '@/lib/auth-client';
 
 export function Providers({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -21,11 +21,11 @@ export function Providers({ children }: { children: ReactNode }) {
         router.refresh();
       }}
       Link={Link}
-      social={{ providers: ["github"] }}
+      social={{ providers: ['github'] }}
     >
       <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
+        attribute='class'
+        defaultTheme='system'
         enableSystem
         disableTransitionOnChange
       >

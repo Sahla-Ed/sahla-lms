@@ -1,5 +1,5 @@
-"use client";
-import confetti from "canvas-confetti";
+'use client';
+import confetti from 'canvas-confetti';
 
 export const useConfetti = () => {
   const triggerConfetti = () => {

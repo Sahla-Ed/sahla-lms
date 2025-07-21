@@ -1,96 +1,94 @@
-"use client";
+'use client';
 
-import { CourseSidebarDataType } from "@/app/data/course/get-course-sidebar-data";
-import { Button } from "@/components/ui/button";
+import { CourseSidebarDataType } from '@/app/data/course/get-course-sidebar-data';
+import { Button } from '@/components/ui/button';
 import {
   CollapsibleContent,
   Collapsible,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { Progress } from "@/components/ui/progress";
-import { ChevronDown, Play } from "lucide-react";
-import { LessonItem } from "./LessonItem";
-import { usePathname } from "next/navigation";
-import { useCourseProgress } from "@/hooks/use-course-progress";
-import { authClient } from "@/lib/auth-client";
-import { CertificateDownloader } from "./CertificateDownloader";
-
-
+} from '@/components/ui/collapsible';
+import { Progress } from '@/components/ui/progress';
+import { ChevronDown, Play } from 'lucide-react';
+import { LessonItem } from './LessonItem';
+import { usePathname } from 'next/navigation';
+import { useCourseProgress } from '@/hooks/use-course-progress';
+import { authClient } from '@/lib/auth-client';
+import { CertificateDownloader } from './CertificateDownloader';
 
 interface iAppProps {
-  course: CourseSidebarDataType["course"];
+  course: CourseSidebarDataType['course'];
 }
 
 export function CourseSidebar({ course }: iAppProps) {
-  const { data: session } = authClient.useSession(); 
+  const { data: session } = authClient.useSession();
   const pathname = usePathname();
-  const currentLessonId = pathname.split("/").pop();
+  const currentLessonId = pathname.split('/').pop();
 
   const { completedLessons, totalLessons, progressPercentage } =
     useCourseProgress({ courseData: course });
   return (
-    <div className="flex flex-col h-full">
-      <div className="pb-4 pr-4 border-b border-border">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-            <Play className="size-5 text-primary" />
+    <div className='flex h-full flex-col'>
+      <div className='border-border border-b pr-4 pb-4'>
+        <div className='mb-3 flex items-center gap-3'>
+          <div className='bg-primary/10 flex size-10 shrink-0 items-center justify-center rounded-lg'>
+            <Play className='text-primary size-5' />
           </div>
 
-          <div className="flex-1 min-w-0">
-            <h1 className="font-semibold text-base leading-tight truncate">
+          <div className='min-w-0 flex-1'>
+            <h1 className='truncate text-base leading-tight font-semibold'>
               {course.title}
             </h1>
-            <p className="text-xs text-muted-foreground mt-1 truncate">
+            <p className='text-muted-foreground mt-1 truncate text-xs'>
               {course.category}
             </p>
           </div>
         </div>
 
-        <div className="space-y-2">
-          <div className="flex justify-between text-xs">
-            <span className="text-muted-foreground">Progress</span>
-            <span className="font-medium">
+        <div className='space-y-2'>
+          <div className='flex justify-between text-xs'>
+            <span className='text-muted-foreground'>Progress</span>
+            <span className='font-medium'>
               {completedLessons}/{totalLessons} lessons
             </span>
           </div>
-          <Progress value={progressPercentage} className="h-1.5" />
-          <p className="text-xs text-muted-foreground">
+          <Progress value={progressPercentage} className='h-1.5' />
+          <p className='text-muted-foreground text-xs'>
             {progressPercentage}% complete
           </p>
         </div>
       </div>
 
-      <div className="p-4 border-b border-border">
+      <div className='border-border border-b p-4'>
         <CertificateDownloader
           courseId={course.id}
           courseTitle={course.title}
-          userName={session?.user.name ?? "Student"}
+          userName={session?.user.name ?? 'Student'}
         />
       </div>
 
-      <div className="py-4 pr-4 space-y-3">
+      <div className='space-y-3 py-4 pr-4'>
         {course.chapter.map((chapter, index) => (
           <Collapsible key={chapter.id} defaultOpen={index === 0}>
             <CollapsibleTrigger asChild>
               <Button
-                variant="outline"
-                className="w-full p-3 h-auto flex items-center gap-2"
+                variant='outline'
+                className='flex h-auto w-full items-center gap-2 p-3'
               >
-                <div className="shrink-0">
-                  <ChevronDown className="size-4 text-primary" />
+                <div className='shrink-0'>
+                  <ChevronDown className='text-primary size-4' />
                 </div>
-                <div className="flex-1 text-left min-w-0">
-                  <p className="font-semibold text-sm truncate text-foreground">
+                <div className='min-w-0 flex-1 text-left'>
+                  <p className='text-foreground truncate text-sm font-semibold'>
                     {chapter.position}: {chapter.title}
                   </p>
 
-                  <p className="text-[10px] text-muted-foreground font-medium truncate">
+                  <p className='text-muted-foreground truncate text-[10px] font-medium'>
                     {chapter.lessons.length} lessons
                   </p>
                 </div>
               </Button>
             </CollapsibleTrigger>
-            <CollapsibleContent className="mt-3 pl-6 border-l-2 space-y-3">
+            <CollapsibleContent className='mt-3 space-y-3 border-l-2 pl-6'>
               {chapter.lessons.map((lesson) => (
                 <LessonItem
                   key={lesson.id}
@@ -99,14 +97,14 @@ export function CourseSidebar({ course }: iAppProps) {
                   isActive={currentLessonId === lesson.id}
                   completed={
                     lesson.lessonProgress.find(
-                      (progress) => progress.lessonId === lesson.id
+                      (progress) => progress.lessonId === lesson.id,
                     )?.completed || false
                   }
                   quizFailed={
-                    lesson.type === "QUIZ" &&
+                    lesson.type === 'QUIZ' &&
                     lesson.attempts &&
                     lesson.attempts.length > 0 &&
-                    typeof lesson.attempts[0].score === "number" &&
+                    typeof lesson.attempts[0].score === 'number' &&
                     lesson.attempts[0].score < 50
                   }
                 />

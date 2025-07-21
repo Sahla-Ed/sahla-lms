@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import { requireAdmin } from "@/app/data/admin/require-admin";
-import { prisma } from "@/lib/db";
-import { ApiResponse } from "@/lib/types";
+import { requireAdmin } from '@/app/data/admin/require-admin';
+import { prisma } from '@/lib/db';
+import { ApiResponse } from '@/lib/types';
 import {
   chapterSchema,
   ChapterSchemaType,
@@ -10,12 +10,12 @@ import {
   CourseSchemaType,
   lessonSchema,
   LessonSchemaType,
-} from "@/lib/zodSchemas";
-import { revalidatePath } from "next/cache";
+} from '@/lib/zodSchemas';
+import { revalidatePath } from 'next/cache';
 
 export async function editCourse(
   data: CourseSchemaType,
-  courseId: string
+  courseId: string,
 ): Promise<ApiResponse> {
   const user = await requireAdmin();
 
@@ -24,8 +24,8 @@ export async function editCourse(
 
     if (!result.success) {
       return {
-        status: "error",
-        message: "Invalid data",
+        status: 'error',
+        message: 'Invalid data',
       };
     }
 
@@ -40,13 +40,13 @@ export async function editCourse(
     });
 
     return {
-      status: "success",
-      message: "Course updated successfully",
+      status: 'success',
+      message: 'Course updated successfully',
     };
   } catch {
     return {
-      status: "error",
-      message: "Failed to update Course",
+      status: 'error',
+      message: 'Failed to update Course',
     };
   }
 }
@@ -54,14 +54,14 @@ export async function editCourse(
 export async function reorderLessons(
   chapterId: string,
   lessons: { id: string; position: number }[],
-  courseId: string
+  courseId: string,
 ): Promise<ApiResponse> {
   await requireAdmin();
   try {
     if (!lessons || lessons.length === 0) {
       return {
-        status: "error",
-        message: "No lessons provided for reordering.",
+        status: 'error',
+        message: 'No lessons provided for reordering.',
       };
     }
 
@@ -74,7 +74,7 @@ export async function reorderLessons(
         data: {
           position: lesson.position,
         },
-      })
+      }),
     );
 
     await prisma.$transaction(updates);
@@ -82,27 +82,27 @@ export async function reorderLessons(
     revalidatePath(`/admin/courses/${courseId}/edit`);
 
     return {
-      status: "success",
-      message: "Lessons reordered successfully",
+      status: 'success',
+      message: 'Lessons reordered successfully',
     };
   } catch {
     return {
-      status: "error",
-      message: "Failed to reorder lessons.",
+      status: 'error',
+      message: 'Failed to reorder lessons.',
     };
   }
 }
 
 export async function reorderChapters(
   courseId: string,
-  chapters: { id: string; position: number }[]
+  chapters: { id: string; position: number }[],
 ): Promise<ApiResponse> {
   await requireAdmin();
   try {
     if (!chapters || chapters.length === 0) {
       return {
-        status: "error",
-        message: "No chapters provided for reordering.",
+        status: 'error',
+        message: 'No chapters provided for reordering.',
       };
     }
 
@@ -115,7 +115,7 @@ export async function reorderChapters(
         data: {
           position: chapter.position,
         },
-      })
+      }),
     );
 
     await prisma.$transaction(updates);
@@ -123,19 +123,19 @@ export async function reorderChapters(
     revalidatePath(`/admin/courses/${courseId}/edit`);
 
     return {
-      status: "success",
-      message: "Chapters reordered successfully",
+      status: 'success',
+      message: 'Chapters reordered successfully',
     };
   } catch {
     return {
-      status: "error",
-      message: "Failed to reorder chapters",
+      status: 'error',
+      message: 'Failed to reorder chapters',
     };
   }
 }
 
 export async function createChapter(
-  values: ChapterSchemaType
+  values: ChapterSchemaType,
 ): Promise<ApiResponse> {
   await requireAdmin();
   try {
@@ -143,8 +143,8 @@ export async function createChapter(
 
     if (!result.success) {
       return {
-        status: "error",
-        message: "Invalid Data",
+        status: 'error',
+        message: 'Invalid Data',
       };
     }
 
@@ -157,7 +157,7 @@ export async function createChapter(
           position: true,
         },
         orderBy: {
-          position: "desc",
+          position: 'desc',
         },
       });
 
@@ -173,19 +173,19 @@ export async function createChapter(
     revalidatePath(`/admin/courses/${result.data.courseId}/edit`);
 
     return {
-      status: "success",
-      message: "Chapter created successfully",
+      status: 'success',
+      message: 'Chapter created successfully',
     };
   } catch {
     return {
-      status: "error",
-      message: "Failed to create chapter",
+      status: 'error',
+      message: 'Failed to create chapter',
     };
   }
 }
 
 export async function createLesson(
-  values: LessonSchemaType
+  values: LessonSchemaType,
 ): Promise<ApiResponse> {
   await requireAdmin();
   try {
@@ -193,8 +193,8 @@ export async function createLesson(
 
     if (!result.success) {
       return {
-        status: "error",
-        message: "Invalid Data",
+        status: 'error',
+        message: 'Invalid Data',
       };
     }
 
@@ -207,7 +207,7 @@ export async function createLesson(
           position: true,
         },
         orderBy: {
-          position: "desc",
+          position: 'desc',
         },
       });
 
@@ -227,13 +227,13 @@ export async function createLesson(
     revalidatePath(`/admin/courses/${result.data.courseId}/edit`);
 
     return {
-      status: "success",
-      message: "Lesson created successfully",
+      status: 'success',
+      message: 'Lesson created successfully',
     };
   } catch {
     return {
-      status: "error",
-      message: "Failed to create lesson",
+      status: 'error',
+      message: 'Failed to create lesson',
     };
   }
 }
@@ -256,7 +256,7 @@ export async function deleteLesson({
       select: {
         lessons: {
           orderBy: {
-            position: "asc",
+            position: 'asc',
           },
           select: {
             id: true,
@@ -268,8 +268,8 @@ export async function deleteLesson({
 
     if (!chapterWithLessons) {
       return {
-        status: "error",
-        message: "Chapter not Found",
+        status: 'error',
+        message: 'Chapter not Found',
       };
     }
 
@@ -279,8 +279,8 @@ export async function deleteLesson({
 
     if (!lessonToDelete) {
       return {
-        status: "error",
-        message: "Lesson not found in the chapter.",
+        status: 'error',
+        message: 'Lesson not found in the chapter.',
       };
     }
 
@@ -305,13 +305,13 @@ export async function deleteLesson({
     revalidatePath(`/admin/courses/${courseId}/edit`);
 
     return {
-      status: "success",
-      message: "Lesson deleted and positions reordered successfully",
+      status: 'success',
+      message: 'Lesson deleted and positions reordered successfully',
     };
   } catch {
     return {
-      status: "error",
-      message: "Failed to delete lesson",
+      status: 'error',
+      message: 'Failed to delete lesson',
     };
   }
 }
@@ -332,7 +332,7 @@ export async function deleteChapter({
       select: {
         chapter: {
           orderBy: {
-            position: "asc",
+            position: 'asc',
           },
           select: {
             id: true,
@@ -344,8 +344,8 @@ export async function deleteChapter({
 
     if (!courseWithChapters) {
       return {
-        status: "error",
-        message: "Course not Found",
+        status: 'error',
+        message: 'Course not Found',
       };
     }
 
@@ -355,8 +355,8 @@ export async function deleteChapter({
 
     if (!chapterToDelete) {
       return {
-        status: "error",
-        message: "Chapter not found in the Course.",
+        status: 'error',
+        message: 'Chapter not found in the Course.',
       };
     }
 
@@ -380,13 +380,13 @@ export async function deleteChapter({
     revalidatePath(`/admin/courses/${courseId}/edit`);
 
     return {
-      status: "success",
-      message: "Chapter deleted and positions reordered successfully",
+      status: 'success',
+      message: 'Chapter deleted and positions reordered successfully',
     };
   } catch {
     return {
-      status: "error",
-      message: "Failed to delete chapter",
+      status: 'error',
+      message: 'Failed to delete chapter',
     };
   }
 }

@@ -1,13 +1,13 @@
-"use server";
+'use server';
 
-import { requireAdmin } from "@/app/data/admin/require-admin";
-import { prisma } from "@/lib/db";
-import { ApiResponse } from "@/lib/types";
-import { lessonSchema, LessonSchemaType } from "@/lib/zodSchemas";
+import { requireAdmin } from '@/app/data/admin/require-admin';
+import { prisma } from '@/lib/db';
+import { ApiResponse } from '@/lib/types';
+import { lessonSchema, LessonSchemaType } from '@/lib/zodSchemas';
 
 export async function updateLesson(
   values: LessonSchemaType,
-  lessonId: string
+  lessonId: string,
 ): Promise<ApiResponse> {
   await requireAdmin();
 
@@ -16,8 +16,8 @@ export async function updateLesson(
 
     if (!result.success) {
       return {
-        status: "error",
-        message: "Invalid data",
+        status: 'error',
+        message: 'Invalid data',
       };
     }
 
@@ -34,13 +34,13 @@ export async function updateLesson(
     });
 
     return {
-      status: "success",
-      message: "Course updated successfully",
+      status: 'success',
+      message: 'Course updated successfully',
     };
   } catch {
     return {
-      status: "error",
-      message: "Failed to update course",
+      status: 'error',
+      message: 'Failed to update course',
     };
   }
 }

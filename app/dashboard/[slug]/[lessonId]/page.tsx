@@ -1,8 +1,8 @@
-import { getLessonContent } from "@/app/data/course/get-lesson-content";
-import { CourseContent } from "./_components/CourseContent";
-import { Suspense } from "react";
-import { QuizPlayer } from "./_components/QuizPlayer";
-import { LessonSkeleton } from "./_components/LessonSkeleton";
+import { getLessonContent } from '@/app/data/course/get-lesson-content';
+import { CourseContent } from './_components/CourseContent';
+import { Suspense } from 'react';
+import { QuizPlayer } from './_components/QuizPlayer';
+import { LessonSkeleton } from './_components/LessonSkeleton';
 
 type Params = Promise<{ lessonId: string }>;
 
@@ -23,7 +23,7 @@ export default async function LessonContentPage({
 async function LessonContentLoader({ lessonId }: { lessonId: string }) {
   const data = await getLessonContent(lessonId);
 
-  if (data.type === "QUIZ") {
+  if (data.type === 'QUIZ') {
     return <QuizPlayer data={data} />;
   }
   return <CourseContent data={data} />;

@@ -1,13 +1,13 @@
-"use server";
+'use server';
 
-import { requireUser } from "@/app/data/user/require-user";
-import { prisma } from "@/lib/db";
-import { ApiResponse } from "@/lib/types";
-import { revalidatePath } from "next/cache";
+import { requireUser } from '@/app/data/user/require-user';
+import { prisma } from '@/lib/db';
+import { ApiResponse } from '@/lib/types';
+import { revalidatePath } from 'next/cache';
 
 export async function markLessonComplete(
   lessonId: string,
-  slug: string
+  slug: string,
 ): Promise<ApiResponse> {
   const session = await requireUser();
 
@@ -32,20 +32,20 @@ export async function markLessonComplete(
     revalidatePath(`/dashboard/${slug}`);
 
     return {
-      status: "success",
-      message: "Progress updated",
+      status: 'success',
+      message: 'Progress updated',
     };
   } catch {
     return {
-      status: "error",
-      message: "Failed to mark lesson as complete",
+      status: 'error',
+      message: 'Failed to mark lesson as complete',
     };
   }
 }
 
 export async function markLessonIncomplete(
   lessonId: string,
-  slug: string
+  slug: string,
 ): Promise<ApiResponse> {
   const session = await requireUser();
 
@@ -70,13 +70,13 @@ export async function markLessonIncomplete(
     revalidatePath(`/dashboard/${slug}`);
 
     return {
-      status: "success",
-      message: "Progress updated (marked as incomplete)",
+      status: 'success',
+      message: 'Progress updated (marked as incomplete)',
     };
   } catch {
     return {
-      status: "error",
-      message: "Failed to mark lesson as incomplete",
+      status: 'error',
+      message: 'Failed to mark lesson as incomplete',
     };
   }
 }

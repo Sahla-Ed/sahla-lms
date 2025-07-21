@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/db";
-import { Prisma } from "@/lib/generated/prisma";
-import "server-only";
+import { prisma } from '@/lib/db';
+import { Prisma } from '@/lib/generated/prisma';
+import 'server-only';
 
 export interface CourseFilters {
   q?: string;
@@ -13,14 +13,14 @@ export async function getAllCourses(filters: CourseFilters = {}) {
   const { q, category } = filters;
 
   const whereClause: Prisma.CourseWhereInput = {
-    status: "Published",
+    status: 'Published',
   };
 
   // 1. Filter by search query (q)
   if (q) {
     whereClause.OR = [
-      { title: { contains: q, mode: "insensitive" } },
-      { category: { contains: q, mode: "insensitive" } },
+      { title: { contains: q, mode: 'insensitive' } },
+      { category: { contains: q, mode: 'insensitive' } },
     ];
   }
 
@@ -32,7 +32,7 @@ export async function getAllCourses(filters: CourseFilters = {}) {
   const data = await prisma.course.findMany({
     where: whereClause,
     orderBy: {
-      createdAt: "desc",
+      createdAt: 'desc',
     },
     select: {
       title: true,

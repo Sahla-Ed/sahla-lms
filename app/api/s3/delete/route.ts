@@ -1,9 +1,9 @@
-import { requireAdmin } from "@/app/data/admin/require-admin";
+import { requireAdmin } from '@/app/data/admin/require-admin';
 
-import { env } from "@/lib/env";
-import { S3 } from "@/lib/S3Client";
-import { DeleteObjectCommand } from "@aws-sdk/client-s3";
-import { NextResponse } from "next/server";
+import { env } from '@/lib/env';
+import { S3 } from '@/lib/S3Client';
+import { DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { NextResponse } from 'next/server';
 
 export async function DELETE(request: Request) {
   await requireAdmin();
@@ -14,7 +14,7 @@ export async function DELETE(request: Request) {
 
     if (!key) {
       return NextResponse.json(
-        { error: "Missing or invalid object key" },
+        { error: 'Missing or invalid object key' },
         { status: 400 },
       );
     }
@@ -27,12 +27,12 @@ export async function DELETE(request: Request) {
     await S3.send(command);
 
     return NextResponse.json(
-      { message: "File deleted succesfully" },
+      { message: 'File deleted succesfully' },
       { status: 200 },
     );
   } catch {
     return NextResponse.json(
-      { error: "Missing or invalid object key" },
+      { error: 'Missing or invalid object key' },
       { status: 500 },
     );
   }

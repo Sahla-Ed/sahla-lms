@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -7,12 +7,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { lessonSchema, LessonSchemaType } from "@/lib/zodSchemas";
-import { Plus } from "lucide-react";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+} from '@/components/ui/dialog';
+import { lessonSchema, LessonSchemaType } from '@/lib/zodSchemas';
+import { Plus } from 'lucide-react';
+import { useState, useTransition } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormControl,
@@ -20,12 +20,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { tryCatch } from "@/hooks/try-catch";
-import { createLesson } from "../actions";
-import { toast } from "sonner";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { tryCatch } from '@/hooks/try-catch';
+import { createLesson } from '../actions';
+import { toast } from 'sonner';
 
 export function NewLessonModal({
   courseId,
@@ -40,9 +40,9 @@ export function NewLessonModal({
   const form = useForm<LessonSchemaType>({
     resolver: zodResolver(lessonSchema),
     defaultValues: {
-      name: "",
+      name: '',
       courseId: courseId,
-      type: "VIDEO",
+      type: 'VIDEO',
       chapterId: chapterId,
     },
   });
@@ -52,16 +52,16 @@ export function NewLessonModal({
       const { data: result, error } = await tryCatch(createLesson(values));
 
       if (error) {
-        toast.error("An unexpected error occurred. Please try again.");
+        toast.error('An unexpected error occurred. Please try again.');
         return;
       }
 
-      if (result.status === "success") {
-        const isQuiz = values.type === "QUIZ";
-        toast.success(isQuiz ? "Quiz created successfully" : result.message);
+      if (result.status === 'success') {
+        const isQuiz = values.type === 'QUIZ';
+        toast.success(isQuiz ? 'Quiz created successfully' : result.message);
         form.reset();
         setIsOpen(false);
-      } else if (result.status === "error") {
+      } else if (result.status === 'error') {
         toast.error(result.message);
       }
     });
@@ -78,30 +78,30 @@ export function NewLessonModal({
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="w-full justify-center gap-1">
-          <Plus className="size-4" /> New Lesson
+        <Button variant='outline' className='w-full justify-center gap-1'>
+          <Plus className='size-4' /> New Lesson
         </Button>
       </DialogTrigger>
       <DialogContent
-        className="sm:max-w-[425px]"
-        aria-describedby="new-lesson-desc"
+        className='sm:max-w-[425px]'
+        aria-describedby='new-lesson-desc'
       >
         <DialogHeader>
           <DialogTitle>Create new lesson</DialogTitle>
-          <DialogDescription id="new-lesson-desc">
+          <DialogDescription id='new-lesson-desc'>
             What would you like to name your lesson?
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
+          <form className='space-y-8' onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="name"
+              name='name'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Lesson Name" {...field} />
+                    <Input placeholder='Lesson Name' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -109,27 +109,27 @@ export function NewLessonModal({
             />
             <FormField
               control={form.control}
-              name="type"
+              name='type'
               render={({ field }) => (
-                <FormItem className="space-y-3">
+                <FormItem className='space-y-3'>
                   <FormLabel>Lesson Type</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
                       defaultValue={field.value}
-                      className="flex space-x-4"
+                      className='flex space-x-4'
                     >
-                      <FormItem className="flex items-center space-x-2 space-y-0">
+                      <FormItem className='flex items-center space-y-0 space-x-2'>
                         <FormControl>
-                          <RadioGroupItem value="VIDEO" />
+                          <RadioGroupItem value='VIDEO' />
                         </FormControl>
-                        <FormLabel className="font-normal">Video</FormLabel>
+                        <FormLabel className='font-normal'>Video</FormLabel>
                       </FormItem>
-                      <FormItem className="flex items-center space-x-2 space-y-0">
+                      <FormItem className='flex items-center space-y-0 space-x-2'>
                         <FormControl>
-                          <RadioGroupItem value="QUIZ" />
+                          <RadioGroupItem value='QUIZ' />
                         </FormControl>
-                        <FormLabel className="font-normal">Quiz</FormLabel>
+                        <FormLabel className='font-normal'>Quiz</FormLabel>
                       </FormItem>
                     </RadioGroup>
                   </FormControl>
@@ -138,8 +138,8 @@ export function NewLessonModal({
             />
 
             <DialogFooter>
-              <Button disabled={pending} type="submit">
-                {pending ? "Saving..." : " Save Change"}
+              <Button disabled={pending} type='submit'>
+                {pending ? 'Saving...' : ' Save Change'}
               </Button>
             </DialogFooter>
           </form>

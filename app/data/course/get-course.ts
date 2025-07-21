@@ -1,7 +1,7 @@
-import "server-only";
+import 'server-only';
 
-import { prisma } from "@/lib/db";
-import { notFound } from "next/navigation";
+import { prisma } from '@/lib/db';
+import { notFound } from 'next/navigation';
 
 export async function getIndividualCourse(slug: string) {
   const course = await prisma.course.findUnique({
@@ -28,12 +28,12 @@ export async function getIndividualCourse(slug: string) {
               title: true,
             },
             orderBy: {
-              position: "asc",
+              position: 'asc',
             },
           },
         },
         orderBy: {
-          position: "asc",
+          position: 'asc',
         },
       },
     },

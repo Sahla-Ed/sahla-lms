@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useCallback } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { useState, useEffect, useCallback } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
   Dialog,
   DialogContent,
@@ -20,25 +20,25 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogDescription,
-} from "@/components/ui/dialog";
-import { Badge } from "@/components/ui/badge";
-import { Plus, Edit, Trash2, Brain, Loader2, X } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { questionSchema, QuestionSchemaType } from "@/lib/zodSchemas";
-import { toast } from "sonner";
-import { tryCatch } from "@/hooks/try-catch";
+} from '@/components/ui/dialog';
+import { Badge } from '@/components/ui/badge';
+import { Plus, Edit, Trash2, Brain, Loader2, X } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { questionSchema, QuestionSchemaType } from '@/lib/zodSchemas';
+import { toast } from 'sonner';
+import { tryCatch } from '@/hooks/try-catch';
 import {
   createQuestion,
   getCourseQuestions,
   deleteQuestion,
   updateQuestion,
-} from "../quiz-actions";
+} from '../quiz-actions';
 
 interface Question {
   id: string;
   text: string;
-  type: "MCQ" | "TRUE_FALSE";
+  type: 'MCQ' | 'TRUE_FALSE';
   options: string[];
   answer: string;
   explanation?: string;
@@ -55,18 +55,18 @@ export function TestBank({ courseId }: TestBankProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
   const [isFetching, setIsFetching] = useState(true);
-  const [aiTopic, setAiTopic] = useState("");
+  const [aiTopic, setAiTopic] = useState('');
   const [aiCount, setAiCount] = useState(5);
 
   const form = useForm<QuestionSchemaType>({
     resolver: zodResolver(questionSchema),
     defaultValues: {
       courseId,
-      text: "",
-      type: "MCQ",
+      text: '',
+      type: 'MCQ',
       options: [],
-      answer: "",
-      explanation: "",
+      answer: '',
+      explanation: '',
     },
   });
 
@@ -82,11 +82,11 @@ export function TestBank({ courseId }: TestBankProps) {
           options: q.options as string[],
           answer: q.answer,
           explanation: q.explanation || undefined,
-        }))
+        })),
       );
     } catch (error) {
-      console.error("Failed to fetch questions:", error);
-      toast.error("Failed to load questions");
+      console.error('Failed to fetch questions:', error);
+      toast.error('Failed to load questions');
     } finally {
       setIsFetching(false);
     }
@@ -107,16 +107,16 @@ export function TestBank({ courseId }: TestBankProps) {
           type: editingQuestion.type,
           options: editingQuestion.options,
           answer: editingQuestion.answer,
-          explanation: editingQuestion.explanation || "",
+          explanation: editingQuestion.explanation || '',
         });
       } else {
         form.reset({
           courseId,
-          text: "",
-          type: "MCQ",
+          text: '',
+          type: 'MCQ',
           options: [],
-          answer: "",
-          explanation: "",
+          answer: '',
+          explanation: '',
         });
       }
     } else {
@@ -134,11 +134,11 @@ export function TestBank({ courseId }: TestBankProps) {
 
     if (error) {
       toast.error(
-        `Failed to ${editingQuestion ? "update" : "create"} question`
+        `Failed to ${editingQuestion ? 'update' : 'create'} question`,
       );
     } else {
       toast.success(
-        `Question ${editingQuestion ? "updated" : "created"} successfully`
+        `Question ${editingQuestion ? 'updated' : 'created'} successfully`,
       );
       setIsDialogOpen(false);
       await fetchAndSetQuestions();
@@ -150,9 +150,9 @@ export function TestBank({ courseId }: TestBankProps) {
     const { error } = await tryCatch(deleteQuestion(questionId, courseId));
 
     if (error) {
-      toast.error("Failed to delete question");
+      toast.error('Failed to delete question');
     } else {
-      toast.success("Question deleted successfully");
+      toast.success('Question deleted successfully');
       setQuestions((prev) => prev.filter((q) => q.id !== questionId));
     }
   };
@@ -165,22 +165,22 @@ export function TestBank({ courseId }: TestBankProps) {
   const generateQuestions = async (topic: string, count: number) => {
     setIsGenerating(true);
     try {
-      const res = await fetch("/api/quiz/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/quiz/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic, numQuestions: count }),
       });
 
       if (!res.ok) {
         const errorData = await res.json();
-        throw new Error(errorData.error || "Failed to generate questions");
+        throw new Error(errorData.error || 'Failed to generate questions');
       }
 
       const { questions: generatedQuestions } = await res.json();
 
       if (!generatedQuestions || generatedQuestions.length === 0) {
         toast.warning(
-          "AI did not generate any questions. Please try a different topic."
+          'AI did not generate any questions. Please try a different topic.',
         );
         return;
       }
@@ -190,106 +190,106 @@ export function TestBank({ courseId }: TestBankProps) {
       }
 
       toast.success(
-        `Generated and saved ${generatedQuestions.length} new questions!`
+        `Generated and saved ${generatedQuestions.length} new questions!`,
       );
       await fetchAndSetQuestions();
     } catch (e) {
-      toast.error((e as Error).message || "An unexpected error occurred.");
+      toast.error((e as Error).message || 'An unexpected error occurred.');
     } finally {
       setIsGenerating(false);
     }
   };
 
   const addOption = () => {
-    form.setValue("options", [...(form.getValues("options") || []), ""]);
+    form.setValue('options', [...(form.getValues('options') || []), '']);
   };
 
   const removeOption = (index: number) => {
-    const currentOptions = form.getValues("options") || [];
+    const currentOptions = form.getValues('options') || [];
     const optionToRemove = currentOptions[index];
     const newOptions = currentOptions.filter((_, i) => i !== index);
-    form.setValue("options", newOptions);
+    form.setValue('options', newOptions);
 
-    if (form.getValues("answer") === optionToRemove) {
-      form.setValue("answer", "");
+    if (form.getValues('answer') === optionToRemove) {
+      form.setValue('answer', '');
     }
   };
 
   const updateOption = (index: number, value: string) => {
-    const newOptions = [...(form.getValues("options") || [])];
+    const newOptions = [...(form.getValues('options') || [])];
     newOptions[index] = value;
-    form.setValue("options", newOptions);
+    form.setValue('options', newOptions);
   };
 
   if (isFetching) {
     return (
-      <div className="flex items-center justify-center py-8">
-        <Loader2 className="w-6 h-6 animate-spin" />
-        <span className="ml-2">Loading questions...</span>
+      <div className='flex items-center justify-center py-8'>
+        <Loader2 className='h-6 w-6 animate-spin' />
+        <span className='ml-2'>Loading questions...</span>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
+    <div className='space-y-6'>
+      <div className='flex items-center justify-between'>
         <div>
-          <h3 className="text-lg font-semibold">Course Questions</h3>
-          <p className="text-sm text-muted-foreground">
+          <h3 className='text-lg font-semibold'>Course Questions</h3>
+          <p className='text-muted-foreground text-sm'>
             Manage questions for quizzes in this course
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className='flex gap-2'>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Button>
-                <Plus className="w-4 h-4 mr-2" />
+                <Plus className='mr-2 h-4 w-4' />
                 Add Question
               </Button>
             </DialogTrigger>
             <DialogContent
-              className="max-w-2xl"
-              aria-describedby="add-question-desc"
+              className='max-w-2xl'
+              aria-describedby='add-question-desc'
             >
               <DialogHeader>
                 <DialogTitle>
-                  {editingQuestion ? "Edit Question" : "Add New Question"}
+                  {editingQuestion ? 'Edit Question' : 'Add New Question'}
                 </DialogTitle>
-                <DialogDescription id="add-question-desc">
+                <DialogDescription id='add-question-desc'>
                   Fill in the details to add or edit a question for this
                   course&apos;s quiz.
                 </DialogDescription>
               </DialogHeader>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-4"
+                className='space-y-4'
               >
                 <div>
-                  <Label htmlFor="text">Question Text</Label>
+                  <Label htmlFor='text'>Question Text</Label>
                   <Textarea
-                    id="text"
-                    {...form.register("text")}
-                    placeholder="Enter your question here..."
+                    id='text'
+                    {...form.register('text')}
+                    placeholder='Enter your question here...'
                   />
                   {form.formState.errors.text && (
-                    <p className="text-sm text-red-500">
+                    <p className='text-sm text-red-500'>
                       {form.formState.errors.text.message}
                     </p>
                   )}
                 </div>
 
                 <div>
-                  <Label htmlFor="type">Question Type</Label>
+                  <Label htmlFor='type'>Question Type</Label>
                   <Select
-                    value={form.watch("type")}
+                    value={form.watch('type')}
                     onValueChange={(value) => {
-                      form.setValue("type", value as "MCQ" | "TRUE_FALSE");
-                      if (value === "TRUE_FALSE") {
-                        form.setValue("options", ["True", "False"]);
-                        form.setValue("answer", "");
+                      form.setValue('type', value as 'MCQ' | 'TRUE_FALSE');
+                      if (value === 'TRUE_FALSE') {
+                        form.setValue('options', ['True', 'False']);
+                        form.setValue('answer', '');
                       } else {
-                        form.setValue("options", []);
-                        form.setValue("answer", "");
+                        form.setValue('options', []);
+                        form.setValue('answer', '');
                       }
                     }}
                   >
@@ -297,31 +297,31 @@ export function TestBank({ courseId }: TestBankProps) {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="MCQ">Multiple Choice</SelectItem>
-                      <SelectItem value="TRUE_FALSE">True/False</SelectItem>
+                      <SelectItem value='MCQ'>Multiple Choice</SelectItem>
+                      <SelectItem value='TRUE_FALSE'>True/False</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
-                {form.watch("type") === "MCQ" && (
+                {form.watch('type') === 'MCQ' && (
                   <div>
-                    <div className="flex items-center justify-between mb-2">
+                    <div className='mb-2 flex items-center justify-between'>
                       <Label>Options</Label>
                       <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
+                        type='button'
+                        variant='outline'
+                        size='sm'
                         onClick={addOption}
                       >
-                        <Plus className="w-4 h-4 mr-1" />
+                        <Plus className='mr-1 h-4 w-4' />
                         Add Option
                       </Button>
                     </div>
-                    <div className="space-y-2">
-                      {(form.watch("options") || []).map((option, index) => (
+                    <div className='space-y-2'>
+                      {(form.watch('options') || []).map((option, index) => (
                         <div
                           key={`option-input-${index}`}
-                          className="flex gap-2"
+                          className='flex gap-2'
                         >
                           <Input
                             placeholder={`Option ${index + 1}`}
@@ -330,20 +330,20 @@ export function TestBank({ courseId }: TestBankProps) {
                               updateOption(index, e.target.value)
                             }
                           />
-                          {(form.watch("options") || []).length > 2 && (
+                          {(form.watch('options') || []).length > 2 && (
                             <Button
-                              type="button"
-                              variant="outline"
-                              size="icon"
+                              type='button'
+                              variant='outline'
+                              size='icon'
                               onClick={() => removeOption(index)}
                             >
-                              <X className="w-4 h-4" />
+                              <X className='h-4 w-4' />
                             </Button>
                           )}
                         </div>
                       ))}
-                      {(form.watch("options") || []).length === 0 && (
-                        <p className="text-sm text-muted-foreground">
+                      {(form.watch('options') || []).length === 0 && (
+                        <p className='text-muted-foreground text-sm'>
                           Click &quot;Add Option&quot; to start adding choices
                         </p>
                       )}
@@ -352,24 +352,24 @@ export function TestBank({ courseId }: TestBankProps) {
                 )}
 
                 <div>
-                  <Label htmlFor="answer">Correct Answer</Label>
-                  {form.watch("type") === "MCQ" ? (
+                  <Label htmlFor='answer'>Correct Answer</Label>
+                  {form.watch('type') === 'MCQ' ? (
                     <Select
-                      value={form.watch("answer")}
-                      onValueChange={(value) => form.setValue("answer", value)}
+                      value={form.watch('answer')}
+                      onValueChange={(value) => form.setValue('answer', value)}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Select correct answer" />
+                        <SelectValue placeholder='Select correct answer' />
                       </SelectTrigger>
                       <SelectContent>
                         {Array.from(
                           new Set(
                             form
-                              .watch("options")
+                              .watch('options')
                               ?.filter(
-                                (option) => option && option.trim() !== ""
-                              )
-                          )
+                                (option) => option && option.trim() !== '',
+                              ),
+                          ),
                         ).map((option) => (
                           <SelectItem key={option} value={option}>
                             {option}
@@ -379,42 +379,42 @@ export function TestBank({ courseId }: TestBankProps) {
                     </Select>
                   ) : (
                     <Select
-                      value={form.watch("answer")}
-                      onValueChange={(value) => form.setValue("answer", value)}
+                      value={form.watch('answer')}
+                      onValueChange={(value) => form.setValue('answer', value)}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Select correct answer" />
+                        <SelectValue placeholder='Select correct answer' />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="True">True</SelectItem>
-                        <SelectItem value="False">False</SelectItem>
+                        <SelectItem value='True'>True</SelectItem>
+                        <SelectItem value='False'>False</SelectItem>
                       </SelectContent>
                     </Select>
                   )}
                 </div>
 
                 <div>
-                  <Label htmlFor="explanation">Explanation (Optional)</Label>
+                  <Label htmlFor='explanation'>Explanation (Optional)</Label>
                   <Textarea
-                    id="explanation"
-                    {...form.register("explanation")}
-                    placeholder="Explain why this is the correct answer..."
+                    id='explanation'
+                    {...form.register('explanation')}
+                    placeholder='Explain why this is the correct answer...'
                   />
                 </div>
 
-                <div className="flex justify-end gap-2">
+                <div className='flex justify-end gap-2'>
                   <Button
-                    type="button"
-                    variant="outline"
+                    type='button'
+                    variant='outline'
                     onClick={() => setIsDialogOpen(false)}
                   >
                     Cancel
                   </Button>
-                  <Button type="submit" disabled={isLoading}>
+                  <Button type='submit' disabled={isLoading}>
                     {isLoading && (
-                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      <Loader2 className='mr-2 h-4 w-4 animate-spin' />
                     )}
-                    {editingQuestion ? "Update" : "Create"}
+                    {editingQuestion ? 'Update' : 'Create'}
                   </Button>
                 </div>
               </form>
@@ -423,31 +423,31 @@ export function TestBank({ courseId }: TestBankProps) {
 
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="outline">
-                <Brain className="w-4 h-4 mr-2" />
+              <Button variant='outline'>
+                <Brain className='mr-2 h-4 w-4' />
                 Generate with AI
               </Button>
             </DialogTrigger>
-            <DialogContent aria-describedby="ai-generate-desc">
+            <DialogContent aria-describedby='ai-generate-desc'>
               <DialogHeader>
                 <DialogTitle>Generate Questions with AI</DialogTitle>
-                <DialogDescription id="ai-generate-desc">
+                <DialogDescription id='ai-generate-desc'>
                   Use AI to generate quiz questions based on a topic and number
                   of questions.
                 </DialogDescription>
               </DialogHeader>
-              <div className="space-y-4">
+              <div className='space-y-4'>
                 <div>
-                  <Label htmlFor="topic">Topic</Label>
+                  <Label htmlFor='topic'>Topic</Label>
                   <Input
-                    id="topic"
-                    placeholder="e.g., JavaScript fundamentals"
+                    id='topic'
+                    placeholder='e.g., JavaScript fundamentals'
                     value={aiTopic}
                     onChange={(e) => setAiTopic(e.target.value)}
                   />
                 </div>
                 <div>
-                  <Label htmlFor="count">Number of Questions</Label>
+                  <Label htmlFor='count'>Number of Questions</Label>
                   <Select
                     value={String(aiCount)}
                     onValueChange={(v) => setAiCount(Number(v))}
@@ -456,19 +456,19 @@ export function TestBank({ courseId }: TestBankProps) {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="3">3</SelectItem>
-                      <SelectItem value="5">5</SelectItem>
-                      <SelectItem value="10">10</SelectItem>
+                      <SelectItem value='3'>3</SelectItem>
+                      <SelectItem value='5'>5</SelectItem>
+                      <SelectItem value='10'>10</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <Button
                   onClick={() => generateQuestions(aiTopic, aiCount)}
                   disabled={isGenerating || !aiTopic}
-                  className="w-full"
+                  className='w-full'
                 >
                   {isGenerating && (
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    <Loader2 className='mr-2 h-4 w-4 animate-spin' />
                   )}
                   Generate Questions
                 </Button>
@@ -478,13 +478,13 @@ export function TestBank({ courseId }: TestBankProps) {
         </div>
       </div>
 
-      <div className="grid gap-4">
+      <div className='grid gap-4'>
         {questions.length === 0 ? (
           <Card>
-            <CardContent className="flex flex-col items-center justify-center py-8">
-              <p className="text-muted-foreground mb-4">No questions yet</p>
+            <CardContent className='flex flex-col items-center justify-center py-8'>
+              <p className='text-muted-foreground mb-4'>No questions yet</p>
               <Button onClick={() => setIsDialogOpen(true)}>
-                <Plus className="w-4 h-4 mr-2" />
+                <Plus className='mr-2 h-4 w-4' />
                 Add Your First Question
               </Button>
             </CardContent>
@@ -493,59 +493,59 @@ export function TestBank({ courseId }: TestBankProps) {
           questions.map((question) => (
             <Card key={question.id}>
               <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <CardTitle className="text-base">{question.text}</CardTitle>
-                    <div className="flex gap-2 mt-2">
-                      <Badge variant="secondary">{question.type}</Badge>
-                      <Badge variant="outline">
+                <div className='flex items-start justify-between'>
+                  <div className='flex-1'>
+                    <CardTitle className='text-base'>{question.text}</CardTitle>
+                    <div className='mt-2 flex gap-2'>
+                      <Badge variant='secondary'>{question.type}</Badge>
+                      <Badge variant='outline'>
                         {question.options.length} options
                       </Badge>
                     </div>
                   </div>
-                  <div className="flex gap-2">
+                  <div className='flex gap-2'>
                     <Button
-                      variant="outline"
-                      size="sm"
+                      variant='outline'
+                      size='sm'
                       onClick={() => handleEditQuestion(question)}
                     >
-                      <Edit className="w-4 h-4" />
+                      <Edit className='h-4 w-4' />
                     </Button>
                     <Button
-                      variant="outline"
-                      size="sm"
+                      variant='outline'
+                      size='sm'
                       onClick={() => handleDeleteQuestion(question.id)}
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className='h-4 w-4' />
                     </Button>
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2">
+                <div className='space-y-2'>
                   {question.options.map((option, index) => (
                     <div
                       key={`question-${question.id}-option-${index}`}
-                      className={`p-2 rounded border ${
+                      className={`rounded border p-2 ${
                         option === question.answer
-                          ? "bg-green-50 border-green-200 dark:bg-green-950 dark:border-green-800"
-                          : "bg-gray-50 border-gray-200 dark:bg-gray-950 dark:border-gray-800"
+                          ? 'border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950'
+                          : 'border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-950'
                       }`}
                     >
                       {option}
                       {option === question.answer && (
-                        <Badge variant="secondary" className="ml-2">
+                        <Badge variant='secondary' className='ml-2'>
                           Correct
                         </Badge>
                       )}
                     </div>
                   ))}
                   {question.explanation && (
-                    <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-950 rounded">
-                      <p className="text-sm font-medium text-blue-900 dark:text-blue-100">
+                    <div className='mt-3 rounded bg-blue-50 p-3 dark:bg-blue-950'>
+                      <p className='text-sm font-medium text-blue-900 dark:text-blue-100'>
                         Explanation:
                       </p>
-                      <p className="text-sm text-blue-700 dark:text-blue-300">
+                      <p className='text-sm text-blue-700 dark:text-blue-300'>
                         {question.explanation}
                       </p>
                     </div>

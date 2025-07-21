@@ -1,68 +1,71 @@
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Mail, Phone, MessageCircle } from "lucide-react";
-import { ContactForm } from "../_components/ContactForm";
-import { Metadata } from "next";
-
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { Mail, Phone, MessageCircle } from 'lucide-react';
+import { ContactForm } from '../_components/ContactForm';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Contact Us | Get in Touch with Sahla",
+  title: 'Contact Us | Get in Touch with Sahla',
   description:
     "Have questions or need support? Reach out to the Sahla team through our contact page. We're here to help with course inquiries, feedback, or collaboration opportunities.",
 };
 
 export default function ContactUsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
-      <section className="relative py-20 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center space-y-8">
-            <Badge variant="outline" className="text-primary border-primary/20 bg-primary/5">
+    <div className='from-background via-background to-muted/20 min-h-screen bg-gradient-to-br'>
+      <section className='relative px-4 py-20'>
+        <div className='mx-auto max-w-4xl'>
+          <div className='space-y-8 text-center'>
+            <Badge
+              variant='outline'
+              className='text-primary border-primary/20 bg-primary/5'
+            >
               Contact Us
             </Badge>
-            <h1 className="text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+            <h1 className='from-primary to-primary/60 bg-gradient-to-r bg-clip-text text-5xl font-bold tracking-tight text-transparent md:text-6xl'>
               Get in Touch
             </h1>
-            <p className="max-w-2xl mx-auto text-xl text-muted-foreground leading-relaxed">
-              Ready to start your learning journey or share your expertise? We&apos;d love to hear from you.  
-              Fill out the form below and we&apos;ll get back to you soon.
+            <p className='text-muted-foreground mx-auto max-w-2xl text-xl leading-relaxed'>
+              Ready to start your learning journey or share your expertise?
+              We&apos;d love to hear from you. Fill out the form below and
+              we&apos;ll get back to you soon.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="py-20 px-4">
+      <section className='px-4 py-20'>
         <ContactForm />
       </section>
 
-      <section className="py-16 px-4 bg-muted/10">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <Card className="border-0 bg-gradient-to-br from-card to-primary/5 hover:shadow-lg transition-shadow">
-              <CardContent className="pt-6">
-                <Mail className="h-8 w-8 text-primary mx-auto mb-4" />
-                <h3 className="font-semibold mb-2">Email Us</h3>
-                <p className="text-sm text-muted-foreground">
+      <section className='bg-muted/10 px-4 py-16'>
+        <div className='mx-auto max-w-4xl'>
+          <div className='grid grid-cols-1 gap-8 text-center md:grid-cols-3'>
+            <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
+              <CardContent className='pt-6'>
+                <Mail className='text-primary mx-auto mb-4 h-8 w-8' />
+                <h3 className='mb-2 font-semibold'>Email Us</h3>
+                <p className='text-muted-foreground text-sm'>
                   Get in touch via email and we&apos;ll respond within 24 hours
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 bg-gradient-to-br from-card to-primary/5 hover:shadow-lg transition-shadow">
-              <CardContent className="pt-6">
-                <Phone className="h-8 w-8 text-primary mx-auto mb-4" />
-                <h3 className="font-semibold mb-2">Call Us</h3>
-                <p className="text-sm text-muted-foreground">
+            <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
+              <CardContent className='pt-6'>
+                <Phone className='text-primary mx-auto mb-4 h-8 w-8' />
+                <h3 className='mb-2 font-semibold'>Call Us</h3>
+                <p className='text-muted-foreground text-sm'>
                   Speak directly with our team for immediate assistance
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-0 bg-gradient-to-br from-card to-primary/5 hover:shadow-lg transition-shadow">
-              <CardContent className="pt-6">
-                <MessageCircle className="h-8 w-8 text-primary mx-auto mb-4" />
-                <h3 className="font-semibold mb-2">Live Chat</h3>
-                <p className="text-sm text-muted-foreground">
+            <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
+              <CardContent className='pt-6'>
+                <MessageCircle className='text-primary mx-auto mb-4 h-8 w-8' />
+                <h3 className='mb-2 font-semibold'>Live Chat</h3>
+                <p className='text-muted-foreground text-sm'>
                   Start a conversation with our support team right away
                 </p>
               </CardContent>

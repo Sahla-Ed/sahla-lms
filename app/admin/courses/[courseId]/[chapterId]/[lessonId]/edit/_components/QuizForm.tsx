@@ -1,28 +1,28 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { GripVertical, Plus, Trash2, HelpCircle, Loader2 } from "lucide-react";
-import { AdminLessonType } from "@/app/data/admin/admin-get-lesson";
-import { toast } from "sonner";
-import { tryCatch } from "@/hooks/try-catch";
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
+import { GripVertical, Plus, Trash2, HelpCircle, Loader2 } from 'lucide-react';
+import { AdminLessonType } from '@/app/data/admin/admin-get-lesson';
+import { toast } from 'sonner';
+import { tryCatch } from '@/hooks/try-catch';
 import {
   updateQuizQuestions,
   getCourseQuestions,
-} from "../../../../edit/quiz-actions";
+} from '../../../../edit/quiz-actions';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "@/components/ui/dialog";
-import { useRouter } from "next/navigation";
+} from '@/components/ui/dialog';
+import { useRouter } from 'next/navigation';
 import {
   DndContext,
   closestCenter,
@@ -30,14 +30,14 @@ import {
   useSensor,
   useSensors,
   DragEndEvent,
-} from "@dnd-kit/core";
+} from '@dnd-kit/core';
 import {
   arrayMove,
   SortableContext,
   useSortable,
   verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 interface QuizFormProps {
   lesson: AdminLessonType;
@@ -48,7 +48,7 @@ interface QuizFormProps {
 interface Question {
   id: string;
   text: string;
-  type: "MCQ" | "TRUE_FALSE";
+  type: 'MCQ' | 'TRUE_FALSE';
   options: string[];
   answer: string;
   explanation?: string;
@@ -83,36 +83,36 @@ function SortableQuestion({
       {...listeners}
     >
       <Card>
-        <CardContent className="p-4">
-          <div className="flex items-start gap-3">
+        <CardContent className='p-4'>
+          <div className='flex items-start gap-3'>
             <Button
-              variant="ghost"
-              size="icon"
-              className="mt-1 cursor-grab"
+              variant='ghost'
+              size='icon'
+              className='mt-1 cursor-grab'
               {...attributes}
               {...listeners}
             >
-              <GripVertical className="w-4 h-4" />
+              <GripVertical className='h-4 w-4' />
             </Button>
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-2">
-                <Badge variant="secondary">Question {index + 1}</Badge>
-                <Badge variant="outline">{question.type}</Badge>
+            <div className='flex-1'>
+              <div className='mb-2 flex items-center gap-2'>
+                <Badge variant='secondary'>Question {index + 1}</Badge>
+                <Badge variant='outline'>{question.type}</Badge>
               </div>
-              <p className="font-medium mb-2">{question.text}</p>
-              <div className="space-y-1">
+              <p className='mb-2 font-medium'>{question.text}</p>
+              <div className='space-y-1'>
                 {question.options.map((option, optionIndex) => (
                   <div
                     key={optionIndex}
-                    className={`p-2 rounded text-sm ${
+                    className={`rounded p-2 text-sm ${
                       option === question.answer
-                        ? "bg-green-50 border border-green-200 dark:bg-green-950 dark:border-green-800"
-                        : "bg-gray-50 border border-gray-200 dark:bg-gray-950 dark:border-gray-800"
+                        ? 'border border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950'
+                        : 'border border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-950'
                     }`}
                   >
                     {option}
                     {option === question.answer && (
-                      <Badge variant="secondary" className="ml-2 text-xs">
+                      <Badge variant='secondary' className='ml-2 text-xs'>
                         Correct
                       </Badge>
                     )}
@@ -120,22 +120,22 @@ function SortableQuestion({
                 ))}
               </div>
               {question.explanation && (
-                <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-950 rounded">
-                  <p className="text-sm font-medium text-blue-900 dark:text-blue-100">
+                <div className='mt-3 rounded bg-blue-50 p-3 dark:bg-blue-950'>
+                  <p className='text-sm font-medium text-blue-900 dark:text-blue-100'>
                     Explanation:
                   </p>
-                  <p className="text-sm text-blue-700 dark:text-blue-300">
+                  <p className='text-sm text-blue-700 dark:text-blue-300'>
                     {question.explanation}
                   </p>
                 </div>
               )}
             </div>
             <Button
-              variant="outline"
-              size="icon"
+              variant='outline'
+              size='icon'
               onClick={() => onRemove(question.id)}
             >
-              <Trash2 className="w-4 h-4" />
+              <Trash2 className='h-4 w-4' />
             </Button>
           </div>
         </CardContent>
@@ -147,8 +147,8 @@ function SortableQuestion({
 export function QuizForm({ lesson, courseId }: QuizFormProps) {
   const router = useRouter();
   const [title, setTitle] = useState(lesson.title);
-  const [description, setDescription] = useState(lesson.description || "");
-  const [timer, setTimer] = useState(lesson.timer ?? "");
+  const [description, setDescription] = useState(lesson.description || '');
+  const [timer, setTimer] = useState(lesson.timer ?? '');
   const [questions, setQuestions] = useState<Question[]>([]);
   const [availableQuestions, setAvailableQuestions] = useState<Question[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -170,11 +170,11 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
             options: q.options as string[],
             answer: q.answer,
             explanation: q.explanation || undefined,
-          }))
+          })),
         );
       } catch (error) {
-        console.error("Failed to fetch questions:", error);
-        toast.error("Failed to load questions from test bank");
+        console.error('Failed to fetch questions:', error);
+        toast.error('Failed to load questions from test bank');
       } finally {
         setIsFetching(false);
       }
@@ -205,13 +205,13 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
         lessonId: lesson.id,
         questionIds: questions.map((q) => q.id),
         timer: timer ? parseInt(timer as string, 10) : null,
-      })
+      }),
     );
 
     if (error) {
-      toast.error("Failed to update quiz");
+      toast.error('Failed to update quiz');
     } else {
-      toast.success("Quiz updated successfully");
+      toast.success('Quiz updated successfully');
     }
     setIsLoading(false);
   };
@@ -219,7 +219,7 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
   const addQuestion = (question: Question) => {
     // Check if question is already added
     if (questions.find((q) => q.id === question.id)) {
-      toast.error("This question is already added to the quiz");
+      toast.error('This question is already added to the quiz');
       return;
     }
     setQuestions((prev) => [...prev, question]);
@@ -241,55 +241,55 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
 
   if (isFetching) {
     return (
-      <div className="flex items-center justify-center py-8">
-        <Loader2 className="w-6 h-6 animate-spin" />
-        <span className="ml-2">Loading questions...</span>
+      <div className='flex items-center justify-center py-8'>
+        <Loader2 className='h-6 w-6 animate-spin' />
+        <span className='ml-2'>Loading questions...</span>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center gap-2 mb-6">
-        <HelpCircle className="w-6 h-6 text-blue-500" />
-        <h1 className="text-2xl font-bold">Edit Quiz: {lesson.title}</h1>
+    <div className='space-y-6'>
+      <div className='mb-6 flex items-center gap-2'>
+        <HelpCircle className='h-6 w-6 text-blue-500' />
+        <h1 className='text-2xl font-bold'>Edit Quiz: {lesson.title}</h1>
       </div>
 
       <Card>
         <CardHeader>
           <CardTitle>Quiz Details</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className='space-y-4'>
           <div>
-            <Label htmlFor="title">Quiz Title</Label>
+            <Label htmlFor='title'>Quiz Title</Label>
             <Input
-              id="title"
+              id='title'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Enter quiz title..."
+              placeholder='Enter quiz title...'
             />
           </div>
           <div>
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor='description'>Description</Label>
             <Textarea
-              id="description"
+              id='description'
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Enter quiz description..."
+              placeholder='Enter quiz description...'
             />
           </div>
           <div>
-            <Label htmlFor="timer">
-              Time limit (minutes){" "}
-              <span className="text-muted-foreground">[optional]</span>
+            <Label htmlFor='timer'>
+              Time limit (minutes){' '}
+              <span className='text-muted-foreground'>[optional]</span>
             </Label>
             <Input
-              id="timer"
-              type="number"
+              id='timer'
+              type='number'
               min={1}
               value={timer}
               onChange={(e) => setTimer(e.target.value)}
-              placeholder="e.g. 30"
+              placeholder='e.g. 30'
             />
           </div>
         </CardContent>
@@ -297,20 +297,20 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
 
       <Card>
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className='flex items-center justify-between'>
             <CardTitle>Quiz Questions</CardTitle>
             <Button onClick={() => setIsDialogOpen(true)}>
-              <Plus className="w-4 h-4 mr-2" />
+              <Plus className='mr-2 h-4 w-4' />
               Add Question from Test Bank
             </Button>
           </div>
         </CardHeader>
         <CardContent>
           {questions.length === 0 ? (
-            <div className="text-center py-8 text-muted-foreground">
-              <HelpCircle className="w-12 h-12 mx-auto mb-4 opacity-50" />
+            <div className='text-muted-foreground py-8 text-center'>
+              <HelpCircle className='mx-auto mb-4 h-12 w-12 opacity-50' />
               <p>No questions added yet</p>
-              <p className="text-sm">
+              <p className='text-sm'>
                 Add questions from your course test bank
               </p>
             </div>
@@ -324,7 +324,7 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
                 items={questions.map((q) => q.id)}
                 strategy={verticalListSortingStrategy}
               >
-                <div className="space-y-4">
+                <div className='space-y-4'>
                   {questions.map((question, index) => (
                     <SortableQuestion
                       key={question.id}
@@ -343,51 +343,51 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
       {/* Question Selection Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent
-          className="max-w-4xl max-h-[80vh] overflow-y-auto"
-          aria-describedby="select-questions-desc"
+          className='max-h-[80vh] max-w-4xl overflow-y-auto'
+          aria-describedby='select-questions-desc'
         >
           <DialogHeader>
             <DialogTitle>Select Questions from Test Bank</DialogTitle>
-            <DialogDescription id="select-questions-desc">
+            <DialogDescription id='select-questions-desc'>
               Choose questions from the test bank to add to this quiz.
             </DialogDescription>
           </DialogHeader>
-          <div className="space-y-4">
+          <div className='space-y-4'>
             {availableQuestions.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">
+              <div className='text-muted-foreground py-8 text-center'>
                 <p>No questions available in test bank</p>
-                <p className="text-sm">
+                <p className='text-sm'>
                   Create questions in the Test Bank tab first
                 </p>
               </div>
             ) : (
               availableQuestions.map((question) => (
                 <Card key={question.id}>
-                  <CardContent className="p-4">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Badge variant="outline">{question.type}</Badge>
+                  <CardContent className='p-4'>
+                    <div className='flex items-start justify-between'>
+                      <div className='flex-1'>
+                        <div className='mb-2 flex items-center gap-2'>
+                          <Badge variant='outline'>{question.type}</Badge>
                           {questions.find((q) => q.id === question.id) && (
-                            <Badge variant="secondary">Already Added</Badge>
+                            <Badge variant='secondary'>Already Added</Badge>
                           )}
                         </div>
-                        <p className="font-medium mb-2">{question.text}</p>
-                        <div className="space-y-1">
+                        <p className='mb-2 font-medium'>{question.text}</p>
+                        <div className='space-y-1'>
                           {question.options.map((option, index) => (
                             <div
                               key={index}
-                              className={`p-2 rounded text-sm ${
+                              className={`rounded p-2 text-sm ${
                                 option === question.answer
-                                  ? "bg-green-50 border border-green-200 dark:bg-green-950 dark:border-green-800"
-                                  : "bg-gray-50 border border-gray-200 dark:bg-gray-950 dark:border-gray-800"
+                                  ? 'border border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950'
+                                  : 'border border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-950'
                               }`}
                             >
                               {option}
                               {option === question.answer && (
                                 <Badge
-                                  variant="secondary"
-                                  className="ml-2 text-xs"
+                                  variant='secondary'
+                                  className='ml-2 text-xs'
                                 >
                                   Correct
                                 </Badge>
@@ -396,11 +396,11 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
                           ))}
                         </div>
                         {question.explanation && (
-                          <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-950 rounded">
-                            <p className="text-sm font-medium text-blue-900 dark:text-blue-100">
+                          <div className='mt-3 rounded bg-blue-50 p-3 dark:bg-blue-950'>
+                            <p className='text-sm font-medium text-blue-900 dark:text-blue-100'>
                               Explanation:
                             </p>
-                            <p className="text-sm text-blue-700 dark:text-blue-300">
+                            <p className='text-sm text-blue-700 dark:text-blue-300'>
                               {question.explanation}
                             </p>
                           </div>
@@ -409,9 +409,9 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
                       {!questions.find((q) => q.id === question.id) && (
                         <Button
                           onClick={() => addQuestion(question)}
-                          className="ml-4"
+                          className='ml-4'
                         >
-                          <Plus className="w-4 h-4 mr-2" />
+                          <Plus className='mr-2 h-4 w-4' />
                           Add
                         </Button>
                       )}
@@ -424,15 +424,15 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
         </DialogContent>
       </Dialog>
 
-      <div className="flex justify-end gap-2">
+      <div className='flex justify-end gap-2'>
         <Button
-          variant="outline"
+          variant='outline'
           onClick={() => router.push(`/admin/courses/${courseId}/edit`)}
         >
           Cancel
         </Button>
         <Button onClick={handleSave} disabled={isLoading}>
-          {isLoading ? "Saving..." : "Save Quiz"}
+          {isLoading ? 'Saving...' : 'Save Quiz'}
         </Button>
       </div>
     </div>

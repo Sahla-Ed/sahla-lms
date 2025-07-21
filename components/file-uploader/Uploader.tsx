@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useCallback, useEffect, useState } from "react";
-import { FileRejection, useDropzone } from "react-dropzone";
-import { Card, CardContent } from "../ui/card";
-import { cn } from "@/lib/utils";
+import { useCallback, useEffect, useState } from 'react';
+import { FileRejection, useDropzone } from 'react-dropzone';
+import { Card, CardContent } from '../ui/card';
+import { cn } from '@/lib/utils';
 import {
   RenderEmptyState,
   RenderErrorState,
   RenderUploadedState,
   RenderUploadingState,
-} from "./RenderState";
-import { toast } from "sonner";
-import { v4 as uuidv4 } from "uuid";
-import { useConstructUrl } from "@/hooks/use-construct-url";
+} from './RenderState';
+import { toast } from 'sonner';
+import { v4 as uuidv4 } from 'uuid';
+import { useConstructUrl } from '@/hooks/use-construct-url';
 
 interface UploaderState {
   id: string | null;
@@ -23,17 +23,17 @@ interface UploaderState {
   isDeleting: boolean;
   error: boolean;
   objectUrl?: string;
-  fileType: "image" | "video";
+  fileType: 'image' | 'video';
 }
 
 interface iAppProps {
   value?: string;
   onChange?: (value: string) => void;
-  fileTypeAccepted: "image" | "video";
+  fileTypeAccepted: 'image' | 'video';
 }
 
 export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
-  const fileUrl = useConstructUrl(value || "");
+  const fileUrl = useConstructUrl(value || '');
   const [fileState, setFileState] = useState<UploaderState>({
     error: false,
     file: null,
@@ -57,19 +57,19 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
       try {
         //1. Get presigned URL
 
-        const presignedResponse = await fetch("/api/s3/upload", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+        const presignedResponse = await fetch('/api/s3/upload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             fileName: file.name,
             contentType: file.type,
             size: file.size,
-            isImage: fileTypeAccepted === "image" ? true : false,
+            isImage: fileTypeAccepted === 'image' ? true : false,
           }),
         });
 
         if (!presignedResponse.ok) {
-          toast.error("Failed to get presigned URL");
+          toast.error('Failed to get presigned URL');
           setFileState((prev) => ({
             ...prev,
             uploading: false,
@@ -107,24 +107,24 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
 
               onChange?.(key);
 
-              toast.success("File uploaded succesfully");
+              toast.success('File uploaded succesfully');
 
               resolve();
             } else {
-              reject(new Error("Upload failed..."));
+              reject(new Error('Upload failed...'));
             }
           };
 
           xhr.onerror = () => {
-            reject(new Error("Upload failed"));
+            reject(new Error('Upload failed'));
           };
 
-          xhr.open("PUT", presignedUrl);
-          xhr.setRequestHeader("Content-Type", file.type);
+          xhr.open('PUT', presignedUrl);
+          xhr.setRequestHeader('Content-Type', file.type);
           xhr.send(file);
         });
       } catch {
-        toast.error("Something went wrong");
+        toast.error('Something went wrong');
 
         setFileState((prev) => ({
           ...prev,
@@ -142,7 +142,7 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
       if (acceptedFiles.length > 0) {
         const file = acceptedFiles[0];
 
-        if (fileState.objectUrl && !fileState.objectUrl.startsWith("http")) {
+        if (fileState.objectUrl && !fileState.objectUrl.startsWith('http')) {
           URL.revokeObjectURL(fileState.objectUrl);
         }
         setFileState({
@@ -171,16 +171,16 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
         isDeleting: true,
       }));
 
-      const response = await fetch("/api/s3/delete", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('/api/s3/delete', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           key: fileState.key,
         }),
       });
 
       if (!response.ok) {
-        toast.error("Failed to remove file from storage");
+        toast.error('Failed to remove file from storage');
 
         setFileState((prev) => ({
           ...prev,
@@ -191,11 +191,11 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
         return;
       }
 
-      if (fileState.objectUrl && !fileState.objectUrl.startsWith("http")) {
+      if (fileState.objectUrl && !fileState.objectUrl.startsWith('http')) {
         URL.revokeObjectURL(fileState.objectUrl);
       }
 
-      onChange?.("");
+      onChange?.('');
 
       setFileState(() => ({
         file: null,
@@ -208,9 +208,9 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
         isDeleting: false,
       }));
 
-      toast.success("File removed successfully");
+      toast.success('File removed successfully');
     } catch {
-      toast.error("Error removing file. please try again");
+      toast.error('Error removing file. please try again');
 
       setFileState((prev) => ({
         ...prev,
@@ -223,19 +223,19 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
   function rejectedFiles(fileRejection: FileRejection[]) {
     if (fileRejection.length) {
       const tooManyFiles = fileRejection.find(
-        (rejection) => rejection.errors[0].code === "too-many-files",
+        (rejection) => rejection.errors[0].code === 'too-many-files',
       );
 
       const fileSizeToBig = fileRejection.find(
-        (rejection) => rejection.errors[0].code === "file-too-large",
+        (rejection) => rejection.errors[0].code === 'file-too-large',
       );
 
       if (fileSizeToBig) {
-        toast.error("File Size exceeds the limit");
+        toast.error('File Size exceeds the limit');
       }
 
       if (tooManyFiles) {
-        toast.error("Too many files selected, max is 1");
+        toast.error('Too many files selected, max is 1');
       }
     }
   }
@@ -270,7 +270,7 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
 
   useEffect(() => {
     return () => {
-      if (fileState.objectUrl && !fileState.objectUrl.startsWith("http")) {
+      if (fileState.objectUrl && !fileState.objectUrl.startsWith('http')) {
         URL.revokeObjectURL(fileState.objectUrl);
       }
     };
@@ -279,11 +279,11 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept:
-      fileTypeAccepted === "video" ? { "video/*": [] } : { "image/*": [] },
+      fileTypeAccepted === 'video' ? { 'video/*': [] } : { 'image/*': [] },
     maxFiles: 1,
     multiple: false,
     maxSize:
-      fileTypeAccepted === "image" ? 5 * 1024 * 1024 : 5000 * 1024 * 1024,
+      fileTypeAccepted === 'image' ? 5 * 1024 * 1024 : 5000 * 1024 * 1024,
     onDropRejected: rejectedFiles,
     disabled: fileState.uploading || !!fileState.objectUrl,
   });
@@ -291,13 +291,13 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
     <Card
       {...getRootProps()}
       className={cn(
-        "relative border-2 border-dashed transition-colors duration-200 ease-in-out w-full h-64",
+        'relative h-64 w-full border-2 border-dashed transition-colors duration-200 ease-in-out',
         isDragActive
-          ? "border-primary bg-primary/10 border-solid"
-          : "border-border hover:border-primary",
+          ? 'border-primary bg-primary/10 border-solid'
+          : 'border-border hover:border-primary',
       )}
     >
-      <CardContent className="flex items-center justify-center h-full w-full p-4">
+      <CardContent className='flex h-full w-full items-center justify-center p-4'>
         <input {...getInputProps()} />
         {renderContent()}
       </CardContent>

@@ -1,7 +1,7 @@
-import "server-only";
-import { prisma } from "@/lib/db";
-import { requireAdmin } from "./require-admin";
-import { notFound } from "next/navigation";
+import 'server-only';
+import { prisma } from '@/lib/db';
+import { requireAdmin } from './require-admin';
+import { notFound } from 'next/navigation';
 
 export async function adminGetLesson(id: string) {
   await requireAdmin();
@@ -25,7 +25,7 @@ export async function adminGetLesson(id: string) {
           questionId: true,
         },
         orderBy: {
-          position: "asc",
+          position: 'asc',
         },
       },
     },

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   DndContext,
   DragEndEvent,
@@ -10,23 +10,23 @@ import {
   rectIntersection,
   useSensor,
   useSensors,
-} from "@dnd-kit/core";
+} from '@dnd-kit/core';
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   useSortable,
   verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
-import { ReactNode, useEffect, useState } from "react";
-import { CSS } from "@dnd-kit/utilities";
-import { AdminCourseSingularType } from "@/app/data/admin/admin-get-course";
-import { cn } from "@/lib/utils";
+} from '@dnd-kit/sortable';
+import { ReactNode, useEffect, useState } from 'react';
+import { CSS } from '@dnd-kit/utilities';
+import { AdminCourseSingularType } from '@/app/data/admin/admin-get-course';
+import { cn } from '@/lib/utils';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+} from '@/components/ui/collapsible';
 
 import {
   ChevronDown,
@@ -34,15 +34,15 @@ import {
   FileText,
   HelpCircle,
   GripVertical,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { toast } from "sonner";
-import { reorderChapters, reorderLessons } from "../actions";
-import { NewChapterModal } from "./NewChapterModal";
-import { NewLessonModal } from "./NewLessonModal";
-import { DeleteLesson } from "./DeleteLesson";
-import { DeleteChapter } from "./DeleteChapter";
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { toast } from 'sonner';
+import { reorderChapters, reorderLessons } from '../actions';
+import { NewChapterModal } from './NewChapterModal';
+import { NewLessonModal } from './NewLessonModal';
+import { DeleteLesson } from './DeleteLesson';
+import { DeleteChapter } from './DeleteChapter';
 
 interface iAppProps {
   data: AdminCourseSingularType;
@@ -53,7 +53,7 @@ interface SortableItemProps {
   children: (listeners: DraggableSyntheticListeners) => ReactNode;
   className?: string;
   data?: {
-    type: "chapter" | "lesson";
+    type: 'chapter' | 'lesson';
     chapterId?: string; //only relevant for lessons
   };
 }
@@ -118,7 +118,7 @@ export function CourseStructure({ data }: iAppProps) {
         ref={setNodeRef}
         style={style}
         {...attributes}
-        className={cn("touch-none", className, isDragging ? "z-10" : "")}
+        className={cn('touch-none', className, isDragging ? 'z-10' : '')}
       >
         {children(listeners)}
       </div>
@@ -134,21 +134,21 @@ export function CourseStructure({ data }: iAppProps) {
 
     const activeId = active.id as string;
     const overId = over.id as string;
-    const activeType = active.data.current?.type as "chapter" | "lesson";
-    const overType = over.data.current?.type as "chapter" | "lesson";
+    const activeType = active.data.current?.type as 'chapter' | 'lesson';
+    const overType = over.data.current?.type as 'chapter' | 'lesson';
     const courseId = data.id;
 
     // Handle Chapter Reordering
-    if (activeType === "chapter") {
+    if (activeType === 'chapter') {
       let targetChapterId = null;
-      if (overType === "chapter") {
+      if (overType === 'chapter') {
         targetChapterId = overId;
-      } else if (overType === "lesson") {
+      } else if (overType === 'lesson') {
         targetChapterId = over.data.current?.chapterId ?? null;
       }
 
       if (!targetChapterId) {
-        toast.error("Could not determine target chapter for reordering.");
+        toast.error('Could not determine target chapter for reordering.');
         return;
       }
 
@@ -156,7 +156,7 @@ export function CourseStructure({ data }: iAppProps) {
       const newIndex = items.findIndex((item) => item.id === targetChapterId);
 
       if (oldIndex === -1 || newIndex === -1) {
-        toast.error("Could not find chapter old/new index for reordering.");
+        toast.error('Could not find chapter old/new index for reordering.');
         return;
       }
 
@@ -165,7 +165,7 @@ export function CourseStructure({ data }: iAppProps) {
         (chapter, index) => ({
           ...chapter,
           order: index + 1,
-        })
+        }),
       );
       const previousItems = [...items];
       setItems(updatedChaptersForState);
@@ -178,14 +178,14 @@ export function CourseStructure({ data }: iAppProps) {
         const reorderPromise = () =>
           reorderChapters(courseId, chaptersToUpdate);
         toast.promise(reorderPromise(), {
-          loading: "Reordering chapters...",
+          loading: 'Reordering chapters...',
           success: (result) => {
-            if (result.status === "success") return result.message;
+            if (result.status === 'success') return result.message;
             throw new Error(result.message);
           },
           error: () => {
             setItems(previousItems);
-            return "Failed to reorder chapters.";
+            return 'Failed to reorder chapters.';
           },
         });
       }
@@ -193,42 +193,42 @@ export function CourseStructure({ data }: iAppProps) {
     }
 
     // Handle Lesson Reordering
-    if (activeType === "lesson" && overType === "lesson") {
+    if (activeType === 'lesson' && overType === 'lesson') {
       const chapterId = active.data.current?.chapterId;
       const overChapterId = over.data.current?.chapterId;
 
       if (!chapterId || chapterId !== overChapterId) {
         toast.error(
-          "Lesson move between different chapters or invalid chapter ID is not allowed."
+          'Lesson move between different chapters or invalid chapter ID is not allowed.',
         );
         return;
       }
 
       const chapterIndex = items.findIndex(
-        (chapter) => chapter.id === chapterId
+        (chapter) => chapter.id === chapterId,
       );
       if (chapterIndex === -1) {
-        toast.error("Could not find chapter for lesson reordering.");
+        toast.error('Could not find chapter for lesson reordering.');
         return;
       }
 
       const chapterToUpdate = items[chapterIndex];
       const oldLessonIndex = chapterToUpdate.lessons.findIndex(
-        (lesson) => lesson.id === activeId
+        (lesson) => lesson.id === activeId,
       );
       const newLessonIndex = chapterToUpdate.lessons.findIndex(
-        (lesson) => lesson.id === overId
+        (lesson) => lesson.id === overId,
       );
 
       if (oldLessonIndex === -1 || newLessonIndex === -1) {
-        toast.error("Could not find lesson for reordering.");
+        toast.error('Could not find lesson for reordering.');
         return;
       }
 
       const reorderedLessons = arrayMove(
         chapterToUpdate.lessons,
         oldLessonIndex,
-        newLessonIndex
+        newLessonIndex,
       );
       const updatedLessonsForState = reorderedLessons.map((lesson, index) => ({
         ...lesson,
@@ -255,14 +255,14 @@ export function CourseStructure({ data }: iAppProps) {
           reorderLessons(chapterId, lessonsToUpdate, courseId);
 
         toast.promise(reorderLessonsPromise(), {
-          loading: "Reordering lessons...",
+          loading: 'Reordering lessons...',
           success: (result) => {
-            if (result.status === "success") return result.message;
+            if (result.status === 'success') return result.message;
             throw new Error(result.message);
           },
           error: () => {
             setItems(previousItems); // Revert to previous state
-            return "Failed to reorder lessons.";
+            return 'Failed to reorder lessons.';
           },
         });
       }
@@ -275,8 +275,8 @@ export function CourseStructure({ data }: iAppProps) {
       items.map((chapter) =>
         chapter.id === chapterId
           ? { ...chapter, isOpen: !chapter.isOpen }
-          : chapter
-      )
+          : chapter,
+      ),
     );
   }
 
@@ -284,7 +284,7 @@ export function CourseStructure({ data }: iAppProps) {
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
   return (
     <DndContext
@@ -293,16 +293,16 @@ export function CourseStructure({ data }: iAppProps) {
       sensors={sensors}
     >
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between border-b border-border">
+        <CardHeader className='border-border flex flex-row items-center justify-between border-b'>
           <CardTitle>Chapters</CardTitle>
           <NewChapterModal courseId={data.id} />
         </CardHeader>
-        <CardContent className="space-y-8">
+        <CardContent className='space-y-8'>
           <SortableContext items={items} strategy={verticalListSortingStrategy}>
             {items.map((item) => (
               <SortableItem
                 id={item.id}
-                data={{ type: "chapter" }}
+                data={{ type: 'chapter' }}
                 key={item.id}
               >
                 {(listeners) => (
@@ -311,26 +311,26 @@ export function CourseStructure({ data }: iAppProps) {
                       open={item.isOpen}
                       onOpenChange={() => toggleChapter(item.id)}
                     >
-                      <div className="flex items-center justify-between p-3 border-b border-border">
-                        <div className="flex items-center gap-2">
-                          <Button variant="ghost" size="icon" {...listeners}>
-                            <GripVertical className="size-4" />
+                      <div className='border-border flex items-center justify-between border-b p-3'>
+                        <div className='flex items-center gap-2'>
+                          <Button variant='ghost' size='icon' {...listeners}>
+                            <GripVertical className='size-4' />
                           </Button>
                           <CollapsibleTrigger asChild>
                             <Button
-                              size="icon"
-                              variant="ghost"
-                              className="flex items-center"
+                              size='icon'
+                              variant='ghost'
+                              className='flex items-center'
                             >
                               {item.isOpen ? (
-                                <ChevronDown className="size-4" />
+                                <ChevronDown className='size-4' />
                               ) : (
-                                <ChevronRight className="size-4" />
+                                <ChevronRight className='size-4' />
                               )}
                             </Button>
                           </CollapsibleTrigger>
 
-                          <p className="cursor-pointer hover:text-primary pl-2">
+                          <p className='hover:text-primary cursor-pointer pl-2'>
                             {item.title}
                           </p>
                         </div>
@@ -339,7 +339,7 @@ export function CourseStructure({ data }: iAppProps) {
                       </div>
 
                       <CollapsibleContent>
-                        <div className="p-1">
+                        <div className='p-1'>
                           <SortableContext
                             items={item.lessons.map((lesson) => lesson.id)}
                             strategy={verticalListSortingStrategy}
@@ -348,22 +348,22 @@ export function CourseStructure({ data }: iAppProps) {
                               <SortableItem
                                 key={lesson.id}
                                 id={lesson.id}
-                                data={{ type: "lesson", chapterId: item.id }}
+                                data={{ type: 'lesson', chapterId: item.id }}
                               >
                                 {(lessonListeners) => (
-                                  <div className="flex items-center justify-between p-2 hover:bg-accent rounded-sm">
-                                    <div className="flex items-center gap-2">
+                                  <div className='hover:bg-accent flex items-center justify-between rounded-sm p-2'>
+                                    <div className='flex items-center gap-2'>
                                       <Button
-                                        variant="ghost"
-                                        size="icon"
+                                        variant='ghost'
+                                        size='icon'
                                         {...lessonListeners}
                                       >
-                                        <GripVertical className="size-4" />
+                                        <GripVertical className='size-4' />
                                       </Button>
-                                      {lesson.type === "QUIZ" ? (
-                                        <HelpCircle className="size-4 text-blue-500" />
+                                      {lesson.type === 'QUIZ' ? (
+                                        <HelpCircle className='size-4 text-blue-500' />
                                       ) : (
-                                        <FileText className="size-4" />
+                                        <FileText className='size-4' />
                                       )}
                                       <Link
                                         href={`/admin/courses/${data.id}/${item.id}/${lesson.id}/edit`}
@@ -382,7 +382,7 @@ export function CourseStructure({ data }: iAppProps) {
                               </SortableItem>
                             ))}
                           </SortableContext>
-                          <div className="p-2">
+                          <div className='p-2'>
                             <NewLessonModal
                               chapterId={item.id}
                               courseId={data.id}

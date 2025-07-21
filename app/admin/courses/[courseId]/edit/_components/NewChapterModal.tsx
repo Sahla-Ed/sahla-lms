@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -7,12 +7,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { chapterSchema, ChapterSchemaType } from "@/lib/zodSchemas";
-import { Plus } from "lucide-react";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+} from '@/components/ui/dialog';
+import { chapterSchema, ChapterSchemaType } from '@/lib/zodSchemas';
+import { Plus } from 'lucide-react';
+import { useState, useTransition } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormControl,
@@ -20,11 +20,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { tryCatch } from "@/hooks/try-catch";
-import { createChapter } from "../actions";
-import { toast } from "sonner";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { tryCatch } from '@/hooks/try-catch';
+import { createChapter } from '../actions';
+import { toast } from 'sonner';
 
 export function NewChapterModal({ courseId }: { courseId: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +33,7 @@ export function NewChapterModal({ courseId }: { courseId: string }) {
   const form = useForm<ChapterSchemaType>({
     resolver: zodResolver(chapterSchema),
     defaultValues: {
-      name: "",
+      name: '',
       courseId: courseId,
     },
   });
@@ -43,15 +43,15 @@ export function NewChapterModal({ courseId }: { courseId: string }) {
       const { data: result, error } = await tryCatch(createChapter(values));
 
       if (error) {
-        toast.error("An unexpected error occurred. Please try again.");
+        toast.error('An unexpected error occurred. Please try again.');
         return;
       }
 
-      if (result.status === "success") {
+      if (result.status === 'success') {
         toast.success(result.message);
         form.reset();
         setIsOpen(false);
-      } else if (result.status === "error") {
+      } else if (result.status === 'error') {
         toast.error(result.message);
       }
     });
@@ -68,30 +68,30 @@ export function NewChapterModal({ courseId }: { courseId: string }) {
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2">
-          <Plus className="size-4" /> New Chapter
+        <Button variant='outline' size='sm' className='gap-2'>
+          <Plus className='size-4' /> New Chapter
         </Button>
       </DialogTrigger>
       <DialogContent
-        className="sm:max-w-[425px]"
-        aria-describedby="new-chapter-desc"
+        className='sm:max-w-[425px]'
+        aria-describedby='new-chapter-desc'
       >
         <DialogHeader>
           <DialogTitle>Create new chapter</DialogTitle>
-          <DialogDescription id="new-chapter-desc">
+          <DialogDescription id='new-chapter-desc'>
             What would you like to name your chapter?
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
+          <form className='space-y-8' onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="name"
+              name='name'
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Chapter Name" {...field} />
+                    <Input placeholder='Chapter Name' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -99,8 +99,8 @@ export function NewChapterModal({ courseId }: { courseId: string }) {
             />
 
             <DialogFooter>
-              <Button disabled={pending} type="submit">
-                {pending ? "Saving..." : " Save Change"}
+              <Button disabled={pending} type='submit'>
+                {pending ? 'Saving...' : ' Save Change'}
               </Button>
             </DialogFooter>
           </form>

@@ -1,26 +1,26 @@
-import { cn } from "@/lib/utils";
-import { CloudUploadIcon, ImageIcon, Loader2, XIcon } from "lucide-react";
-import { Button } from "../ui/button";
-import Image from "next/image";
+import { cn } from '@/lib/utils';
+import { CloudUploadIcon, ImageIcon, Loader2, XIcon } from 'lucide-react';
+import { Button } from '../ui/button';
+import Image from 'next/image';
 
 export function RenderEmptyState({ isDragActive }: { isDragActive: boolean }) {
   return (
-    <div className="text-center">
-      <div className="flex items-center mx-auto justify-center size-12 rounded-full bg-muted mb-4">
+    <div className='text-center'>
+      <div className='bg-muted mx-auto mb-4 flex size-12 items-center justify-center rounded-full'>
         <CloudUploadIcon
           className={cn(
-            "size-6 text-muted-foreground",
-            isDragActive && "text-primary",
+            'text-muted-foreground size-6',
+            isDragActive && 'text-primary',
           )}
         />
       </div>
-      <p className="text-base font-semibold text-foreground">
-        Drop your files here or{" "}
-        <span className="text-primary font-bold cursor-pointer">
+      <p className='text-foreground text-base font-semibold'>
+        Drop your files here or{' '}
+        <span className='text-primary cursor-pointer font-bold'>
           click to upload
         </span>
       </p>
-      <Button type="button" className="mt-4">
+      <Button type='button' className='mt-4'>
         Select File
       </Button>
     </div>
@@ -29,14 +29,14 @@ export function RenderEmptyState({ isDragActive }: { isDragActive: boolean }) {
 
 export function RenderErrorState() {
   return (
-    <div className=" text-center">
-      <div className="flex items-center mx-auto justify-center size-12 rounded-full bg-destructive/30 mb-4">
-        <ImageIcon className={cn("size-6 text-destructive")} />
+    <div className='text-center'>
+      <div className='bg-destructive/30 mx-auto mb-4 flex size-12 items-center justify-center rounded-full'>
+        <ImageIcon className={cn('text-destructive size-6')} />
       </div>
 
-      <p className="text-base font-semibold">Upload Failed</p>
-      <p className="text-xs mt-1 text-muted-foreground">Something went wrong</p>
-      <Button className="mt-4" type="button">
+      <p className='text-base font-semibold'>Upload Failed</p>
+      <p className='text-muted-foreground mt-1 text-xs'>Something went wrong</p>
+      <Button className='mt-4' type='button'>
         Retry File Selection
       </Button>
     </div>
@@ -52,31 +52,31 @@ export function RenderUploadedState({
   previewUrl: string;
   isDeleting: boolean;
   handleRemoveFile: () => void;
-  fileType: "image" | "video";
+  fileType: 'image' | 'video';
 }) {
   return (
-    <div className="relative group w-full h-full flex items-center justify-center">
-      {fileType === "video" ? (
-        <video src={previewUrl} controls className="rounded-md w-full h-full" />
+    <div className='group relative flex h-full w-full items-center justify-center'>
+      {fileType === 'video' ? (
+        <video src={previewUrl} controls className='h-full w-full rounded-md' />
       ) : (
         <Image
           src={previewUrl}
-          alt="Uploaded File"
+          alt='Uploaded File'
           fill
-          className="object-contain p-2"
+          className='object-contain p-2'
         />
       )}
       <Button
-        variant="destructive"
-        size="icon"
-        className={cn("absolute top-4 right-4")}
+        variant='destructive'
+        size='icon'
+        className={cn('absolute top-4 right-4')}
         onClick={handleRemoveFile}
         disabled={isDeleting}
       >
         {isDeleting ? (
-          <Loader2 className="size-4 animate-spin" />
+          <Loader2 className='size-4 animate-spin' />
         ) : (
-          <XIcon className="size-4" />
+          <XIcon className='size-4' />
         )}
       </Button>
     </div>
@@ -91,12 +91,12 @@ export function RenderUploadingState({
   file: File;
 }) {
   return (
-    <div className="text-center flex justify-center items-center flex-col">
+    <div className='flex flex-col items-center justify-center text-center'>
       <p>{progress}</p>
 
-      <p className="mt-2 text-sm font-medium text-foreground">Uploading...</p>
+      <p className='text-foreground mt-2 text-sm font-medium'>Uploading...</p>
 
-      <p className="mt-1 text-xs text-muted-foreground truncate max-w-xs">
+      <p className='text-muted-foreground mt-1 max-w-xs truncate text-xs'>
         {file.name}
       </p>
     </div>

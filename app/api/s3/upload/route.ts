@@ -1,16 +1,16 @@
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { env } from "@/lib/env";
-import { NextResponse } from "next/server";
-import { z } from "zod";
-import { v4 as uuidv4 } from "uuid";
-import { S3 } from "@/lib/S3Client";
-import { requireAdmin } from "@/app/data/admin/require-admin";
-import { PutObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { env } from '@/lib/env';
+import { NextResponse } from 'next/server';
+import { z } from 'zod';
+import { v4 as uuidv4 } from 'uuid';
+import { S3 } from '@/lib/S3Client';
+import { requireAdmin } from '@/app/data/admin/require-admin';
+import { PutObjectCommand } from '@aws-sdk/client-s3';
 
 const fileUploadSchema = z.object({
-  fileName: z.string().min(1, { message: "Filename is required" }),
-  contentType: z.string().min(1, { message: "Content type is required" }),
-  size: z.number().min(1, { message: "Size is required" }),
+  fileName: z.string().min(1, { message: 'Filename is required' }),
+  contentType: z.string().min(1, { message: 'Content type is required' }),
+  size: z.number().min(1, { message: 'Size is required' }),
   isImage: z.boolean(),
 });
 
@@ -23,8 +23,8 @@ export async function POST(request: Request) {
 
     if (!validation.success) {
       return NextResponse.json(
-        { error: "Invalid Request Body" },
-        { status: 400 }
+        { error: 'Invalid Request Body' },
+        { status: 400 },
       );
     }
 
@@ -51,8 +51,8 @@ export async function POST(request: Request) {
     return NextResponse.json(response);
   } catch {
     return NextResponse.json(
-      { error: "Failed to generate presigned URL" },
-      { status: 500 }
+      { error: 'Failed to generate presigned URL' },
+      { status: 500 },
     );
   }
 }

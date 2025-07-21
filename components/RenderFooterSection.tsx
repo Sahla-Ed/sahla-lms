@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 interface RenderFooterSectionProps {
   title: string;
@@ -20,24 +20,24 @@ export default function RenderFooterSection({
   handleMouseLeave,
 }: RenderFooterSectionProps) {
   return (
-    <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-foreground mb-6">{title}</h3>
-      <ul className="space-y-3">
+    <div className='space-y-4'>
+      <h3 className='text-foreground mb-6 text-lg font-semibold'>{title}</h3>
+      <ul className='space-y-3'>
         {links.map((link, index) => (
           <li key={index}>
             <Link
               href={link.href}
-              className={`text-muted-foreground hover:text-foreground transition-colors duration-200 relative block ${
+              className={`text-muted-foreground hover:text-foreground relative block transition-colors duration-200 ${
                 hoveredSection === type && hoveredIndex === index
-                  ? "text-foreground"
-                  : ""
+                  ? 'text-foreground'
+                  : ''
               }`}
               onMouseEnter={() => handleMouseEnter(type, index)}
               onMouseLeave={handleMouseLeave}
             >
-             {link.name}
+              {link.name}
               {hoveredSection === type && hoveredIndex === index && (
-                <span className="absolute -left-2 top-1/2 -translate-y-1/2 text-primary">
+                <span className='text-primary absolute top-1/2 -left-2 -translate-y-1/2'>
                   →
                 </span>
               )}

@@ -1,22 +1,21 @@
-import "server-only";
-import { prisma } from "@/lib/db";
-import { requireAdmin } from "./require-admin";
-
+import 'server-only';
+import { prisma } from '@/lib/db';
+import { requireAdmin } from './require-admin';
 
 export async function getKpiStats() {
   await requireAdmin();
 
   const [totalUsers, totalCourses, totalEnrollments, totalRevenue] =
     await Promise.all([
-      prisma.user.count({ where: { role: { not: "admin" } } }),
+      prisma.user.count({ where: { role: { not: 'admin' } } }),
       prisma.course.count(),
-      prisma.enrollment.count({ where: { status: "Active" } }),
+      prisma.enrollment.count({ where: { status: 'Active' } }),
       prisma.enrollment.aggregate({
         _sum: {
           amount: true,
         },
         where: {
-          status: "Active",
+          status: 'Active',
         },
       }),
     ]);
@@ -29,27 +28,26 @@ export async function getKpiStats() {
   };
 }
 
-
 export async function getTopPerformingCourses() {
   await requireAdmin();
 
   const courses = await prisma.course.findMany({
     where: {
-      status: "Published",
+      status: 'Published',
     },
     select: {
       title: true,
       _count: {
         select: {
           enrollment: {
-            where: { status: "Active" },
+            where: { status: 'Active' },
           },
         },
       },
     },
     orderBy: {
       enrollment: {
-        _count: "desc",
+        _count: 'desc',
       },
     },
     take: 5,
@@ -61,15 +59,14 @@ export async function getTopPerformingCourses() {
   }));
 }
 
-
 export async function getRecentEnrollments() {
   await requireAdmin();
   return prisma.enrollment.findMany({
     where: {
-      status: "Active",
+      status: 'Active',
     },
     orderBy: {
-      createdAt: "desc",
+      createdAt: 'desc',
     },
     take: 5,
     select: {
