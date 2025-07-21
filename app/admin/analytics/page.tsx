@@ -11,7 +11,6 @@ export default function AnalyticsPage() {
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Analytics</h1>
       </div>
-
        {/* KPIs */}
       <Suspense fallback={<KpiSkeleton />}>
         <KpiCards />
