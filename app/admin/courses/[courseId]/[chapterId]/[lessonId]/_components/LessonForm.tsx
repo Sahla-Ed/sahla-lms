@@ -47,6 +47,7 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
       description: data.description ?? undefined,
       videoKey: data.videoKey ?? undefined,
       thumbnailKey: data.thumbnailKey ?? undefined,
+      type: "VIDEO",
     },
   });
 
@@ -54,7 +55,7 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
   function onSubmit(values: LessonSchemaType) {
     startTransition(async () => {
       const { data: result, error } = await tryCatch(
-        updateLesson(values, data.id),
+        updateLesson(values, data.id)
       );
 
       if (error) {
@@ -68,6 +69,12 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
         toast.error(result.message);
       }
     });
+  }
+
+  // Add this for validation errors
+  function onInvalid(errors: any) {
+    console.error("Validation errors:", errors);
+    toast.error("Please fix the highlighted errors before saving.");
   }
   return (
     <div>
@@ -89,7 +96,10 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form
+              onSubmit={form.handleSubmit(onSubmit, onInvalid)}
+              className="space-y-6"
+            >
               <FormField
                 control={form.control}
                 name="name"
