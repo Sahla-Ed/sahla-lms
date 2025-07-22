@@ -1,24 +1,69 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getSessionCookie } from 'better-auth/cookies';
+import { type NextRequest, NextResponse } from 'next/server';
+import { rootDomain } from '@/lib/utils';
 
-async function authMiddleware(request: NextRequest) {
-  const sessionCookie = getSessionCookie(request);
+function extractSubdomain(request: NextRequest): string | null {
+  const url = request.url;
+  const host = request.headers.get('host') || '';
+  const hostname = host.split(':')[0];
 
-  if (!sessionCookie) {
-    return NextResponse.redirect(new URL('/auth/login', request.url));
+  // Local development environment
+  if (url.includes('localhost') || url.includes('127.0.0.1')) {
+    // Try to extract subdomain from the full URL
+    const fullUrlMatch = url.match(/http:\/\/([^.]+)\.localhost/);
+    if (fullUrlMatch && fullUrlMatch[1]) {
+      return fullUrlMatch[1];
+    }
+
+    // Fallback to host header approach
+    if (hostname.includes('.localhost')) {
+      return hostname.split('.')[0];
+    }
+
+    return null;
   }
 
+  const rootDomainFormatted = rootDomain.split(':')[0];
+
+  // Handle preview deployment URLs (tenant---branch-name.vercel.app)
+  if (hostname.includes('---') && hostname.endsWith('.vercel.app')) {
+    const parts = hostname.split('---');
+    return parts.length > 0 ? parts[0] : null;
+  }
+
+  // Regular subdomain detection
+  const isSubdomain =
+    hostname !== rootDomainFormatted &&
+    hostname !== `www.${rootDomainFormatted}` &&
+    hostname.endsWith(`.${rootDomainFormatted}`);
+
+  return isSubdomain ? hostname.replace(`.${rootDomainFormatted}`, '') : null;
+}
+
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  const subdomain = extractSubdomain(request);
+
+  if (subdomain) {
+    // Block access to admin page from subdomains
+    // if (pathname.startsWith('/admin')) {
+    //   return NextResponse.redirect(new URL('/', request.url));
+    // }
+
+    // For the root path on a subdomain, rewrite to the subdomain page
+    console.log(
+      'routing to ',
+      { subdomain, pathname, url: request.url },
+      new URL(`/s/${subdomain}${pathname}`, request.url).toString(),
+    );
+    return NextResponse.rewrite(
+      new URL(`/s/${subdomain}${pathname}`, request.url),
+    );
+  }
+
+  // On the root domain, allow normal access
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|api/auth).*)'],
+  matcher: ['/((?!_next|[\\w-]+\\.\\w+).*)'],
 };
-
-export default async function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname.startsWith('/admin')) {
-    return authMiddleware(request);
-  }
-
-  return NextResponse.next();
-}
