@@ -13,7 +13,7 @@ import {
   Trophy,
   HeartCrack,
 } from 'lucide-react';
-import { LessonContentType } from '@/app/data/course/get-lesson-content';
+import { LessonContentType } from '@/app/s/[subdomain]/data/course/get-lesson-content';
 import { toast } from 'sonner';
 import { tryCatch } from '@/hooks/try-catch';
 import { submitQuizAttempt } from '../quiz-actions';

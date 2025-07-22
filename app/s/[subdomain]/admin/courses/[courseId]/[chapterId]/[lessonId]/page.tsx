@@ -1,4 +1,4 @@
-import { adminGetLesson } from '@/app/data/admin/admin-get-lesson';
+import { adminGetLesson } from '@/app/s/[subdomain]/data/admin/admin-get-lesson';
 import { LessonForm } from './_components/LessonForm';
 
 type Params = Promise<{

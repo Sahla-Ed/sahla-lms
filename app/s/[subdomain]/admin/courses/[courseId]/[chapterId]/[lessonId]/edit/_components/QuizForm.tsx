@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { GripVertical, Plus, Trash2, HelpCircle, Loader2 } from 'lucide-react';
-import { AdminLessonType } from '@/app/data/admin/admin-get-lesson';
+import { AdminLessonType } from '@/app/s/[subdomain]/data/admin/admin-get-lesson';
 import { toast } from 'sonner';
 import { tryCatch } from '@/hooks/try-catch';
 import {

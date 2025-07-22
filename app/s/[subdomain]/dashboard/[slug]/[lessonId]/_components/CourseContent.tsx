@@ -1,6 +1,6 @@
 'use client';
 
-import { LessonContentType } from '@/app/data/course/get-lesson-content';
+import { LessonContentType } from '@/app/s/[subdomain]/data/course/get-lesson-content';
 import { RenderDescription } from '@/components/rich-text-editor/RenderDescription';
 import { Button } from '@/components/ui/button';
 import { tryCatch } from '@/hooks/try-catch';

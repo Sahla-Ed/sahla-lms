@@ -1,6 +1,6 @@
 'use client';
 
-import { CourseSidebarDataType } from '@/app/data/course/get-course-sidebar-data';
+import { CourseSidebarDataType } from '@/app/s/[subdomain]/data/course/get-course-sidebar-data';
 import { useMemo } from 'react';
 
 interface iAppProps {

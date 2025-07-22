@@ -1,4 +1,4 @@
-import { getIndividualCourse } from '@/app/data/course/get-course';
+import { getIndividualCourse } from '@/app/s/[subdomain]/data/course/get-course';
 import { RenderDescription } from '@/components/rich-text-editor/RenderDescription';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -20,7 +20,7 @@ import {
 } from '@tabler/icons-react';
 import { PlayCircle, Clock, BarChart3, BookOpen } from 'lucide-react';
 import Image from 'next/image';
-import { checkIfCourseBought } from '@/app/data/user/user-is-enrolled';
+import { checkIfCourseBought } from '@/app/s/[subdomain]/data/user/user-is-enrolled';
 import Link from 'next/link';
 import { EnrollmentButton } from './_components/EnrollmentButton';
 import { buttonVariants } from '@/components/ui/button';

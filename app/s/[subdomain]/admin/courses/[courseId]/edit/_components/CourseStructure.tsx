@@ -20,7 +20,7 @@ import {
 } from '@dnd-kit/sortable';
 import { ReactNode, useEffect, useState } from 'react';
 import { CSS } from '@dnd-kit/utilities';
-import { AdminCourseSingularType } from '@/app/data/admin/admin-get-course';
+import { AdminCourseSingularType } from '@/app/s/[subdomain]/data/admin/admin-get-course';
 import { cn } from '@/lib/utils';
 import {
   Collapsible,

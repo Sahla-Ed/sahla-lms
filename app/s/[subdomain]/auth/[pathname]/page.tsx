@@ -1,6 +1,6 @@
 import { authViewPaths } from '@daveyplate/better-auth-ui/server';
 import { AuthView } from './view';
-import { requireUser } from '@/app/data/user/require-user';
+import { requireUser } from '@/app/s/[subdomain]/data/user/require-user';
 import { redirect } from 'next/navigation';
 
 export function generateStaticParams() {

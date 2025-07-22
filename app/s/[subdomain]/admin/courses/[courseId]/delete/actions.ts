@@ -1,6 +1,6 @@
 'use server';
 
-import { requireAdmin } from '@/app/data/admin/require-admin';
+import { requireAdmin } from '@/app/s/[subdomain]/data/admin/require-admin';
 
 import { prisma } from '@/lib/db';
 

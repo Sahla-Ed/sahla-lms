@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import { EnrolledCourseType } from '@/app/data/user/get-enrolled-courses';
+import { EnrolledCourseType } from '@/app/s/[subdomain]/data/user/get-enrolled-courses';
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';

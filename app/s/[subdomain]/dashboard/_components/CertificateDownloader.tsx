@@ -1,11 +1,11 @@
 'use client';
 
-import { CertificateDocument } from '@/app/(public)/_components/CertificateDocument';
+import { CertificateDocument } from '@/app/s/[subdomain]/(public)/_components/CertificateDocument';
 import { Button } from '@/components/ui/button';
 import {
   checkCourseCompletion,
   issueCertificate,
-} from '@/app/data/course/certificate-actions';
+} from '@/app/s/[subdomain]/data/course/certificate-actions';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { Award, Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';

@@ -1,4 +1,4 @@
-import { adminGetCourse } from '@/app/data/admin/admin-get-course';
+import { adminGetCourse } from '@/app/s/[subdomain]/data/admin/admin-get-course';
 import {
   Card,
   CardContent,

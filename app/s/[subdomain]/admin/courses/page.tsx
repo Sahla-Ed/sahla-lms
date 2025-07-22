@@ -9,7 +9,7 @@ import { Suspense } from 'react';
 import {
   AdminCourseType,
   adminGetCourses,
-} from '@/app/data/admin/admin-get-courses';
+} from '@/app/s/[subdomain]/data/admin/admin-get-courses';
 
 export default function CoursesPage() {
   return (

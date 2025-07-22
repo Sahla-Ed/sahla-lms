@@ -1,4 +1,4 @@
-import { getKpiStats } from '@/app/data/admin/admin-get-analytics';
+import { getKpiStats } from '@/app/s/[subdomain]/data/admin/admin-get-analytics';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BookOpen, DollarSign, ShoppingCart, Users } from 'lucide-react';
 

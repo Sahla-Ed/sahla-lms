@@ -1,4 +1,4 @@
-import { getRecentEnrollments } from '@/app/data/admin/admin-get-analytics';
+import { getRecentEnrollments } from '@/app/s/[subdomain]/data/admin/admin-get-analytics';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Table,

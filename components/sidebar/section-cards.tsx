@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { adminGetDashboardStats } from '@/app/data/admin/admin-get-dashboard-stats';
+import { adminGetDashboardStats } from '@/app/s/[subdomain]/data/admin/admin-get-dashboard-stats';
 import {
   IconBook,
   IconPlaylistX,

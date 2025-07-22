@@ -1,5 +1,5 @@
 import { PublicCourseCardSkeleton } from '../_components/PublicCourseCard';
-import { getAllCourses } from '@/app/data/course/get-all-courses';
+import { getAllCourses } from '@/app/s/[subdomain]/data/course/get-all-courses';
 import { Suspense } from 'react';
 import { CourseSearchWrapper } from '../_components/CourseSearchWrapperProps';
 import { Metadata } from 'next';

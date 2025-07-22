@@ -1,4 +1,4 @@
-import { adminGetEnrollmentStats } from '@/app/data/admin/admin-get-enrollment-stats';
+import { adminGetEnrollmentStats } from '@/app/s/[subdomain]/data/admin/admin-get-enrollment-stats';
 import { ChartAreaInteractive } from '@/components/sidebar/chart-area-interactive';
 
 export async function EnrollmentChart() {

@@ -1,4 +1,4 @@
-import { requireAdmin } from '@/app/data/admin/require-admin';
+import { requireAdmin } from '@/app/s/[subdomain]/data/admin/require-admin';
 
 import { env } from '@/lib/env';
 import { S3 } from '@/lib/S3Client';

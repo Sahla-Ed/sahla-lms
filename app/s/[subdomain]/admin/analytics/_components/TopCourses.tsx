@@ -1,4 +1,4 @@
-import { getTopPerformingCourses } from '@/app/data/admin/admin-get-analytics';
+import { getTopPerformingCourses } from '@/app/s/[subdomain]/data/admin/admin-get-analytics';
 import {
   Card,
   CardContent,

@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { v4 as uuidv4 } from 'uuid';
 import { S3 } from '@/lib/S3Client';
-import { requireAdmin } from '@/app/data/admin/require-admin';
+import { requireAdmin } from '@/app/s/[subdomain]/data/admin/require-admin';
 import { PutObjectCommand } from '@aws-sdk/client-s3';
 
 const fileUploadSchema = z.object({

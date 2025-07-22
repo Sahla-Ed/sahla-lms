@@ -1,4 +1,4 @@
-import { getLessonContent } from '@/app/data/course/get-lesson-content';
+import { getLessonContent } from '@/app/s/[subdomain]/data/course/get-lesson-content';
 import { CourseContent } from './_components/CourseContent';
 import { Suspense } from 'react';
 import { QuizPlayer } from './_components/QuizPlayer';

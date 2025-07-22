@@ -4,8 +4,8 @@ import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { PublicCourseType } from '@/app/data/course/get-all-courses';
-import { PublicCourseCard } from '@/app/(public)/_components/PublicCourseCard';
+import { PublicCourseType } from '@/app/s/[subdomain]/data/course/get-all-courses';
+import { PublicCourseCard } from '@/app/s/[subdomain]/(public)/_components/PublicCourseCard';
 
 interface CourseSearchWrapperProps {
   courses: PublicCourseType[];

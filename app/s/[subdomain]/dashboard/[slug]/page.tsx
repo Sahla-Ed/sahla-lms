@@ -1,4 +1,4 @@
-import { getCourseSidebarData } from '@/app/data/course/get-course-sidebar-data';
+import { getCourseSidebarData } from '@/app/s/[subdomain]/data/course/get-course-sidebar-data';
 import { redirect } from 'next/navigation';
 
 interface iAppProps {

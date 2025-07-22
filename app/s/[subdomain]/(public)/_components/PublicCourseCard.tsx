@@ -1,4 +1,4 @@
-import { PublicCourseType } from '@/app/data/course/get-all-courses';
+import { PublicCourseType } from '@/app/s/[subdomain]/data/course/get-all-courses';
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';

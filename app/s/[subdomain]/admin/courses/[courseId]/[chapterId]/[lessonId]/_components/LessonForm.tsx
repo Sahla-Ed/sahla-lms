@@ -26,7 +26,7 @@ import { Uploader } from '@/components/file-uploader/Uploader';
 import { useTransition } from 'react';
 import { updateLesson } from '../actions';
 import { toast } from 'sonner';
-import { AdminLessonType } from '@/app/data/admin/admin-get-lesson';
+import { AdminLessonType } from '@/app/s/[subdomain]/data/admin/admin-get-lesson';
 import { lessonSchema, LessonSchemaType } from '@/lib/zodSchemas';
 import { tryCatch } from '@/hooks/try-catch';
 

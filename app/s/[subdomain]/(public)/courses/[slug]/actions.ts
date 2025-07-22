@@ -1,6 +1,6 @@
 'use server';
 
-import { requireUser } from '@/app/data/user/require-user';
+import { requireUser } from '@/app/s/[subdomain]/data/user/require-user';
 import { prisma } from '@/lib/db';
 import { env } from '@/lib/env';
 import { stripe } from '@/lib/stripe';

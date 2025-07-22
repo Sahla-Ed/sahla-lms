@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { CourseSidebar } from '../_components/CourseSidebar';
-import { getCourseSidebarData } from '@/app/data/course/get-course-sidebar-data';
+import { getCourseSidebarData } from '@/app/s/[subdomain]/data/course/get-course-sidebar-data';
 
 interface iAppProps {
   params: Promise<{ slug: string }>;
