@@ -138,8 +138,8 @@ export async function enrollInCourseAction(
             quantity: 1,
           },
         ],
-        success_url: `${env.VERCEL_BRANCH_URL ? 'https://' + env.VERCEL_BRANCH_URL : 'localhost:3000'}/payment/success`,
-        cancel_url: `${env.VERCEL_BRANCH_URL ? 'https://' + env.VERCEL_BRANCH_URL : 'localhost:3000'}/courses/${course.slug}`,
+        success_url: `${env.BETTER_AUTH_URL}/payment/success`,
+        cancel_url: `${env.BETTER_AUTH_URL}/courses/${course.slug}`,
         metadata: {
           userId: user.id,
           courseId: course.id,

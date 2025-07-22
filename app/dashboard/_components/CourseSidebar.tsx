@@ -63,6 +63,7 @@ export function CourseSidebar({ course }: iAppProps) {
           courseId={course.id}
           courseTitle={course.title}
           userName={session?.user.name ?? 'Student'}
+          isCourseComplete={progressPercentage === 100}
         />
       </div>
 
