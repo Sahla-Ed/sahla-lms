@@ -7,7 +7,7 @@ interface iAppProps {
   lesson: {
     id: string;
     title: string;
-    type: 'VIDEO' | 'QUIZ';
+    type: 'VIDEO' | 'QUIZ' | 'CODING';
     position: number;
     description: string | null;
   };

@@ -131,6 +131,14 @@ export function NewLessonModal({
                         </FormControl>
                         <FormLabel className='font-normal'>Quiz</FormLabel>
                       </FormItem>
+                      <FormItem className='flex items-center space-y-0 space-x-2'>
+                        <FormControl>
+                          <RadioGroupItem value='CODING' />
+                        </FormControl>
+                        <FormLabel className='font-normal'>
+                          Coding Playground
+                        </FormLabel>
+                      </FormItem>
                     </RadioGroup>
                   </FormControl>
                 </FormItem>
