@@ -22,7 +22,6 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-import { useRouter } from 'next/navigation';
 import {
   DndContext,
   closestCenter,
@@ -38,6 +37,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { useRouter } from 'next/navigation';
 
 interface QuizFormProps {
   lesson: AdminLessonType;
@@ -198,24 +198,32 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
     }
   }, [lesson.questions]);
 
+
   const handleSave = async () => {
-    setIsLoading(true);
-    const { error } = await tryCatch(
-      updateQuizQuestions({
-        lessonId: lesson.id,
-        questionIds: questions.map((q) => q.id),
-        timer: timer ? parseInt(timer as string, 10) : null,
-      }),
-    );
+ 
+  if (questions.length === 0) {
+    toast.error('You must add at least one question before saving the quiz.');
+    return; 
+  }
+-
 
-    if (error) {
-      toast.error('Failed to update quiz');
-    } else {
-      toast.success('Quiz updated successfully');
-    }
-    setIsLoading(false);
-  };
+  setIsLoading(true);
+  const { error } = await tryCatch(
+    updateQuizQuestions({
+      lessonId: lesson.id,
+      questionIds: questions.map((q) => q.id),
+      timer: timer ? parseInt(timer as string, 10) : null,
+    }),
+  );
 
+  if (error) {
+    toast.error('Failed to update quiz');
+  } else {
+    toast.success('Quiz updated successfully!');
+    router.push(`/admin/courses/${courseId}/edit`);
+  }
+  setIsLoading(false);
+};
   const addQuestion = (question: Question) => {
     // Check if question is already added
     if (questions.find((q) => q.id === question.id)) {
@@ -247,6 +255,15 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
       </div>
     );
   }
+
+   const handleCancel = () => {
+    if (questions.length === 0) {
+      toast.error('You must add at least one question to this quiz before leaving.');
+    } else {
+      router.push(`/admin/courses/${courseId}/edit`);
+    }
+  };
+
 
   return (
     <div className='space-y-6'>
@@ -427,7 +444,7 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
       <div className='flex justify-end gap-2'>
         <Button
           variant='outline'
-          onClick={() => router.push(`/admin/courses/${courseId}/edit`)}
+          onClick={handleCancel}
         >
           Cancel
         </Button>
