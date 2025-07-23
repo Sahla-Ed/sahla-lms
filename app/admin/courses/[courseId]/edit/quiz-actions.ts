@@ -151,7 +151,6 @@ export async function updateQuizQuestions(
         })),
       });
     }
-    
 
     return {
       status: 'success',

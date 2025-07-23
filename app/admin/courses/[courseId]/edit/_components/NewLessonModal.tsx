@@ -37,7 +37,7 @@ export function NewLessonModal({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [pending, startTransition] = useTransition();
-  const router = useRouter(); 
+  const router = useRouter();
 
   const form = useForm<LessonSchemaType>({
     resolver: zodResolver(lessonSchema),
@@ -64,8 +64,10 @@ export function NewLessonModal({
         form.reset();
         setIsOpen(false);
         if (isQuiz && result.data?.lessonId) {
-    router.push(`/admin/courses/${courseId}/${chapterId}/${result.data.lessonId}/edit`);
-  }
+          router.push(
+            `/admin/courses/${courseId}/${chapterId}/${result.data.lessonId}/edit`,
+          );
+        }
       } else if (result.status === 'error') {
         toast.error(result.message);
       }

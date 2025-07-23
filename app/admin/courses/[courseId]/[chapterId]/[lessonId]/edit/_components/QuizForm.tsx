@@ -198,32 +198,28 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
     }
   }, [lesson.questions]);
 
-
   const handleSave = async () => {
- 
-  if (questions.length === 0) {
-    toast.error('You must add at least one question before saving the quiz.');
-    return; 
-  }
--
+    if (questions.length === 0) {
+      toast.error('You must add at least one question before saving the quiz.');
+      return;
+    }
+    -setIsLoading(true);
+    const { error } = await tryCatch(
+      updateQuizQuestions({
+        lessonId: lesson.id,
+        questionIds: questions.map((q) => q.id),
+        timer: timer ? parseInt(timer as string, 10) : null,
+      }),
+    );
 
-  setIsLoading(true);
-  const { error } = await tryCatch(
-    updateQuizQuestions({
-      lessonId: lesson.id,
-      questionIds: questions.map((q) => q.id),
-      timer: timer ? parseInt(timer as string, 10) : null,
-    }),
-  );
-
-  if (error) {
-    toast.error('Failed to update quiz');
-  } else {
-    toast.success('Quiz updated successfully!');
-    router.push(`/admin/courses/${courseId}/edit`);
-  }
-  setIsLoading(false);
-};
+    if (error) {
+      toast.error('Failed to update quiz');
+    } else {
+      toast.success('Quiz updated successfully!');
+      router.push(`/admin/courses/${courseId}/edit`);
+    }
+    setIsLoading(false);
+  };
   const addQuestion = (question: Question) => {
     // Check if question is already added
     if (questions.find((q) => q.id === question.id)) {
@@ -256,14 +252,15 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
     );
   }
 
-   const handleCancel = () => {
+  const handleCancel = () => {
     if (questions.length === 0) {
-      toast.error('You must add at least one question to this quiz before leaving.');
+      toast.error(
+        'You must add at least one question to this quiz before leaving.',
+      );
     } else {
       router.push(`/admin/courses/${courseId}/edit`);
     }
   };
-
 
   return (
     <div className='space-y-6'>
@@ -442,10 +439,7 @@ export function QuizForm({ lesson, courseId }: QuizFormProps) {
       </Dialog>
 
       <div className='flex justify-end gap-2'>
-        <Button
-          variant='outline'
-          onClick={handleCancel}
-        >
+        <Button variant='outline' onClick={handleCancel}>
           Cancel
         </Button>
         <Button onClick={handleSave} disabled={isLoading}>

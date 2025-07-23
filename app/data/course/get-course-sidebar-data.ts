@@ -81,12 +81,12 @@ export async function getCourseSidebarData(slug: string) {
   if (!enrollment || enrollment.status !== 'Active') {
     return notFound();
   }
-  
+
   let previousLessonCompleted = true;
-  const chaptersWithLockState = course.chapter.map(chapter => ({
+  const chaptersWithLockState = course.chapter.map((chapter) => ({
     ...chapter,
-    lessons: chapter.lessons.map(lesson => {
-      const isCompleted = lesson.lessonProgress.some(p => p.completed);
+    lessons: chapter.lessons.map((lesson) => {
+      const isCompleted = lesson.lessonProgress.some((p) => p.completed);
       const isLocked = !previousLessonCompleted;
 
       if (!isLocked) {
@@ -113,7 +113,6 @@ export async function getCourseSidebarData(slug: string) {
     hasCertificate: !!certificate,
   };
 }
-
 
 export type CourseSidebarDataType = Awaited<
   ReturnType<typeof getCourseSidebarData>

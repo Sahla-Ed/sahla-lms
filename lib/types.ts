@@ -2,5 +2,5 @@ export type ApiResponse = {
   status: 'success' | 'error';
 
   message: string;
-  data?: { [key: string]: any }; 
+  data?: { [key: string]: unknown };
 };

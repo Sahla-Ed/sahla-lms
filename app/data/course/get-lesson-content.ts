@@ -77,12 +77,13 @@ export async function getLessonContent(lessonId: string) {
   for (const currentLesson of allLessonsInCourse) {
     if (currentLesson.id === lessonId) {
       if (!previousLessonCompleted) {
-       
         return notFound();
       }
       break;
     }
-    previousLessonCompleted = currentLesson.lessonProgress.some(p => p.completed);
+    previousLessonCompleted = currentLesson.lessonProgress.some(
+      (p) => p.completed,
+    );
   }
   const enrollment = await prisma.enrollment.findUnique({
     where: {

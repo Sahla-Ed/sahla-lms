@@ -1,5 +1,3 @@
-
-
 'use client';
 
 import { buttonVariants } from '@/components/ui/button';
@@ -42,7 +40,7 @@ export function LessonItem({
     <div className='flex w-full min-w-0 items-center gap-2.5'>
       <div className='shrink-0'>
         {isLocked ? (
-          <Lock className='size-5 text-muted-foreground' />
+          <Lock className='text-muted-foreground size-5' />
         ) : completed && !quizFailed ? (
           <div className='flex size-5 items-center justify-center rounded-full bg-green-600 dark:bg-green-500'>
             <Check className='size-3 text-white' />
@@ -96,29 +94,29 @@ export function LessonItem({
             completed && !quizFailed
               ? 'text-green-800 dark:text-green-200'
               : quizFailed
-              ? 'text-red-800 dark:text-red-200'
-              : isActive
-              ? 'text-primary font-semibold'
-              : 'text-foreground',
+                ? 'text-red-800 dark:text-red-200'
+                : isActive
+                  ? 'text-primary font-semibold'
+                  : 'text-foreground',
           )}
         >
           {lesson.position}. {lesson.title}
         </p>
         {completed && !quizFailed && (
-            <p className='text-[10px] font-medium text-green-700 dark:text-green-300'>
-              Completed
-            </p>
-          )}
-          {quizFailed && (
-            <p className='text-[10px] font-medium text-red-700 dark:text-red-300'>
-              Try again?
-            </p>
-          )}
-          {isActive && !completed && !quizFailed && (
-            <p className='text-primary font-mediums text-[10px]'>
-              Currently Watching
-            </p>
-          )}
+          <p className='text-[10px] font-medium text-green-700 dark:text-green-300'>
+            Completed
+          </p>
+        )}
+        {quizFailed && (
+          <p className='text-[10px] font-medium text-red-700 dark:text-red-300'>
+            Try again?
+          </p>
+        )}
+        {isActive && !completed && !quizFailed && (
+          <p className='text-primary font-mediums text-[10px]'>
+            Currently Watching
+          </p>
+        )}
       </div>
     </div>
   );
@@ -134,17 +132,22 @@ export function LessonItem({
         variant: completed && !quizFailed ? 'secondary' : 'outline',
         className: cn(
           'h-auto w-full justify-start p-2.5 transition-all',
-          completed && !quizFailed && 'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 dark:border-green-700 dark:bg-green-900/30 dark:text-green-200 dark:hover:bg-green-900/50',
-          quizFailed && 'border-red-300 bg-red-100 text-red-800 hover:bg-red-200 dark:border-red-700 dark:bg-red-900/30 dark:text-red-200 dark:hover:bg-red-900/50',
-          isActive && !completed && !quizFailed && 'bg-primary/10 dark:bg-primary/20 border-primary/50 hover:bg-primary/20 dark:hover:bg-primary/30 text-primary',
-          isLocked && 'opacity-50 cursor-not-allowed' 
+          completed &&
+            !quizFailed &&
+            'border-green-300 bg-green-100 text-green-800 hover:bg-green-200 dark:border-green-700 dark:bg-green-900/30 dark:text-green-200 dark:hover:bg-green-900/50',
+          quizFailed &&
+            'border-red-300 bg-red-100 text-red-800 hover:bg-red-200 dark:border-red-700 dark:bg-red-900/30 dark:text-red-200 dark:hover:bg-red-900/50',
+          isActive &&
+            !completed &&
+            !quizFailed &&
+            'bg-primary/10 dark:bg-primary/20 border-primary/50 hover:bg-primary/20 dark:hover:bg-primary/30 text-primary',
+          isLocked && 'cursor-not-allowed opacity-50',
         ),
       })}
     >
       {linkContent}
     </Link>
   );
-
 
   if (isLocked) {
     return (

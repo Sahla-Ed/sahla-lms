@@ -13,7 +13,7 @@ export async function submitQuizAttempt(data: {
 }): Promise<ApiResponse> {
   const session = await requireUser();
   const passingScore = 50;
-const isPassed = data.score >= passingScore;
+  const isPassed = data.score >= passingScore;
 
   try {
     // Delete previous attempts and their user answers
