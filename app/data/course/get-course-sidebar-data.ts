@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 export async function getCourseSidebarData(slug: string) {
   const session = await requireUser();
 
+  const user = session?.user;
   const course = await prisma.course.findUnique({
     where: {
       slug: slug,
@@ -38,7 +39,7 @@ export async function getCourseSidebarData(slug: string) {
               description: true,
               lessonProgress: {
                 where: {
-                  userId: session?.id,
+                  userId: user?.id,
                 },
                 select: {
                   completed: true,
@@ -49,7 +50,7 @@ export async function getCourseSidebarData(slug: string) {
               // Always include latest quiz attempt (if any)
               attempts: {
                 where: {
-                  userId: session?.id,
+                  userId: user?.id,
                 },
                 orderBy: {
                   completedAt: 'desc',
@@ -73,7 +74,7 @@ export async function getCourseSidebarData(slug: string) {
   const enrollment = await prisma.enrollment.findUnique({
     where: {
       userId_courseId: {
-        userId: session?.id as string,
+        userId: user?.id as string,
         courseId: course.id,
       },
     },

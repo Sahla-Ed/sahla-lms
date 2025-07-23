@@ -10,7 +10,8 @@ export default async function DashboardLayout({
 }: {
   children: ReactNode;
 }) {
-  const user = await requireUser();
+  const session = await requireUser();
+  const user = session?.user;
   if (user?.role === 'admin') {
     return redirect('/admin');
   }

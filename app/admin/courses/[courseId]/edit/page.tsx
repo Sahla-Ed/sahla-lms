@@ -10,6 +10,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TestBank } from './_components/TestBank';
 import { EditCourseForm } from './_components/EditCourseForm';
 import { CourseStructure } from './_components/CourseStructure';
+import { ManageInstructors } from './_components/ManageInstructors';
+import { ManageAssistants } from './_components/ManageAssistants';
 
 type Params = Promise<{ courseId: string }>;
 
@@ -24,10 +26,11 @@ export default async function EditRoute({ params }: { params: Params }) {
       </h1>
 
       <Tabs defaultValue='basic-info' className='w-full'>
-        <TabsList className='grid w-full grid-cols-3'>
+        <TabsList className='grid w-full grid-cols-4'>
           <TabsTrigger value='basic-info'>Basic Info</TabsTrigger>
           <TabsTrigger value='course-structure'>Course Structure</TabsTrigger>
           <TabsTrigger value='test-bank'>Test Bank</TabsTrigger>
+          <TabsTrigger value='access-control'>Access Control</TabsTrigger>
         </TabsList>
         <TabsContent value='basic-info'>
           <Card>
@@ -65,6 +68,20 @@ export default async function EditRoute({ params }: { params: Params }) {
             </CardHeader>
             <CardContent>
               <TestBank courseId={courseId} />
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value='access-control'>
+          <Card>
+            <CardHeader>
+              <CardTitle>Access Control</CardTitle>
+              <CardDescription>
+                Manage who has access to this course.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className='space-y-4'>
+              <ManageInstructors courseId={courseId} />
+              <ManageAssistants courseId={courseId} />
             </CardContent>
           </Card>
         </TabsContent>

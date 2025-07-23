@@ -39,19 +39,25 @@ import {
 } from '@/components/ui/select';
 import { RichTextEditor } from '@/components/rich-text-editor/Editor';
 import { Uploader } from '@/components/file-uploader/Uploader';
-import { useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { tryCatch } from '@/hooks/try-catch';
-import { CreateCourse } from './actions';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { useConfetti } from '@/hooks/use-confetti';
+import { createCourse } from './actions';
+import { Project } from '@/lib/generated/prisma';
+import { getProjectsForAdmin } from '@/app/data/admin/admin-get-projects';
 
 export default function CourseCreationPage() {
+  const [projects, setProjects] = useState<Project[]>([]);
   const [pending, startTransition] = useTransition();
   const router = useRouter();
   const { triggerConfetti } = useConfetti();
 
-  // 1. Define your form.
+  useEffect(() => {
+    getProjectsForAdmin().then(setProjects);
+  }, []);
+
   const form = useForm<CourseSchemaType>({
     resolver: zodResolver(courseSchema),
     defaultValues: {
@@ -65,13 +71,13 @@ export default function CourseCreationPage() {
       status: 'Draft',
       slug: '',
       smallDescription: '',
+      projectId: undefined,
     },
   });
 
-  // 2. Define a submit handler.
   function onSubmit(values: CourseSchemaType) {
     startTransition(async () => {
-      const { data: result, error } = await tryCatch(CreateCourse(values));
+      const { data: result, error } = await tryCatch(createCourse(values));
 
       if (error) {
         toast.error('An unexpected error occurred. Please try again.');
@@ -113,6 +119,7 @@ export default function CourseCreationPage() {
         <CardContent>
           <Form {...form}>
             <form className='space-y-6' onSubmit={form.handleSubmit(onSubmit)}>
+              {/* ... other form fields (title, slug, etc.) ... */}
               <FormField
                 control={form.control}
                 name='title'
@@ -147,9 +154,7 @@ export default function CourseCreationPage() {
                   className='w-fit'
                   onClick={() => {
                     const titleValue = form.getValues('title');
-
                     const slug = slugify(titleValue);
-
                     form.setValue('slug', slug, { shouldValidate: true });
                   }}
                 >
@@ -318,7 +323,34 @@ export default function CourseCreationPage() {
                   )}
                 />
               </div>
-
+              <FormField
+                control={form.control}
+                name='projectId'
+                render={({ field }) => (
+                  <FormItem className='w-full'>
+                    <FormLabel>Project (Optional)</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className='w-full'>
+                          <SelectValue placeholder='Assign to a project' />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value='none'>None</SelectItem>
+                        {projects.map((project) => (
+                          <SelectItem key={project.id} value={project.id}>
+                            {project.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name='status'

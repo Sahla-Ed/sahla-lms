@@ -10,12 +10,12 @@ export async function markLessonComplete(
   slug: string,
 ): Promise<ApiResponse> {
   const session = await requireUser();
-
+  const user = session?.user;
   try {
     await prisma.lessonProgress.upsert({
       where: {
         userId_lessonId: {
-          userId: session?.id as string,
+          userId: user?.id as string,
           lessonId: lessonId,
         },
       },
@@ -24,7 +24,7 @@ export async function markLessonComplete(
       },
       create: {
         lessonId: lessonId,
-        userId: session?.id as string,
+        userId: user?.id as string,
         completed: true,
       },
     });
@@ -48,12 +48,13 @@ export async function markLessonIncomplete(
   slug: string,
 ): Promise<ApiResponse> {
   const session = await requireUser();
+  const user = session?.user;
 
   try {
     await prisma.lessonProgress.upsert({
       where: {
         userId_lessonId: {
-          userId: session?.id as string,
+          userId: user?.id as string,
           lessonId: lessonId,
         },
       },
@@ -62,7 +63,7 @@ export async function markLessonIncomplete(
       },
       create: {
         lessonId: lessonId,
-        userId: session?.id as string,
+        userId: user?.id as string,
         completed: false,
       },
     });

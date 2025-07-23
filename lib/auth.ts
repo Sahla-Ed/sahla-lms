@@ -2,9 +2,16 @@ import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { prisma } from './db';
 import { env } from './env';
-import { emailOTP } from 'better-auth/plugins';
+import { emailOTP, organization } from 'better-auth/plugins';
 import { resend } from './resend';
 import { admin } from 'better-auth/plugins';
+import {
+  ac,
+  siteAdmin,
+  instructor,
+  assistant,
+  user as userRole,
+} from './permissions';
 
 export const auth = betterAuth({
   trustedOrigins: [
@@ -62,6 +69,21 @@ export const auth = betterAuth({
         });
       },
     }),
-    admin(),
+    admin({
+      ac,
+      roles: {
+        admin: siteAdmin,
+        instructor,
+        assistant,
+        user: userRole,
+      },
+      defaultRole: 'user',
+      adminRoles: ['admin'],
+    }),
+    organization({
+      teams: {
+        enabled: true,
+      },
+    }),
   ],
 });

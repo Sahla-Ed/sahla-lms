@@ -12,12 +12,12 @@ export async function submitQuizAttempt(data: {
   timeElapsed: number;
 }): Promise<ApiResponse> {
   const session = await requireUser();
-
+  const user = session?.user;
   try {
     // Delete previous attempts and their user answers
     const previousAttempts = await prisma.quizAttempt.findMany({
       where: {
-        userId: session?.id as string,
+        userId: user?.id as string,
         lessonId: data.lessonId,
       },
       select: { id: true },
@@ -35,7 +35,7 @@ export async function submitQuizAttempt(data: {
     // Create quiz attempt
     const attempt = await prisma.quizAttempt.create({
       data: {
-        userId: session?.id as string,
+        userId: user?.id as string,
         lessonId: data.lessonId,
         score: data.score,
         completedAt: new Date(),
@@ -82,7 +82,7 @@ export async function submitQuizAttempt(data: {
     await prisma.lessonProgress.upsert({
       where: {
         userId_lessonId: {
-          userId: session?.id as string,
+          userId: user?.id as string,
           lessonId: data.lessonId,
         },
       },
@@ -90,7 +90,7 @@ export async function submitQuizAttempt(data: {
         completed: true,
       },
       create: {
-        userId: session?.id as string,
+        userId: user?.id as string,
         lessonId: data.lessonId,
         completed: true,
       },
@@ -129,10 +129,11 @@ export async function submitQuizAttempt(data: {
 
 export async function getQuizAttempt(lessonId: string) {
   const session = await requireUser();
+  const user = session?.user;
 
   const attempt = await prisma.quizAttempt.findFirst({
     where: {
-      userId: session?.id as string,
+      userId: user?.id as string,
       lessonId,
     },
     include: {

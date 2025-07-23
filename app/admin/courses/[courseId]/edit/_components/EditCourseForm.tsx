@@ -1,3 +1,4 @@
+// ./app/admin/courses/[courseId]/edit/_components/EditCourseForm.tsx
 'use client';
 
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -39,12 +40,14 @@ import {
 } from '@/components/ui/select';
 import { RichTextEditor } from '@/components/rich-text-editor/Editor';
 import { Uploader } from '@/components/file-uploader/Uploader';
-import { useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { tryCatch } from '@/hooks/try-catch';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { editCourse } from '../actions';
 import { AdminCourseSingularType } from '@/app/data/admin/admin-get-course';
+import { Project } from '@/lib/generated/prisma';
+import { getProjectsForAdmin } from '@/app/data/admin/admin-get-projects';
 
 interface iAppProps {
   data: AdminCourseSingularType;
@@ -53,6 +56,10 @@ interface iAppProps {
 export function EditCourseForm({ data }: iAppProps) {
   const [pending, startTransition] = useTransition();
   const router = useRouter();
+  const [projects, setProjects] = useState<Project[]>([]);
+  useEffect(() => {
+    getProjectsForAdmin().then(setProjects);
+  }, []);
 
   // 1. Define your form.
   const form = useForm<CourseSchemaType>({
@@ -60,7 +67,7 @@ export function EditCourseForm({ data }: iAppProps) {
     defaultValues: {
       title: data.title,
       description: data.description,
-      fileKey: data.fileKey || '',
+      fileKey: data.fileKey as string,
       price: data.price,
       duration: data.duration,
       level: data.level,
@@ -68,6 +75,7 @@ export function EditCourseForm({ data }: iAppProps) {
       status: data.status,
       slug: data.slug,
       smallDescription: data.smallDescription,
+      projectId: data.projectId as string,
     },
   });
 
@@ -85,7 +93,6 @@ export function EditCourseForm({ data }: iAppProps) {
 
       if (result.status === 'success') {
         toast.success(result.message);
-        form.reset();
         router.push('/admin/courses');
       } else if (result.status === 'error') {
         toast.error(result.message);
@@ -321,7 +328,34 @@ export function EditCourseForm({ data }: iAppProps) {
                   )}
                 />
               </div>
-
+              <FormField
+                control={form.control}
+                name='projectId'
+                render={({ field }) => (
+                  <FormItem className='w-full'>
+                    <FormLabel>Project (Optional)</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      value={field.value ?? 'none'}
+                    >
+                      <FormControl>
+                        <SelectTrigger className='w-full'>
+                          <SelectValue placeholder='Assign to a project' />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value='none'>None</SelectItem>
+                        {projects.map((project) => (
+                          <SelectItem key={project.id} value={project.id}>
+                            {project.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name='status'

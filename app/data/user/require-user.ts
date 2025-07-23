@@ -17,5 +17,5 @@ export const requireUser = cache(async (shouldRedirect = true) => {
     return null;
   }
 
-  return session.user;
+  return session;
 });

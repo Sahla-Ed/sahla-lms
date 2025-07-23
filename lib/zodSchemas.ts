@@ -52,6 +52,7 @@ export const courseSchema = z.object({
   status: z.enum(courseStatus, {
     message: 'Status is required',
   }),
+  projectId: z.string().uuid().optional(),
 });
 
 export const chapterSchema = z.object({
@@ -68,7 +69,7 @@ export const questionSchema = z.object({
   text: z.string().min(1, 'Question text is required'),
   type: z.enum(questionTypes),
   explanation: z.string().optional(),
-  options: z.array(z.string()).optional(),
+  options: z.array(z.string()),
   answer: z.string().min(1, 'Answer is required'),
 });
 

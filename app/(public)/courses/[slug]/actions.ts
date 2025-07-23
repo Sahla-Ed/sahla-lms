@@ -11,8 +11,9 @@ import Stripe from 'stripe';
 export async function enrollInCourseAction(
   courseId: string,
 ): Promise<ApiResponse | never> {
-  const user = await requireUser();
+  const session = await requireUser();
 
+  const user = session?.user;
   let checkoutUrl: string | null = null;
 
   try {

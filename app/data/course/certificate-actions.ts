@@ -5,7 +5,9 @@ import { requireUser } from '../user/require-user';
 import { prisma } from '@/lib/db';
 
 export async function checkCourseCompletion(courseId: string) {
-  const user = await requireUser();
+  const session = await requireUser();
+
+  const user = session?.user;
 
   if (!user) {
     throw new Error('User not authenticated');
@@ -55,7 +57,9 @@ export async function checkCourseCompletion(courseId: string) {
 }
 
 export async function issueCertificate(courseId: string) {
-  const user = await requireUser();
+  const session = await requireUser();
+
+  const user = session?.user;
 
   if (!user) {
     throw new Error('User not authenticated');

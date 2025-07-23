@@ -7,6 +7,8 @@ import { requireUser } from '../user/require-user';
 export async function getLessonContent(lessonId: string) {
   const session = await requireUser();
 
+  const user = session?.user;
+
   const lesson = await prisma.lesson.findUnique({
     where: {
       id: lessonId,
@@ -22,7 +24,7 @@ export async function getLessonContent(lessonId: string) {
       timer: true,
       lessonProgress: {
         where: {
-          userId: session?.id as string,
+          userId: user?.id as string,
         },
         select: {
           completed: true,
@@ -63,7 +65,7 @@ export async function getLessonContent(lessonId: string) {
   const enrollment = await prisma.enrollment.findUnique({
     where: {
       userId_courseId: {
-        userId: session?.id as string,
+        userId: user?.id as string,
         courseId: lesson.Chapter.courseId,
       },
     },
@@ -78,7 +80,7 @@ export async function getLessonContent(lessonId: string) {
   // Fetch latest quiz attempt for this lesson and user
   const latestQuizAttempt = await prisma.quizAttempt.findFirst({
     where: {
-      userId: session?.id as string,
+      userId: user?.id as string,
       lessonId,
     },
     include: {
