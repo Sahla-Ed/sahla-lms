@@ -11,7 +11,9 @@ export async function markLessonComplete(
 ): Promise<ApiResponse> {
   const session = await requireUser();
 
+
   try {
+    
     await prisma.lessonProgress.upsert({
       where: {
         userId_lessonId: {

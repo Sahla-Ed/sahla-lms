@@ -12,6 +12,8 @@ export async function submitQuizAttempt(data: {
   timeElapsed: number;
 }): Promise<ApiResponse> {
   const session = await requireUser();
+  const passingScore = 50;
+const isPassed = data.score >= passingScore;
 
   try {
     // Delete previous attempts and their user answers
@@ -87,12 +89,12 @@ export async function submitQuizAttempt(data: {
         },
       },
       update: {
-        completed: true,
+        completed: isPassed,
       },
       create: {
         userId: session?.id as string,
         lessonId: data.lessonId,
-        completed: true,
+        completed: isPassed,
       },
     });
 
