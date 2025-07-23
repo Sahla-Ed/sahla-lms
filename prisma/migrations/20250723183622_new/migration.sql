@@ -1,4 +1,7 @@
 -- CreateEnum
+CREATE TYPE "SubmissionType" AS ENUM ('Web', 'Programming');
+
+-- CreateEnum
 CREATE TYPE "CodingSubmissionStatus" AS ENUM ('Pending', 'Running', 'Success', 'Error', 'Timeout', 'Failed');
 
 -- AlterEnum
@@ -25,7 +28,12 @@ CREATE TABLE "CodingSubmission" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "lessonId" TEXT NOT NULL,
-    "code" TEXT NOT NULL,
+    "code" TEXT,
+    "htmlCode" TEXT,
+    "cssCode" TEXT,
+    "jsCode" TEXT,
+    "language" TEXT NOT NULL,
+    "submissionType" "SubmissionType" NOT NULL DEFAULT 'Programming',
     "output" TEXT,
     "status" "CodingSubmissionStatus" NOT NULL DEFAULT 'Pending',
     "score" DOUBLE PRECISION,

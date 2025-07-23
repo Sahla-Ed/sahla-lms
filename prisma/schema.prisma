@@ -295,21 +295,50 @@ model CodingExercise {
 }
 
 model CodingSubmission {
-  id            String   @id @default(uuid())
-  userId        String   @unique
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  lessonId      String   @unique
-  lesson        Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
-  code          String
-  output        String?
-  status        CodingSubmissionStatus @default(Pending)
-  score         Float?
-  passed        Boolean?
+  id           String   @id @default(uuid())
+
+  userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  lessonId     String   @unique
+  lesson       Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  // Programming languages - single code field
+  code         String?   // For Python, C++, Java, etc.
+
+  // Web development - separate fields for each language
+  htmlCode     String?   // HTML content
+  cssCode      String?   // CSS content
+  jsCode       String?   // JavaScript content
+
+  language     String    // 'web', 'python', 'cpp', etc.
+  submissionType SubmissionType @default(Programming)
+
+  // Output from running the code (stdout/stderr)
+  output       String?
+
+  // Execution status
+  status       CodingSubmissionStatus @default(Pending)
+
+  // Score (0–100), if auto-graded
+  score        Float?
+
+  // Whether passed all tests
+  passed       Boolean?
+
+  // Number of attempts
   attemptNumber Int
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
   @@unique([userId, lessonId, attemptNumber])
   @@index([userId, lessonId])
+}
+
+enum SubmissionType {
+  Web
+  Programming
 }
 
 enum CodingSubmissionStatus {

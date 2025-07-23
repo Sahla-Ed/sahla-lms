@@ -1,7 +1,7 @@
-// app/api/run-code/route.ts
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import axios from 'axios';
+import { env } from '@/lib/env';
 
 const requestSchema = z.object({
   code: z.string().min(1),
@@ -14,6 +14,7 @@ const LANGUAGE_IDS: Record<string, number> = {
   cpp: 52,
   python: 71,
   javascript: 63,
+  typescript: 101,
   // Add more: https://ce.judge0.com/languages/
 };
 
@@ -32,57 +33,66 @@ export async function POST(req: Request) {
       );
     }
 
-    // Encode to base64 (as in your curl example)
-    const base64Encode = (str: string) => Buffer.from(str).toString('base64');
-
-    // Create submission
-    const response = await axios.post(
-      'https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=true&wait=false&fields=*',
-      {
+    // Create submission using Judge0 API
+    const options = {
+      method: 'POST',
+      url: 'https://judge0-ce.p.rapidapi.com/submissions',
+      params: {
+        base64_encoded: 'true',
+        wait: 'true', // Changed to wait=true for immediate result
+        fields: '*',
+      },
+      headers: {
+        'x-rapidapi-key': `${env.JUDGE0_API_KEY}`,
+        'x-rapidapi-host': 'judge0-ce.p.rapidapi.com',
+        'Content-Type': 'application/json',
+      },
+      data: {
         language_id: languageId,
-        source_code: base64Encode(code),
-        stdin: base64Encode(stdin),
+        source_code: Buffer.from(code).toString('base64'),
+        stdin: Buffer.from(stdin).toString('base64'),
       },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'X-RapidAPI-Key': process.env.JUDGE0_API_KEY,
-          'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
-        },
-      },
-    );
+      timeout: 10000, // 10 second timeout
+    };
 
-    // Get submission token
-    const token = response.data.token;
-
-    // Retrieve result (poll until ready)
-    const result = await axios.get(
-      `https://judge0-ce.p.rapidapi.com/submissions/${token}?base64_encoded=true`,
-      {
-        headers: {
-          'X-RapidAPI-Key': process.env.JUDGE0_API_KEY,
-          'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
-        },
-      },
-    );
+    const response = await axios.request(options);
 
     // Decode base64 outputs
-    const base64Decode = (str: string) => Buffer.from(str, 'base64').toString();
+    const base64Decode = (str: string) =>
+      str ? Buffer.from(str, 'base64').toString() : '';
 
     return NextResponse.json({
-      output: result.data.stdout
-        ? base64Decode(result.data.stdout)
-        : result.data.stderr
-          ? base64Decode(result.data.stderr)
-          : base64Decode(result.data.compile_output),
-      status: result.data.status.description,
-      time: result.data.time,
-      memory: result.data.memory,
+      output: response.data.stdout
+        ? base64Decode(response.data.stdout)
+        : response.data.stderr
+          ? base64Decode(response.data.stderr)
+          : base64Decode(response.data.compile_output),
+      status: response.data.status?.description || 'Unknown',
+      time: response.data.time,
+      memory: response.data.memory,
     });
   } catch (error) {
-    console.error('Execution error:', error);
+    console.error('Full error details:', error);
+
+    // Type guard for axios errors
+    if (axios.isAxiosError(error)) {
+      return NextResponse.json(
+        {
+          error: 'Code execution failed',
+          details: error.response?.data || error.message,
+        },
+        { status: error.response?.status || 500 },
+      );
+    }
+
+    // Handle other error types
+    const errorMessage =
+      error instanceof Error ? error.message : 'Unknown error occurred';
     return NextResponse.json(
-      { error: 'Code execution failed' },
+      {
+        error: 'Code execution failed',
+        details: errorMessage,
+      },
       { status: 500 },
     );
   }

@@ -147,6 +147,21 @@ export const codingExerciseSchema = z.object({
   timeLimit: z.number().int().positive().nullish(),
 });
 
+// Zod schema for code submission
+export const codeSubmissionSchema = z.object({
+  lessonId: z.uuid(),
+  userId: z.string(),
+  language: z.string(),
+  submissionType: z.enum(['Web', 'Programming']),
+  // For programming languages
+  code: z.string().optional(),
+  // For web development
+  htmlCode: z.string().optional(),
+  cssCode: z.string().optional(),
+  jsCode: z.string().optional(),
+});
+
+export type CodeSubmissionType = z.infer<typeof codeSubmissionSchema>;
 export type CodingExerciseSchemaType = z.infer<typeof codingExerciseSchema>;
 export type CourseSchemaType = z.infer<typeof courseSchema>;
 export type QuestionSchemaType = z.infer<typeof questionSchema>;

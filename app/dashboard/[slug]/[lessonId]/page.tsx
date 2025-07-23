@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import { QuizPlayer } from './_components/QuizPlayer';
 import { CodingPlayground } from './_components/CodingPlayground';
 import { LessonSkeleton } from './_components/LessonSkeleton';
+import { requireUser } from '@/app/data/user/require-user';
 
 type Params = Promise<{ lessonId: string }>;
 
@@ -22,13 +23,16 @@ export default async function LessonContentPage({
 }
 
 async function LessonContentLoader({ lessonId }: { lessonId: string }) {
+  const session = await requireUser();
   const data = await getLessonContent(lessonId);
+  const userId = session?.id || '';
+  console.log('lesson dataaaaaaaaaaa:', data);
 
   if (data.type === 'QUIZ') {
     return <QuizPlayer data={data} />;
   }
   if (data.type === 'CODING') {
-    return <CodingPlayground />;
+    return <CodingPlayground data={data} userId={userId} />;
   }
   return <CourseContent data={data} />;
 }
