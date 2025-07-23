@@ -10,7 +10,7 @@ import { useTransition } from 'react';
 import { markLessonComplete, markLessonIncomplete } from '../actions';
 import { toast } from 'sonner';
 import { useConfetti } from '@/hooks/use-confetti';
-
+import { useRouter } from 'next/navigation';
 interface iAppProps {
   data: LessonContentType;
 }
@@ -18,6 +18,7 @@ interface iAppProps {
 export function CourseContent({ data }: iAppProps) {
   const [pending, startTransition] = useTransition();
   const { triggerConfetti } = useConfetti();
+  const router = useRouter();
 
   function VideoPlayer({
     thumbnailKey,
@@ -73,6 +74,7 @@ export function CourseContent({ data }: iAppProps) {
       if (result.status === 'success') {
         toast.success(result.message);
         if (!isCurrentlyComplete) triggerConfetti();
+        router.refresh();
       } else if (result.status === 'error') {
         toast.error(result.message);
       }

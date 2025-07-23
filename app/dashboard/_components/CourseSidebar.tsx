@@ -63,6 +63,7 @@ export function CourseSidebar({ course }: iAppProps) {
           courseId={course.id}
           courseTitle={course.title}
           userName={session?.user.name ?? 'Student'}
+          isCourseComplete={progressPercentage === 100}
         />
       </div>
 
@@ -107,6 +108,8 @@ export function CourseSidebar({ course }: iAppProps) {
                     typeof lesson.attempts[0].score === 'number' &&
                     lesson.attempts[0].score < 50
                   }
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  isLocked={(lesson as any).isLocked}
                 />
               ))}
             </CollapsibleContent>

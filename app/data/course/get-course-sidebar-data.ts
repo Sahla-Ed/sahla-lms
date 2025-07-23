@@ -46,7 +46,6 @@ export async function getCourseSidebarData(slug: string) {
                   id: true,
                 },
               },
-              // Always include latest quiz attempt (if any)
               attempts: {
                 where: {
                   userId: session?.id,
@@ -83,8 +82,35 @@ export async function getCourseSidebarData(slug: string) {
     return notFound();
   }
 
+  let previousLessonCompleted = true;
+  const chaptersWithLockState = course.chapter.map((chapter) => ({
+    ...chapter,
+    lessons: chapter.lessons.map((lesson) => {
+      const isCompleted = lesson.lessonProgress.some((p) => p.completed);
+      const isLocked = !previousLessonCompleted;
+
+      if (!isLocked) {
+        previousLessonCompleted = isCompleted;
+      }
+
+      return { ...lesson, isLocked };
+    }),
+  }));
+
+  const courseWithLockState = { ...course, chapter: chaptersWithLockState };
+
+  const certificate = await prisma.certificate.findUnique({
+    where: {
+      userId_courseId: {
+        userId: session?.id as string,
+        courseId: course.id,
+      },
+    },
+  });
+
   return {
-    course,
+    course: courseWithLockState,
+    hasCertificate: !!certificate,
   };
 }
 
