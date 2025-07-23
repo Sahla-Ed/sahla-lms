@@ -1,0 +1,193 @@
+diff --git a/dist/adapters/prisma-adapter/index.d.ts b/dist/adapters/prisma-adapter/index.d.ts
+index bb8b85be8ff9afc27e0e6f563c0f15e7bc737416..ce0c219b31da3888c04aed8e2f542a14e6cf06a1 100644
+--- a/dist/adapters/prisma-adapter/index.d.ts
++++ b/dist/adapters/prisma-adapter/index.d.ts
+@@ -24,6 +24,12 @@ interface PrismaConfig {
+      * @default false
+      */
+     usePlural?: boolean;
++    /**
++     * tanentID  
++     *
++     * @default "" 
++     */
++    tenantId?: string;
+ }
+ interface PrismaClient {
+ }
+diff --git a/dist/adapters/prisma-adapter/index.mjs b/dist/adapters/prisma-adapter/index.mjs
+index cafe6a3dedeb1645ec89869021ece26a0df3509b..a871db97318bb65e9e098c865f628f2789f5e930 100644
+--- a/dist/adapters/prisma-adapter/index.mjs
++++ b/dist/adapters/prisma-adapter/index.mjs
+@@ -19,12 +19,31 @@ import '@noble/hashes/utils';
+ import '../../shared/better-auth.B4Qoxdgc.mjs';
+ import '../../shared/better-auth.Cqykj82J.mjs';
+ 
++const addTenantIdCondetion = (where, tenantId )  => {  
++	if (!tenantId) {  
++		return where || [];  
++	}  
++  
++	const addTenantIdCondetion  = {  
++		field: "tenantId",  
++		operator: "eq",  
++		value: tenantId,  
++		connector: "AND"  
++	};  
++  
++	if (!where || where.length === 0) {  
++		return [projectIdCondition];  
++	}  
++  
++	return [addTenantIdCondetion, ...where];  
++};
++
+ const prismaAdapter = (prisma, config) => createAdapter({
+   config: {
+     adapterId: "prisma",
+     adapterName: "Prisma Adapter",
+     usePlural: config.usePlural ?? false,
+-    debugLogs: config.debugLogs ?? false
++    debugLogs: config.debugLogs ?? false,
+   },
+   adapter: ({ getFieldName }) => {
+     const db = prisma;
+@@ -85,6 +104,8 @@ const prismaAdapter = (prisma, config) => createAdapter({
+     };
+     return {
+       async create({ model, data: values, select }) {
++        values.tenantId = config.tenantId
++        console.log("prisma generte",{model,  values, select})
+         if (!db[model]) {
+           throw new BetterAuthError(
+             `Model ${model} does not exist in the database. If you haven't generated the Prisma client, you need to run 'npx prisma generate'`
+@@ -96,19 +117,26 @@ const prismaAdapter = (prisma, config) => createAdapter({
+         });
+       },
+       async findOne({ model, where, select }) {
+-        const whereClause = convertWhereClause(model, where);
++        const whereWithTanentId = addTenantIdCondetion(where , config.tenantId) 
++        const whereClause = convertWhereClause(model, whereWithTanentId);
++        console.log("findone",{ model, where, select ,t:JSON.stringify(whereClause)})
+         if (!db[model]) {
+           throw new BetterAuthError(
+             `Model ${model} does not exist in the database. If you haven't generated the Prisma client, you need to run 'npx prisma generate'`
+           );
+         }
++        console.log( await db[model].findFirst({
++          where: whereClause,
++          select: convertSelect(select, model)
++        }))
+         return await db[model].findFirst({
+           where: whereClause,
+           select: convertSelect(select, model)
+         });
+       },
+       async findMany({ model, where, limit, offset, sortBy }) {
+-        const whereClause = convertWhereClause(model, where);
++        const whereWithTanentId = addTenantIdCondetion(where , config.tenantId) 
++        const whereClause = convertWhereClause(model, whereWithTanentId);
+         if (!db[model]) {
+           throw new BetterAuthError(
+             `Model ${model} does not exist in the database. If you haven't generated the Prisma client, you need to run 'npx prisma generate'`
+@@ -126,7 +154,8 @@ const prismaAdapter = (prisma, config) => createAdapter({
+         });
+       },
+       async count({ model, where }) {
+-        const whereClause = convertWhereClause(model, where);
++        const whereWithTanentId = addTenantIdCondetion(where , config.tenantId) 
++        const whereClause = convertWhereClause(model, whereWithTanentId);
+         if (!db[model]) {
+           throw new BetterAuthError(
+             `Model ${model} does not exist in the database. If you haven't generated the Prisma client, you need to run 'npx prisma generate'`
+@@ -142,14 +171,16 @@ const prismaAdapter = (prisma, config) => createAdapter({
+             `Model ${model} does not exist in the database. If you haven't generated the Prisma client, you need to run 'npx prisma generate'`
+           );
+         }
+-        const whereClause = convertWhereClause(model, where);
++        const whereWithTanentId = addTenantIdCondetion(where , config.tenantId) 
++        const whereClause = convertWhereClause(model, whereWithTanentId);
+         return await db[model].update({
+           where: whereClause,
+           data: update
+         });
+       },
+       async updateMany({ model, where, update }) {
+-        const whereClause = convertWhereClause(model, where);
++        const whereWithTanentId = addTenantIdCondetion(where , config.tenantId) 
++        const whereClause = convertWhereClause(model, whereWithTanentId);
+         const result = await db[model].updateMany({
+           where: whereClause,
+           data: update
+@@ -157,7 +188,8 @@ const prismaAdapter = (prisma, config) => createAdapter({
+         return result ? result.count : 0;
+       },
+       async delete({ model, where }) {
+-        const whereClause = convertWhereClause(model, where);
++        const whereWithTanentId = addTenantIdCondetion(where , config.tenantId) 
++        const whereClause = convertWhereClause(model, whereWithTanentId);
+         try {
+           await db[model].delete({
+             where: whereClause
+@@ -166,7 +198,8 @@ const prismaAdapter = (prisma, config) => createAdapter({
+         }
+       },
+       async deleteMany({ model, where }) {
+-        const whereClause = convertWhereClause(model, where);
++        const whereWithTanentId = addTenantIdCondetion(where , config.tenantId) 
++        const whereClause = convertWhereClause(model, whereWithTanentId);
+         const result = await db[model].deleteMany({
+           where: whereClause
+         });
+diff --git a/dist/shared/better-auth.DORkW_Ge.mjs b/dist/shared/better-auth.DORkW_Ge.mjs
+index 7c116e184430a711ee4f3743058224205f10ca76..1d5f2148ecbb63b0a070c3eb99262b7ced16d222 100644
+--- a/dist/shared/better-auth.DORkW_Ge.mjs
++++ b/dist/shared/better-auth.DORkW_Ge.mjs
+@@ -42,6 +42,11 @@ const getAuthTables = (options) => {
+     session: {
+       modelName: options.session?.modelName || "session",
+       fields: {
++        tenantId: {
++          type: "string",
++          required: false,
++          fieldName:  "tenantId"
++        },
+         expiresAt: {
+           type: "date",
+           required: true,
+@@ -93,6 +98,11 @@ const getAuthTables = (options) => {
+     user: {
+       modelName: options.user?.modelName || "user",
+       fields: {
++        tenantId: {
++          type: "string",
++          required: false,
++          fieldName:  "tenantId"
++        },
+         name: {
+           type: "string",
+           required: true,
+@@ -139,6 +149,11 @@ const getAuthTables = (options) => {
+     account: {
+       modelName: options.account?.modelName || "account",
+       fields: {
++        tenantId: {
++          type: "string",
++          required: false,
++          fieldName:  "tenantId"
++        },
+         accountId: {
+           type: "string",
+           required: true,
+@@ -211,6 +226,11 @@ const getAuthTables = (options) => {
+     verification: {
+       modelName: options.verification?.modelName || "verification",
+       fields: {
++        tenantId: {
++          type: "string",
++          required: false,
++          fieldName:  "tenantId"
++        },
+         identifier: {
+           type: "string",
+           required: true,
