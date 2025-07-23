@@ -108,6 +108,7 @@ export function CourseSidebar({ course }: iAppProps) {
                     typeof lesson.attempts[0].score === 'number' &&
                     lesson.attempts[0].score < 50
                   }
+                    isLocked={(lesson as any).isLocked} 
                 />
               ))}
             </CollapsibleContent>
