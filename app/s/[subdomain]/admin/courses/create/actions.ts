@@ -9,7 +9,7 @@ import { courseSchema, CourseSchemaType } from '@/lib/zodSchemas';
 export async function CreateCourse(
   values: CourseSchemaType,
 ): Promise<ApiResponse> {
-  const session = await requireAdmin();
+  const { user } = await requireAdmin();
 
   try {
     const validation = courseSchema.safeParse(values);
@@ -36,8 +36,9 @@ export async function CreateCourse(
         fileKey: fileKey
           ? fileKey
           : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGh5WFH8TOIfRKxUrIgJZoDCs1yvQ4hIcppw&s',
-        userId: session?.user.id as string,
+        userId: user.id as string,
         stripePriceId: data.default_price as string,
+        tenantId: user.tenantId,
       },
     });
 
@@ -45,7 +46,8 @@ export async function CreateCourse(
       status: 'success',
       message: 'Course created succesfully',
     };
-  } catch {
+  } catch (e) {
+    console.log(e);
     return {
       status: 'error',
       message: 'Failed to create course',
