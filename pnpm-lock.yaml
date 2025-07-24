@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  better-auth@1.2.12:
+    hash: b0260a5113c2625b68d95b974a8368f5c0e2cf17fd4cb5c27e3c1d992d577b3c
+    path: patches/better-auth@1.2.12.patch
+
 importers:
   .:
     dependencies:
@@ -15,7 +20,7 @@ importers:
         version: 3.846.0
       '@daveyplate/better-auth-ui':
         specifier: ^2.0.14
-        version: 2.0.14(055cbc199b56d48601dfb5816ec2bec2)
+        version: 2.0.14(5083304f93e76bdcf9fa31100668ecd9)
       '@dnd-kit/core':
         specifier: ^6.3.1
         version: 6.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -141,7 +146,7 @@ importers:
         version: 3.0.1
       better-auth:
         specifier: ^1.2.12
-        version: 1.2.12
+        version: 1.2.12(patch_hash=b0260a5113c2625b68d95b974a8368f5c0e2cf17fd4cb5c27e3c1d992d577b3c)
       canvas-confetti:
         specifier: ^1.9.3
         version: 1.9.3
@@ -8028,18 +8033,18 @@ snapshots:
 
   '@date-fns/tz@1.2.0': {}
 
-  '@daveyplate/better-auth-tanstack@1.3.6(@tanstack/query-core@5.83.0)(@tanstack/react-query@5.83.0(react@19.1.0))(better-auth@1.2.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@daveyplate/better-auth-tanstack@1.3.6(@tanstack/query-core@5.83.0)(@tanstack/react-query@5.83.0(react@19.1.0))(better-auth@1.2.12(patch_hash=b0260a5113c2625b68d95b974a8368f5c0e2cf17fd4cb5c27e3c1d992d577b3c))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@tanstack/query-core': 5.83.0
       '@tanstack/react-query': 5.83.0(react@19.1.0)
-      better-auth: 1.2.12
+      better-auth: 1.2.12(patch_hash=b0260a5113c2625b68d95b974a8368f5c0e2cf17fd4cb5c27e3c1d992d577b3c)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-ui@2.0.14(055cbc199b56d48601dfb5816ec2bec2)':
+  '@daveyplate/better-auth-ui@2.0.14(5083304f93e76bdcf9fa31100668ecd9)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
-      '@daveyplate/better-auth-tanstack': 1.3.6(@tanstack/query-core@5.83.0)(@tanstack/react-query@5.83.0(react@19.1.0))(better-auth@1.2.12)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@daveyplate/better-auth-tanstack': 1.3.6(@tanstack/query-core@5.83.0)(@tanstack/react-query@5.83.0(react@19.1.0))(better-auth@1.2.12(patch_hash=b0260a5113c2625b68d95b974a8368f5c0e2cf17fd4cb5c27e3c1d992d577b3c))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hcaptcha/react-hcaptcha': 1.12.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hookform/resolvers': 5.1.1(react-hook-form@7.60.0(react@19.1.0))
       '@instantdb/react': 0.20.9(react@19.1.0)
@@ -8062,7 +8067,7 @@ snapshots:
       '@triplit/client': 1.0.47(typescript@5.8.3)
       '@triplit/react': 1.0.47(react@19.1.0)(typescript@5.8.3)
       '@wojtekmaj/react-recaptcha-v3': 0.1.4(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      better-auth: 1.2.12
+      better-auth: 1.2.12(patch_hash=b0260a5113c2625b68d95b974a8368f5c0e2cf17fd4cb5c27e3c1d992d577b3c)
       class-variance-authority: 0.7.1
       clsx: 2.1.1
       input-otp: 1.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -10397,7 +10402,7 @@ snapshots:
 
   base64-js@1.5.1: {}
 
-  better-auth@1.2.12:
+  better-auth@1.2.12(patch_hash=b0260a5113c2625b68d95b974a8368f5c0e2cf17fd4cb5c27e3c1d992d577b3c):
     dependencies:
       '@better-auth/utils': 0.2.5
       '@better-fetch/fetch': 1.1.18

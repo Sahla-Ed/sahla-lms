@@ -86,7 +86,6 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
           const xhr = new XMLHttpRequest();
 
           xhr.upload.onprogress = (event) => {
-            console.log(event);
             if (event.lengthComputable) {
               const percentageCompleted = (event.loaded / event.total) * 100;
               setFileState((prev) => ({
