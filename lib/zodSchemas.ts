@@ -122,6 +122,14 @@ export const lessonSchema = z.object({
 
   codingExerciseId: z.uuid().optional(),
   codingSubmissionId: z.uuid().optional(),
+
+  // Coding exercise fields - only used when type is 'CODING'
+  codingLanguage: z.string().optional(),
+  htmlStarterCode: z.string().optional(),
+  cssStarterCode: z.string().optional(),
+  jsStarterCode: z.string().optional(),
+  serverStarterCode: z.string().optional(),
+  codingInstructions: z.string().optional(),
 });
 
 export const codingExerciseSchema = z.object({

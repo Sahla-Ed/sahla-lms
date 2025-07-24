@@ -213,7 +213,7 @@ export async function createLesson(
         },
       });
 
-      await tx.lesson.create({
+      const lesson = await tx.lesson.create({
         data: {
           title: result.data.name,
           description: result.data.description,
@@ -224,6 +224,37 @@ export async function createLesson(
           position: (maxPos?.position ?? 0) + 1,
         },
       });
+
+      // Create coding exercise if lesson type is CODING
+      if (result.data.type === 'CODING') {
+        const language = result.data.codingLanguage || 'web';
+        let starterCode = '';
+
+        if (language === 'web') {
+          // For web development, combine HTML, CSS, and JavaScript
+          const htmlCode = result.data.htmlStarterCode || '';
+          const cssCode = result.data.cssStarterCode || '';
+          const jsCode = result.data.jsStarterCode || '';
+
+          starterCode = JSON.stringify({
+            html: htmlCode,
+            css: cssCode,
+            javascript: jsCode,
+          });
+        } else {
+          // For server-side languages
+          starterCode = result.data.serverStarterCode || '';
+        }
+
+        await tx.codingExercise.create({
+          data: {
+            lessonId: lesson.id,
+            language: language,
+            starterCode: starterCode,
+            instructions: result.data.codingInstructions || '',
+          },
+        });
+      }
     });
 
     revalidatePath(`/admin/courses/${result.data.courseId}/edit`);

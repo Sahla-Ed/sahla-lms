@@ -154,3 +154,32 @@ export async function getUserSubmissions(lessonId: string, userId: string) {
     return [];
   }
 }
+
+// Get user's latest submission for code initialization
+export async function getLatestUserSubmission(
+  lessonId: string,
+  userId: string,
+) {
+  try {
+    const latestSubmission = await prisma.codingSubmission.findFirst({
+      where: { lessonId, userId },
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        language: true,
+        submissionType: true,
+        code: true,
+        htmlCode: true,
+        cssCode: true,
+        jsCode: true,
+        createdAt: true,
+        attemptNumber: true,
+      },
+    });
+
+    return latestSubmission;
+  } catch (error) {
+    console.error('Failed to fetch latest submission:', error);
+    return null;
+  }
+}

@@ -1,15 +1,27 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { LessonContentType } from '@/app/data/course/get-lesson-content';
 import { Button } from '@/components/ui/button';
-import { Loader2, Play, Save } from 'lucide-react';
+import { Loader2, Play, Save, RotateCcw } from 'lucide-react';
 import { toast } from 'sonner';
 import Editor from '@monaco-editor/react';
 import { useTheme } from 'next-themes';
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import {
   submitCode,
   getUserSubmissions,
+  getLatestUserSubmission,
 } from '@/app/dashboard/[slug]/[lessonId]/actions';
 
 type CodingSubmission = {
@@ -223,41 +235,139 @@ export function CodingPlayground({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissions, setSubmissions] = useState<CodingSubmission[]>([]);
 
+  // Initialize coding exercise data
+  const codingExercise = data.codingExercise?.[0];
+  const exerciseLanguage = codingExercise?.language || 'web';
+
+  // State for tracking if we've loaded user submission
+  const [isCodeInitialized, setIsCodeInitialized] = useState(false);
+  const [hasUserSubmission, setHasUserSubmission] = useState(false);
+  const [lastSubmissionDate, setLastSubmissionDate] = useState<Date | null>(
+    null,
+  );
+  const [showResetDialog, setShowResetDialog] = useState(false);
+
+  // Memoize starter code to prevent re-creation on every render
+  const starterCode = useMemo(() => {
+    if (!codingExercise?.starterCode) {
+      return {
+        webCode: DEFAULT_WEB_CODE,
+        serverCode: SERVER_TEMPLATES.python,
+        language: 'python',
+        mode: 'web' as 'web' | 'server',
+      };
+    }
+
+    if (exerciseLanguage === 'web') {
+      try {
+        const parsedWebCode = JSON.parse(codingExercise.starterCode);
+        return {
+          webCode: {
+            html: parsedWebCode.html || DEFAULT_WEB_CODE.html,
+            css: parsedWebCode.css || DEFAULT_WEB_CODE.css,
+            javascript: parsedWebCode.javascript || DEFAULT_WEB_CODE.javascript,
+          },
+          serverCode: SERVER_TEMPLATES.python,
+          language: 'python',
+          mode: 'web' as 'web' | 'server',
+        };
+      } catch {
+        return {
+          webCode: DEFAULT_WEB_CODE,
+          serverCode: SERVER_TEMPLATES.python,
+          language: 'python',
+          mode: 'web' as 'web' | 'server',
+        };
+      }
+    } else {
+      return {
+        webCode: DEFAULT_WEB_CODE,
+        serverCode: codingExercise.starterCode,
+        language: exerciseLanguage,
+        mode: 'server' as 'web' | 'server',
+      };
+    }
+  }, [codingExercise?.starterCode, exerciseLanguage]);
+
+  // Use ref for stable starter code reference
+  const starterCodeRef = useRef(starterCode);
+  starterCodeRef.current = starterCode;
+
   // Web development state
-  const [webCode, setWebCode] = useState(DEFAULT_WEB_CODE);
+  const [webCode, setWebCode] = useState(starterCode.webCode);
   const [activeWebTab, setActiveWebTab] = useState<WebTab>('html');
 
   // Server-side development state
-  const [serverCode, setServerCode] = useState(SERVER_TEMPLATES.python);
-  const [serverLanguage, setServerLanguage] = useState('python');
+  const [serverCode, setServerCode] = useState(starterCode.serverCode);
+  const [serverLanguage, setServerLanguage] = useState(starterCode.language);
 
   // UI state
-  const [mode, setMode] = useState<'web' | 'server'>('web');
+  const [mode, setMode] = useState<'web' | 'server'>(starterCode.mode);
   const [output, setOutput] = useState('');
   const [isRunning, setIsRunning] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const { theme, systemTheme } = useTheme();
+  console.log('theme', theme, systemTheme);
 
   const currentTheme = theme === 'system' ? systemTheme : theme;
+  console.log('currentTheme', currentTheme);
 
-  const handleWebCodeChange = (value: string | undefined, tab: WebTab) => {
-    setWebCode((prev) => ({
-      ...prev,
-      [tab]: value || '',
-    }));
-  };
+  const handleWebCodeChange = useCallback(
+    (value: string | undefined, tab: WebTab) => {
+      setWebCode((prev) => ({
+        ...prev,
+        [tab]: value || '',
+      }));
+    },
+    [],
+  );
 
-  const handleServerCodeChange = (value: string | undefined) => {
+  const handleServerCodeChange = useCallback((value: string | undefined) => {
     setServerCode(value || '');
-  };
+  }, []);
 
-  const handleServerLanguageChange = (language: string) => {
-    setServerLanguage(language);
-    setServerCode(SERVER_TEMPLATES[language] || '// Write your code here');
+  const resetToStarterCode = useCallback(() => {
+    const currentStarterCode = starterCodeRef.current;
+    if (exerciseLanguage === 'web') {
+      setWebCode(currentStarterCode.webCode);
+    } else {
+      setServerCode(currentStarterCode.serverCode);
+    }
+    setHasUserSubmission(false);
+    setLastSubmissionDate(null);
     setOutput('');
-  };
+    setShowResetDialog(false);
+    toast.success('Reset to starter code');
+  }, [exerciseLanguage]);
 
-  const runWebCode = () => {
+  const loadSubmission = useCallback(
+    (submission: CodingSubmission) => {
+      const currentStarterCode = starterCodeRef.current;
+      if (submission.submissionType === 'Web' && exerciseLanguage === 'web') {
+        setWebCode({
+          html: submission.htmlCode || currentStarterCode.webCode.html,
+          css: submission.cssCode || currentStarterCode.webCode.css,
+          javascript:
+            submission.jsCode || currentStarterCode.webCode.javascript,
+        });
+      } else if (
+        submission.submissionType === 'Programming' &&
+        exerciseLanguage !== 'web'
+      ) {
+        setServerCode(submission.code || currentStarterCode.serverCode);
+      }
+
+      setHasUserSubmission(true);
+      setLastSubmissionDate(new Date(submission.createdAt));
+      setOutput('');
+      toast.success(
+        `Loaded submission from attempt #${submission.attemptNumber}`,
+      );
+    },
+    [exerciseLanguage],
+  );
+
+  const runWebCode = useCallback(() => {
     const iframe = iframeRef.current;
     if (!iframe) return;
 
@@ -299,9 +409,9 @@ export function CodingPlayground({
     iframe.src = url;
 
     iframe.onload = () => URL.revokeObjectURL(url);
-  };
+  }, [webCode]);
 
-  const runServerCode = async () => {
+  const runServerCode = useCallback(async () => {
     try {
       setOutput('Running...');
 
@@ -331,9 +441,9 @@ export function CodingPlayground({
       setOutput('Failed to execute code. Please try again.');
       toast.error('Network error');
     }
-  };
+  }, [serverCode, serverLanguage]);
 
-  const handleRunCode = async () => {
+  const handleRunCode = useCallback(async () => {
     setIsRunning(true);
 
     try {
@@ -345,9 +455,9 @@ export function CodingPlayground({
     } finally {
       setIsRunning(false);
     }
-  };
+  }, [mode, runWebCode, runServerCode]);
 
-  const handleSubmitCode = async () => {
+  const handleSubmitCode = useCallback(async () => {
     setIsSubmitting(true);
 
     try {
@@ -374,8 +484,16 @@ export function CodingPlayground({
 
       if (result.status === 'success') {
         toast.success('Code submitted successfully! 🎉');
-        // Refresh submissions list
-        await loadSubmissions();
+        // Refresh submissions list and update status
+        try {
+          const userSubmissions = await getUserSubmissions(data.id, userId);
+          setSubmissions(userSubmissions);
+        } catch (error) {
+          console.error('Failed to refresh submissions:', error);
+        }
+        setHasUserSubmission(true);
+        setLastSubmissionDate(new Date());
+        setIsCodeInitialized(true);
       } else {
         toast.error(result.message);
       }
@@ -385,72 +503,172 @@ export function CodingPlayground({
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [
+    data.id,
+    data.Chapter?.Course?.slug,
+    userId,
+    mode,
+    serverLanguage,
+    webCode,
+    serverCode,
+  ]);
 
-  const loadSubmissions = useCallback(async () => {
-    try {
-      const userSubmissions = await getUserSubmissions(data.id, userId);
-      setSubmissions(userSubmissions);
-    } catch (error) {
-      console.error('Failed to load submissions:', error);
-    }
-  }, [data.id, userId]);
-
-  // Load submissions on component mount
+  // Initialize component - load submissions and latest submission only once
   useEffect(() => {
-    loadSubmissions();
-  }, [loadSubmissions]);
+    let mounted = true;
+
+    // Prevent re-initialization if already initialized
+    if (isCodeInitialized) {
+      return;
+    }
+
+    const initializeComponent = async () => {
+      try {
+        // Load submissions
+        const userSubmissions = await getUserSubmissions(data.id, userId);
+        if (mounted) {
+          setSubmissions(userSubmissions);
+        }
+
+        // Load latest submission for code initialization
+        const latestSubmission = await getLatestUserSubmission(data.id, userId);
+
+        if (mounted && latestSubmission) {
+          // User has previous submissions, load the latest one
+          setHasUserSubmission(true);
+          setLastSubmissionDate(new Date(latestSubmission.createdAt));
+
+          if (
+            latestSubmission.submissionType === 'Web' &&
+            exerciseLanguage === 'web'
+          ) {
+            const currentStarterCode = starterCodeRef.current;
+            setWebCode({
+              html:
+                latestSubmission.htmlCode || currentStarterCode.webCode.html,
+              css: latestSubmission.cssCode || currentStarterCode.webCode.css,
+              javascript:
+                latestSubmission.jsCode ||
+                currentStarterCode.webCode.javascript,
+            });
+            setMode('web');
+          } else if (
+            latestSubmission.submissionType === 'Programming' &&
+            exerciseLanguage !== 'web'
+          ) {
+            const currentStarterCode = starterCodeRef.current;
+            setServerCode(
+              latestSubmission.code || currentStarterCode.serverCode,
+            );
+            setServerLanguage(exerciseLanguage);
+            setMode('server');
+          }
+        } else if (mounted && !latestSubmission) {
+          // No previous submissions, use starter code (already set in initial state)
+          setHasUserSubmission(false);
+          setLastSubmissionDate(null);
+        }
+
+        if (mounted) {
+          setIsCodeInitialized(true);
+        }
+      } catch (error) {
+        console.error('Failed to initialize component:', error);
+        if (mounted) {
+          setIsCodeInitialized(true);
+        }
+      }
+    };
+
+    initializeComponent();
+
+    return () => {
+      mounted = false;
+    };
+  }, [data.id, userId, exerciseLanguage]);
 
   return (
     <div className='flex h-full flex-col gap-4'>
       {/* Header */}
       <div className='flex items-center justify-between'>
-        <h1 className='text-2xl font-bold'>Coding Playground</h1>
+        <div>
+          <h1 className='text-2xl font-bold'>Coding Playground</h1>
+          {/* Status Indicator */}
+          {isCodeInitialized && (
+            <div className='mt-1 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400'>
+              {hasUserSubmission ? (
+                <>
+                  <span className='flex items-center gap-1'>
+                    <div className='h-2 w-2 rounded-full bg-blue-500'></div>
+                    Previous work loaded
+                  </span>
+                  {lastSubmissionDate && (
+                    <span className='text-xs'>
+                      (Last saved: {lastSubmissionDate.toLocaleDateString()}{' '}
+                      {lastSubmissionDate.toLocaleTimeString()})
+                    </span>
+                  )}
+                </>
+              ) : (
+                <span className='flex items-center gap-1'>
+                  <div className='h-2 w-2 rounded-full bg-green-500'></div>
+                  Using starter code
+                </span>
+              )}
+            </div>
+          )}
+        </div>
 
         <div className='flex items-center gap-4'>
-          {/* Server Language Selector */}
-          {mode === 'server' && (
-            <select
-              value={serverLanguage}
-              onChange={(e) => handleServerLanguageChange(e.target.value)}
-              className='bg-background rounded-md border px-3 py-2'
-            >
-              <option value='c'>C</option>
-              <option value='cpp'>C++</option>
-              <option value='python'>Python</option>
-              <option value='javascript'>JavaScript</option>
-              <option value='typescript'>TypeScript</option>
-            </select>
-          )}
-
-          {/* Mode Selector */}
-          <div
-            className={`flex rounded-lg ${currentTheme === 'light' ? 'bg-white' : 'bg-gray-800'} p-1`}
-          >
-            <button
-              onClick={() => setMode('web')}
-              className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-                mode === 'web'
-                  ? 'bg-white text-blue-600 shadow-sm'
-                  : 'text-gray-300 hover:text-gray-500'
-              }`}
-            >
-              🌐 Web Dev
-            </button>
-            <button
-              onClick={() => setMode('server')}
-              className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-                mode === 'server'
-                  ? 'bg-white text-blue-600 shadow-sm'
-                  : 'text-gray-300 hover:text-gray-500'
-              }`}
-            >
-              🖥️ Programming
-            </button>
+          {/* Language Display */}
+          <div className='rounded-md border bg-gray-50 px-3 py-2 text-sm font-medium dark:bg-gray-800'>
+            {exerciseLanguage === 'web' ? (
+              <span className='text-blue-600'>🌐 Web Development</span>
+            ) : (
+              <span className='text-green-600'>
+                🖥️{' '}
+                {exerciseLanguage.charAt(0).toUpperCase() +
+                  exerciseLanguage.slice(1)}
+              </span>
+            )}
           </div>
 
           {/* Action Buttons */}
           <div className='flex gap-2'>
+            {hasUserSubmission && (
+              <AlertDialog
+                open={showResetDialog}
+                onOpenChange={setShowResetDialog}
+              >
+                <AlertDialogTrigger asChild>
+                  <Button
+                    variant='outline'
+                    size='sm'
+                    className='text-orange-600 hover:text-orange-700'
+                  >
+                    <RotateCcw className='mr-2 h-4 w-4' />
+                    Reset
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Reset to Starter Code?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This will replace your current code with the original
+                      starter code. Your previous submissions will still be
+                      saved, but any unsaved changes will be lost.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={resetToStarterCode}>
+                      Reset Code
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            )}
+
             <Button
               onClick={handleRunCode}
               disabled={isRunning}
@@ -485,6 +703,18 @@ export function CodingPlayground({
           </div>
         </div>
       </div>
+
+      {/* Instructions */}
+      {codingExercise?.instructions && (
+        <div className='rounded-md border bg-blue-50 p-4 dark:bg-blue-950'>
+          <h3 className='mb-2 text-lg font-semibold text-blue-800 dark:text-blue-200'>
+            Instructions
+          </h3>
+          <p className='whitespace-pre-wrap text-blue-700 dark:text-blue-300'>
+            {codingExercise.instructions}
+          </p>
+        </div>
+      )}
 
       {/* Main Content */}
       <div className='grid flex-grow grid-cols-1 gap-4 lg:grid-cols-2'>
@@ -581,19 +811,23 @@ export function CodingPlayground({
           )}
         </div> */}
         <div className='flex-1 overflow-hidden rounded-md border'>
-          <div className='border-b bg-gray-50 px-4 py-2 text-sm font-medium'>
+          <div
+            className={`border-b ${currentTheme === 'light' ? 'bg-gray-100' : 'bg-gray-900'} px-4 py-2 text-sm font-medium`}
+          >
             {mode === 'web' ? '🌐 Live Preview' : '📄 Output'}
           </div>
 
           {mode === 'web' ? (
             <iframe
               ref={iframeRef}
-              className='h-[300px] w-full'
+              className='h-full w-full'
               sandbox='allow-scripts allow-same-origin'
               title='Web Preview'
             />
           ) : (
-            <div className='h-[300px] overflow-auto bg-gray-900 p-4 text-gray-100'>
+            <div
+              className={`h-[400px] overflow-auto ${currentTheme === 'light' ? 'bg-gray-100 text-gray-900' : 'bg-gray-900 text-gray-100'} p-4`}
+            >
               <pre className='font-mono text-sm break-words whitespace-pre-wrap'>
                 {output || 'Click "Run Code" to see output...'}
               </pre>
@@ -603,16 +837,16 @@ export function CodingPlayground({
       </div>
 
       {/* Main Content */}
-      <div className='grid flex-grow grid-cols-1 gap-4 lg:grid-cols-3'>
-        {/* Code Editor - Takes 2 columns */}
-        <div className='overflow-hidden rounded-md border lg:col-span-2'>
-          {/* ... (previous editor code) */}
-        </div>
+      {/* <div className='grid flex-grow grid-cols-1 gap-4 lg:grid-cols-3'> */}
+      {/* Code Editor - Takes 2 columns */}
+      {/* <div className='overflow-hidden rounded-md border lg:col-span-2'> */}
+      {/* ... (previous editor code) */}
+      {/* </div> */}
 
-        {/* Right Sidebar - Output + Submissions */}
-        <div className='flex flex-col gap-4'>
-          {/* Output Panel */}
-          {/* <div className='flex-1 overflow-hidden rounded-md border'>
+      {/* Right Sidebar - Output + Submissions */}
+      <div className='flex flex-col gap-4'>
+        {/* Output Panel */}
+        {/* <div className='flex-1 overflow-hidden rounded-md border'>
             <div className='border-b bg-gray-50 px-4 py-2 text-sm font-medium'>
               {mode === 'web' ? '🌐 Live Preview' : '📄 Output'}
             </div>
@@ -633,39 +867,107 @@ export function CodingPlayground({
             )}
           </div> */}
 
-          {/* Submissions History */}
-          <div className='overflow-hidden rounded-md border'>
-            <div className='border-b bg-gray-50 px-4 py-2 text-sm font-medium'>
-              📚 My Submissions ({submissions.length})
-            </div>
-            <div className='max-h-[200px] overflow-y-auto p-4'>
-              {submissions.length > 0 ? (
-                submissions.map((submission) => (
-                  <div
-                    key={submission.id}
-                    className='mb-2 rounded bg-gray-50 p-2 text-sm'
-                  >
-                    <div className='flex items-center justify-between'>
+        {/* Submissions History */}
+        <div className='overflow-hidden rounded-md border'>
+          <div className='border-b bg-gray-50 px-4 py-2 text-sm font-medium dark:bg-gray-800 dark:text-gray-200'>
+            📚 My Submissions ({submissions.length})
+          </div>
+          <div className='max-h-[300px] overflow-y-auto p-4'>
+            {submissions.length > 0 ? (
+              submissions.map((submission, index) => (
+                <div
+                  key={submission.id}
+                  className={`mb-3 rounded border p-3 text-sm ${
+                    index === 0
+                      ? 'border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950'
+                      : 'border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800'
+                  }`}
+                >
+                  <div className='flex items-center justify-between'>
+                    <div className='flex items-center gap-2'>
                       <span className='font-medium'>
                         Attempt #{submission.attemptNumber}
                       </span>
-                      <span className='text-xs text-gray-500'>
-                        {new Date(submission.createdAt).toLocaleDateString()}
-                      </span>
+                      {index === 0 && (
+                        <span className='rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200'>
+                          Latest
+                        </span>
+                      )}
                     </div>
-                    <div className='mt-1 text-xs text-gray-600'>
-                      Language: {submission.language} | Type:{' '}
-                      {submission.submissionType}
+                    <div className='flex items-center gap-2'>
+                      <span className='text-xs text-gray-500 dark:text-gray-400'>
+                        {new Date(submission.createdAt).toLocaleDateString()}{' '}
+                        {new Date(submission.createdAt).toLocaleTimeString()}
+                      </span>
+                      <Button
+                        size='sm'
+                        variant='outline'
+                        onClick={() => loadSubmission(submission)}
+                        className='h-6 px-2 text-xs'
+                      >
+                        Load
+                      </Button>
                     </div>
                   </div>
-                ))
-              ) : (
-                <p className='text-sm text-gray-500'>No submissions yet</p>
-              )}
-            </div>
+                  <div className='mt-2 text-xs text-gray-600 dark:text-gray-400'>
+                    <div className='flex items-center justify-between'>
+                      <span>
+                        Language: {submission.language} | Type:{' '}
+                        {submission.submissionType}
+                      </span>
+                      <span
+                        className={`rounded px-1 py-0.5 text-xs ${
+                          submission.status === 'Success'
+                            ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                            : submission.status === 'Error'
+                              ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                              : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                        }`}
+                      >
+                        {submission.status}
+                      </span>
+                    </div>
+                  </div>
+                  {submission.submissionType === 'Web' ? (
+                    <div className='mt-2 grid grid-cols-3 gap-1 text-xs'>
+                      <div className='text-orange-600 dark:text-orange-400'>
+                        HTML:{' '}
+                        {submission.htmlCode
+                          ? `${Math.min(submission.htmlCode.length, 1000)}${submission.htmlCode.length > 1000 ? '...' : ''} chars`
+                          : 'Empty'}
+                      </div>
+                      <div className='text-blue-600 dark:text-blue-400'>
+                        CSS:{' '}
+                        {submission.cssCode
+                          ? `${Math.min(submission.cssCode.length, 1000)}${submission.cssCode.length > 1000 ? '...' : ''} chars`
+                          : 'Empty'}
+                      </div>
+                      <div className='text-yellow-600 dark:text-yellow-400'>
+                        JS:{' '}
+                        {submission.jsCode
+                          ? `${Math.min(submission.jsCode.length, 1000)}${submission.jsCode.length > 1000 ? '...' : ''} chars`
+                          : 'Empty'}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className='mt-2 text-xs text-gray-600 dark:text-gray-400'>
+                      Code:{' '}
+                      {submission.code
+                        ? `${Math.min(submission.code.length, 1000)}${submission.code.length > 1000 ? '...' : ''} chars`
+                        : 'Empty'}
+                    </div>
+                  )}
+                </div>
+              ))
+            ) : (
+              <p className='text-sm text-gray-500 dark:text-gray-400'>
+                No submissions yet
+              </p>
+            )}
           </div>
         </div>
       </div>
     </div>
+    // </div>
   );
 }
