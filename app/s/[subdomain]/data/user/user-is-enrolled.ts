@@ -3,9 +3,12 @@ import 'server-only';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import { headers } from 'next/headers';
+import { extractSubdomain } from '@/lib/subdomain';
 
 export async function checkIfCourseBought(courseId: string): Promise<boolean> {
-  const session = await auth.api.getSession({
+  const host = Object.fromEntries(await headers()).host;
+  const tenantId = await extractSubdomain(undefined, host);
+  const session = await auth(tenantId ?? '').api.getSession({
     headers: await headers(),
   });
 
