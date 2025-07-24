@@ -28,6 +28,32 @@ export async function editCourse(
         message: 'Invalid data',
       };
     }
+    if (result.data.status === 'Published') {
+      const courseWithLessons = await prisma.course.findUnique({
+        where: { id: courseId },
+        include: {
+          chapter: {
+            include: {
+              lessons: {
+                where: { type: 'QUIZ' },
+                include: { _count: { select: { questions: true } } },
+              },
+            },
+          },
+        },
+      });
+
+      const emptyQuizzes = courseWithLessons?.chapter
+        .flatMap((c) => c.lessons)
+        .filter((l) => l._count.questions === 0);
+
+      if (emptyQuizzes && emptyQuizzes.length > 0) {
+        return {
+          status: 'error',
+          message: `Cannot publish. The following quizzes have no questions: ${emptyQuizzes.map((q) => q.title).join(', ')}`,
+        };
+      }
+    }
 
     await prisma.course.update({
       where: {
@@ -43,7 +69,8 @@ export async function editCourse(
       status: 'success',
       message: 'Course updated successfully',
     };
-  } catch {
+  } catch (error) {
+    console.error('Failed to update course:', error);
     return {
       status: 'error',
       message: 'Failed to update Course',
@@ -80,7 +107,6 @@ export async function reorderLessons(
     await prisma.$transaction(updates);
 
     revalidatePath(`/admin/courses/${courseId}/edit`);
-
     return {
       status: 'success',
       message: 'Lessons reordered successfully',
@@ -198,6 +224,8 @@ export async function createLesson(
       };
     }
 
+    //  let newLesson;
+    let lessonId: string;
     await prisma.$transaction(async (tx) => {
       const maxPos = await tx.lesson.findFirst({
         where: {
@@ -211,7 +239,7 @@ export async function createLesson(
         },
       });
 
-      await tx.lesson.create({
+      const newLesson = await tx.lesson.create({
         data: {
           title: result.data.name,
           description: result.data.description,
@@ -222,6 +250,7 @@ export async function createLesson(
           position: (maxPos?.position ?? 0) + 1,
         },
       });
+      lessonId = newLesson.id;
     });
 
     revalidatePath(`/admin/courses/${result.data.courseId}/edit`);
@@ -229,6 +258,7 @@ export async function createLesson(
     return {
       status: 'success',
       message: 'Lesson created successfully',
+      data: { lessonId: lessonId! },
     };
   } catch {
     return {

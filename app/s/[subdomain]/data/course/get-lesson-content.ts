@@ -60,6 +60,31 @@ export async function getLessonContent(lessonId: string) {
   if (!lesson) {
     return notFound();
   }
+
+  const allLessonsInCourse = await prisma.lesson.findMany({
+    where: { Chapter: { courseId: lesson.Chapter.courseId } },
+    orderBy: [{ Chapter: { position: 'asc' } }, { position: 'asc' }],
+    select: {
+      id: true,
+      lessonProgress: {
+        where: { userId: session?.id },
+        select: { completed: true },
+      },
+    },
+  });
+
+  let previousLessonCompleted = true;
+  for (const currentLesson of allLessonsInCourse) {
+    if (currentLesson.id === lessonId) {
+      if (!previousLessonCompleted) {
+        return notFound();
+      }
+      break;
+    }
+    previousLessonCompleted = currentLesson.lessonProgress.some(
+      (p) => p.completed,
+    );
+  }
   const enrollment = await prisma.enrollment.findUnique({
     where: {
       userId_courseId: {

@@ -116,6 +116,7 @@ export const CertificateDocument = ({
     <Page size='A4' orientation='landscape' style={styles.page}>
       <View style={styles.container}>
         <View style={styles.mainContent}>
+          {/* eslint-disable-next-line jsx-a11y/alt-text */}
           <Image src='/logoDark.png' style={styles.logo} />
           <Text style={styles.header}>Certificate of Completion</Text>
           <Text style={styles.presentedTo}>

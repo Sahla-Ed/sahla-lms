@@ -26,6 +26,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { tryCatch } from '@/hooks/try-catch';
 import { createLesson } from '../actions';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 export function NewLessonModal({
   courseId,
@@ -36,6 +37,7 @@ export function NewLessonModal({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [pending, startTransition] = useTransition();
+  const router = useRouter();
 
   const form = useForm<LessonSchemaType>({
     resolver: zodResolver(lessonSchema),
@@ -61,6 +63,11 @@ export function NewLessonModal({
         toast.success(isQuiz ? 'Quiz created successfully' : result.message);
         form.reset();
         setIsOpen(false);
+        if (isQuiz && result.data?.lessonId) {
+          router.push(
+            `/admin/courses/${courseId}/${chapterId}/${result.data.lessonId}/edit`,
+          );
+        }
       } else if (result.status === 'error') {
         toast.error(result.message);
       }
