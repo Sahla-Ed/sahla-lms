@@ -191,3 +191,39 @@ index 7c116e184430a711ee4f3743058224205f10ca76..1d5f2148ecbb63b0a070c3eb99262b7c
          identifier: {
            type: "string",
            required: true,
+diff --git a/dist/shared/better-auth.DdmVKCUf.d.ts b/dist/shared/better-auth.DdmVKCUf.d.ts
+index ff1663366863456b2fc323a3aca3e1d02f8d5268..c5ff9e6c7eed15fadfec7d799a0a46682b367bcc 100644
+--- a/dist/shared/better-auth.DdmVKCUf.d.ts
++++ b/dist/shared/better-auth.DdmVKCUf.d.ts
+@@ -14567,6 +14567,7 @@ declare const betterAuth: <O extends BetterAuthOptions>(options: O & Record<neve
+                         updatedAt: Date;
+                         ipAddress?: string | null | undefined;
+                         userAgent?: string | null | undefined;
++                        tenantId?: string | null | undefined;
+                     } & (O extends BetterAuthOptions ? AdditionalSessionFieldsOutput<O> : O extends Auth ? AdditionalSessionFieldsOutput<O["options"]> : {})>>;
+                     user: UnionToIntersection<StripEmptyObjects<{
+                         id: string;
+@@ -14576,6 +14577,7 @@ declare const betterAuth: <O extends BetterAuthOptions>(options: O & Record<neve
+                         createdAt: Date;
+                         updatedAt: Date;
+                         image?: string | null | undefined;
++                        tenantId?: string | null | undefined;
+                     } & (O extends BetterAuthOptions ? AdditionalUserFieldsOutput<O> : O extends Auth ? AdditionalUserFieldsOutput<O["options"]> : {})>>;
+                 } | null;
+             } : {
+@@ -14588,6 +14590,7 @@ declare const betterAuth: <O extends BetterAuthOptions>(options: O & Record<neve
+                     updatedAt: Date;
+                     ipAddress?: string | null | undefined;
+                     userAgent?: string | null | undefined;
++                        tenantId?: string | null | undefined;
+                 } & (O extends BetterAuthOptions ? AdditionalSessionFieldsOutput<O> : O extends Auth ? AdditionalSessionFieldsOutput<O["options"]> : {})>>;
+                 user: UnionToIntersection<StripEmptyObjects<{
+                     id: string;
+@@ -14597,6 +14600,7 @@ declare const betterAuth: <O extends BetterAuthOptions>(options: O & Record<neve
+                     createdAt: Date;
+                     updatedAt: Date;
+                     image?: string | null | undefined;
++                        tenantId?: string | null | undefined;
+                 } & (O extends BetterAuthOptions ? AdditionalUserFieldsOutput<O> : O extends Auth ? AdditionalUserFieldsOutput<O["options"]> : {})>>;
+             } | null>;
+             options: {
