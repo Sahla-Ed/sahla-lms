@@ -1,5 +1,6 @@
 import { headers } from 'next/headers';
 import { rootDomain } from './utils';
+import { getTenantIdFromSlug } from './get-tenant-id';
 
 export async function extractSubdomain(
   request?: Request,

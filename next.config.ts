@@ -3,6 +3,9 @@ import { env } from './lib/env';
 const { PrismaPlugin } = require('@prisma/nextjs-monorepo-workaround-plugin');
 
 const nextConfig: NextConfig = {
+  experimental: {
+    devtoolSegmentExplorer: true,
+  },
   images: {
     domains: [
       'dummy_url.com',

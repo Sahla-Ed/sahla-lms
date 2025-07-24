@@ -5,12 +5,15 @@ import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { cache } from 'react';
 import { extractSubdomain } from '@/lib/subdomain';
+import { getTenantIdFromSlug } from '@/lib/get-tenant-id';
 
 export const requireUser = cache(
-  async (shouldRedirect = true, tenantId = '') => {
+  async (shouldRedirect = true) => {
     const host = Object.fromEntries(await headers()).host;
-    tenantId ?? (await extractSubdomain(undefined, host));
-    const session = await auth(tenantId).api.getSession({
+    const subdomain = await extractSubdomain(undefined, host);
+    const tenantId = await getTenantIdFromSlug(subdomain);
+
+    const session = await auth(tenantId ?? '').api.getSession({
       headers: await headers(),
     });
 
