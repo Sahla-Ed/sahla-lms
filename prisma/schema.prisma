@@ -8,22 +8,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model SessionTransferToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  tenantId  String?
+
+  @@map("session_transfer_token")
+}
+
 model User {
-  id             String           @id
-  name           String
-  email          String
-  emailVerified  Boolean
-  image          String?
-  createdAt      DateTime
-  updatedAt      DateTime
-  sessions       Session[]
-  accounts       Account[]
-  courses        Course[]
-  enrollment     Enrollment[]
-  lessonProgress LessonProgress[]
-  quizAttempts   QuizAttempt[]
-  certificates   Certificate[]
-  tenantId       String?
+  id                   String                 @id
+  name                 String
+  email                String
+  emailVerified        Boolean
+  image                String?
+  createdAt            DateTime
+  updatedAt            DateTime
+  sessions             Session[]
+  accounts             Account[]
+  courses              Course[]
+  enrollment           Enrollment[]
+  lessonProgress       LessonProgress[]
+  quizAttempts         QuizAttempt[]
+  certificates         Certificate[]
+  tenantId             String?
+  SessionTransferToken SessionTransferToken[]
 
   stripeCustomerId String? @unique
 

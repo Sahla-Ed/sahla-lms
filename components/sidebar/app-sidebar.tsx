@@ -12,6 +12,7 @@ import {
   IconSettings,
   IconUsers,
   IconFolder,
+  IconBuilding,
 } from '@tabler/icons-react';
 
 import { NavMain } from '@/components/sidebar/nav-main';
@@ -41,6 +42,11 @@ const data = {
     { title: 'Team', url: '/admin/teams', icon: IconUsers },
   ],
   navSecondary: [
+    {
+      title: 'platform Settings',
+      url: '/admin/settings/tenant',
+      icon: IconBuilding,
+    },
     { title: 'Settings', url: '/admin/settings', icon: IconSettings },
     { title: 'Get Help', url: '/faqs', icon: IconHelp },
     { title: 'Search', url: '/admin/search', icon: IconSearch },
