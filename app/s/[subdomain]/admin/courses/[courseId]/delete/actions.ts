@@ -8,12 +8,14 @@ import { ApiResponse } from '@/lib/types';
 import { revalidatePath } from 'next/cache';
 
 export async function deleteCourse(courseId: string): Promise<ApiResponse> {
-  await requireAdmin();
+  const { user } = await requireAdmin();
 
   try {
     await prisma.course.delete({
       where: {
         id: courseId,
+        //@ts-expect-error if tenant is undefined it should not work
+        tenantId: user.tenantId,
       },
     });
 

@@ -1,5 +1,8 @@
 import { prisma } from '@/lib/db';
 import { Prisma } from '@/lib/generated/prisma';
+import { getTenantIdFromSlug } from '@/lib/get-tenant-id';
+import { extractSubdomain } from '@/lib/subdomain';
+import { headers } from 'next/headers';
 import 'server-only';
 
 export interface CourseFilters {
@@ -8,12 +11,14 @@ export interface CourseFilters {
 }
 
 export async function getAllCourses(filters: CourseFilters = {}) {
-  // await new Promise((resolve) => setTimeout(resolve, 1000));
-
+  const host = Object.fromEntries(await headers()).host;
+  const subdomain = await extractSubdomain(undefined, host);
+  const tenantId = await getTenantIdFromSlug(subdomain);
   const { q, category } = filters;
 
   const whereClause: Prisma.CourseWhereInput = {
     status: 'Published',
+    tenantId: tenantId,
   };
 
   // 1. Filter by search query (q)

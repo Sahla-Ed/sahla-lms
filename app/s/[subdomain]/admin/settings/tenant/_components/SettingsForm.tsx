@@ -83,7 +83,7 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
       <CardHeader>
         <CardTitle>platform Settings</CardTitle>
         <CardDescription>
-          Manage your platform's name, URL, and branding.
+          Manage your platform&apos;s name, URL, and branding.
         </CardDescription>
       </CardHeader>
       <CardContent>

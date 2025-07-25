@@ -36,7 +36,7 @@ export async function updateTenantSettings(
 
   try {
     const currentTenant = await prisma.tenants.findUnique({
-      //@ts-ignore
+      //@ts-expect-error if tenant is undefined it should not work
       where: { tenantId: session.tenantId },
       select: { slug: true },
     });
@@ -59,7 +59,7 @@ export async function updateTenantSettings(
     }
 
     await prisma.tenants.update({
-      //@ts-ignore
+      //@ts-expect-error if tenant is undefined it should not work
       where: { tenantId: session.tenantId },
       data: {
         ...dataToUpdate,

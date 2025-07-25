@@ -1,7 +1,7 @@
 import { headers } from 'next/headers';
 import { rootDomain } from './utils';
-import { getTenantIdFromSlug } from './get-tenant-id';
 
+//TODO:change func name to avoid confusion with the func in middlewareutils.ts.
 export async function extractSubdomain(
   request?: Request,
   host?: string,

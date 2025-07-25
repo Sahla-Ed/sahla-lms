@@ -17,7 +17,7 @@ export async function editCourse(
   data: CourseSchemaType,
   courseId: string,
 ): Promise<ApiResponse> {
-  const user = await requireAdmin();
+  const { user } = await requireAdmin();
 
   try {
     const result = courseSchema.safeParse(data);
@@ -30,7 +30,7 @@ export async function editCourse(
     }
     if (result.data.status === 'Published') {
       const courseWithLessons = await prisma.course.findUnique({
-        where: { id: courseId },
+        where: { id: courseId, tenantId: user.tenantId },
         include: {
           chapter: {
             include: {
@@ -58,7 +58,8 @@ export async function editCourse(
     await prisma.course.update({
       where: {
         id: courseId,
-        userId: user.user.id,
+        userId: user.id,
+        tenantId: user.tenantId,
       },
       data: {
         ...result.data,
@@ -83,7 +84,7 @@ export async function reorderLessons(
   lessons: { id: string; position: number }[],
   courseId: string,
 ): Promise<ApiResponse> {
-  await requireAdmin();
+  const { user } = await requireAdmin();
   try {
     if (!lessons || lessons.length === 0) {
       return {
@@ -97,6 +98,7 @@ export async function reorderLessons(
         where: {
           id: lesson.id,
           chapterId: chapterId,
+          tenantId: user.tenantId,
         },
         data: {
           position: lesson.position,
@@ -123,7 +125,7 @@ export async function reorderChapters(
   courseId: string,
   chapters: { id: string; position: number }[],
 ): Promise<ApiResponse> {
-  await requireAdmin();
+  const { user } = await requireAdmin();
   try {
     if (!chapters || chapters.length === 0) {
       return {
@@ -137,6 +139,7 @@ export async function reorderChapters(
         where: {
           id: chapter.id,
           courseId: courseId,
+          tenantId: user.tenantId,
         },
         data: {
           position: chapter.position,
@@ -163,7 +166,7 @@ export async function reorderChapters(
 export async function createChapter(
   values: ChapterSchemaType,
 ): Promise<ApiResponse> {
-  await requireAdmin();
+  const { user } = await requireAdmin();
   try {
     const result = chapterSchema.safeParse(values);
 
@@ -178,6 +181,7 @@ export async function createChapter(
       const maxPos = await tx.chapter.findFirst({
         where: {
           courseId: result.data.courseId,
+          tenantId: user.tenantId,
         },
         select: {
           position: true,
@@ -213,7 +217,7 @@ export async function createChapter(
 export async function createLesson(
   values: LessonSchemaType,
 ): Promise<ApiResponse> {
-  await requireAdmin();
+  const { user } = await requireAdmin();
   try {
     const result = lessonSchema.safeParse(values);
 
@@ -230,6 +234,7 @@ export async function createLesson(
       const maxPos = await tx.lesson.findFirst({
         where: {
           chapterId: result.data.chapterId,
+          tenantId: user.tenantId,
         },
         select: {
           position: true,
@@ -277,11 +282,12 @@ export async function deleteLesson({
   courseId: string;
   lessonId: string;
 }): Promise<ApiResponse> {
-  await requireAdmin();
+  const { user } = await requireAdmin();
   try {
     const chapterWithLessons = await prisma.chapter.findUnique({
       where: {
         id: chapterId,
+        tenantId: user.tenantId,
       },
       select: {
         lessons: {
@@ -318,7 +324,11 @@ export async function deleteLesson({
 
     const updates = remainingLessons.map((lesson, index) => {
       return prisma.lesson.update({
-        where: { id: lesson.id },
+        where: {
+          id: lesson.id,
+
+          tenantId: user.tenantId,
+        },
         data: { position: index + 1 },
       });
     });
@@ -329,6 +339,7 @@ export async function deleteLesson({
         where: {
           id: lessonId,
           chapterId: chapterId,
+          tenantId: user.tenantId,
         },
       }),
     ]);
@@ -353,11 +364,13 @@ export async function deleteChapter({
   chapterId: string;
   courseId: string;
 }): Promise<ApiResponse> {
-  await requireAdmin();
+  const { user } = await requireAdmin();
   try {
     const courseWithChapters = await prisma.course.findUnique({
       where: {
         id: courseId,
+
+        tenantId: user.tenantId,
       },
       select: {
         chapter: {
@@ -380,7 +393,6 @@ export async function deleteChapter({
     }
 
     const chapters = courseWithChapters.chapter;
-
     const chapterToDelete = chapters.find((chap) => chap.id === chapterId);
 
     if (!chapterToDelete) {
@@ -394,7 +406,7 @@ export async function deleteChapter({
 
     const updates = remainingChapters.map((chap, index) => {
       return prisma.chapter.update({
-        where: { id: chap.id },
+        where: { id: chap.id, tenantId: user.tenantId },
         data: { position: index + 1 },
       });
     });
@@ -403,6 +415,7 @@ export async function deleteChapter({
       ...updates,
       prisma.chapter.delete({
         where: {
+          tenantId: user.tenantId,
           id: chapterId,
         },
       }),

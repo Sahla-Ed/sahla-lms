@@ -11,7 +11,7 @@ export default async function TenantSettingsPage() {
       <div>
         <h1 className='text-3xl font-bold'>platform Settings</h1>
         <p className='text-muted-foreground'>
-          Manage your platform's branding and details.
+          Manage your platform&apos;s branding and details.
         </p>
       </div>
       <Suspense fallback={<SettingsSkeleton />}>

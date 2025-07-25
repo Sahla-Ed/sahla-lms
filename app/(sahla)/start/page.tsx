@@ -102,7 +102,9 @@ export default function StartplatformPage() {
           <div className='bg-primary/10 mx-auto mb-4 w-fit rounded-full p-4'>
             <Rocket className='text-primary size-8' />
           </div>
-          <CardTitle className='text-3xl'>Let's build your platform</CardTitle>
+          <CardTitle className='text-3xl'>
+            Let&apos;s build your platform
+          </CardTitle>
           <CardDescription>
             {step === 1
               ? "First, let's get your platform's details."
