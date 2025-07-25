@@ -14,7 +14,7 @@ export function LandingPageEditorClient({
 }: {
   tenant: TenantSettings;
 }) {
-  const [isSaving, startSaving] = useTransition();
+  const [_, startSaving] = useTransition();
   const initialData = (tenant.landingPageData as Data) || {
     content: [],
     root: {},

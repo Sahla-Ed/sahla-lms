@@ -1,5 +1,5 @@
 import type { Config, Slot } from '@measured/puck';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
@@ -318,6 +318,7 @@ export const puckConfig: Config<
             </h2>
             <div className='mx-auto mt-10 grid max-w-lg grid-cols-2 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-3 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5'>
               {images.map((image, i) => (
+                // @next/next/no-img-element
                 <img
                   key={i}
                   src={image.url}

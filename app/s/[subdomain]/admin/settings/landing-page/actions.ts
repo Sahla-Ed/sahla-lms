@@ -3,9 +3,10 @@
 import { requireAdmin } from '@/app/s/[subdomain]/data/admin/require-admin';
 import { prisma } from '@/lib/db';
 import { ApiResponse } from '@/lib/types';
+import { Data } from '@measured/puck';
 import { revalidatePath } from 'next/cache';
 
-export async function saveLandingPageData(data: any): Promise<ApiResponse> {
+export async function saveLandingPageData(data: Data): Promise<ApiResponse> {
   const { user } = await requireAdmin();
 
   try {
