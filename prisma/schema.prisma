@@ -59,6 +59,7 @@ model tenants {
   user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   theme    String?
   data     Json
+  landingPageData Json?
 }
 
 model Session {

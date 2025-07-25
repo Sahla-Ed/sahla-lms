@@ -25,6 +25,7 @@ export async function getTenantSettings() {
       logoDark: true,
       theme: true,
       data: true,
+      landingPageData: true,
     },
   });
 

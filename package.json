@@ -20,6 +20,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@hookform/resolvers": "^5.1.1",
+    "@measured/puck": "^0.19.3",
     "@prisma/adapter-neon": "^6.12.0",
     "@prisma/client": "^6.11.1",
     "@prisma/nextjs-monorepo-workaround-plugin": "^6.12.0",
