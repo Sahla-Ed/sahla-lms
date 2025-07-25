@@ -14,7 +14,6 @@ export async function deleteCourse(courseId: string): Promise<ApiResponse> {
     await prisma.course.delete({
       where: {
         id: courseId,
-        //@ts-expect-error if tenant is undefined it should not work
         tenantId: user.tenantId,
       },
     });
