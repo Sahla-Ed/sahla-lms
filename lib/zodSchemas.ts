@@ -18,7 +18,7 @@ export const courseCategories = [
   'Teaching & Academics',
 ] as const;
 
-export const lessonTypes = ['VIDEO', 'QUIZ'] as const;
+export const lessonTypes = ['VIDEO', 'QUIZ', 'CODING'] as const;
 
 export const courseSchema = z.object({
   title: z
@@ -110,8 +110,8 @@ export const lessonSchema = z.object({
     .string()
     .min(3, { message: 'Name must be at least 3 characters long' }),
   type: z.enum(lessonTypes),
-  chapterId: z.string().uuid({ message: 'Invalid chapter ID' }),
-  courseId: z.string().uuid({ message: 'Invalid course ID' }),
+  chapterId: z.uuid({ message: 'Invalid chapter ID' }),
+  courseId: z.uuid({ message: 'Invalid course ID' }),
   description: z
     .string()
     .min(3, { message: 'Description must be at least 3 characters long' })
@@ -119,8 +119,58 @@ export const lessonSchema = z.object({
 
   videoKey: z.string().optional(),
   thumbnailKey: z.string().optional(),
+
+  codingExerciseId: z.uuid().optional(),
+  codingSubmissionId: z.uuid().optional(),
+
+  // Coding exercise fields - only used when type is 'CODING'
+  codingLanguage: z.string().optional(),
+  htmlStarterCode: z.string().optional(),
+  cssStarterCode: z.string().optional(),
+  jsStarterCode: z.string().optional(),
+  serverStarterCode: z.string().optional(),
+  codingInstructions: z.string().optional(),
 });
 
+export const codingExerciseSchema = z.object({
+  lessonId: z.uuid('Invalid lesson ID'),
+  starterCode: z.string().default('// Write your code here'),
+  solutionCode: z.string().optional(),
+  instructions: z.string().optional(),
+  testCases: z
+    .string()
+    .optional()
+    .refine(
+      (val) => {
+        if (!val) return true;
+        try {
+          JSON.parse(val);
+          return true;
+        } catch {
+          return false;
+        }
+      },
+      { message: 'Test cases must be valid JSON' },
+    ),
+  timeLimit: z.number().int().positive().nullish(),
+});
+
+// Zod schema for code submission
+export const codeSubmissionSchema = z.object({
+  lessonId: z.uuid(),
+  userId: z.string(),
+  language: z.string(),
+  submissionType: z.enum(['Web', 'Programming']),
+  // For programming languages
+  code: z.string().optional(),
+  // For web development
+  htmlCode: z.string().optional(),
+  cssCode: z.string().optional(),
+  jsCode: z.string().optional(),
+});
+
+export type CodeSubmissionType = z.infer<typeof codeSubmissionSchema>;
+export type CodingExerciseSchemaType = z.infer<typeof codingExerciseSchema>;
 export type CourseSchemaType = z.infer<typeof courseSchema>;
 export type QuestionSchemaType = z.infer<typeof questionSchema>;
 export type QuizQuestionSchemaType = z.infer<typeof quizQuestionSchema>;
