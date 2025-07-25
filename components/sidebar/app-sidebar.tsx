@@ -13,6 +13,7 @@ import {
   IconUsers,
   IconFolder,
   IconBuilding,
+  IconLayout2,
 } from '@tabler/icons-react';
 
 import { NavMain } from '@/components/sidebar/nav-main';
@@ -46,6 +47,11 @@ const data = {
       title: 'platform Settings',
       url: '/admin/settings/tenant',
       icon: IconBuilding,
+    },
+    {
+      title: 'Landing Page',
+      url: '/admin/settings/landing-page',
+      icon: IconLayout2,
     },
     { title: 'Settings', url: '/admin/settings', icon: IconSettings },
     { title: 'Get Help', url: '/faqs', icon: IconHelp },
