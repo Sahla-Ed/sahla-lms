@@ -36,6 +36,8 @@ model User {
   certificates         Certificate[]
   tenantId             String?
   SessionTransferToken SessionTransferToken[]
+  CodingSubmission     CodingSubmission[]
+  // codingSubmission CodingSubmission?
 
   stripeCustomerId String? @unique
 
@@ -190,6 +192,12 @@ model Lesson {
   questions      LessonQuestion[]
   attempts       QuizAttempt[]
   tenantId       String?
+
+  // codingExercise CodingExercise?  // One-to-zero relation (a lesson may have a coding exercise)
+  // codingSubmission CodingSubmission? // One-to-one relation (a lesson may have a coding submission)
+
+  CodingSubmission CodingSubmission[]
+  codingExercise   CodingExercise[]
 }
 
 model Enrollment {
@@ -235,6 +243,7 @@ model LessonProgress {
 enum LessonType {
   VIDEO
   QUIZ
+  CODING
 }
 
 enum QuestionType {
@@ -309,4 +318,76 @@ model Certificate {
   issuedAt DateTime @default(now())
 
   @@unique([userId, courseId])
+}
+
+model CodingExercise {
+  id           String   @id @default(uuid())
+  lesson       Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  lessonId     String
+  language     String   @default("javascript")
+  starterCode  String   @default("")
+  testCases    Json?
+  solutionCode String?
+  instructions String?
+  timeLimit    Int?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([lessonId])
+}
+
+model CodingSubmission {
+  id String @id @default(uuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  lessonId String
+  lesson   Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  // Programming languages - single code field
+  code String? // For Python, C++, Java, etc.
+
+  // Web development - separate fields for each language
+  htmlCode String? // HTML content
+  cssCode  String? // CSS content
+  jsCode   String? // JavaScript content
+
+  language       String // 'web', 'python', 'cpp', etc.
+  submissionType SubmissionType @default(Programming)
+
+  // Output from running the code (stdout/stderr)
+  output String?
+
+  // Execution status
+  status CodingSubmissionStatus @default(Pending)
+
+  // Score (0–100), if auto-graded
+  score Float?
+
+  // Whether passed all tests
+  passed Boolean?
+
+  // Number of attempts
+  attemptNumber Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, lessonId, attemptNumber])
+  @@index([userId, lessonId])
+}
+
+enum SubmissionType {
+  Web
+  Programming
+}
+
+enum CodingSubmissionStatus {
+  Pending
+  Running
+  Success
+  Error
+  Timeout
+  Failed
 }

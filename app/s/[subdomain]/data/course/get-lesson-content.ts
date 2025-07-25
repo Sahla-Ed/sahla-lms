@@ -54,6 +54,17 @@ export async function getLessonContent(lessonId: string) {
           },
         },
       },
+      codingExercise: {
+        select: {
+          id: true,
+          language: true,
+          starterCode: true,
+          testCases: true,
+          solutionCode: true,
+          instructions: true,
+          timeLimit: true,
+        },
+      },
     },
   });
 

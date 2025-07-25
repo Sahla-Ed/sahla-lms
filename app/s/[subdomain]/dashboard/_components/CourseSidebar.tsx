@@ -108,8 +108,8 @@ export function CourseSidebar({ course }: iAppProps) {
                     typeof lesson.attempts[0].score === 'number' &&
                     lesson.attempts[0].score < 50
                   }
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  isLocked={(lesson as any).isLocked}
+                  // @ts-expect-error amr error :that we do not know why he did ignore this error
+                  isLocked={lesson.isLocked}
                 />
               ))}
             </CollapsibleContent>
