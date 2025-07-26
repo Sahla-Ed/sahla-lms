@@ -5,6 +5,10 @@ import { CheckCircle, XCircle } from 'lucide-react';
 import { format } from 'date-fns';
 import { Metadata } from 'next';
 
+interface CertificatePageProps {
+  params: Promise<{ certificateId: string; subdomain: string }>;
+}
+
 async function getCertificateDetails(certificateId: string) {
   const certificate = await prisma.certificate.findUnique({
     where: {
@@ -30,15 +34,16 @@ async function getCertificateDetails(certificateId: string) {
 
 export async function generateMetadata({
   params,
-}: {
-  params: { certificateId: string };
-}): Promise<Metadata> {
-  const certificate = await getCertificateDetails(params.certificateId);
+}: CertificatePageProps): Promise<Metadata> {
+  const { certificateId } = await params;
+  const certificate = await getCertificateDetails(certificateId);
+
   if (!certificate) {
     return {
       title: 'Invalid Certificate',
     };
   }
+
   return {
     title: `Certificate for ${certificate.course.title}`,
     description: `Verification for certificate awarded to ${certificate.user.name}.`,
@@ -47,10 +52,9 @@ export async function generateMetadata({
 
 export default async function CertificateVerificationPage({
   params,
-}: {
-  params: { certificateId: string };
-}) {
-  const certificate = await getCertificateDetails(params.certificateId);
+}: CertificatePageProps) {
+  const { certificateId } = await params;
+  const certificate = await getCertificateDetails(certificateId);
 
   if (!certificate) {
     return (

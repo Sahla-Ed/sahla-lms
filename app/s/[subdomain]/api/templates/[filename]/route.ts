@@ -1,6 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
-// import path from 'path';
-// import fs from 'fs';
+import { NextResponse } from 'next/server';
 
 const templates = {
   'questions_template.json': {
@@ -27,10 +25,11 @@ JavaScript is a programming language.,TRUE_FALSE,True|False,True,JavaScript is i
 };
 
 export async function GET(
-  request: NextRequest,
-  { params }: { params: { filename: string } },
+  _request: Request,
+  context: { params: Promise<{ subdomain: string; filename: string }> },
 ) {
-  const filename = params.filename;
+  const params = await context.params;
+  const { filename } = params;
 
   if (!templates[filename as keyof typeof templates]) {
     return new NextResponse('Template not found', { status: 404 });

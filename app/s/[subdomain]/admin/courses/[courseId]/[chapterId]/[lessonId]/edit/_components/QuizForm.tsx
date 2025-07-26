@@ -42,6 +42,7 @@ interface Question {
 interface QuizFormProps {
   lesson: AdminLessonType;
   courseId: string;
+  chapterId: string;
 }
 
 function SortableQuestion({
@@ -132,7 +133,7 @@ function SortableQuestion({
   );
 }
 
-export function QuizForm({ lesson, courseId }: QuizFormProps) {
+export function QuizForm({ lesson, courseId, chapterId }: QuizFormProps) {
   const router = useRouter();
   const [title, setTitle] = useState(lesson.title);
   const [description, setDescription] = useState(lesson.description || '');
