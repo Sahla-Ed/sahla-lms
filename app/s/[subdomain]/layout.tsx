@@ -5,6 +5,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { Providers } from '@/components/Providers';
 import { getTenantIdFromSlug } from '@/lib/get-tenant-id';
 import { notFound } from 'next/navigation';
+import { ThemeScript } from '@/components/theme/theme-script';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -38,6 +39,9 @@ export default async function RootLayout({
 
   return (
     <html lang='en' suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

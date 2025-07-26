@@ -2,6 +2,7 @@
 
 import { AuthUIProvider } from '@daveyplate/better-auth-ui';
 import { ThemeProvider } from '@/components/theme-provider';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { ReactNode } from 'react';
@@ -23,7 +24,9 @@ export function Providers({ children }: { children: ReactNode }) {
       Link={Link}
       social={{ providers: ['github'] }}
     >
-      <ThemeProvider defaultTheme='dark'>{children}</ThemeProvider>
+      <ThemeProvider defaultTheme='dark'>
+        <NuqsAdapter>{children}</NuqsAdapter>
+      </ThemeProvider>
     </AuthUIProvider>
   );
 }

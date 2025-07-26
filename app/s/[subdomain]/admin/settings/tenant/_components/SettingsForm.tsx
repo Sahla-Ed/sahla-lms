@@ -42,7 +42,7 @@ type SettingsFormValues = z.infer<typeof settingsSchema>;
 type TenantSettings = Awaited<ReturnType<typeof getTenantSettings>>;
 
 interface SettingsFormProps {
-  tenant: TenantSettings;
+  tenant?: TenantSettings;
 }
 
 export function SettingsForm({ tenant }: SettingsFormProps) {
@@ -52,10 +52,10 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
   const form = useForm<SettingsFormValues>({
     resolver: zodResolver(settingsSchema),
     defaultValues: {
-      name: tenant.name || '',
-      slug: tenant.slug || '',
-      logo: tenant.logo || '',
-      logoDark: tenant.logoDark || '',
+      name: tenant?.name || '',
+      slug: tenant?.slug || '',
+      logo: tenant?.logo || '',
+      logoDark: tenant?.logoDark || '',
     },
   });
 

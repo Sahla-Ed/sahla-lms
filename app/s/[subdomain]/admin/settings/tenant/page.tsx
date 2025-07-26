@@ -4,16 +4,11 @@ import { Suspense } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { requireAdmin } from '../../../data/admin/require-admin';
+import Editor from '@/components/editor/editor';
 
 export default async function TenantSettingsPage() {
   return (
     <div className='space-y-6'>
-      <div>
-        <h1 className='text-3xl font-bold'>platform Settings</h1>
-        <p className='text-muted-foreground'>
-          Manage your platform&apos;s branding and details.
-        </p>
-      </div>
       <Suspense fallback={<SettingsSkeleton />}>
         <LoadTenantSettings />
       </Suspense>
@@ -24,7 +19,8 @@ export default async function TenantSettingsPage() {
 async function LoadTenantSettings() {
   await requireAdmin();
   const tenantData = await getTenantSettings();
-  return <SettingsForm tenant={tenantData} />;
+  return <Editor themePromise={Promise.resolve(null)} />;
+  // return <SettingsForm tenant={tenantData} />;
 }
 
 function SettingsSkeleton() {
