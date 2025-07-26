@@ -495,7 +495,7 @@ export async function deleteChapter({
           },
           select: {
             id: true,
-            // position: true,
+            position: true,
           },
         },
       },
