@@ -1,5 +1,7 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+// @ts-expect-error: owned by ngard
+import { isEqual } from "@ngard/tiny-isequal";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -46,3 +48,9 @@ export function extractSubdomain(request: Request): string | null {
 
   return isSubdomain ? hostname.replace(`.${rootDomainFormatted}`, '') : null;
 }
+
+
+export function isDeepEqual(a: unknown, b: unknown): boolean {
+  return isEqual(a, b);
+}
+

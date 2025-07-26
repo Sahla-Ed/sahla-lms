@@ -52,15 +52,15 @@ model User {
 }
 
 model tenants {
-  tenantId String  @id
-  name     String
-  slug     String  @unique
-  logo     String
-  logoDark String?
-  userId   String
-  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  theme    String?
-  data     Json
+  tenantId        String  @id
+  name            String
+  slug            String  @unique
+  logo            String
+  logoDark        String?
+  userId          String
+  user            User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  theme           String?
+  data            Json
   landingPageData Json?
 }
 

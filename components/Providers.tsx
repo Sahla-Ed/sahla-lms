@@ -23,14 +23,7 @@ export function Providers({ children }: { children: ReactNode }) {
       Link={Link}
       social={{ providers: ['github'] }}
     >
-      <ThemeProvider
-        attribute='class'
-        defaultTheme='system'
-        enableSystem
-        disableTransitionOnChange
-      >
-        {children}
-      </ThemeProvider>
+      <ThemeProvider defaultTheme='dark'>{children}</ThemeProvider>
     </AuthUIProvider>
   );
 }
