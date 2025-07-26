@@ -198,7 +198,7 @@ export function CommentItem({ comment, lessonId }: CommentItemProps) {
 
         {comment.replies && comment.replies.length > 0 && (
           <div className='space-y-4 border-l-2 pt-4 pl-4'>
-            {comment.replies.map((reply: any) => (
+            {comment.replies.map((reply) => (
               <CommentItem
                 key={reply.id}
                 comment={{ ...reply, replies: [] }}

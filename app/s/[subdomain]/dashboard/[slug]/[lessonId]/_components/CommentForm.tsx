@@ -31,7 +31,7 @@ export function CommentForm({
         setText('');
         toast.success('Comment added!');
         onCommentAdded?.();
-      } catch (error) {
+      } catch {
         toast.error('Failed to add comment.');
       }
     });

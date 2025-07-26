@@ -1,14 +1,23 @@
 'use client';
 import { FC, useTransition } from 'react';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { FileUp, Download, Loader2 } from 'lucide-react';
 import Papa from 'papaparse';
 import { toast } from 'sonner';
 import { tryCatch } from '@/hooks/try-catch';
-import { SubComponentProps } from './types';
+import { Question, SubComponentProps } from './types';
 import { createMultipleQuestions } from '../../quiz-actions';
+
+type ImportedQuestion = Omit<Question, 'id' | 'courseId'>;
+type CsvRow = {
+  text: string;
+  type: 'MCQ' | 'TRUE_FALSE';
+  options: string;
+  answer: string;
+  explanation: string;
+};
 
 export const ImportQuestionForm: FC<SubComponentProps> = ({
   courseId,
@@ -30,13 +39,15 @@ export const ImportQuestionForm: FC<SubComponentProps> = ({
             return;
           }
           const json = JSON.parse(text);
-          const formattedQuestions = json.questions.map((q: any) => ({
-            text: q.text || '',
-            type: q.type || 'MCQ',
-            options: q.options || (q.type === 'MCQ' ? [] : ['True', 'False']),
-            answer: q.answer || '',
-            explanation: q.explanation || '',
-          }));
+          const formattedQuestions = json.questions.map(
+            (q: ImportedQuestion) => ({
+              text: q.text || '',
+              type: q.type || 'MCQ',
+              options: q.options || (q.type === 'MCQ' ? [] : ['True', 'False']),
+              answer: q.answer || '',
+              explanation: q.explanation || '',
+            }),
+          );
 
           processQuestions(formattedQuestions);
         } catch (error) {
@@ -46,7 +57,7 @@ export const ImportQuestionForm: FC<SubComponentProps> = ({
       };
       reader.readAsText(file);
     } else if (file.name.endsWith('.txt') || file.name.endsWith('.csv')) {
-      Papa.parse(file, {
+      Papa.parse<CsvRow>(file, {
         header: true,
         skipEmptyLines: true,
         complete: (results) => {
@@ -55,7 +66,7 @@ export const ImportQuestionForm: FC<SubComponentProps> = ({
             console.error('CSV Errors:', results.errors);
             return;
           }
-          const formattedQuestions = results.data.map((row: any) => ({
+          const formattedQuestions = results.data.map((row) => ({
             text: row.text || '',
             type: row.type || 'MCQ',
             options:
@@ -75,7 +86,7 @@ export const ImportQuestionForm: FC<SubComponentProps> = ({
     }
   };
 
-  const processQuestions = (questions: any[]) => {
+  const processQuestions = (questions: ImportedQuestion[]) => {
     startTransition(async () => {
       const { data, error } = await tryCatch(
         createMultipleQuestions(courseId, questions),

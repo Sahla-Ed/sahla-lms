@@ -52,14 +52,14 @@ export function TestBank({ courseId, onSuccess }: TestBankProps) {
           term,
         );
         setQuestions(
-          fetched.map((q: any) => ({
+          fetched.map((q) => ({
             ...q,
-            options: q.options as string[],
+            options: Array.isArray(q.options) ? (q.options as string[]) : [],
             explanation: q.explanation || undefined,
-          })),
+          })) as Question[],
         );
         setTotalQuestions(totalCount);
-      } catch (error) {
+      } catch {
         toast.error('Failed to load questions from the test bank.');
       } finally {
         setIsFetching(false);
@@ -69,13 +69,13 @@ export function TestBank({ courseId, onSuccess }: TestBankProps) {
   );
 
   const debouncedSearch = useDebouncedCallback((term: string) => {
+    setSearchTerm(term);
     setCurrentPage(1);
-    fetchAndSetQuestions(1, term);
   }, 500);
 
   useEffect(() => {
     fetchAndSetQuestions(currentPage, searchTerm);
-  }, [currentPage, fetchAndSetQuestions, searchTerm]);
+  }, [currentPage, searchTerm, fetchAndSetQuestions]);
 
   const handleDeleteQuestion = async (questionId: string) => {
     const { error } = await tryCatch(deleteQuestion(questionId, courseId));
@@ -90,7 +90,8 @@ export function TestBank({ courseId, onSuccess }: TestBankProps) {
   const totalPages = Math.ceil(totalQuestions / QUESTIONS_PER_PAGE);
 
   const handleCreationSuccess = () => {
-    fetchAndSetQuestions(1, '');
+    setSearchTerm('');
+    setCurrentPage(1);
     onSuccess?.();
   };
 

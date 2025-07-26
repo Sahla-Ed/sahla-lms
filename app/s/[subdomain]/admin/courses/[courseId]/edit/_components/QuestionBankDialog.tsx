@@ -53,8 +53,15 @@ export function QuestionBankDialog({
           QUESTIONS_PER_PAGE,
           term,
         );
+        // setAvailableQuestions(
+        //   fetched.map((q: any) => ({ ...q, options: q.options as string[] })),
+        // );
         setAvailableQuestions(
-          fetched.map((q: any) => ({ ...q, options: q.options as string[] })),
+          fetched.map((q) => ({
+            ...q,
+            options: Array.isArray(q.options) ? (q.options as string[]) : [],
+            explanation: q.explanation || undefined,
+          })) as Question[],
         );
         setTotalQuestions(totalCount);
       } catch {

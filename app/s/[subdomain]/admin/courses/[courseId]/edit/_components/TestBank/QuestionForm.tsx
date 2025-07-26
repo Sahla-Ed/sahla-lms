@@ -26,11 +26,12 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Plus, Loader2, X } from 'lucide-react';
+import { ApiResponse } from '@/lib/types';
 
 interface QuestionFormProps {
   courseId: string;
   initialData?: Partial<QuestionSchemaType>;
-  onSave: (data: QuestionSchemaType) => Promise<any>;
+  onSave: (data: QuestionSchemaType) => Promise<ApiResponse>;
   onSuccess: () => void;
   buttonText: string;
   toastSuccessMessage: string;

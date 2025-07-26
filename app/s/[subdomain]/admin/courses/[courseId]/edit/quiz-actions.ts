@@ -2,6 +2,7 @@
 
 import { requireAdmin } from '@/app/s/[subdomain]/data/admin/require-admin';
 import { prisma } from '@/lib/db';
+import { Prisma } from '@/lib/generated/prisma';
 import { ApiResponse } from '@/lib/types';
 import {
   questionSchema,
@@ -176,10 +177,10 @@ export async function getCourseQuestions(
   const skip = (page - 1) * pageSize;
   const take = pageSize;
 
-  const whereCondition = {
+  const whereCondition: Prisma.QuestionWhereInput = {
     courseId,
     ...(searchTerm && {
-      text: { contains: searchTerm, mode: 'insensitive' } as any,
+      text: { contains: searchTerm, mode: 'insensitive' },
     }),
   };
 

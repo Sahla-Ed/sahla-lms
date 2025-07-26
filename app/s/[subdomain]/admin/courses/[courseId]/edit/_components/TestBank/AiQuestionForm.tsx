@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/select';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { SubComponentProps } from './types';
+import { Question, SubComponentProps } from './types';
 import { createQuestion } from '../../quiz-actions';
 
 export const AiQuestionForm: FC<SubComponentProps> = ({
@@ -44,7 +44,9 @@ export const AiQuestionForm: FC<SubComponentProps> = ({
         return;
       }
       await Promise.all(
-        generatedQuestions.map((q: any) => createQuestion({ ...q, courseId })),
+        generatedQuestions.map((q: Omit<Question, 'id' | 'courseId'>) =>
+          createQuestion({ ...q, courseId }),
+        ),
       );
       toast.success(
         `Generated and saved ${generatedQuestions.length} new questions!`,
