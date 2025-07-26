@@ -1,6 +1,12 @@
 'use client';
 import { FC } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
 import { QuestionForm } from './QuestionForm';
 import { Question } from './types';
 import { updateQuestion } from '../../quiz-actions';
@@ -11,7 +17,11 @@ interface EditQuestionDialogProps {
   onSuccess: () => void;
 }
 
-export const EditQuestionDialog: FC<EditQuestionDialogProps> = ({ question, onOpenChange, onSuccess }) => {
+export const EditQuestionDialog: FC<EditQuestionDialogProps> = ({
+  question,
+  onOpenChange,
+  onSuccess,
+}) => {
   return (
     <Dialog open onOpenChange={onOpenChange}>
       <DialogContent className='max-w-2xl'>

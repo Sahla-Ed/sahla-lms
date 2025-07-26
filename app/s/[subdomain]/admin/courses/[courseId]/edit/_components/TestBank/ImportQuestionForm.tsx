@@ -10,71 +10,70 @@ import { tryCatch } from '@/hooks/try-catch';
 import { SubComponentProps } from './types';
 import { createMultipleQuestions } from '../../quiz-actions';
 
-export const ImportQuestionForm: FC<SubComponentProps> = ({ courseId, onSuccess }) => {
+export const ImportQuestionForm: FC<SubComponentProps> = ({
+  courseId,
+  onSuccess,
+}) => {
   const [isImporting, startTransition] = useTransition();
 
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
 
-const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  const file = event.target.files?.[0];
-  if (!file) return;
+    if (file.name.endsWith('.json')) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const text = e.target?.result;
+          if (typeof text !== 'string') {
+            toast.error('Could not read file content.');
+            return;
+          }
+          const json = JSON.parse(text);
+          const formattedQuestions = json.questions.map((q: any) => ({
+            text: q.text || '',
+            type: q.type || 'MCQ',
+            options: q.options || (q.type === 'MCQ' ? [] : ['True', 'False']),
+            answer: q.answer || '',
+            explanation: q.explanation || '',
+          }));
 
- 
-  if (file.name.endsWith('.json')) {
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      try {
-        const text = e.target?.result;
-        if (typeof text !== 'string') {
-          toast.error('Could not read file content.');
-          return;
+          processQuestions(formattedQuestions);
+        } catch (error) {
+          toast.error('Error parsing JSON file. Please check the format.');
+          console.error('JSON Parse Error:', error);
         }
-        const json = JSON.parse(text);
-        const formattedQuestions = json.questions.map((q: any) => ({
-          text: q.text || '',
-          type: q.type || 'MCQ',
-          options: q.options || (q.type === 'MCQ' ? [] : ['True', 'False']),
-          answer: q.answer || '',
-          explanation: q.explanation || '',
-        }));
-
-        processQuestions(formattedQuestions);
-      } catch (error) {
-        toast.error('Error parsing JSON file. Please check the format.');
-        console.error('JSON Parse Error:', error);
-      }
-    };
-    reader.readAsText(file);
-
-
-  } else if (file.name.endsWith('.txt') || file.name.endsWith('.csv')) {
-    Papa.parse(file, {
-      header: true,
-      skipEmptyLines: true,
-      complete: (results) => {
-        if (results.errors.length > 0) {
-          toast.error('Error parsing CSV/TXT file. Please check the format.');
-          console.error('CSV Errors:', results.errors);
-          return;
-        }
-        const formattedQuestions = results.data.map((row: any) => ({
-          text: row.text || '',
-          type: row.type || 'MCQ',
-          options:
-            row.type === 'MCQ'
-              ? (row.options || '').split('|')
-              : ['True', 'False'],
-          answer: row.answer || '',
-          explanation: row.explanation || '',
-        }));
-        processQuestions(formattedQuestions);
-      },
-    });
-
-  } else {
-    toast.error('Unsupported file type. Please upload a .json, .csv, or .txt file.');
-  }
-};
+      };
+      reader.readAsText(file);
+    } else if (file.name.endsWith('.txt') || file.name.endsWith('.csv')) {
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+          if (results.errors.length > 0) {
+            toast.error('Error parsing CSV/TXT file. Please check the format.');
+            console.error('CSV Errors:', results.errors);
+            return;
+          }
+          const formattedQuestions = results.data.map((row: any) => ({
+            text: row.text || '',
+            type: row.type || 'MCQ',
+            options:
+              row.type === 'MCQ'
+                ? (row.options || '').split('|')
+                : ['True', 'False'],
+            answer: row.answer || '',
+            explanation: row.explanation || '',
+          }));
+          processQuestions(formattedQuestions);
+        },
+      });
+    } else {
+      toast.error(
+        'Unsupported file type. Please upload a .json, .csv, or .txt file.',
+      );
+    }
+  };
 
   const processQuestions = (questions: any[]) => {
     startTransition(async () => {

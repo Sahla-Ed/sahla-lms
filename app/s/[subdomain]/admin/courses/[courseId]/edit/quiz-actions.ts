@@ -169,7 +169,7 @@ export async function getCourseQuestions(
   courseId: string,
   page: number = 1,
   pageSize: number = 10,
-  searchTerm: string = ''
+  searchTerm: string = '',
 ) {
   await requireAdmin();
 
@@ -178,7 +178,9 @@ export async function getCourseQuestions(
 
   const whereCondition = {
     courseId,
-    ...(searchTerm && { text: { contains: searchTerm, mode: 'insensitive' } as any }),
+    ...(searchTerm && {
+      text: { contains: searchTerm, mode: 'insensitive' } as any,
+    }),
   };
 
   const [questions, totalCount] = await prisma.$transaction([
@@ -197,12 +199,11 @@ export async function getCourseQuestions(
 }
 const importedQuestionSchema = questionSchema.omit({ courseId: true });
 
-
 const bulkQuestionsSchema = z.array(importedQuestionSchema);
 
 export async function createMultipleQuestions(
   courseId: string,
-  questions: z.infer<typeof bulkQuestionsSchema>
+  questions: z.infer<typeof bulkQuestionsSchema>,
 ): Promise<ApiResponse> {
   await requireAdmin();
   try {
@@ -212,18 +213,21 @@ export async function createMultipleQuestions(
       return { status: 'error', message: 'Invalid question data format.' };
     }
 
-    const dataToCreate = validation.data.map(q => ({
+    const dataToCreate = validation.data.map((q) => ({
       ...q,
       courseId: courseId,
       options: q.options || [],
     }));
-    
+
     await prisma.question.createMany({
       data: dataToCreate,
     });
 
     revalidatePath(`/admin/courses/${courseId}/edit`);
-    return { status: 'success', message: `${questions.length} questions imported successfully!` };
+    return {
+      status: 'success',
+      message: `${questions.length} questions imported successfully!`,
+    };
   } catch (e) {
     console.error(e);
     return { status: 'error', message: 'Failed to import questions.' };

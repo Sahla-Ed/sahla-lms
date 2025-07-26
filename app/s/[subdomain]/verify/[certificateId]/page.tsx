@@ -28,7 +28,6 @@ async function getCertificateDetails(certificateId: string) {
   return certificate;
 }
 
-
 export async function generateMetadata({
   params,
 }: {
@@ -95,7 +94,7 @@ export default async function CertificateVerificationPage({
           <p className='text-muted-foreground'>
             For successfully completing the course:
           </p>
-          <p className='text-xl font-semibold text-primary'>
+          <p className='text-primary text-xl font-semibold'>
             {certificate.course.title}
           </p>
           <div className='flex items-center justify-center gap-4 pt-4'>

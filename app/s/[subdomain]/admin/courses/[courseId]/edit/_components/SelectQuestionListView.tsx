@@ -6,7 +6,13 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Check, Search, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Pagination, PaginationContent, PaginationItem, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 import { Question } from './TestBank/types';
 
 interface SelectQuestionListViewProps {
@@ -34,9 +40,9 @@ export function SelectQuestionListView({
 }: SelectQuestionListViewProps) {
   return (
     <div className='space-y-4'>
-      <div className='sticky top-0 z-10 flex gap-4 bg-background py-2'>
+      <div className='bg-background sticky top-0 z-10 flex gap-4 py-2'>
         <div className='relative flex-1'>
-          <Search className='text-muted-foreground absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2' />
+          <Search className='text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2' />
           <Input
             placeholder='Search questions in your test bank...'
             onChange={(e) => onSearchChange(e.target.value)}
@@ -51,11 +57,11 @@ export function SelectQuestionListView({
 
       {isFetching ? (
         <div className='flex h-64 items-center justify-center'>
-          <Loader2 className='h-8 w-8 animate-spin text-primary' />
+          <Loader2 className='text-primary h-8 w-8 animate-spin' />
         </div>
       ) : questions.length === 0 ? (
-        <div className='py-16 text-center text-muted-foreground'>
-          <h3 className='text-lg font-semibold text-foreground'>
+        <div className='text-muted-foreground py-16 text-center'>
+          <h3 className='text-foreground text-lg font-semibold'>
             {'No Questions Found'}
           </h3>
           <p className='mt-2 text-sm'>
@@ -71,7 +77,8 @@ export function SelectQuestionListView({
                 key={q.id}
                 className={cn(
                   'transition-colors',
-                  isSelected && 'border-green-300 bg-green-50 dark:border-green-800 dark:bg-green-950/30',
+                  isSelected &&
+                    'border-green-300 bg-green-50 dark:border-green-800 dark:bg-green-950/30',
                 )}
               >
                 <CardContent className='flex items-start justify-between gap-4 p-4'>
@@ -85,7 +92,11 @@ export function SelectQuestionListView({
                     disabled={isSelected}
                     className='ml-4 shrink-0'
                   >
-                    {isSelected ? <Check className='mr-2 h-4 w-4' /> : <Plus className='mr-2 h-4 w-4' />}
+                    {isSelected ? (
+                      <Check className='mr-2 h-4 w-4' />
+                    ) : (
+                      <Plus className='mr-2 h-4 w-4' />
+                    )}
                     {isSelected ? 'Added' : 'Add'}
                   </Button>
                 </CardContent>
@@ -95,13 +106,15 @@ export function SelectQuestionListView({
         </div>
       )}
       {totalPages > 1 && !isFetching && (
-        <Pagination className="pt-4">
+        <Pagination className='pt-4'>
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious
                 onClick={() => onPageChange(Math.max(1, currentPage - 1))}
                 aria-disabled={currentPage === 1}
-                className={currentPage === 1 ? 'pointer-events-none opacity-50' : ''}
+                className={
+                  currentPage === 1 ? 'pointer-events-none opacity-50' : ''
+                }
               />
             </PaginationItem>
             <PaginationItem>
@@ -111,9 +124,15 @@ export function SelectQuestionListView({
             </PaginationItem>
             <PaginationItem>
               <PaginationNext
-                onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
+                onClick={() =>
+                  onPageChange(Math.min(totalPages, currentPage + 1))
+                }
                 aria-disabled={currentPage === totalPages}
-                className={currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}
+                className={
+                  currentPage === totalPages
+                    ? 'pointer-events-none opacity-50'
+                    : ''
+                }
               />
             </PaginationItem>
           </PaginationContent>

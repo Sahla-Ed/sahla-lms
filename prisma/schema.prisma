@@ -24,6 +24,7 @@ model User {
   quizAttempts   QuizAttempt[]
   certificates   Certificate[]
   tenantId       String?
+  comments Comment[]
 
   stripeCustomerId String? @unique
 
@@ -164,6 +165,7 @@ model Lesson {
   questions      LessonQuestion[]
   attempts       QuizAttempt[]
   tenantId       String?
+  comments Comment[]
 }
 
 model Enrollment {
@@ -283,4 +285,28 @@ model Certificate {
   issuedAt DateTime @default(now())
 
   @@unique([userId, courseId])
+}
+
+
+model Comment {
+  id        String   @id @default(uuid())
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+
+  lessonId String
+  lesson   Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+
+  parentId  String?
+  parent    Comment? @relation("Replies", fields: [parentId], references: [id], onDelete:Cascade)
+  replies   Comment[] @relation("Replies")
+
+
+  tenantId  String?
 }

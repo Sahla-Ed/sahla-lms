@@ -146,10 +146,10 @@ export const CertificateDocument = ({
         </View>
         {certificateId && (
           <>
-          <Text style={styles.certificateId}>
-            Certificate ID: {certificateId}
-          </Text>
-          <PDFLink
+            <Text style={styles.certificateId}>
+              Certificate ID: {certificateId}
+            </Text>
+            <PDFLink
               style={styles.verificationLink}
               src={`${window.location.origin}/verify/${certificateId}`}
             >

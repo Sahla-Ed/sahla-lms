@@ -1,7 +1,13 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 
 import { toast } from 'sonner';
@@ -21,28 +27,44 @@ interface QuestionBankDialogProps {
   onQuestionSelect: (question: Question) => void;
 }
 
-export function QuestionBankDialog({ open, onOpenChange, courseId, selectedQuestionIds, onQuestionSelect }: QuestionBankDialogProps) {
+export function QuestionBankDialog({
+  open,
+  onOpenChange,
+  courseId,
+  selectedQuestionIds,
+  onQuestionSelect,
+}: QuestionBankDialogProps) {
   const [view, setView] = useState<'select' | 'create'>('select');
   const [availableQuestions, setAvailableQuestions] = useState<Question[]>([]);
   const [isFetching, setIsFetching] = useState(true);
-  
+
   const [currentPage, setCurrentPage] = useState(1);
   const [totalQuestions, setTotalQuestions] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
   const QUESTIONS_PER_PAGE = 5;
 
-  const fetchQuestions = useCallback(async (page: number, term: string) => {
-    setIsFetching(true);
-    try {
-      const { questions: fetched, totalCount } = await getCourseQuestions(courseId, page, QUESTIONS_PER_PAGE, term);
-      setAvailableQuestions(fetched.map((q: any) => ({ ...q, options: q.options as string[] })));
-      setTotalQuestions(totalCount);
-    } catch {
-      toast.error('Failed to load questions from the test bank.');
-    } finally {
-      setIsFetching(false);
-    }
-  }, [courseId]);
+  const fetchQuestions = useCallback(
+    async (page: number, term: string) => {
+      setIsFetching(true);
+      try {
+        const { questions: fetched, totalCount } = await getCourseQuestions(
+          courseId,
+          page,
+          QUESTIONS_PER_PAGE,
+          term,
+        );
+        setAvailableQuestions(
+          fetched.map((q: any) => ({ ...q, options: q.options as string[] })),
+        );
+        setTotalQuestions(totalCount);
+      } catch {
+        toast.error('Failed to load questions from the test bank.');
+      } finally {
+        setIsFetching(false);
+      }
+    },
+    [courseId],
+  );
 
   const debouncedSearch = useDebouncedCallback((term: string) => {
     setSearchTerm(term);
@@ -76,27 +98,35 @@ export function QuestionBankDialog({ open, onOpenChange, courseId, selectedQuest
 
   return (
     <Dialog open={open} onOpenChange={handleDialogChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] flex flex-col">
+      <DialogContent className='flex max-h-[90vh] max-w-4xl flex-col'>
         <DialogHeader>
-          <div className="flex items-center gap-4">
+          <div className='flex items-center gap-4'>
             {view === 'create' && (
-              <Button variant="ghost" size="icon" onClick={() => setView('select')}>
-                <ArrowLeft className="h-4 w-4" />
+              <Button
+                variant='ghost'
+                size='icon'
+                onClick={() => setView('select')}
+              >
+                <ArrowLeft className='h-4 w-4' />
               </Button>
             )}
             <div>
-              <DialogTitle>{view === 'select' ? 'Add Question from Bank' : 'Create New Question'}</DialogTitle>
+              <DialogTitle>
+                {view === 'select'
+                  ? 'Add Question from Bank'
+                  : 'Create New Question'}
+              </DialogTitle>
               <DialogDescription>
-                {view === 'select' 
-                  ? 'Select from existing questions or create a new one to add to your quiz.' 
+                {view === 'select'
+                  ? 'Select from existing questions or create a new one to add to your quiz.'
                   : 'Your new question will be available in the bank immediately after saving.'}
               </DialogDescription>
             </div>
           </div>
         </DialogHeader>
-        <div className="flex-1 overflow-y-auto pr-2 -mr-2">
+        <div className='-mr-2 flex-1 overflow-y-auto pr-2'>
           {view === 'select' ? (
-            <SelectQuestionListView 
+            <SelectQuestionListView
               questions={availableQuestions}
               selectedIds={selectedQuestionIds}
               onSelect={onQuestionSelect}
@@ -108,7 +138,7 @@ export function QuestionBankDialog({ open, onOpenChange, courseId, selectedQuest
               onPageChange={setCurrentPage}
             />
           ) : (
-            <div className="p-1">
+            <div className='p-1'>
               <TestBank courseId={courseId} onSuccess={handleQuestionCreated} />
             </div>
           )}

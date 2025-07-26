@@ -1,16 +1,24 @@
-
 'use client';
 import { FC, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { SubComponentProps } from './types';
 import { createQuestion } from '../../quiz-actions';
 
-export const AiQuestionForm: FC<SubComponentProps> = ({ courseId, onSuccess }) => {
+export const AiQuestionForm: FC<SubComponentProps> = ({
+  courseId,
+  onSuccess,
+}) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiTopic, setAiTopic] = useState('');
   const [aiCount, setAiCount] = useState(5);

@@ -7,7 +7,10 @@ import { createQuestion } from '../../quiz-actions';
 import { AiQuestionForm } from './AiQuestionForm';
 import { ImportQuestionForm } from './ImportQuestionForm';
 
-export const CreateQuestionView: FC<SubComponentProps> = ({ courseId, onSuccess }) => (
+export const CreateQuestionView: FC<SubComponentProps> = ({
+  courseId,
+  onSuccess,
+}) => (
   <Tabs defaultValue='manual'>
     <TabsList className='grid w-full grid-cols-3'>
       <TabsTrigger value='manual'>Manual</TabsTrigger>

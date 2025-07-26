@@ -1,13 +1,24 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Loader2, Search } from 'lucide-react';
 import { toast } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
-import { Pagination, PaginationContent, PaginationItem, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
-
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
 import { tryCatch } from '@/hooks/try-catch';
 import { Question } from './TestBank/types';
@@ -35,9 +46,18 @@ export function TestBank({ courseId, onSuccess }: TestBankProps) {
       setIsFetching(true);
       try {
         const { questions: fetched, totalCount } = await getCourseQuestions(
-          courseId, page, QUESTIONS_PER_PAGE, term
+          courseId,
+          page,
+          QUESTIONS_PER_PAGE,
+          term,
         );
-        setQuestions(fetched.map((q: any) => ({...q, options: q.options as string[], explanation: q.explanation || undefined })));
+        setQuestions(
+          fetched.map((q: any) => ({
+            ...q,
+            options: q.options as string[],
+            explanation: q.explanation || undefined,
+          })),
+        );
         setTotalQuestions(totalCount);
       } catch (error) {
         toast.error('Failed to load questions from the test bank.');
@@ -80,7 +100,8 @@ export function TestBank({ courseId, onSuccess }: TestBankProps) {
         <CardHeader>
           <CardTitle>Create New Question</CardTitle>
           <CardDescription>
-            Choose your preferred method to create a new question for your test bank.
+            Choose your preferred method to create a new question for your test
+            bank.
           </CardDescription>
         </CardHeader>
         <CardContent>
