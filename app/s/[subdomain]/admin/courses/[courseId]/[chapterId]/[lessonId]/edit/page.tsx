@@ -1,6 +1,7 @@
 import { adminGetLesson } from '@/app/s/[subdomain]/data/admin/admin-get-lesson';
 import { QuizForm } from './_components/QuizForm';
 import { LessonForm } from '../_components/LessonForm';
+import CodingForm from './_components/CodingForm';
 
 type Params = Promise<{
   courseId: string;
@@ -15,6 +16,10 @@ export default async function LessonEditPage({ params }: { params: Params }) {
   if (lesson.type === 'QUIZ') {
     return (
       <QuizForm lesson={lesson} chapterId={chapterId} courseId={courseId} />
+    );
+  } else if (lesson.type === 'CODING') {
+    return (
+      <CodingForm lesson={lesson} chapterId={chapterId} courseId={courseId} />
     );
   }
 

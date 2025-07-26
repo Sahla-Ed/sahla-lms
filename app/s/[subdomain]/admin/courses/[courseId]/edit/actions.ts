@@ -10,6 +10,8 @@ import {
   CourseSchemaType,
   lessonSchema,
   LessonSchemaType,
+  // codeSubmissionSchema,
+  // CodeSubmissionType,
 } from '@/lib/zodSchemas';
 import { revalidatePath } from 'next/cache';
 
@@ -17,7 +19,7 @@ export async function editCourse(
   data: CourseSchemaType,
   courseId: string,
 ): Promise<ApiResponse> {
-  const user = await requireAdmin();
+  const { user } = await requireAdmin();
 
   try {
     const result = courseSchema.safeParse(data);
@@ -30,7 +32,7 @@ export async function editCourse(
     }
     if (result.data.status === 'Published') {
       const courseWithLessons = await prisma.course.findUnique({
-        where: { id: courseId },
+        where: { id: courseId, tenantId: user.tenantId },
         include: {
           chapter: {
             include: {
@@ -58,7 +60,8 @@ export async function editCourse(
     await prisma.course.update({
       where: {
         id: courseId,
-        userId: user.user.id,
+        userId: user.id,
+        tenantId: user.tenantId,
       },
       data: {
         ...result.data,
@@ -83,7 +86,7 @@ export async function reorderLessons(
   lessons: { id: string; position: number }[],
   courseId: string,
 ): Promise<ApiResponse> {
-  await requireAdmin();
+  const { user } = await requireAdmin();
   try {
     if (!lessons || lessons.length === 0) {
       return {
@@ -97,6 +100,7 @@ export async function reorderLessons(
         where: {
           id: lesson.id,
           chapterId: chapterId,
+          tenantId: user.tenantId,
         },
         data: {
           position: lesson.position,
@@ -123,7 +127,7 @@ export async function reorderChapters(
   courseId: string,
   chapters: { id: string; position: number }[],
 ): Promise<ApiResponse> {
-  await requireAdmin();
+  const { user } = await requireAdmin();
   try {
     if (!chapters || chapters.length === 0) {
       return {
@@ -137,6 +141,7 @@ export async function reorderChapters(
         where: {
           id: chapter.id,
           courseId: courseId,
+          tenantId: user.tenantId,
         },
         data: {
           position: chapter.position,
@@ -163,7 +168,7 @@ export async function reorderChapters(
 export async function createChapter(
   values: ChapterSchemaType,
 ): Promise<ApiResponse> {
-  await requireAdmin();
+  const { user } = await requireAdmin();
   try {
     const result = chapterSchema.safeParse(values);
 
@@ -178,6 +183,7 @@ export async function createChapter(
       const maxPos = await tx.chapter.findFirst({
         where: {
           courseId: result.data.courseId,
+          tenantId: user.tenantId,
         },
         select: {
           position: true,
@@ -191,6 +197,7 @@ export async function createChapter(
         data: {
           title: result.data.name,
           courseId: result.data.courseId,
+          tenantId: user.tenantId,
           position: (maxPos?.position ?? 0) + 1,
         },
       });
@@ -213,7 +220,7 @@ export async function createChapter(
 export async function createLesson(
   values: LessonSchemaType,
 ): Promise<ApiResponse> {
-  await requireAdmin();
+  const { user } = await requireAdmin();
   try {
     const result = lessonSchema.safeParse(values);
 
@@ -230,6 +237,7 @@ export async function createLesson(
       const maxPos = await tx.lesson.findFirst({
         where: {
           chapterId: result.data.chapterId,
+          tenantId: user.tenantId,
         },
         select: {
           position: true,
@@ -239,18 +247,49 @@ export async function createLesson(
         },
       });
 
-      const newLesson = await tx.lesson.create({
+      const lesson = await tx.lesson.create({
         data: {
           title: result.data.name,
           description: result.data.description,
           videoKey: result.data.videoKey,
           thumbnailKey: result.data.thumbnailKey,
           chapterId: result.data.chapterId,
+          tenantId: user.tenantId,
           type: result.data.type,
           position: (maxPos?.position ?? 0) + 1,
         },
       });
-      lessonId = newLesson.id;
+
+      // Create coding exercise if lesson type is CODING
+      if (result.data.type === 'CODING') {
+        const language = result.data.codingLanguage || 'web';
+        let starterCode = '';
+
+        if (language === 'web') {
+          // For web development, combine HTML, CSS, and JavaScript
+          const htmlCode = result.data.htmlStarterCode || '';
+          const cssCode = result.data.cssStarterCode || '';
+          const jsCode = result.data.jsStarterCode || '';
+
+          starterCode = JSON.stringify({
+            html: htmlCode,
+            css: cssCode,
+            javascript: jsCode,
+          });
+        } else {
+          // For server-side languages
+          starterCode = result.data.serverStarterCode || '';
+        }
+
+        await tx.codingExercise.create({
+          data: {
+            lessonId: lesson.id,
+            language: language,
+            starterCode: starterCode,
+            instructions: result.data.codingInstructions || '',
+          },
+        });
+      }
     });
 
     revalidatePath(`/admin/courses/${result.data.courseId}/edit`);
@@ -277,11 +316,12 @@ export async function deleteLesson({
   courseId: string;
   lessonId: string;
 }): Promise<ApiResponse> {
-  await requireAdmin();
+  const { user } = await requireAdmin();
   try {
     const chapterWithLessons = await prisma.chapter.findUnique({
       where: {
         id: chapterId,
+        tenantId: user.tenantId,
       },
       select: {
         lessons: {
@@ -318,7 +358,11 @@ export async function deleteLesson({
 
     const updates = remainingLessons.map((lesson, index) => {
       return prisma.lesson.update({
-        where: { id: lesson.id },
+        where: {
+          id: lesson.id,
+
+          tenantId: user.tenantId,
+        },
         data: { position: index + 1 },
       });
     });
@@ -329,6 +373,7 @@ export async function deleteLesson({
         where: {
           id: lessonId,
           chapterId: chapterId,
+          tenantId: user.tenantId,
         },
       }),
     ]);
@@ -346,6 +391,89 @@ export async function deleteLesson({
   }
 }
 
+export async function updateCodingExercise({
+  lessonId,
+  title,
+  description,
+  language,
+  starterCode,
+  instructions,
+}: {
+  lessonId: string;
+  title: string;
+  description?: string;
+  language: string;
+  starterCode: string;
+  instructions?: string;
+}): Promise<ApiResponse> {
+  const { user } = await requireAdmin();
+  try {
+    // Verify the lesson exists and belongs to the user's tenant
+    const lesson = await prisma.lesson.findUnique({
+      where: {
+        id: lessonId,
+        tenantId: user.tenantId,
+        type: 'CODING',
+      },
+      include: {
+        codingExercise: true,
+      },
+    });
+
+    if (!lesson) {
+      return {
+        status: 'error',
+        message: 'Coding lesson not found',
+      };
+    }
+
+    await prisma.$transaction(async (tx) => {
+      // Update lesson basic information
+      await tx.lesson.update({
+        where: { id: lessonId },
+        data: {
+          title: title,
+          description: description,
+        },
+      });
+
+      // Update or create coding exercise
+      if (lesson.codingExercise.length > 0) {
+        // Update existing coding exercise
+        await tx.codingExercise.update({
+          where: { lessonId: lessonId },
+          data: {
+            language: language,
+            starterCode: starterCode,
+            instructions: instructions || '',
+          },
+        });
+      } else {
+        // Create new coding exercise
+        await tx.codingExercise.create({
+          data: {
+            lessonId: lessonId,
+            language: language,
+            starterCode: starterCode,
+            instructions: instructions || '',
+          },
+        });
+      }
+    });
+
+    return {
+      status: 'success',
+      message: 'Coding exercise updated successfully',
+    };
+  } catch (error) {
+    console.error('Failed to update coding exercise:', error);
+    return {
+      status: 'error',
+      message: 'Failed to update coding exercise',
+    };
+  }
+}
+
 export async function deleteChapter({
   chapterId,
   courseId,
@@ -353,11 +481,12 @@ export async function deleteChapter({
   chapterId: string;
   courseId: string;
 }): Promise<ApiResponse> {
-  await requireAdmin();
+  const { user } = await requireAdmin();
   try {
     const courseWithChapters = await prisma.course.findUnique({
       where: {
         id: courseId,
+        tenantId: user.tenantId,
       },
       select: {
         chapter: {
@@ -380,7 +509,6 @@ export async function deleteChapter({
     }
 
     const chapters = courseWithChapters.chapter;
-
     const chapterToDelete = chapters.find((chap) => chap.id === chapterId);
 
     if (!chapterToDelete) {
@@ -394,7 +522,7 @@ export async function deleteChapter({
 
     const updates = remainingChapters.map((chap, index) => {
       return prisma.chapter.update({
-        where: { id: chap.id },
+        where: { id: chap.id, tenantId: user.tenantId },
         data: { position: index + 1 },
       });
     });
@@ -403,6 +531,7 @@ export async function deleteChapter({
       ...updates,
       prisma.chapter.delete({
         where: {
+          tenantId: user.tenantId,
           id: chapterId,
         },
       }),

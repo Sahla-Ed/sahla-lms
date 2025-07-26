@@ -16,6 +16,7 @@ import { z } from 'zod';
 export async function createQuestion(
   data: QuestionSchemaType,
 ): Promise<ApiResponse> {
+  // const {user} =  await requireAdmin();
   await requireAdmin();
   try {
     const result = questionSchema.safeParse(data);
@@ -35,6 +36,7 @@ export async function createQuestion(
         options: result.data.options || [],
         answer: result.data.answer,
         explanation: result.data.explanation,
+        // tenantId:user.tenantId
       },
     });
 

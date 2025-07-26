@@ -1,23 +1,20 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { extractSubdomain } from '@/lib/utils';
+import { extractSubdomain } from '@/lib/subdomain';
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const subdomain = extractSubdomain(request);
+  const subdomain = await extractSubdomain(request);
 
   if (subdomain) {
-    // Block access to admin page from subdomains
-    // if (pathname.startsWith('/admin')) {
-    //   return NextResponse.redirect(new URL('/', request.url));
-    // }
-
-    // For the root path on a subdomain, rewrite to the subdomain page
+    // Rewrite requests for a subdomain to the /s/[subdomain] directory.
+    // The validation of whether the subdomain (tenant) exists will happen
+    // in the layout or page component, which can access the database.
     return NextResponse.rewrite(
       new URL(`/s/${subdomain}${pathname}`, request.url),
     );
   }
 
-  // On the root domain, allow normal access
+  // On the root domain, allow normal access.
   return NextResponse.next();
 }
 
