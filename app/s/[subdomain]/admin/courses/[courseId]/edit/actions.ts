@@ -254,6 +254,7 @@ export async function createLesson(
           videoKey: result.data.videoKey,
           thumbnailKey: result.data.thumbnailKey,
           chapterId: result.data.chapterId,
+          tenantId: user.tenantId,
           type: result.data.type,
           position: (maxPos?.position ?? 0) + 1,
         },
@@ -386,6 +387,89 @@ export async function deleteLesson({
     return {
       status: 'error',
       message: 'Failed to delete lesson',
+    };
+  }
+}
+
+export async function updateCodingExercise({
+  lessonId,
+  title,
+  description,
+  language,
+  starterCode,
+  instructions,
+}: {
+  lessonId: string;
+  title: string;
+  description?: string;
+  language: string;
+  starterCode: string;
+  instructions?: string;
+}): Promise<ApiResponse> {
+  const { user } = await requireAdmin();
+  try {
+    // Verify the lesson exists and belongs to the user's tenant
+    const lesson = await prisma.lesson.findUnique({
+      where: {
+        id: lessonId,
+        tenantId: user.tenantId,
+        type: 'CODING',
+      },
+      include: {
+        codingExercise: true,
+      },
+    });
+
+    if (!lesson) {
+      return {
+        status: 'error',
+        message: 'Coding lesson not found',
+      };
+    }
+
+    await prisma.$transaction(async (tx) => {
+      // Update lesson basic information
+      await tx.lesson.update({
+        where: { id: lessonId },
+        data: {
+          title: title,
+          description: description,
+        },
+      });
+
+      // Update or create coding exercise
+      if (lesson.codingExercise.length > 0) {
+        // Update existing coding exercise
+        await tx.codingExercise.update({
+          where: { lessonId: lessonId },
+          data: {
+            language: language,
+            starterCode: starterCode,
+            instructions: instructions || '',
+          },
+        });
+      } else {
+        // Create new coding exercise
+        await tx.codingExercise.create({
+          data: {
+            lessonId: lessonId,
+            language: language,
+            starterCode: starterCode,
+            instructions: instructions || '',
+          },
+        });
+      }
+    });
+
+    return {
+      status: 'success',
+      message: 'Coding exercise updated successfully',
+    };
+  } catch (error) {
+    console.error('Failed to update coding exercise:', error);
+    return {
+      status: 'error',
+      message: 'Failed to update coding exercise',
     };
   }
 }

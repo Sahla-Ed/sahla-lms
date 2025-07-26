@@ -28,6 +28,17 @@ export async function adminGetLesson(id: string) {
           position: 'asc',
         },
       },
+      codingExercise: {
+        select: {
+          id: true,
+          language: true,
+          starterCode: true,
+          instructions: true,
+          solutionCode: true,
+          testCases: true,
+          timeLimit: true,
+        },
+      },
     },
   });
 
