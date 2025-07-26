@@ -307,10 +307,8 @@ export function CodingPlayground({
   const [isRunning, setIsRunning] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const { theme, systemTheme } = useTheme();
-  console.log('theme', theme, systemTheme);
 
   const currentTheme = theme === 'system' ? systemTheme : theme;
-  console.log('currentTheme', currentTheme);
 
   const handleWebCodeChange = useCallback(
     (value: string | undefined, tab: WebTab) => {

@@ -197,6 +197,7 @@ export async function createChapter(
         data: {
           title: result.data.name,
           courseId: result.data.courseId,
+          tenantId: user.tenantId,
           position: (maxPos?.position ?? 0) + 1,
         },
       });
@@ -401,7 +402,6 @@ export async function deleteChapter({
     const courseWithChapters = await prisma.course.findUnique({
       where: {
         id: courseId,
-
         tenantId: user.tenantId,
       },
       select: {
@@ -411,7 +411,7 @@ export async function deleteChapter({
           },
           select: {
             id: true,
-            position: true,
+            // position: true,
           },
         },
       },
