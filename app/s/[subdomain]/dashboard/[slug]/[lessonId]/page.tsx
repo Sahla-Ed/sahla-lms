@@ -32,9 +32,7 @@ async function LessonContentLoader({ lessonId }: { lessonId: string }) {
   ]);
 
   const session = await requireUser();
-  const data = await getLessonContent(lessonId);
   const userId = session?.id || '';
-  console.log('lesson dataaaaaaaaaaa:', data);
 
 
   if (data.type === 'QUIZ') {
