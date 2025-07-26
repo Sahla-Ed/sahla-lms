@@ -1,12 +1,18 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { Menubar } from './Menubar';
 import TextAlign from '@tiptap/extension-text-align';
-
-export function RichTextEditor({ field }: { field: any }) {
+import {
+  type ControllerRenderProps,
+  type FieldValues,
+  type FieldPath,
+} from 'react-hook-form';
+export function RichTextEditor<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+>({ field }: { field: ControllerRenderProps<TFieldValues, TName> }) {
   const editor = useEditor({
     extensions: [
       StarterKit,

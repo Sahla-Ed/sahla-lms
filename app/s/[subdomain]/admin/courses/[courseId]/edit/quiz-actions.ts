@@ -2,6 +2,7 @@
 
 import { requireAdmin } from '@/app/s/[subdomain]/data/admin/require-admin';
 import { prisma } from '@/lib/db';
+import { Prisma } from '@/lib/generated/prisma';
 import { ApiResponse } from '@/lib/types';
 import {
   questionSchema,
@@ -10,6 +11,7 @@ import {
   QuizQuestionSchemaType,
 } from '@/lib/zodSchemas';
 import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
 
 export async function createQuestion(
   data: QuestionSchemaType,
@@ -166,13 +168,71 @@ export async function updateQuizQuestions(
   }
 }
 
-export async function getCourseQuestions(courseId: string) {
+export async function getCourseQuestions(
+  courseId: string,
+  page: number = 1,
+  pageSize: number = 10,
+  searchTerm: string = '',
+) {
   await requireAdmin();
 
-  const questions = await prisma.question.findMany({
-    where: { courseId },
-    orderBy: { createdAt: 'desc' },
-  });
+  const skip = (page - 1) * pageSize;
+  const take = pageSize;
 
-  return questions;
+  const whereCondition: Prisma.QuestionWhereInput = {
+    courseId,
+    ...(searchTerm && {
+      text: { contains: searchTerm, mode: 'insensitive' },
+    }),
+  };
+
+  const [questions, totalCount] = await prisma.$transaction([
+    prisma.question.findMany({
+      where: whereCondition,
+      orderBy: { createdAt: 'desc' },
+      skip: skip,
+      take: take,
+    }),
+    prisma.question.count({
+      where: whereCondition,
+    }),
+  ]);
+
+  return { questions, totalCount };
+}
+const importedQuestionSchema = questionSchema.omit({ courseId: true });
+
+const bulkQuestionsSchema = z.array(importedQuestionSchema);
+
+export async function createMultipleQuestions(
+  courseId: string,
+  questions: z.infer<typeof bulkQuestionsSchema>,
+): Promise<ApiResponse> {
+  await requireAdmin();
+  try {
+    const validation = bulkQuestionsSchema.safeParse(questions);
+    if (!validation.success) {
+      console.error(validation.error);
+      return { status: 'error', message: 'Invalid question data format.' };
+    }
+
+    const dataToCreate = validation.data.map((q) => ({
+      ...q,
+      courseId: courseId,
+      options: q.options || [],
+    }));
+
+    await prisma.question.createMany({
+      data: dataToCreate,
+    });
+
+    revalidatePath(`/admin/courses/${courseId}/edit`);
+    return {
+      status: 'success',
+      message: `${questions.length} questions imported successfully!`,
+    };
+  } catch (e) {
+    console.error(e);
+    return { status: 'error', message: 'Failed to import questions.' };
+  }
 }
