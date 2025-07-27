@@ -67,14 +67,24 @@ export async function createTenantAndAdmin(
 
   try {
     const newTenantId = uuidv4();
+    console.log('Generated new tenant ID:', newTenantId);
 
     await prisma.$transaction(async (tx) => {
+      console.log('Starting transaction for tenant creation.');
+
       // 1. Re-check slug availability inside transaction to prevent race conditions
       const existingTenant = await tx.tenants.findUnique({ where: { slug } });
+      console.log(
+        'Checked slug availability. Existing tenant:',
+        existingTenant,
+      );
+
       if (existingTenant) {
+        console.error('Slug is already taken:', slug);
         throw new Error('This platform URL is already taken.');
       }
 
+      console.log('Slug is available. Proceeding to create admin user.');
       const { user: newAdmin } = await auth(newTenantId).api.signUpEmail({
         body: {
           name,
@@ -84,13 +94,17 @@ export async function createTenantAndAdmin(
       });
 
       if (!newAdmin) {
-        throw new Error('Failed to create admin user account.');
+        console.error('Failed to create admin user account.');
+        // throw new Error('Failed to create admin user account.');
       }
+
+      console.log('Admin user created successfully. Admin ID:', newAdmin);
 
       await tx.user.update({
         where: { id: newAdmin.id },
         data: { role: 'admin' },
       });
+      console.log('Updated user role to admin for user ID:', newAdmin.id);
 
       await tx.tenants.create({
         data: {
@@ -102,8 +116,8 @@ export async function createTenantAndAdmin(
           data: {},
         },
       });
+      console.log('Tenant created successfully with slug:', slug);
     });
-
     return {
       status: 'success',
       message: 'Your platform and admin account have been created!',

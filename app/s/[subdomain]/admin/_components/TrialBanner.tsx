@@ -2,10 +2,24 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { buttonVariants } from '@/components/ui/button';
 import { Sparkles } from 'lucide-react';
 import Link from 'next/link';
+import { getSubscription } from '../../data/admin/get-subscription';
+import { differenceInDays } from 'date-fns';
 
-export function TrialBanner() {
-  // This would be calculated dynamically based on the tenant's creation date
-  const daysLeft = 12;
+export async function TrialBanner() {
+  const subscription = await getSubscription();
+
+  if (subscription?.status !== 'trialing' || !subscription.periodEnd) {
+    return null;
+  }
+
+  const daysLeft = differenceInDays(
+    new Date(subscription.periodEnd ?? new Date()),
+    new Date(),
+  );
+
+  if (daysLeft < 0) {
+    return null;
+  }
 
   return (
     <Alert className='border-primary/30 bg-primary/5 text-primary'>
