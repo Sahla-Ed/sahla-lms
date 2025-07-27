@@ -152,8 +152,8 @@ export async function submitCode(
       },
     });
 
+    // revalidatePath(`/dashboard/${slug}/${result.data.lessonId}`);
     revalidatePath(`/dashboard/${slug}`);
-    revalidatePath(`/dashboard/${slug}/${result.data.lessonId}`);
 
     return {
       status: 'success',
