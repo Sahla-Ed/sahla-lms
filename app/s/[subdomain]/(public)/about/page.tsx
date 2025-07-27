@@ -1,7 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   ChevronRight,
   Users,
@@ -12,11 +11,10 @@ import {
   GraduationCap,
   MessageSquare,
   Award,
-  Github,
-  Linkedin,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import { OurTeamSection } from '@/components/sections/OurTeamSection';
 
 export const metadata: Metadata = {
   title: 'About Sahla | Empowering Learners Across the Globe',
@@ -97,7 +95,7 @@ const benefits = {
   ],
 };
 
-const team = [
+const teamMembers = [
   {
     name: 'Mohamed Badran',
     role: 'Full-Stack Developer',
@@ -296,62 +294,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className='bg-muted/10 px-4 py-20'>
-        <div className='mx-auto max-w-7xl'>
-          <div className='mb-16 text-center'>
-            <h2 className='mb-4 text-4xl font-bold'>Meet Our Team</h2>
-            <p className='text-muted-foreground mx-auto max-w-2xl text-xl'>
-              The passionate individuals behind Sahla success
-            </p>
-          </div>
-
-          <div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'>
-            {team.map((member, index) => (
-              <Card
-                key={index}
-                className='from-card to-muted/5 border-0 bg-gradient-to-br text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl'
-              >
-                <CardHeader>
-                  <Avatar className='ring-primary/10 mx-auto mb-4 h-24 w-24 ring-4'>
-                    <AvatarImage src={member.image} alt={member.name} />
-                    <AvatarFallback className='bg-primary/10 text-primary text-xl font-bold'>
-                      {member.name
-                        .split(' ')
-                        .map((n) => n[0])
-                        .join('')}
-                    </AvatarFallback>
-                  </Avatar>
-                  <CardTitle className='text-xl'>{member.name}</CardTitle>
-                  <p className='text-primary font-medium'>{member.role}</p>
-                </CardHeader>
-                <CardContent>
-                  <p className='text-muted-foreground mb-4 text-sm leading-relaxed'>
-                    {member.bio}
-                  </p>
-                  <div className='flex justify-center space-x-3'>
-                    <Link
-                      href={member.github}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='text-muted-foreground hover:text-primary transition-colors'
-                    >
-                      <Github className='h-5 w-5' />
-                    </Link>
-                    <Link
-                      href={member.linkedin}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='text-muted-foreground hover:text-primary transition-colors'
-                    >
-                      <Linkedin className='h-5 w-5' />
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      <OurTeamSection teamMembers={teamMembers} />
 
       {/* CTA Section */}
       <section className='from-primary/5 to-primary/10 bg-gradient-to-r px-4 py-20'>
