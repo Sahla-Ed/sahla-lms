@@ -134,6 +134,7 @@ export const lessonSchema = z.object({
 
 export const codingExerciseSchema = z.object({
   lessonId: z.uuid('Invalid lesson ID'),
+  tenantId: z.string().default(''),
   starterCode: z.string().default('// Write your code here'),
   solutionCode: z.string().optional(),
   instructions: z.string().optional(),
@@ -159,6 +160,7 @@ export const codingExerciseSchema = z.object({
 export const codeSubmissionSchema = z.object({
   lessonId: z.uuid(),
   userId: z.string(),
+  tenantId: z.string().default(''),
   language: z.string(),
   submissionType: z.enum(['Web', 'Programming']),
   // For programming languages

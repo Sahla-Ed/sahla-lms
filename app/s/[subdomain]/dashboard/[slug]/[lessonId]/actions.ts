@@ -85,9 +85,11 @@ export async function markLessonIncomplete(
 export async function submitCode(
   submissionData: CodeSubmissionType,
   slug: string,
+  executionStatus: string,
 ): Promise<ApiResponse> {
   try {
     const result = codeSubmissionSchema.safeParse(submissionData);
+    const session = await requireUser();
 
     if (!result.success) {
       return {
@@ -101,6 +103,7 @@ export async function submitCode(
       where: {
         userId: result.data.userId,
         lessonId: result.data.lessonId,
+        tenantId: session?.tenantId ?? '',
       },
     });
 
@@ -108,6 +111,7 @@ export async function submitCode(
     await prisma.codingSubmission.create({
       data: {
         userId: result.data.userId,
+        tenantId: session?.tenantId ?? '',
         lessonId: result.data.lessonId,
         language: result.data.language ?? 'JavaScript',
         submissionType:
@@ -117,10 +121,10 @@ export async function submitCode(
         cssCode: result.data.cssCode ?? '',
         jsCode: result.data.jsCode ?? '',
         attemptNumber: previousAttempts + 1,
-        status: 'Pending',
+        status: executionStatus,
         output: null,
         score: 0,
-        passed: false,
+        passed: executionStatus === 'Accepted',
       },
     });
 
@@ -142,11 +146,59 @@ export async function submitCode(
 // Get user's submissions for a lesson
 export async function getUserSubmissions(lessonId: string, userId: string) {
   try {
+    const session = await requireUser();
     const submissions = await prisma.codingSubmission.findMany({
-      where: { lessonId, userId },
+      where: { lessonId, userId, tenantId: session?.tenantId ?? '' },
       orderBy: { attemptNumber: 'desc' },
       take: 5, // Get last 5 attempts
     });
+
+    //Get lesson details
+    const lesson = await prisma.lesson.findUnique({
+      where: { id: lessonId, tenantId: session?.tenantId ?? '' },
+      select: { lessonProgress: true },
+    });
+
+    // check if any of the submissions is passed
+    const isPassed = submissions.some((submission) => submission.passed);
+    //check if lesson's lessonProgress length is 0, create lesson progress
+    if (!lesson?.lessonProgress.length) {
+      await prisma.lessonProgress.create({
+        data: {
+          lessonId,
+          userId,
+          tenantId: session?.tenantId ?? '',
+          completed: isPassed,
+        },
+      });
+    }
+
+    //if lessonProgress[0] not set as completed, set leson as completed
+    if (isPassed && !lesson?.lessonProgress[0]?.completed) {
+      await prisma.lesson.update({
+        where: { id: lessonId, tenantId: session?.tenantId },
+        data: {
+          lessonProgress: {
+            updateMany: {
+              where: { userId: userId },
+              data: { completed: true },
+            },
+          },
+        },
+      });
+    } else if (!isPassed && lesson?.lessonProgress[0]?.completed) {
+      await prisma.lesson.update({
+        where: { id: lessonId, tenantId: session?.tenantId },
+        data: {
+          lessonProgress: {
+            updateMany: {
+              where: { userId: userId },
+              data: { completed: false },
+            },
+          },
+        },
+      });
+    }
 
     return submissions;
   } catch (error) {
@@ -161,8 +213,9 @@ export async function getLatestUserSubmission(
   userId: string,
 ) {
   try {
+    const session = await requireUser();
     const latestSubmission = await prisma.codingSubmission.findFirst({
-      where: { lessonId, userId },
+      where: { lessonId, userId, tenantId: session?.tenantId ?? '' },
       orderBy: { createdAt: 'desc' },
       select: {
         id: true,

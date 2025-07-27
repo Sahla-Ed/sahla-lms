@@ -232,6 +232,7 @@ export function CodingPlayground({
   userId: string;
 }) {
   //code submission
+  const [executionStatus, setExecutionStatus] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissions, setSubmissions] = useState<CodingSubmission[]>([]);
 
@@ -432,7 +433,8 @@ export function CodingPlayground({
         toast.error('Code execution failed');
       } else {
         setOutput(result.output || 'No output');
-        toast.success('Code executed successfully');
+        toast.error(`Code execution status: ${result.status}`);
+        return result.status;
       }
     } catch (error) {
       console.error('Server Error:', error);
@@ -447,8 +449,11 @@ export function CodingPlayground({
     try {
       if (mode === 'web') {
         runWebCode();
+        //todo: handle web code execution status correctly
+        setExecutionStatus('Accepted');
       } else {
-        await runServerCode();
+        const status = await runServerCode();
+        setExecutionStatus(status || 'Unknown');
       }
     } finally {
       setIsRunning(false);
@@ -478,7 +483,7 @@ export function CodingPlayground({
         }),
       };
       const slug = data.Chapter?.Course?.slug;
-      const result = await submitCode(submissionData, slug);
+      const result = await submitCode(submissionData, slug, executionStatus);
 
       if (result.status === 'success') {
         toast.success('Code submitted successfully! 🎉');

@@ -14,7 +14,7 @@ export default async function LessonContentPage({
   params: Params;
 }) {
   const { lessonId } = await params;
-
+  const data = await getLessonContent(lessonId);
   return (
     <Suspense fallback={<LessonSkeleton />}>
       <LessonContentLoader lessonId={lessonId} />
@@ -26,7 +26,6 @@ async function LessonContentLoader({ lessonId }: { lessonId: string }) {
   const session = await requireUser();
   const data = await getLessonContent(lessonId);
   const userId = session?.id || '';
-  console.log('lesson dataaaaaaaaaaa:', data);
 
   if (data.type === 'QUIZ') {
     return <QuizPlayer data={data} />;

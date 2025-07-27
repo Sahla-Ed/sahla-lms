@@ -193,9 +193,6 @@ model Lesson {
   attempts       QuizAttempt[]
   tenantId       String?
 
-  // codingExercise CodingExercise?  // One-to-zero relation (a lesson may have a coding exercise)
-  // codingSubmission CodingSubmission? // One-to-one relation (a lesson may have a coding submission)
-
   CodingSubmission CodingSubmission[]
   codingExercise   CodingExercise[]
 }
@@ -322,6 +319,7 @@ model Certificate {
 
 model CodingExercise {
   id           String   @id @default(uuid())
+  tenantId     String @default("")
   lesson       Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
   lessonId     String
   language     String   @default("javascript")
@@ -338,6 +336,7 @@ model CodingExercise {
 
 model CodingSubmission {
   id String @id @default(uuid())
+  tenantId String @default("")
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
