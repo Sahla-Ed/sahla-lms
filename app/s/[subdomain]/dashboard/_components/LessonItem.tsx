@@ -1,6 +1,6 @@
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Check, HelpCircle, Play } from 'lucide-react';
+import { Check, HelpCircle, Play, Lock } from 'lucide-react';
 import Link from 'next/link';
 
 interface iAppProps {
@@ -15,6 +15,7 @@ interface iAppProps {
   isActive?: boolean;
   completed: boolean;
   quizFailed?: boolean;
+  isLocked: boolean;
 }
 
 export function LessonItem({
@@ -23,7 +24,32 @@ export function LessonItem({
   isActive,
   completed,
   quizFailed,
+  isLocked,
 }: iAppProps) {
+  if (isLocked) {
+    return (
+      <div
+        className={cn(
+          buttonVariants({
+            variant: 'outline',
+          }),
+          'h-auto w-full cursor-not-allowed justify-start p-2.5 opacity-50',
+        )}
+      >
+        <div className='flex w-full min-w-0 items-center gap-2.5'>
+          <div className='shrink-0'>
+            <Lock className='text-muted-foreground size-5' />
+          </div>
+          <div className='min-w-0 flex-1 text-left'>
+            <p className='text-muted-foreground truncate text-sm font-medium'>
+              {lesson.position}. {lesson.title}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Link
       href={`/dashboard/${slug}/${lesson.id}`}

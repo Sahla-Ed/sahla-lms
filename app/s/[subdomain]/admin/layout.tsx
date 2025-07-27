@@ -16,6 +16,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       }
     >
       <AppSidebar variant='inset' />
+      {/* <AdminAppSidebar variant='inset' /> */}
       <SidebarInset>
         <SiteHeader title='Sahla Admin' />
         <div className='flex flex-1 flex-col'>
