@@ -359,7 +359,7 @@ model CodingSubmission {
   output String?
 
   // Execution status
-  status CodingSubmissionStatus @default(Pending)
+  status CodingSubmissionStatus @default(InQueue)
 
   // Score (0–100), if auto-graded
   score Float?
@@ -383,10 +383,13 @@ enum SubmissionType {
 }
 
 enum CodingSubmissionStatus {
-  Pending
-  Running
-  Success
-  Error
-  Timeout
-  Failed
+  InQueue
+  Processing
+  Accepted
+  WrongAnswer
+  TimeLimitExceeded
+  CompilationError
+  RuntimeError
+  InternalError
+  ExecFormatError
 }

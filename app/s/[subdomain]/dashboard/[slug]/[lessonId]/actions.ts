@@ -5,7 +5,25 @@ import { prisma } from '@/lib/db';
 import { ApiResponse } from '@/lib/types';
 import { revalidatePath } from 'next/cache';
 import { codeSubmissionSchema, CodeSubmissionType } from '@/lib/zodSchemas';
-
+import { CodingSubmissionStatus } from '@/lib/generated/prisma';
+// import { statusMap } from '@/app/s/[subdomain]/dashboard/[slug]/[lessonId]/_components/CodingPlayground';
+//map judge0 status id to description to match CodingSubmissionStatus enum
+const statusMap: Record<number, CodingSubmissionStatus> = {
+  1: 'InQueue',
+  2: 'Processing',
+  3: 'Accepted',
+  4: 'WrongAnswer',
+  5: 'TimeLimitExceeded',
+  6: 'CompilationError',
+  7: 'RuntimeError',
+  8: 'RuntimeError',
+  9: 'RuntimeError',
+  10: 'RuntimeError',
+  11: 'RuntimeError',
+  12: 'RuntimeError',
+  13: 'InternalError',
+  14: 'ExecFormatError',
+};
 export async function markLessonComplete(
   lessonId: string,
   slug: string,
@@ -85,7 +103,7 @@ export async function markLessonIncomplete(
 export async function submitCode(
   submissionData: CodeSubmissionType,
   slug: string,
-  executionStatus: string,
+  executionStatus: number,
 ): Promise<ApiResponse> {
   try {
     const result = codeSubmissionSchema.safeParse(submissionData);
@@ -107,6 +125,12 @@ export async function submitCode(
       },
     });
 
+    console.log(
+      'status id:',
+      executionStatus,
+      'status description:',
+      statusMap[executionStatus],
+    );
     // Create submission
     await prisma.codingSubmission.create({
       data: {
@@ -121,13 +145,14 @@ export async function submitCode(
         cssCode: result.data.cssCode ?? '',
         jsCode: result.data.jsCode ?? '',
         attemptNumber: previousAttempts + 1,
-        status: executionStatus,
+        status: statusMap[executionStatus],
         output: null,
         score: 0,
-        passed: executionStatus === 'Accepted',
+        passed: executionStatus === 3,
       },
     });
 
+    revalidatePath(`/dashboard/${slug}`);
     revalidatePath(`/dashboard/${slug}/${result.data.lessonId}`);
 
     return {

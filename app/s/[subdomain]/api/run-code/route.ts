@@ -56,6 +56,7 @@ export async function POST(req: Request) {
     };
 
     const response = await axios.request(options);
+    console.log('judge0 response:', response.data);
 
     // Decode base64 outputs
     const base64Decode = (str: string) =>
@@ -67,7 +68,7 @@ export async function POST(req: Request) {
         : response.data.stderr
           ? base64Decode(response.data.stderr)
           : base64Decode(response.data.compile_output),
-      status: response.data.status?.description || 'Unknown',
+      status: response.data.status?.id || 0, //return status id or 0: InQueue
       time: response.data.time,
       memory: response.data.memory,
     });

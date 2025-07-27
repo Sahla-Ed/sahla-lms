@@ -23,6 +23,25 @@ import {
   getUserSubmissions,
   getLatestUserSubmission,
 } from '@/app/s/[subdomain]/dashboard/[slug]/[lessonId]/actions';
+import { CodingSubmissionStatus } from '@/lib/generated/prisma';
+
+//map judge0 status id to description to match CodingSubmissionStatus enum
+export const statusMap: Record<number, CodingSubmissionStatus> = {
+  1: 'InQueue',
+  2: 'Processing',
+  3: 'Accepted',
+  4: 'WrongAnswer',
+  5: 'TimeLimitExceeded',
+  6: 'CompilationError',
+  7: 'RuntimeError',
+  8: 'RuntimeError',
+  9: 'RuntimeError',
+  10: 'RuntimeError',
+  11: 'RuntimeError',
+  12: 'RuntimeError',
+  13: 'InternalError',
+  14: 'ExecFormatError',
+};
 
 type CodingSubmission = {
   id: string;
@@ -35,7 +54,7 @@ type CodingSubmission = {
   language: string;
   submissionType: string;
   output: string | null;
-  status: string;
+  status: CodingSubmissionStatus;
   score: number | null;
   passed: boolean | null;
   attemptNumber: number;
@@ -232,9 +251,10 @@ export function CodingPlayground({
   userId: string;
 }) {
   //code submission
-  const [executionStatus, setExecutionStatus] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissions, setSubmissions] = useState<CodingSubmission[]>([]);
+
+  const [executionStatus, setExecutionStatus] = useState<number>(0);
 
   // Initialize coding exercise data
   const codingExercise = data.codingExercise?.[0];
@@ -317,13 +337,20 @@ export function CodingPlayground({
         ...prev,
         [tab]: value || '',
       }));
+      // Reset execution status when code changes
+      setExecutionStatus(0);
     },
-    [],
+    [setExecutionStatus],
   );
 
-  const handleServerCodeChange = useCallback((value: string | undefined) => {
-    setServerCode(value || '');
-  }, []);
+  const handleServerCodeChange = useCallback(
+    (value: string | undefined) => {
+      setServerCode(value || '');
+      // Reset execution status when code changes
+      setExecutionStatus(0);
+    },
+    [setExecutionStatus],
+  );
 
   const resetToStarterCode = useCallback(() => {
     const currentStarterCode = starterCodeRef.current;
@@ -336,8 +363,9 @@ export function CodingPlayground({
     setLastSubmissionDate(null);
     setOutput('');
     setShowResetDialog(false);
+    setExecutionStatus(0);
     toast.success('Reset to starter code');
-  }, [exerciseLanguage]);
+  }, [exerciseLanguage, setExecutionStatus]);
 
   const loadSubmission = useCallback(
     (submission: CodingSubmission) => {
@@ -431,9 +459,10 @@ export function CodingPlayground({
       if (result.error) {
         setOutput(`Error: ${result.error}\n${result.details || ''}`);
         toast.error('Code execution failed');
+        return result.status;
       } else {
         setOutput(result.output || 'No output');
-        toast.error(`Code execution status: ${result.status}`);
+        toast.error(`Code execution status: ${statusMap[result.status]}`);
         return result.status;
       }
     } catch (error) {
@@ -450,10 +479,10 @@ export function CodingPlayground({
       if (mode === 'web') {
         runWebCode();
         //todo: handle web code execution status correctly
-        setExecutionStatus('Accepted');
+        setExecutionStatus(3);
       } else {
         const status = await runServerCode();
-        setExecutionStatus(status || 'Unknown');
+        setExecutionStatus(status || 0);
       }
     } finally {
       setIsRunning(false);
@@ -483,6 +512,7 @@ export function CodingPlayground({
         }),
       };
       const slug = data.Chapter?.Course?.slug;
+      console.log('ExecutionStatus:', executionStatus);
       const result = await submitCode(submissionData, slug, executionStatus);
 
       if (result.status === 'success') {
@@ -514,7 +544,13 @@ export function CodingPlayground({
     serverLanguage,
     webCode,
     serverCode,
+    executionStatus,
   ]);
+
+  // Reset execution status when mode changes
+  useEffect(() => {
+    setExecutionStatus(0);
+  }, [mode]);
 
   // Initialize component - load submissions and latest submission only once
   useEffect(() => {
@@ -920,9 +956,9 @@ export function CodingPlayground({
                       </span>
                       <span
                         className={`rounded px-1 py-0.5 text-xs ${
-                          submission.status === 'Success'
+                          submission.status === 'Accepted'
                             ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                            : submission.status === 'Error'
+                            : submission.status === 'WrongAnswer'
                               ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
                               : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
                         }`}
