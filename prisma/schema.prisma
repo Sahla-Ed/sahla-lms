@@ -37,8 +37,7 @@ model User {
   tenantId             String?
   SessionTransferToken SessionTransferToken[]
   CodingSubmission     CodingSubmission[]
-  comments Comment[]
-
+  comments             Comment[]
 
   stripeCustomerId String? @unique
 
@@ -53,15 +52,15 @@ model User {
 }
 
 model tenants {
-  tenantId String  @id
-  name     String
-  slug     String  @unique
-  logo     String
-  logoDark String?
-  userId   String
-  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  theme    String?
-  data     Json
+  tenantId        String  @id
+  name            String
+  slug            String  @unique
+  logo            String
+  logoDark        String?
+  userId          String
+  user            User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  theme           String?
+  data            Json
   landingPageData Json?
 }
 
@@ -196,13 +195,11 @@ model Lesson {
 
   comments Comment[]
 
-
   // codingExercise CodingExercise?  // One-to-zero relation (a lesson may have a coding exercise)
   // codingSubmission CodingSubmission? // One-to-one relation (a lesson may have a coding submission)
 
   CodingSubmission CodingSubmission[]
   codingExercise   CodingExercise[]
-
 }
 
 model Enrollment {
@@ -337,11 +334,11 @@ model Comment {
   lessonId String
   lesson   Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
 
-  parentId  String?
-  parent    Comment? @relation("Replies", fields: [parentId], references: [id], onDelete:Cascade)
-  replies   Comment[] @relation("Replies")
+  parentId String?
+  parent   Comment?  @relation("Replies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies  Comment[] @relation("Replies")
 
-  tenantId  String?
+  tenantId String?
 }
 
 model CodingExercise {
@@ -405,4 +402,20 @@ enum CodingSubmissionStatus {
   Error
   Timeout
   Failed
+}
+
+model Subscription {
+  id                   String    @id
+  plan                 String
+  referenceId          String
+  stripeCustomerId     String?
+  stripeSubscriptionId String?
+  status               String?
+  periodStart          DateTime?
+  periodEnd            DateTime?
+  cancelAtPeriodEnd    Boolean?
+  seats                Int?
+  tenantId             String?
+
+  @@map("subscription")
 }
