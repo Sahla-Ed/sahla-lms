@@ -5,6 +5,8 @@ import { env } from './env';
 import { emailOTP } from 'better-auth/plugins';
 import { resend } from './resend';
 import { admin } from 'better-auth/plugins';
+import { stripe } from '@better-auth/stripe';
+import { stripe as stripeClient } from '@/lib/stripe';
 
 export const auth = (tenantId: string) =>
   betterAuth({
@@ -67,5 +69,26 @@ export const auth = (tenantId: string) =>
         },
       }),
       admin(),
+      // stripe({
+      //   stripeClient,
+      //   stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET,
+      //   createCustomerOnSignUp: true,
+      //   subscription: {
+      //     enabled: true,
+      //     plans: [
+      //       {
+      //         name: 'Pro',
+      //         priceId: 'price_your_monthly_pro_plan',
+      //         annualDiscountPriceId: 'price_your_annual_pro_plan',
+      //         freeTrial: {
+      //           days: 14,
+      //         },
+      //       },
+      //     ],
+      //     authorizeReference: async ({ user, referenceId }) => {
+      //       return user.id === referenceId;
+      //     },
+      //   },
+      // }),
     ],
   });
