@@ -26,8 +26,9 @@ export default function ContactUsPage() {
               Get in Touch
             </h1>
             <p className='text-muted-foreground mx-auto max-w-2xl text-xl leading-relaxed'>
-              Ready to elevate your learning platform? We&apos;d love to hear from you. Fill out the form below and
-              we&apos;ll get back to you soon.
+              Ready to elevate your learning platform? We&apos;d love to hear
+              from you. Fill out the form below and we&apos;ll get back to you
+              soon.
             </p>
           </div>
         </div>
@@ -47,7 +48,9 @@ export default function ContactUsPage() {
                 <p className='text-muted-foreground text-sm'>
                   Get in touch via email and we&apos;ll respond within 24 hours
                 </p>
-                <p className='text-primary text-sm font-medium'>info@sahla.com</p>
+                <p className='text-primary text-sm font-medium'>
+                  info@sahla.com
+                </p>
               </CardContent>
             </Card>
 
@@ -58,7 +61,9 @@ export default function ContactUsPage() {
                 <p className='text-muted-foreground text-sm'>
                   Speak directly with our team for immediate assistance
                 </p>
-                <p className='text-primary text-sm font-medium'>+1 (555) 123-4567</p>
+                <p className='text-primary text-sm font-medium'>
+                  +1 (555) 123-4567
+                </p>
               </CardContent>
             </Card>
 
@@ -69,12 +74,14 @@ export default function ContactUsPage() {
                 <p className='text-muted-foreground text-sm'>
                   Start a conversation with our support team right away
                 </p>
-                <p className='text-primary text-sm font-medium'>Available 9 AM - 5 PM EST</p>
+                <p className='text-primary text-sm font-medium'>
+                  Available 9 AM - 5 PM EST
+                </p>
               </CardContent>
             </Card>
           </div>
 
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-8 mt-8'>
+          <div className='mt-8 grid grid-cols-1 gap-8 md:grid-cols-2'>
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
               <CardContent className='pt-6'>
                 <MapPin className='text-primary mx-auto mb-4 h-8 w-8' />

@@ -111,7 +111,7 @@ export default function Home() {
         <div className='container mx-auto'>
           <h2 className='mb-12 text-center text-4xl font-bold'>Key Features</h2>
           <div className='grid grid-cols-1 gap-8 md:grid-cols-3'>
-            <Card className='group relative overflow-hidden border-0 bg-white/50 shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10 text-center'>
+            <Card className='group relative overflow-hidden border-0 bg-white/50 text-center shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10'>
               <CardHeader>
                 <Rocket className='text-primary mx-auto mb-4 h-12 w-12' />
                 <CardTitle>Multi-Tenancy</CardTitle>
@@ -121,7 +121,7 @@ export default function Home() {
                 subdomains, all from one powerful system.
               </CardContent>
             </Card>
-            <Card className='group relative overflow-hidden border-0 bg-white/50 shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10 text-center'>
+            <Card className='group relative overflow-hidden border-0 bg-white/50 text-center shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10'>
               <CardHeader>
                 <Users className='text-primary mx-auto mb-4 h-12 w-12' />
                 <CardTitle>Comprehensive Course Management</CardTitle>
@@ -131,7 +131,7 @@ export default function Home() {
                 playgrounds.
               </CardContent>
             </Card>
-            <Card className='group relative overflow-hidden border-0 bg-white/50 shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10 text-center'>
+            <Card className='group relative overflow-hidden border-0 bg-white/50 text-center shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10'>
               <CardHeader>
                 <DollarSign className='text-primary mx-auto mb-4 h-12 w-12' />
                 <CardTitle>Integrated Payments</CardTitle>
@@ -150,7 +150,7 @@ export default function Home() {
         <div className='container mx-auto'>
           <h2 className='mb-12 text-center text-4xl font-bold'>How It Works</h2>
           <div className='grid grid-cols-1 gap-8 md:grid-cols-3'>
-            <Card className='group relative overflow-hidden border-0 bg-white/50 shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10 text-center'>
+            <Card className='group relative overflow-hidden border-0 bg-white/50 text-center shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10'>
               <CardHeader>
                 <Workflow className='text-primary mx-auto mb-4 h-12 w-12' />
                 <CardTitle>1. Set Up Your Platform</CardTitle>
@@ -160,7 +160,7 @@ export default function Home() {
                 intuitive setup process.
               </CardContent>
             </Card>
-            <Card className='group relative overflow-hidden border-0 bg-white/50 shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10 text-center'>
+            <Card className='group relative overflow-hidden border-0 bg-white/50 text-center shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10'>
               <CardHeader>
                 <Zap className='text-primary mx-auto mb-4 h-12 w-12' />
                 <CardTitle>2. Create & Manage Courses</CardTitle>
@@ -170,7 +170,7 @@ export default function Home() {
                 content creation tools.
               </CardContent>
             </Card>
-            <Card className='group relative overflow-hidden border-0 bg-white/50 shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10 text-center'>
+            <Card className='group relative overflow-hidden border-0 bg-white/50 text-center shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10'>
               <CardHeader>
                 <TrendingUp className='text-primary mx-auto mb-4 h-12 w-12' />
                 <CardTitle>3. Grow Your Audience</CardTitle>
@@ -191,7 +191,7 @@ export default function Home() {
             Why Choose Sahla?
           </h2>
           <div className='grid grid-cols-1 gap-8 md:grid-cols-3'>
-            <Card className='group relative overflow-hidden border-0 bg-white/50 shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10 text-center'>
+            <Card className='group relative overflow-hidden border-0 bg-white/50 text-center shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10'>
               <CardHeader>
                 <Award className='text-primary mx-auto mb-4 h-12 w-12' />
                 <CardTitle>Award-Winning Support</CardTitle>
@@ -200,7 +200,7 @@ export default function Home() {
                 Our dedicated support team is always ready to help you succeed.
               </CardContent>
             </Card>
-            <Card className='group relative overflow-hidden border-0 bg-white/50 shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10 text-center'>
+            <Card className='group relative overflow-hidden border-0 bg-white/50 text-center shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10'>
               <CardHeader>
                 <Lightbulb className='text-primary mx-auto mb-4 h-12 w-12' />
                 <CardTitle>Innovative Features</CardTitle>
@@ -209,7 +209,7 @@ export default function Home() {
                 Stay ahead with AI-powered tools, interactive coding, and more.
               </CardContent>
             </Card>
-            <Card className='group relative overflow-hidden border-0 bg-white/50 shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10 text-center'>
+            <Card className='group relative overflow-hidden border-0 bg-white/50 text-center shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10'>
               <CardHeader>
                 <MessageSquare className='text-primary mx-auto mb-4 h-12 w-12' />
                 <CardTitle>Community Driven</CardTitle>
@@ -232,8 +232,8 @@ export default function Home() {
             <Card className='group relative overflow-hidden border-0 bg-white/50 shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10'>
               <CardContent className='pt-6'>
                 <p className='text-muted-foreground mb-4 text-lg italic'>
-                  "Sahla transformed our online course delivery. The
-                  multi-tenancy feature is a game-changer!"
+                  &quot;Sahla transformed our online course delivery. The
+                  multi-tenancy feature is a game-changer!&quot;
                 </p>
                 <p className='font-semibold'>- Jane Doe, CEO of EduCorp</p>
               </CardContent>
@@ -241,8 +241,8 @@ export default function Home() {
             <Card className='group relative overflow-hidden border-0 bg-white/50 shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10'>
               <CardContent className='pt-6'>
                 <p className='text-muted-foreground mb-4 text-lg italic'>
-                  "The ease of use and powerful features of Sahla allowed us to
-                  launch our academy in record time."
+                  &quot;The ease of use and powerful features of Sahla allowed
+                  us to launch our academy in record time.&quot;
                 </p>
                 <p className='font-semibold'>
                   - John Smith, Founder of Tech Academy

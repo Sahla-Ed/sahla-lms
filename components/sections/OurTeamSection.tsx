@@ -18,12 +18,14 @@ interface OurTeamSectionProps {
   teamMembers: TeamMember[];
 }
 
-export const OurTeamSection: React.FC<OurTeamSectionProps> = ({ teamMembers }) => {
+export const OurTeamSection: React.FC<OurTeamSectionProps> = ({
+  teamMembers,
+}) => {
   return (
-    <section className='py-20 px-4 bg-muted/30'>
+    <section className='bg-muted/30 px-4 py-20'>
       <div className='container mx-auto max-w-7xl'>
-        <h2 className='text-4xl font-bold text-center mb-12'>Meet Our Team</h2>
-        <p className='text-muted-foreground mx-auto max-w-2xl text-xl text-center mb-16'>
+        <h2 className='mb-12 text-center text-4xl font-bold'>Meet Our Team</h2>
+        <p className='text-muted-foreground mx-auto mb-16 max-w-2xl text-center text-xl'>
           The passionate individuals behind Sahla&apos;s success
         </p>
 
@@ -45,7 +47,7 @@ export const OurTeamSection: React.FC<OurTeamSectionProps> = ({ teamMembers }) =
                 </Avatar>
                 <h3 className='mb-1 font-semibold'>{member.name}</h3>
                 <p className='text-muted-foreground text-sm'>{member.role}</p>
-                <p className='text-muted-foreground mb-4 text-xs mt-2 leading-relaxed'>
+                <p className='text-muted-foreground mt-2 mb-4 text-xs leading-relaxed'>
                   {member.bio}
                 </p>
                 <div className='flex justify-center space-x-3'>
@@ -74,7 +76,7 @@ export const OurTeamSection: React.FC<OurTeamSectionProps> = ({ teamMembers }) =
             </Card>
           ))}
         </div>
-      </div >
-    </section >
+      </div>
+    </section>
   );
 };

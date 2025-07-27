@@ -6,11 +6,9 @@ import {
   Globe,
   History,
   Handshake,
-  Star,
   Award,
 } from 'lucide-react';
 import { Metadata } from 'next';
-import Image from 'next/image';
 import { OurTeamSection } from '@/components/sections/OurTeamSection';
 
 export const metadata: Metadata = {
@@ -135,12 +133,12 @@ export default function AboutUsPage() {
               Founded in 2023, Sahla began with a simple idea: to make online
               education accessible and powerful for everyone. We started as a
               small team with a big vision, and through dedication and
-              innovation, we've grown into a leading multi-tenant LMS provider.
-              Over the years, we've continuously evolved our platform, adding
-              features like integrated payments, AI-powered tools, and robust
-              analytics, all while maintaining our commitment to
-              user-friendliness and scalability. Our journey is a testament to
-              our belief in the transformative power of education.
+              innovation, we&apos;ve grown into a leading multi-tenant LMS
+              provider. Over the years, we&apos;ve continuously evolved our
+              platform, adding features like integrated payments, AI-powered
+              tools, and robust analytics, all while maintaining our commitment
+              to user-friendliness and scalability. Our journey is a testament
+              to our belief in the transformative power of education.
             </p>
           </div>
         </div>

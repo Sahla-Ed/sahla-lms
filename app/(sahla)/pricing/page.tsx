@@ -20,7 +20,6 @@ import {
   Globe,
   BarChart,
   Mail,
-  DollarSign,
   Code,
   ShieldCheck,
 } from 'lucide-react';
