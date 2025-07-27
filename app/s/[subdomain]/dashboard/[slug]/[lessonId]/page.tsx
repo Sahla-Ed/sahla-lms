@@ -7,7 +7,6 @@ import { LessonSkeleton } from './_components/LessonSkeleton';
 import { getComments } from './comment-actions';
 import { requireUser } from '@/app/s/[subdomain]/data/user/require-user';
 
-
 type Params = Promise<{ lessonId: string }>;
 
 export default async function LessonContentPage({
@@ -25,7 +24,6 @@ export default async function LessonContentPage({
 }
 
 async function LessonContentLoader({ lessonId }: { lessonId: string }) {
-
   const [data, comments] = await Promise.all([
     getLessonContent(lessonId),
     getComments(lessonId),
@@ -34,16 +32,12 @@ async function LessonContentLoader({ lessonId }: { lessonId: string }) {
   const session = await requireUser();
   const userId = session?.id || '';
 
-
   if (data.type === 'QUIZ') {
     return <QuizPlayer data={data} />;
   }
-
-
 
   if (data.type === 'CODING') {
     return <CodingPlayground data={data} userId={userId} />;
   }
   return <CourseContent data={data} comments={comments} />;
-
 }
