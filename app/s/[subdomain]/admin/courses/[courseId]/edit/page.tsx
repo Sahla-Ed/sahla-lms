@@ -11,17 +11,47 @@ import { TestBank } from './_components/TestBank';
 import { EditCourseForm } from './_components/EditCourseForm';
 import { CourseStructure } from './_components/CourseStructure';
 
-type Params = Promise<{ courseId: string }>;
+import { checkPlanStatus } from '@/lib/subscription';
+import { buttonVariants } from '@/components/ui/button';
+import Link from 'next/link';
+import { Eye } from 'lucide-react';
 
-export default async function EditRoute({ params }: { params: Params }) {
+
+interface EditRouteProps {
+  params: Promise<{ courseId: string }>;
+}
+
+export default async function EditRoute({ params }: EditRouteProps) {
   const { courseId } = await params;
-  const data = await adminGetCourse(courseId);
+
+
+  const [data, planStatus] = await Promise.all([
+    adminGetCourse(courseId),
+    checkPlanStatus(),
+  ]);
+
+
+  const firstLesson = data.chapter[0]?.lessons[0];
+  const previewUrl = firstLesson
+    ? `/admin/lessons/${firstLesson.id}`
+    : `/courses/${data.slug}`;
+
+
   return (
     <div>
-      <h1 className='mb-8 text-3xl font-bold'>
-        Edit Course:{' '}
-        <span className='text-primary underline'>{data.title}</span>
-      </h1>
+      <div className='mb-8 flex items-center justify-between'>
+        <h1 className='text-3xl font-bold'>
+          Edit Course:{' '}
+          <span className='text-primary underline'>{data.title}</span>
+        </h1>
+        <Link
+          href={previewUrl}
+          className={buttonVariants({ variant: 'outline' })}
+        >
+          <Eye className='mr-2 size-4' />
+          Preview & Moderate
+        </Link>
+      </div>
 
       <Tabs defaultValue='basic-info' className='w-full'>
         <TabsList className='grid w-full grid-cols-3'>
@@ -29,6 +59,7 @@ export default async function EditRoute({ params }: { params: Params }) {
           <TabsTrigger value='course-structure'>Course Structure</TabsTrigger>
           <TabsTrigger value='test-bank'>Test Bank</TabsTrigger>
         </TabsList>
+
         <TabsContent value='basic-info'>
           <Card>
             <CardHeader>
@@ -42,6 +73,7 @@ export default async function EditRoute({ params }: { params: Params }) {
             </CardContent>
           </Card>
         </TabsContent>
+
         <TabsContent value='course-structure'>
           <Card>
             <CardHeader>
@@ -55,6 +87,7 @@ export default async function EditRoute({ params }: { params: Params }) {
             </CardContent>
           </Card>
         </TabsContent>
+
         <TabsContent value='test-bank'>
           <Card>
             <CardHeader>
@@ -64,7 +97,7 @@ export default async function EditRoute({ params }: { params: Params }) {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <TestBank courseId={courseId} />
+              <TestBank courseId={courseId} planName={planStatus.planName} />
             </CardContent>
           </Card>
         </TabsContent>

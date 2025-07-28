@@ -4,8 +4,16 @@ import { AppSidebar } from '@/components/sidebar/app-sidebar';
 import { SiteHeader } from '@/components/sidebar/site-header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { ReactNode } from 'react';
+import { checkPlanStatus } from '@/lib/subscription'; // <-- Import status checker
 
-export default function AdminLayout({ children }: { children: ReactNode }) {
+export default async function AdminLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  // Fetch the plan status on the server
+  const plan = await checkPlanStatus();
+
   return (
     <SidebarProvider
       style={
@@ -15,7 +23,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         } as React.CSSProperties
       }
     >
-      <AppSidebar variant='inset' />
+
+      <AppSidebar variant='inset' planName={plan.planName} />
+
       <SidebarInset>
         <SiteHeader title='Sahla Admin' />
         <div className='flex flex-1 flex-col'>

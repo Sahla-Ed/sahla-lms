@@ -14,6 +14,7 @@ export const auth = (tenantId: string) =>
       provider: 'postgresql',
       tenantId: tenantId,
     }),
+
     trustedOrigins: [
       `https://${env.VERCEL_BRANCH_URL}`,
       `*.localhost:3000`,
@@ -67,5 +68,26 @@ export const auth = (tenantId: string) =>
         },
       }),
       admin(),
+      // stripe({
+      //   stripeClient,
+      //   stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET,
+      //   createCustomerOnSignUp: true,
+      //   subscription: {
+      //     enabled: true,
+      //     plans: [
+      //       {
+      //         name: 'Pro',
+      //         priceId: 'price_1RpUQdIzJqhYU7tdcIy09aEg',
+      //         annualDiscountPriceId: 'price_1RpXC0IzJqhYU7tdP4PCP7zd',
+      //         freeTrial: {
+      //           days: 14,
+      //         },
+      //       },
+      //     ],
+      //     authorizeReference: async ({ user, referenceId }) => {
+      //       return user.id === referenceId;
+      //     },
+      //   },
+      // }),
     ],
   });

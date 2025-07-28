@@ -5,9 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  better-auth@1.2.12:
-    hash: b0260a5113c2625b68d95b974a8368f5c0e2cf17fd4cb5c27e3c1d992d577b3c
-    path: patches/better-auth@1.2.12.patch
+  better-auth@1.3.4:
+    hash: 021d4ff21fb455cbd580294db6f5f8db0821b8f0b9e5802c59052c83d9e4693c
+    path: patches/better-auth@1.3.4.patch
 
 importers:
   .:
@@ -18,9 +18,12 @@ importers:
       '@aws-sdk/s3-request-presigner':
         specifier: ^3.846.0
         version: 3.846.0
+      '@better-auth/stripe':
+        specifier: ^1.3.4
+        version: 1.3.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@daveyplate/better-auth-ui':
         specifier: ^2.0.14
-        version: 2.0.14(5083304f93e76bdcf9fa31100668ecd9)
+        version: 2.0.14(6d8cd7108edb379e66e9a84f5f739030)
       '@dnd-kit/core':
         specifier: ^6.3.1
         version: 6.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -154,8 +157,8 @@ importers:
         specifier: ^1.10.0
         version: 1.10.0
       better-auth:
-        specifier: ^1.2.12
-        version: 1.2.12(patch_hash=b0260a5113c2625b68d95b974a8368f5c0e2cf17fd4cb5c27e3c1d992d577b3c)
+        specifier: ^1.3.4
+        version: 1.3.4(patch_hash=021d4ff21fb455cbd580294db6f5f8db0821b8f0b9e5802c59052c83d9e4693c)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       canvas-confetti:
         specifier: ^1.9.3
         version: 1.9.3
@@ -192,6 +195,12 @@ importers:
       next-themes:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      ogl:
+        specifier: ^1.0.11
+        version: 1.0.11
+      papaparse:
+        specifier: ^5.5.3
+        version: 5.5.3
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -256,6 +265,9 @@ importers:
       '@types/node':
         specifier: ^20
         version: 20.19.7
+      '@types/papaparse':
+        specifier: ^5.3.16
+        version: 5.3.16
       '@types/react':
         specifier: ^19
         version: 19.1.8
@@ -593,6 +605,12 @@ packages:
         integrity: sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==,
       }
     engines: { node: '>=6.9.0' }
+
+  '@better-auth/stripe@1.3.4':
+    resolution:
+      {
+        integrity: sha512-sFHEOvLDwKe0ZYxqNTlfoshekiXkomnAcOEH7ARq0r7XImpPjpUR+GHc9+0CGTXTCn3LYljmBt0paTX1rhRNjw==,
+      }
 
   '@better-auth/utils@0.2.5':
     resolution:
@@ -1172,6 +1190,7 @@ packages:
       }
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
+
   '@monaco-editor/loader@1.5.0':
     resolution:
       {
@@ -3521,6 +3540,12 @@ packages:
         integrity: sha512-bJFoMATwIGaxxx8VJPeM8TonI8t579oRvgAuT8zFugJsJZgzqv0Fu8Mhp68iecjzG7cnN3mO2dJQ5uUM2EFrgQ==,
       }
 
+  '@types/papaparse@5.3.16':
+    resolution:
+      {
+        integrity: sha512-T3VuKMC2H0lgsjI9buTB3uuKj3EMD2eap1MOuEQuBQ44EnDx/IkGhU6EwiTf9zG3za4SKlmwKAImdDKdNnCsXg==,
+      }
+
   '@types/pg@8.15.4':
     resolution:
       {
@@ -4024,11 +4049,19 @@ packages:
         integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==,
       }
 
-  better-auth@1.2.12:
+  better-auth@1.3.4:
     resolution:
       {
-        integrity: sha512-YicCyjQ+lxb7YnnaCewrVOjj3nPVa0xcfrOJK7k5MLMX9Mt9UnJ8GYaVQNHOHLyVxl92qc3C758X1ihqAUzm4w==,
+        integrity: sha512-JbZYam6Cs3Eu5CSoMK120zSshfaKvrCftSo/+v7524H1RvhryQ7UtMbzagBcXj0Digjj8hZtVkkR4tTZD/wK2g==,
       }
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
 
   better-call@1.0.12:
     resolution:
@@ -5558,10 +5591,10 @@ packages:
       }
     hasBin: true
 
-  jose@6.0.11:
+  jose@5.10.0:
     resolution:
       {
-        integrity: sha512-QxG7EaliDARm1O1S8BGakqncGT9s25bKL1WSf6/oa17Tkqwi8D2ZNglqCF+DsYF88/rV66Q/Q2mFAy697E1DUg==,
+        integrity: sha512-s+3Al/p9g32Iq+oqXxkW//7jk2Vig6FF1CFqzVXoTUXt2qz89YWbL+OwS17NFYEvxC35n0FKeGO2LGYSxeM2Gg==,
       }
 
   js-sha256@0.11.1:
@@ -6133,6 +6166,12 @@ packages:
       }
     engines: { node: '>= 0.4' }
 
+  ogl@1.0.11:
+    resolution:
+      {
+        integrity: sha512-kUpC154AFfxi16pmZUK4jk3J+8zxwTWGPo03EoYA8QPbzikHoaC82n6pNTbd+oEaJonaE8aPWBlX7ad9zrqLsA==,
+      }
+
   onetime@7.0.0:
     resolution:
       {
@@ -6184,6 +6223,12 @@ packages:
     resolution:
       {
         integrity: sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==,
+      }
+
+  papaparse@5.5.3:
+    resolution:
+      {
+        integrity: sha512-5QvjGxYVjxO59MGU2lHVYpRWBBtKHnlIAcSe1uNFCkkptUh63NFRj0FJQm7nR67puEruUci/ZkjmEFrjCAyP4A==,
       }
 
   parent-module@1.0.1:
@@ -7678,12 +7723,6 @@ packages:
         integrity: sha512-0LPOt3AxKqMdFBZA3HBAt/t/8vIKq7VaQYbuA8WxCgung+p9TVyKRYdpvCb80HcdTN2NkbIKbhNwKUfm3tQywQ==,
       }
 
-  zod@3.25.76:
-    resolution:
-      {
-        integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==,
-      }
-
   zod@4.0.5:
     resolution:
       {
@@ -8205,6 +8244,14 @@ snapshots:
 
   '@babel/runtime@7.27.6': {}
 
+  '@better-auth/stripe@1.3.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      better-auth: 1.3.4(patch_hash=021d4ff21fb455cbd580294db6f5f8db0821b8f0b9e5802c59052c83d9e4693c)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      zod: 4.0.5
+    transitivePeerDependencies:
+      - react
+      - react-dom
+
   '@better-auth/utils@0.2.5':
     dependencies:
       typescript: 5.8.3
@@ -8214,18 +8261,18 @@ snapshots:
 
   '@date-fns/tz@1.2.0': {}
 
-  '@daveyplate/better-auth-tanstack@1.3.6(@tanstack/query-core@5.83.0)(@tanstack/react-query@5.83.0(react@19.1.0))(better-auth@1.2.12(patch_hash=b0260a5113c2625b68d95b974a8368f5c0e2cf17fd4cb5c27e3c1d992d577b3c))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@daveyplate/better-auth-tanstack@1.3.6(@tanstack/query-core@5.83.0)(@tanstack/react-query@5.83.0(react@19.1.0))(better-auth@1.3.4(patch_hash=021d4ff21fb455cbd580294db6f5f8db0821b8f0b9e5802c59052c83d9e4693c)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@tanstack/query-core': 5.83.0
       '@tanstack/react-query': 5.83.0(react@19.1.0)
-      better-auth: 1.2.12(patch_hash=b0260a5113c2625b68d95b974a8368f5c0e2cf17fd4cb5c27e3c1d992d577b3c)
+      better-auth: 1.3.4(patch_hash=021d4ff21fb455cbd580294db6f5f8db0821b8f0b9e5802c59052c83d9e4693c)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@daveyplate/better-auth-ui@2.0.14(5083304f93e76bdcf9fa31100668ecd9)':
+  '@daveyplate/better-auth-ui@2.0.14(6d8cd7108edb379e66e9a84f5f739030)':
     dependencies:
       '@better-fetch/fetch': 1.1.18
-      '@daveyplate/better-auth-tanstack': 1.3.6(@tanstack/query-core@5.83.0)(@tanstack/react-query@5.83.0(react@19.1.0))(better-auth@1.2.12(patch_hash=b0260a5113c2625b68d95b974a8368f5c0e2cf17fd4cb5c27e3c1d992d577b3c))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@daveyplate/better-auth-tanstack': 1.3.6(@tanstack/query-core@5.83.0)(@tanstack/react-query@5.83.0(react@19.1.0))(better-auth@1.3.4(patch_hash=021d4ff21fb455cbd580294db6f5f8db0821b8f0b9e5802c59052c83d9e4693c)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hcaptcha/react-hcaptcha': 1.12.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hookform/resolvers': 5.1.1(react-hook-form@7.60.0(react@19.1.0))
       '@instantdb/react': 0.20.9(react@19.1.0)
@@ -8248,7 +8295,7 @@ snapshots:
       '@triplit/client': 1.0.47(typescript@5.8.3)
       '@triplit/react': 1.0.47(react@19.1.0)(typescript@5.8.3)
       '@wojtekmaj/react-recaptcha-v3': 0.1.4(@types/react@19.1.8)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      better-auth: 1.2.12(patch_hash=b0260a5113c2625b68d95b974a8368f5c0e2cf17fd4cb5c27e3c1d992d577b3c)
+      better-auth: 1.3.4(patch_hash=021d4ff21fb455cbd580294db6f5f8db0821b8f0b9e5802c59052c83d9e4693c)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       class-variance-authority: 0.7.1
       clsx: 2.1.1
       input-otp: 1.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -8584,6 +8631,7 @@ snapshots:
       - immer
       - react-dom
       - use-sync-external-store
+
   '@monaco-editor/loader@1.5.0':
     dependencies:
       state-local: 1.0.7
@@ -10334,7 +10382,7 @@ snapshots:
 
   '@types/node-fetch@2.6.12':
     dependencies:
-      '@types/node': 20.19.7
+      '@types/node': 20.19.9
       form-data: 4.0.3
 
   '@types/node@20.19.7':
@@ -10348,6 +10396,10 @@ snapshots:
   '@types/node@22.16.5':
     dependencies:
       undici-types: 6.21.0
+
+  '@types/papaparse@5.3.16':
+    dependencies:
+      '@types/node': 20.19.9
 
   '@types/pg@8.15.4':
     dependencies:
@@ -10666,7 +10718,7 @@ snapshots:
 
   base64-js@1.5.1: {}
 
-  better-auth@1.2.12(patch_hash=b0260a5113c2625b68d95b974a8368f5c0e2cf17fd4cb5c27e3c1d992d577b3c):
+  better-auth@1.3.4(patch_hash=021d4ff21fb455cbd580294db6f5f8db0821b8f0b9e5802c59052c83d9e4693c)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       '@better-auth/utils': 0.2.5
       '@better-fetch/fetch': 1.1.18
@@ -10676,10 +10728,13 @@ snapshots:
       '@simplewebauthn/server': 13.1.2
       better-call: 1.0.12
       defu: 6.1.4
-      jose: 6.0.11
+      jose: 5.10.0
       kysely: 0.28.2
       nanostores: 0.11.4
-      zod: 3.25.76
+      zod: 4.0.5
+    optionalDependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
   better-call@1.0.12:
     dependencies:
@@ -11702,7 +11757,7 @@ snapshots:
 
   jiti@2.4.2: {}
 
-  jose@6.0.11: {}
+  jose@5.10.0: {}
 
   js-sha256@0.11.1: {}
 
@@ -12012,6 +12067,8 @@ snapshots:
       define-properties: 1.2.1
       es-object-atoms: 1.1.1
 
+  ogl@1.0.11: {}
+
   onetime@7.0.0:
     dependencies:
       mimic-function: 5.0.1
@@ -12044,6 +12101,8 @@ snapshots:
   pako@0.2.9: {}
 
   pako@1.0.11: {}
+
+  papaparse@5.5.3: {}
 
   parent-module@1.0.1:
     dependencies:
@@ -13006,8 +13065,6 @@ snapshots:
   yocto-queue@0.1.0: {}
 
   yoga-layout@3.2.1: {}
-
-  zod@3.25.76: {}
 
   zod@4.0.5: {}
 

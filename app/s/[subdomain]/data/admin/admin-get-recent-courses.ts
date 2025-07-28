@@ -1,13 +1,14 @@
 import 'server-only';
-
 import { prisma } from '@/lib/db';
 import { requireAdmin } from './require-admin';
 
 export async function adminGetRecentCourses() {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-  await requireAdmin();
+  const { user } = await requireAdmin();
 
   const data = await prisma.course.findMany({
+    where: {
+      tenantId: user.tenantId,
+    },
     orderBy: {
       createdAt: 'desc',
     },

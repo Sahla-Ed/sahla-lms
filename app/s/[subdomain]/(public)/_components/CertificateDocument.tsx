@@ -7,6 +7,7 @@ import {
   Document,
   StyleSheet,
   Image,
+  Link as PDFLink,
 } from '@react-pdf/renderer';
 import { colors } from './design-tokens';
 
@@ -94,6 +95,16 @@ const styles = StyleSheet.create({
     fontSize: 8,
     color: colors.mutedForeground,
   },
+  verificationLink: {
+    position: 'absolute',
+    bottom: -25,
+    left: 0,
+    right: 0,
+    textAlign: 'center',
+    fontSize: 9,
+    color: 'blue',
+    textDecoration: 'underline',
+  },
 });
 
 interface CertificateDocumentProps {
@@ -134,9 +145,17 @@ export const CertificateDocument = ({
           <Text style={styles.signature}>Sahla Platform</Text>
         </View>
         {certificateId && (
-          <Text style={styles.certificateId}>
-            Certificate ID: {certificateId}
-          </Text>
+          <>
+            <Text style={styles.certificateId}>
+              Certificate ID: {certificateId}
+            </Text>
+            <PDFLink
+              style={styles.verificationLink}
+              src={`${window.location.origin}/verify/${certificateId}`}
+            >
+              Verify this certificate online
+            </PDFLink>
+          </>
         )}
       </View>
     </Page>

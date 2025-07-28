@@ -1,6 +1,10 @@
-import type { Metadata } from 'next';
+'use client';
+
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import { ThemeProvider } from '@/components/theme-provider';
+import { MainSiteHeader } from '@/components/MainSiteHeader';
+import { MainSiteFooter } from '@/components/MainSiteFooter';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -12,11 +16,6 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-export const metadata: Metadata = {
-  title: 'Sahla Learning Platform',
-  description: 'Sahla is a web-based Learning Management System',
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,7 +26,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+        >
+          <MainSiteHeader />
+          <main className='flex-1'>{children}</main>
+          <MainSiteFooter />
+        </ThemeProvider>
       </body>
     </html>
   );

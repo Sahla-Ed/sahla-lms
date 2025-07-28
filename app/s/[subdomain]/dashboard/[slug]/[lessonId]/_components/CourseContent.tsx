@@ -11,11 +11,20 @@ import { markLessonComplete, markLessonIncomplete } from '../actions';
 import { toast } from 'sonner';
 import { useConfetti } from '@/hooks/use-confetti';
 import { useRouter } from 'next/navigation';
+import { CommentWithUserAndReplies } from '../comment-actions';
+import { CommentForm } from './CommentForm';
+import { CommentList } from './CommentList';
 interface iAppProps {
   data: LessonContentType;
+  comments: CommentWithUserAndReplies[];
+  isAdminView?: boolean;
 }
 
-export function CourseContent({ data }: iAppProps) {
+export function CourseContent({
+  data,
+  comments,
+  isAdminView = false,
+}: iAppProps) {
   const [pending, startTransition] = useTransition();
   const { triggerConfetti } = useConfetti();
   const router = useRouter();
@@ -86,30 +95,31 @@ export function CourseContent({ data }: iAppProps) {
         thumbnailKey={data.thumbnailKey ?? ''}
         videoKey={data.videoKey ?? ''}
       />
-
-      <div className='border-b py-4'>
-        {data.lessonProgress.length > 0 && data.lessonProgress[0].completed ? (
-          <Button
-            variant='outline'
-            className='bg-green-500/10 text-green-500 hover:text-green-600'
-            onClick={() => onToggleCompletion(true)}
-            disabled={pending}
-          >
-            <CheckCircle className='mr-2 size-4 text-green-500' />
-            Mark as Incomplete
-          </Button>
-        ) : (
-          <Button
-            variant='outline'
-            onClick={() => onToggleCompletion(false)}
-            disabled={pending}
-          >
-            <CheckCircle className='mr-2 size-4 text-green-500' />
-            Mark as Complete
-          </Button>
-        )}
-      </div>
-
+      {!isAdminView && (
+        <div className='border-b py-4'>
+          {data.lessonProgress.length > 0 &&
+          data.lessonProgress[0].completed ? (
+            <Button
+              variant='outline'
+              className='bg-green-500/10 text-green-500 hover:text-green-600'
+              onClick={() => onToggleCompletion(true)}
+              disabled={pending}
+            >
+              <CheckCircle className='mr-2 size-4 text-green-500' />
+              Mark as Incomplete
+            </Button>
+          ) : (
+            <Button
+              variant='outline'
+              onClick={() => onToggleCompletion(false)}
+              disabled={pending}
+            >
+              <CheckCircle className='mr-2 size-4 text-green-500' />
+              Mark as Complete
+            </Button>
+          )}
+        </div>
+      )}
       <div className='space-y-3 pt-3'>
         <h1 className='text-foreground text-3xl font-bold tracking-tight'>
           {data.title}
@@ -118,6 +128,15 @@ export function CourseContent({ data }: iAppProps) {
         {data.description && (
           <RenderDescription json={JSON.parse(data.description)} />
         )}
+      </div>
+      <div className='mt-8 flex-grow overflow-y-auto border-t pt-6 pr-6 pb-6'>
+        <h2 className='mb-4 text-2xl font-bold'>
+          Comments ({comments.length})
+        </h2>
+        <div className='space-y-6'>
+          <CommentForm lessonId={data.id} />
+          <CommentList comments={comments} lessonId={data.id} />
+        </div>
       </div>
     </div>
   );

@@ -108,7 +108,6 @@ export function CourseSidebar({ course }: iAppProps) {
                     typeof lesson.attempts[0].score === 'number' &&
                     lesson.attempts[0].score < 50
                   }
-                  // @ts-expect-error amr error :that we do not know why he did ignore this error
                   isLocked={lesson.isLocked}
                 />
               ))}
