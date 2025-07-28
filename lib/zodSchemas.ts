@@ -160,7 +160,7 @@ export const codingExerciseSchema = z.object({
 export const codeSubmissionSchema = z.object({
   lessonId: z.uuid(),
   userId: z.string(),
-  tenantId: z.string().default(''),
+  tenantId: z.string().default('').optional(),
   language: z.string(),
   submissionType: z.enum(['Web', 'Programming']),
   // For programming languages
