@@ -17,9 +17,14 @@ import { CommentList } from './CommentList';
 interface iAppProps {
   data: LessonContentType;
   comments: CommentWithUserAndReplies[];
+  isAdminView?: boolean;
 }
 
-export function CourseContent({ data, comments }: iAppProps) {
+export function CourseContent({
+  data,
+  comments,
+  isAdminView = false,
+}: iAppProps) {
   const [pending, startTransition] = useTransition();
   const { triggerConfetti } = useConfetti();
   const router = useRouter();
@@ -90,30 +95,31 @@ export function CourseContent({ data, comments }: iAppProps) {
         thumbnailKey={data.thumbnailKey ?? ''}
         videoKey={data.videoKey ?? ''}
       />
-
-      <div className='border-b py-4'>
-        {data.lessonProgress.length > 0 && data.lessonProgress[0].completed ? (
-          <Button
-            variant='outline'
-            className='bg-green-500/10 text-green-500 hover:text-green-600'
-            onClick={() => onToggleCompletion(true)}
-            disabled={pending}
-          >
-            <CheckCircle className='mr-2 size-4 text-green-500' />
-            Mark as Incomplete
-          </Button>
-        ) : (
-          <Button
-            variant='outline'
-            onClick={() => onToggleCompletion(false)}
-            disabled={pending}
-          >
-            <CheckCircle className='mr-2 size-4 text-green-500' />
-            Mark as Complete
-          </Button>
-        )}
-      </div>
-
+      {!isAdminView && (
+        <div className='border-b py-4'>
+          {data.lessonProgress.length > 0 &&
+          data.lessonProgress[0].completed ? (
+            <Button
+              variant='outline'
+              className='bg-green-500/10 text-green-500 hover:text-green-600'
+              onClick={() => onToggleCompletion(true)}
+              disabled={pending}
+            >
+              <CheckCircle className='mr-2 size-4 text-green-500' />
+              Mark as Incomplete
+            </Button>
+          ) : (
+            <Button
+              variant='outline'
+              onClick={() => onToggleCompletion(false)}
+              disabled={pending}
+            >
+              <CheckCircle className='mr-2 size-4 text-green-500' />
+              Mark as Complete
+            </Button>
+          )}
+        </div>
+      )}
       <div className='space-y-3 pt-3'>
         <h1 className='text-foreground text-3xl font-bold tracking-tight'>
           {data.title}

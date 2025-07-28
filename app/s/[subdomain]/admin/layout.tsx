@@ -23,8 +23,9 @@ export default async function AdminLayout({
         } as React.CSSProperties
       }
     >
-      {/* Pass the planName down as a prop */}
+
       <AppSidebar variant='inset' planName={plan.planName} />
+
       <SidebarInset>
         <SiteHeader title='Sahla Admin' />
         <div className='flex flex-1 flex-col'>

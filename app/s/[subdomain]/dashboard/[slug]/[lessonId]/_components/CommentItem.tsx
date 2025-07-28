@@ -43,7 +43,9 @@ export function CommentItem({ comment, lessonId }: CommentItemProps) {
   const [isEditingPending, startEditTransition] = useTransition();
 
   const isInstructor = comment.user.role === 'admin';
-  const canModify =
+
+  const canEdit = session?.user.id === comment.user.id;
+  const canDelete =
     session?.user.id === comment.user.id || session?.user.role === 'admin';
 
   const handleUpdate = () => {
@@ -131,57 +133,62 @@ export function CommentItem({ comment, lessonId }: CommentItemProps) {
             </div>
           </div>
         )}
-
         <div className='flex items-center gap-2'>
-          <Button
-            variant='ghost'
-            size='sm'
-            onClick={() => setIsReplying(!isReplying)}
-          >
-            Reply
-          </Button>
-          {canModify && !isEditing && (
+          {!isEditing && (
             <>
               <Button
                 variant='ghost'
                 size='sm'
-                onClick={() => setIsEditing(true)}
+                onClick={() => setIsReplying(!isReplying)}
               >
-                <Edit className='mr-1 h-3 w-3' /> Edit
+                Reply
               </Button>
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button
-                    variant='ghost'
-                    size='sm'
-                    className='text-destructive hover:text-destructive'
-                  >
-                    <Trash2 className='mr-1 h-3 w-3' /> Delete
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      This action cannot be undone. This will permanently delete
-                      your comment.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction
-                      onClick={handleDelete}
-                      className='bg-destructive hover:bg-destructive/90'
-                      disabled={isDeletingPending}
+
+              {canEdit && (
+                <Button
+                  variant='ghost'
+                  size='sm'
+                  onClick={() => setIsEditing(true)}
+                >
+                  <Edit className='mr-1 h-3 w-3' /> Edit
+                </Button>
+              )}
+
+              {canDelete && (
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      variant='ghost'
+                      size='sm'
+                      className='text-destructive hover:text-destructive'
                     >
-                      {isDeletingPending && (
-                        <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-                      )}
-                      Delete
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
+                      <Trash2 className='mr-1 h-3 w-3' /> Delete
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This action cannot be undone. This will permanently
+                        delete your comment.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction
+                        onClick={handleDelete}
+                        className='bg-destructive hover:bg-destructive/90'
+                        disabled={isDeletingPending}
+                      >
+                        {isDeletingPending && (
+                          <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                        )}
+                        Delete
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              )}
             </>
           )}
         </div>

@@ -4,6 +4,16 @@ import 'server-only';
 import { prisma } from '@/lib/db';
 import { requireUser } from '@/app/s/[subdomain]/data/user/require-user';
 import { revalidatePath } from 'next/cache';
+import { cache } from 'react';
+import { notFound } from 'next/navigation';
+
+export type CourseForModeration = Awaited<
+  ReturnType<typeof getCourseForModeration>
+>;
+
+export type CourseCommentsForModeration = Awaited<
+  ReturnType<typeof getCourseCommentsForModeration>
+>;
 
 export type CommentWithUserAndReplies = Awaited<
   ReturnType<typeof getComments>
@@ -63,6 +73,7 @@ export async function addComment(
   });
 
   revalidatePath(`/dashboard/.*`, 'layout');
+  revalidatePath(`/admin/courses/.*`, 'layout');
 }
 
 export async function updateComment(commentId: string, newText: string) {
@@ -87,6 +98,7 @@ export async function updateComment(commentId: string, newText: string) {
   });
 
   revalidatePath(`/dashboard/.*`, 'layout');
+  revalidatePath(`/admin/courses/.*`, 'layout');
 }
 
 export async function deleteComment(commentId: string) {
@@ -108,4 +120,80 @@ export async function deleteComment(commentId: string) {
   });
 
   revalidatePath(`/dashboard/.*`, 'layout');
+  revalidatePath(`/admin/courses/.*`, 'layout');
 }
+
+export const getCourseCommentsForModeration = cache(
+  async (courseId: string) => {
+    const lessonsWithComments = await prisma.lesson.findMany({
+      where: {
+        Chapter: {
+          courseId: courseId,
+        },
+        comments: {
+          some: {},
+        },
+      },
+      select: {
+        id: true,
+        title: true,
+        comments: {
+          where: {
+            parentId: null,
+          },
+          include: {
+            user: {
+              select: { id: true, name: true, image: true, role: true },
+            },
+            replies: {
+              include: {
+                user: {
+                  select: { id: true, name: true, image: true, role: true },
+                },
+              },
+              orderBy: {
+                createdAt: 'asc',
+              },
+            },
+          },
+          orderBy: {
+            createdAt: 'desc',
+          },
+        },
+      },
+    });
+
+    return lessonsWithComments;
+  },
+);
+
+export const getCourseForModeration = cache(async (courseId: string) => {
+  const course = await prisma.course.findUnique({
+    where: { id: courseId },
+    select: {
+      id: true,
+      title: true,
+      chapter: {
+        orderBy: { position: 'asc' },
+        select: {
+          id: true,
+          title: true,
+          lessons: {
+            orderBy: { position: 'asc' },
+            select: {
+              id: true,
+              title: true,
+              type: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!course) {
+    notFound();
+  }
+
+  return course;
+});

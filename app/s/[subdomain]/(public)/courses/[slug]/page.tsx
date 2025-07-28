@@ -27,6 +27,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Metadata } from 'next';
 import { constructUrl } from '@/hooks/use-construct-url';
+import { getUserRole } from '@/lib/get-user-session';
 
 type PageParams = Promise<{ slug: string }>;
 
@@ -50,6 +51,7 @@ export default async function SlugPage({ params }: { params: PageParams }) {
   const { slug } = await params;
   const course = await getIndividualCourse(slug);
   const isEnrolled = await checkIfCourseBought(course.id);
+  const userRole = await getUserRole();
 
   const totalLessons = course.chapter.reduce(
     (total, chapter) => total + chapter.lessons.length,
@@ -373,13 +375,23 @@ export default async function SlugPage({ params }: { params: PageParams }) {
 
                       {/* CTA Button */}
                       <div className='space-y-3'>
-                        {isEnrolled ? (
+                        {userRole === 'admin' ? (
+                          <Link
+                            href={`/admin/courses/${course.id}/edit`}
+                            className={buttonVariants({
+                              className:
+                                'from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 shadow-primary/25 h-12 w-full bg-gradient-to-r text-lg font-semibold shadow-lg',
+                            })}
+                          >
+                            Manage Course
+                          </Link>
+                        ) : isEnrolled ? (
                           <Link
                             className={buttonVariants({
                               className:
                                 'from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 shadow-primary/25 h-12 w-full bg-gradient-to-r text-lg font-semibold shadow-lg',
                             })}
-                            href='/dashboard'
+                            href={`/dashboard/${course.slug}`}
                           >
                             <IconPlayerPlay className='mr-2 size-5' />
                             Continue Learning
