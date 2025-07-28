@@ -3,6 +3,7 @@
 import { requireAdmin } from '@/app/s/[subdomain]/data/admin/require-admin';
 import { prisma } from '@/lib/db';
 import { stripe } from '@/lib/stripe';
+import { checkPlanStatus } from '@/lib/subscription';
 import { ApiResponse } from '@/lib/types';
 import { courseSchema, CourseSchemaType } from '@/lib/zodSchemas';
 
@@ -11,15 +12,26 @@ export async function CreateCourse(
 ): Promise<ApiResponse> {
   const { user } = await requireAdmin();
 
+  const plan = await checkPlanStatus();
+  const courseCount = await prisma.course.count({
+    where: { userId: user.id },
+  });
+
+  const canCreateCourse = plan.planName === 'PRO' || courseCount < 1;
+
+  if (!canCreateCourse) {
+    return {
+      status: 'error',
+      message:
+        'You have reached your plan limit. Please upgrade to Pro to create more courses.',
+    };
+  }
   try {
     const validation = courseSchema.safeParse(values);
-
     if (!validation.success) {
-      return {
-        status: 'error',
-        message: 'Invalid Form Data',
-      };
+      return { status: 'error', message: 'Invalid Form Data' };
     }
+
     const { fileKey, ...restOfData } = validation.data;
     const data = await stripe.products.create({
       name: validation.data.title,
@@ -42,15 +54,9 @@ export async function CreateCourse(
       },
     });
 
-    return {
-      status: 'success',
-      message: 'Course created succesfully',
-    };
+    return { status: 'success', message: 'Course created succesfully' };
   } catch (e) {
     console.log(e);
-    return {
-      status: 'error',
-      message: 'Failed to create course',
-    };
+    return { status: 'error', message: 'Failed to create course' };
   }
 }

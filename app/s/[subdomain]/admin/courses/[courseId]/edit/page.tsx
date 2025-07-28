@@ -10,9 +10,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TestBank } from './_components/TestBank';
 import { EditCourseForm } from './_components/EditCourseForm';
 import { CourseStructure } from './_components/CourseStructure';
+
+import { checkPlanStatus } from '@/lib/subscription';
 import { buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
 import { Eye } from 'lucide-react';
+
 
 interface EditRouteProps {
   params: Promise<{ courseId: string }>;
@@ -20,12 +23,19 @@ interface EditRouteProps {
 
 export default async function EditRoute({ params }: EditRouteProps) {
   const { courseId } = await params;
-  const data = await adminGetCourse(courseId);
+
+
+  const [data, planStatus] = await Promise.all([
+    adminGetCourse(courseId),
+    checkPlanStatus(),
+  ]);
+
 
   const firstLesson = data.chapter[0]?.lessons[0];
   const previewUrl = firstLesson
     ? `/admin/lessons/${firstLesson.id}`
     : `/courses/${data.slug}`;
+
 
   return (
     <div>
@@ -87,7 +97,7 @@ export default async function EditRoute({ params }: EditRouteProps) {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <TestBank courseId={courseId} />
+              <TestBank courseId={courseId} planName={planStatus.planName} />
             </CardContent>
           </Card>
         </TabsContent>

@@ -5,8 +5,6 @@ import { env } from './env';
 import { emailOTP } from 'better-auth/plugins';
 import { resend } from './resend';
 import { admin } from 'better-auth/plugins';
-import { stripe } from '@better-auth/stripe';
-import { stripe as stripeClient } from '@/lib/stripe';
 
 export const auth = (tenantId: string) =>
   betterAuth({
@@ -16,6 +14,7 @@ export const auth = (tenantId: string) =>
       provider: 'postgresql',
       tenantId: tenantId,
     }),
+
     trustedOrigins: [
       `https://${env.VERCEL_BRANCH_URL}`,
       `*.localhost:3000`,
@@ -78,8 +77,8 @@ export const auth = (tenantId: string) =>
       //     plans: [
       //       {
       //         name: 'Pro',
-      //         priceId: 'price_your_monthly_pro_plan',
-      //         annualDiscountPriceId: 'price_your_annual_pro_plan',
+      //         priceId: 'price_1RpUQdIzJqhYU7tdcIy09aEg',
+      //         annualDiscountPriceId: 'price_1RpXC0IzJqhYU7tdP4PCP7zd',
       //         freeTrial: {
       //           days: 14,
       //         },

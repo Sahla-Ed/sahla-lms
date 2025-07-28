@@ -10,6 +10,11 @@ import { TopCoursesChart } from './TopCoursesChart';
 
 export async function TopCourses() {
   const topCourses = await getTopPerformingCourses();
+
+  const coursesWithEnrollments = topCourses.filter(
+    (course) => course.enrollments > 0,
+  );
+
   return (
     <Card>
       <CardHeader>
@@ -17,7 +22,13 @@ export async function TopCourses() {
         <CardDescription>Based on number of enrollments.</CardDescription>
       </CardHeader>
       <CardContent>
-        <TopCoursesChart data={topCourses} />
+        {coursesWithEnrollments.length === 0 ? (
+          <div className='text-muted-foreground flex h-[350px] items-center justify-center py-8 text-center'>
+            <p>No course enrollment data to display yet.</p>
+          </div>
+        ) : (
+          <TopCoursesChart data={coursesWithEnrollments} />
+        )}
       </CardContent>
     </Card>
   );

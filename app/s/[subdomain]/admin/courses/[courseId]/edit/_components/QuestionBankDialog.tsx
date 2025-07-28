@@ -25,6 +25,7 @@ interface QuestionBankDialogProps {
   courseId: string;
   selectedQuestionIds: string[];
   onQuestionSelect: (question: Question) => void;
+  planName: 'FREE' | 'PRO';
 }
 
 export function QuestionBankDialog({
@@ -33,6 +34,7 @@ export function QuestionBankDialog({
   courseId,
   selectedQuestionIds,
   onQuestionSelect,
+  planName,
 }: QuestionBankDialogProps) {
   const [view, setView] = useState<'select' | 'create'>('select');
   const [availableQuestions, setAvailableQuestions] = useState<Question[]>([]);
@@ -146,7 +148,11 @@ export function QuestionBankDialog({
             />
           ) : (
             <div className='p-1'>
-              <TestBank courseId={courseId} onSuccess={handleQuestionCreated} />
+              <TestBank
+                courseId={courseId}
+                onSuccess={handleQuestionCreated}
+                planName={planName}
+              />{' '}
             </div>
           )}
         </div>

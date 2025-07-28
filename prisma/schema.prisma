@@ -62,6 +62,7 @@ model tenants {
   theme           String?
   data            Json
   landingPageData Json?
+  plan            String? @default("FREE")
 }
 
 model Session {
@@ -415,7 +416,6 @@ model Subscription {
   periodEnd            DateTime?
   cancelAtPeriodEnd    Boolean?
   seats                Int?
-  tenantId             String?
 
   @@map("subscription")
 }

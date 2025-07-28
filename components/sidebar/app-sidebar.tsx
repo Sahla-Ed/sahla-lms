@@ -34,17 +34,37 @@ import LogoDark from '@/public/logoDark.png';
 import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 
-const data = {
-  navMain: [
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  planName: 'FREE' | 'PRO'; // <-- Accept the planName prop
+}
+
+export function AppSidebar({ className, planName, ...props }: AppSidebarProps) {
+  const { theme, systemTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  const currentTheme = theme === 'system' ? systemTheme : theme;
+
+  // --- START: Dynamic Navigation Logic ---
+  const navMain = [
     { title: 'Dashboard', url: '/admin', icon: IconDashboard },
     { title: 'Courses', url: '/admin/courses', icon: IconListDetails },
     { title: 'Analytics', url: '/admin/analytics', icon: IconChartBar },
-    { title: 'Projects', url: '/admin/projects', icon: IconFolder },
-    { title: 'Team', url: '/admin/teams', icon: IconUsers },
-  ],
-  navSecondary: [
+  ];
+
+  if (planName === 'PRO') {
+    navMain.push({
+      title: 'Students',
+      url: '/admin/students',
+      icon: IconUsers,
+    });
+  }
+  // --- END: Dynamic Navigation Logic ---
+
+  const navSecondary = [
     {
-      title: 'platform Settings',
+      title: 'Platform Settings',
       url: '/admin/settings/tenant',
       icon: IconBuilding,
     },
@@ -56,20 +76,7 @@ const data = {
     { title: 'Settings', url: '/admin/settings', icon: IconSettings },
     { title: 'Get Help', url: '/faqs', icon: IconHelp },
     { title: 'Search', url: '/admin/search', icon: IconSearch },
-  ],
-};
-
-export function AppSidebar({
-  className,
-  ...props
-}: React.ComponentProps<typeof Sidebar>) {
-  const { theme, systemTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const currentTheme = theme === 'system' ? systemTheme : theme;
+  ];
 
   return (
     <Sidebar
@@ -78,31 +85,26 @@ export function AppSidebar({
       {...props}
     >
       <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <div className='p-2'>
-              <Link
-                href='/'
-                className='flex items-center justify-center transition-none hover:scale-100 focus:outline-none'
-              >
-                {mounted ? (
-                  <Image
-                    src={currentTheme === 'dark' ? LogoDark : LogoLight}
-                    alt='Logo'
-                    className='h-16 w-16 object-cover'
-                    priority
-                  />
-                ) : (
-                  <div className='bg-muted h-16 w-16 rounded-md' />
-                )}
-              </Link>
-            </div>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <SidebarMenuItem>
+          <div className='p-2'>
+            <Link href='/' className='flex items-center justify-center'>
+              {mounted ? (
+                <Image
+                  src={currentTheme === 'dark' ? LogoDark : LogoLight}
+                  alt='Logo'
+                  className='h-16 w-16 object-cover'
+                  priority
+                />
+              ) : (
+                <div className='bg-muted h-16 w-16 rounded-md' />
+              )}
+            </Link>
+          </div>
+        </SidebarMenuItem>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavSecondary items={data.navSecondary} className='mt-auto' />
+        <NavMain items={navMain} />
+        <NavSecondary items={navSecondary} className='mt-auto' />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />
