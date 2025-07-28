@@ -15,6 +15,9 @@ import {
 import Image from 'next/image';
 import DarkVeil from '@/components/Bits/DarkVeil';
 import { Badge } from '@/components/ui/badge';
+import Lms1 from '@/public/logosss/udemy.png';
+import Lms2 from '@/public/logosss/mesq.png';
+import Lms3 from '@/public/logosss/tech.png';
 
 export default function Home() {
   return (
@@ -73,36 +76,29 @@ export default function Home() {
           <h3 className='text-muted-foreground mb-8 text-xl font-semibold'>
             Trusted by leading academies worldwide
           </h3>
-          <div className='flex flex-wrap items-center justify-center gap-8 md:gap-16'>
-            <Image
-              src='/logo-placeholder-1.png'
-              alt='Client Logo 1'
-              width={120}
-              height={40}
-              className='opacity-60 grayscale transition-opacity hover:opacity-100'
-            />
-            <Image
-              src='/logo-placeholder-2.png'
-              alt='Client Logo 2'
-              width={120}
-              height={40}
-              className='opacity-60 grayscale transition-opacity hover:opacity-100'
-            />
-            <Image
-              src='/logo-placeholder-3.png'
-              alt='Client Logo 3'
-              width={120}
-              height={40}
-              className='opacity-60 grayscale transition-opacity hover:opacity-100'
-            />
-            <Image
-              src='/logo-placeholder-4.png'
-              alt='Client Logo 4'
-              width={120}
-              height={40}
-              className='opacity-60 grayscale transition-opacity hover:opacity-100'
-            />
-          </div>
+         <div className='flex flex-wrap items-center justify-center gap-8 md:gap-16'>
+  <Image
+    src={Lms1}
+    alt='Client Logo 1'
+    width={120}
+    height={40}
+    className='object-contain opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0'
+  />
+  <Image
+    src={Lms2}
+    alt='Client Logo 2'
+    width={120}
+    height={40}
+    className='object-contain opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0'
+  />
+  <Image
+    src={Lms3}
+    alt='Client Logo 3'
+    width={120}
+    height={40}
+    className='object-contain opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0'
+  />
+</div>
         </div>
       </section>
 
