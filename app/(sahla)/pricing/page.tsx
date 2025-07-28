@@ -59,10 +59,7 @@ export default function PricingPage() {
             <CardDescription>Perfect for new creators.</CardDescription>
           </CardHeader>
           <CardContent className='flex-grow'>
-            <div className='mb-4 text-4xl font-bold'>
-              Free
-              <span className='text-muted-foreground text-lg'> / 14 days</span>
-            </div>
+            <div className='mb-4 text-4xl font-bold'>Free</div>
             <ul className='text-muted-foreground space-y-2'>
               <li className='flex items-center'>
                 <CheckCircle className='mr-2 h-5 w-5 text-green-500' /> 1 Course

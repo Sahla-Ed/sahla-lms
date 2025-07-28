@@ -4,11 +4,12 @@ import { prisma } from '@/lib/db';
 import { notFound } from 'next/navigation';
 
 export async function adminGetCourse(id: string) {
-  await requireAdmin();
+  const { user } = await requireAdmin();
 
   const data = await prisma.course.findUnique({
     where: {
       id: id,
+      tenantId: user.tenantId,
     },
     select: {
       id: true,
