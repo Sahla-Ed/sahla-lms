@@ -1,6 +1,6 @@
 import 'server-only';
 import { cache } from 'react';
-import { prisma } from './db';
+import prismaUnscoped from './db-unscoped'; // <-- IMPORT THE UNSCOPED CLIENT
 
 export const getTenantIdFromSlug = cache(
   async (slug: string | null): Promise<string | null> => {
@@ -8,7 +8,8 @@ export const getTenantIdFromSlug = cache(
       return null;
     }
 
-    const tenant = await prisma.tenants.findUnique({
+    // Use the unscoped client for this specific query.
+    const tenant = await prismaUnscoped.tenants.findUnique({
       where: {
         slug,
       },
