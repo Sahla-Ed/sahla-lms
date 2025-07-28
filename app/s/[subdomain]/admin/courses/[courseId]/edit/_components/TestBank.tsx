@@ -29,10 +29,11 @@ import { EditQuestionDialog } from './TestBank/EditQuestionDialog';
 
 interface TestBankProps {
   courseId: string;
+  planName: 'FREE' | 'PRO';
   onSuccess?: () => void;
 }
 
-export function TestBank({ courseId, onSuccess }: TestBankProps) {
+export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [isFetching, setIsFetching] = useState(true);
   const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
@@ -109,6 +110,7 @@ export function TestBank({ courseId, onSuccess }: TestBankProps) {
           <CreateQuestionView
             courseId={courseId}
             onSuccess={handleCreationSuccess}
+            planName={planName}
           />
         </CardContent>
       </Card>

@@ -1,4 +1,3 @@
-import 'server-only';
 import { prisma } from './db';
 import { requireAdmin } from '@/app/s/[subdomain]/data/admin/require-admin';
 

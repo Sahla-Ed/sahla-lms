@@ -1,3 +1,5 @@
+'use client';
+
 import { FC } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { QuestionForm } from './QuestionForm';
@@ -5,14 +7,17 @@ import { SubComponentProps } from './types';
 import { createQuestion } from '../../quiz-actions';
 import { AiQuestionForm } from './AiQuestionForm';
 import { ImportQuestionForm } from './ImportQuestionForm';
-import { checkPlanStatus } from '@/lib/subscription';
 
-export const CreateQuestionView: FC<SubComponentProps> = async ({
+interface CreateQuestionViewProps extends SubComponentProps {
+  planName: 'FREE' | 'PRO';
+}
+
+export const CreateQuestionView: FC<CreateQuestionViewProps> = ({
   courseId,
   onSuccess,
+  planName,
 }) => {
-  const plan = await checkPlanStatus();
-  const canUseAi = plan.planName === 'PRO';
+  const canUseAi = planName === 'PRO';
 
   return (
     <Tabs defaultValue='manual'>

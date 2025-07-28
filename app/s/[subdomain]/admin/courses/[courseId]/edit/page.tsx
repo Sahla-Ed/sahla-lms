@@ -10,12 +10,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TestBank } from './_components/TestBank';
 import { EditCourseForm } from './_components/EditCourseForm';
 import { CourseStructure } from './_components/CourseStructure';
+import { checkPlanStatus } from '@/lib/subscription';
 
 type Params = Promise<{ courseId: string }>;
 
 export default async function EditRoute({ params }: { params: Params }) {
   const { courseId } = await params;
-  const data = await adminGetCourse(courseId);
+
+  const [data, planStatus] = await Promise.all([
+    adminGetCourse(courseId),
+    checkPlanStatus(),
+  ]);
   return (
     <div>
       <h1 className='mb-8 text-3xl font-bold'>
@@ -64,7 +69,7 @@ export default async function EditRoute({ params }: { params: Params }) {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <TestBank courseId={courseId} />
+              <TestBank courseId={courseId} planName={planStatus.planName} />
             </CardContent>
           </Card>
         </TabsContent>

@@ -43,6 +43,7 @@ interface QuizFormProps {
   lesson: AdminLessonType;
   courseId: string;
   chapterId: string;
+  planName: 'FREE' | 'PRO';
 }
 
 function SortableQuestion({
@@ -133,7 +134,12 @@ function SortableQuestion({
   );
 }
 
-export function QuizForm({ lesson, courseId, chapterId }: QuizFormProps) {
+export function QuizForm({
+  lesson,
+  courseId,
+  chapterId,
+  planName,
+}: QuizFormProps) {
   const router = useRouter();
   const [title, setTitle] = useState(lesson.title);
   const [description, setDescription] = useState(lesson.description || '');
@@ -300,6 +306,7 @@ export function QuizForm({ lesson, courseId, chapterId }: QuizFormProps) {
         courseId={courseId}
         selectedQuestionIds={selectedQuestions.map((q) => q.id)}
         onQuestionSelect={addQuestionToQuiz}
+        planName={planName}
       />
 
       <div className='flex justify-end gap-2'>
