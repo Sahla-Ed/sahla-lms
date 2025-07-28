@@ -7,9 +7,10 @@ import { DollarSign, BookOpen } from 'lucide-react';
 export default async function StudentDetailPage({
   params,
 }: {
-  params: { userId: string };
+  params: Promise<{ userId: string }>;
 }) {
-  const student = await adminGetStudentAnalytics(params.userId);
+  const { userId } = await params;
+  const student = await adminGetStudentAnalytics(userId);
 
   // Helper function to calculate progress for a single course
   const getCourseProgress = (enrollment: (typeof student.enrollment)[0]) => {
