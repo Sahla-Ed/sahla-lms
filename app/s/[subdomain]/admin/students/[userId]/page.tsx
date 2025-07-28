@@ -2,15 +2,7 @@ import { adminGetStudentAnalytics } from '@/app/s/[subdomain]/data/admin/admin-g
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import { DollarSign, BookOpen, Clock, BarChart } from 'lucide-react';
+import { DollarSign, BookOpen } from 'lucide-react';
 
 export default async function StudentDetailPage({
   params,
@@ -19,11 +11,40 @@ export default async function StudentDetailPage({
 }) {
   const student = await adminGetStudentAnalytics(params.userId);
 
+  // Helper function to calculate progress for a single course
+  const getCourseProgress = (enrollment: (typeof student.enrollment)[0]) => {
+    // Flatten all lesson IDs for the specific course
+    const allLessonIdsInCourse = enrollment.Course.chapter.flatMap((chapter) =>
+      chapter.lessons.map((lesson) => lesson.id),
+    );
+    const totalLessons = allLessonIdsInCourse.length;
+
+    // Filter the student's total progress to only include lessons from this course
+    const completedLessonsForCourse = student.lessonProgress.filter((lp) =>
+      allLessonIdsInCourse.includes(lp.lessonId),
+    ).length;
+
+    const progressPercentage =
+      totalLessons > 0
+        ? Math.round((completedLessonsForCourse / totalLessons) * 100)
+        : 0;
+
+    return {
+      totalLessons,
+      completedLessons: completedLessonsForCourse,
+      progressPercentage,
+    };
+  };
+
   return (
     <div className='space-y-6'>
       <div className='flex items-center gap-4'>
         <Avatar className='h-16 w-16'>
-          <AvatarImage src={''} alt={student.name} />
+          {/* Use a placeholder if the student image is null */}
+          <AvatarImage
+            src={student.image ?? `https://avatar.vercel.sh/${student.email}`}
+            alt={student.name}
+          />
           <AvatarFallback>{student.name.charAt(0)}</AvatarFallback>
         </Avatar>
         <div>
@@ -64,22 +85,26 @@ export default async function StudentDetailPage({
           <CardTitle>Course Progress</CardTitle>
         </CardHeader>
         <CardContent>
-          {student.coursesWithProgress.length === 0 ? (
-            <p className='text-muted-foreground text-center'>
+          {student.enrollment.length === 0 ? (
+            <p className='text-muted-foreground py-8 text-center'>
               This student is not enrolled in any courses.
             </p>
           ) : (
             <div className='space-y-4'>
-              {student.coursesWithProgress.map((enrollment) => (
-                <div key={enrollment.Course.id} className='space-y-2'>
-                  <h3 className='font-semibold'>{enrollment.Course.title}</h3>
-                  <Progress value={enrollment.progressPercentage} />
-                  <p className='text-muted-foreground text-xs'>
-                    {enrollment.completedLessons} of {enrollment.totalLessons}{' '}
-                    lessons completed ({enrollment.progressPercentage}%)
-                  </p>
-                </div>
-              ))}
+              {student.enrollment.map((enrollment) => {
+                const { totalLessons, completedLessons, progressPercentage } =
+                  getCourseProgress(enrollment);
+                return (
+                  <div key={enrollment.Course.id} className='space-y-2'>
+                    <h3 className='font-semibold'>{enrollment.Course.title}</h3>
+                    <Progress value={progressPercentage} />
+                    <p className='text-muted-foreground text-xs'>
+                      {completedLessons} of {totalLessons} lessons completed (
+                      {progressPercentage}%)
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           )}
         </CardContent>
