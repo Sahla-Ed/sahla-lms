@@ -37,7 +37,6 @@ model User {
   tenantId             String?
   SessionTransferToken SessionTransferToken[]
   CodingSubmission     CodingSubmission[]
-  // codingSubmission CodingSubmission?
 
   stripeCustomerId String? @unique
 
@@ -192,6 +191,7 @@ model Lesson {
   questions      LessonQuestion[]
   attempts       QuizAttempt[]
   tenantId       String?
+
 
   CodingSubmission CodingSubmission[]
   codingExercise   CodingExercise[]

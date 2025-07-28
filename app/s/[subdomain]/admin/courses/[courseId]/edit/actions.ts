@@ -444,7 +444,7 @@ export async function updateCodingExercise({
       if (lesson.codingExercise.length > 0) {
         // Update existing coding exercise
         await tx.codingExercise.update({
-          where: { lessonId: lessonId, tenantId: user?.tenantId },
+          where: { lessonId: lessonId, tenantId: user?.tenantId ?? '' },
           data: {
             language: language,
             starterCode: starterCode,
