@@ -240,8 +240,8 @@ export function NewLessonModal({
     },
   });
 
-  const watchedType = form.watch('type');
-  const watchedCodingLanguage = form.watch('codingLanguage');
+  // const watchedType = form.watch('type');
+  // const watchedCodingLanguage = form.watch('codingLanguage');
 
   async function onSubmit(values: LessonSchemaType) {
     startTransition(async () => {
@@ -305,15 +305,15 @@ export function NewLessonModal({
     setIsOpen(open);
   }
 
-  const handleLanguageChange = (language: string) => {
-    form.setValue('codingLanguage', language);
-    if (language !== 'web') {
-      form.setValue(
-        'serverStarterCode',
-        SERVER_TEMPLATES[language] || '// Write your code here',
-      );
-    }
-  };
+  // const handleLanguageChange = (language: string) => {
+  //   form.setValue('codingLanguage', language);
+  //   if (language !== 'web') {
+  //     form.setValue(
+  //       'serverStarterCode',
+  //       SERVER_TEMPLATES[language] || '// Write your code here',
+  //     );
+  //   }
+  // };
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
@@ -324,9 +324,10 @@ export function NewLessonModal({
       </DialogTrigger>
       <DialogContent
         className={
-          watchedType === 'CODING'
-            ? 'max-h-[90vh] overflow-y-auto sm:max-w-4xl'
-            : 'sm:max-w-[425px]'
+          // watchedType === 'CODING'
+          //   ? 'max-h-[90vh] overflow-y-auto sm:max-w-4xl'
+          //   :
+          'sm:max-w-[425px]'
         }
         aria-describedby='new-lesson-desc'
       >
@@ -390,7 +391,7 @@ export function NewLessonModal({
             />
 
             {/* Coding Exercise Fields */}
-            {watchedType === 'CODING' && (
+            {/* {watchedType === 'CODING' && (
               <div className='space-y-4'>
                 <FormField
                   control={form.control}
@@ -517,7 +518,7 @@ export function NewLessonModal({
                   />
                 )}
               </div>
-            )}
+            )} */}
 
             <DialogFooter>
               <Button disabled={pending} type='submit'>

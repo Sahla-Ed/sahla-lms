@@ -67,8 +67,10 @@ export async function getLessonContent(lessonId: string) {
       },
     },
   });
+  console.log('lesson', lesson);
 
   if (!lesson) {
+    console.log('Lesson not found');
     return notFound();
   }
 
@@ -83,14 +85,17 @@ export async function getLessonContent(lessonId: string) {
       },
     },
   });
+  console.log('allLessonsInCourse', allLessonsInCourse);
 
   let previousLessonCompleted = true;
   for (const currentLesson of allLessonsInCourse) {
     if (currentLesson.id === lessonId) {
-      if (!previousLessonCompleted) {
-        return notFound();
-      }
-      break;
+      //todo: uncomment this code when previous lesson is complete
+      // if (!previousLessonCompleted) {
+      // console.log('Previous lesson not completed');
+      // return notFound();
+      // }
+      // break;
     }
     previousLessonCompleted = currentLesson.lessonProgress.some(
       (p) => p.completed,

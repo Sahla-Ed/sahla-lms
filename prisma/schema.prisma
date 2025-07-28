@@ -344,6 +344,7 @@ model Comment {
 
 model CodingExercise {
   id           String   @id @default(uuid())
+  tenantId     String?  @default("")
   lesson       Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
   lessonId     String   @unique
   language     String   @default("javascript")
@@ -357,7 +358,8 @@ model CodingExercise {
 }
 
 model CodingSubmission {
-  id String @id @default(uuid())
+  id       String @id @default(uuid())
+  tenantId String @default("")
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -376,12 +378,11 @@ model CodingSubmission {
 
   output String?
 
-  status CodingSubmissionStatus @default(Pending)
+  status CodingSubmissionStatus @default(InQueue)
 
   score Float?
 
-  passed Boolean?
-
+  passed        Boolean?
   attemptNumber Int
 
   createdAt DateTime @default(now())
@@ -397,12 +398,15 @@ enum SubmissionType {
 }
 
 enum CodingSubmissionStatus {
-  Pending
-  Running
-  Success
-  Error
-  Timeout
-  Failed
+  InQueue
+  Processing
+  Accepted
+  WrongAnswer
+  TimeLimitExceeded
+  CompilationError
+  RuntimeError
+  InternalError
+  ExecFormatError
 }
 
 model Subscription {
