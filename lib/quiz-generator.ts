@@ -1,5 +1,5 @@
-import { env } from "./env";
-import { aiQuizGenerationSchema } from "./zodSchemas";
+import { env } from './env';
+import { aiQuizGenerationSchema } from './zodSchemas';
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -7,7 +7,7 @@ function sleep(ms: number) {
 
 export async function generateQuizQuestions(
   topic: string,
-  numQuestions: number
+  numQuestions: number,
 ) {
   await sleep(2000);
 
@@ -45,22 +45,22 @@ export async function generateQuizQuestions(
     - Return only the JSON object, nothing else.
   `;
 
-  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
+  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${env.OPEN_ROUTER_API_KEY}`,
     },
     body: JSON.stringify({
-      model: "moonshotai/kimi-k2:free",
+      model: 'moonshotai/kimi-k2:free',
       messages: [
         {
-          role: "system",
+          role: 'system',
           content:
             "You are an expert quiz creator. You generate questions and answers based on the user's topic and strictly adhere to the provided JSON schema, including all validation rules.",
         },
         {
-          role: "user",
+          role: 'user',
           content: prompt,
         },
       ],
@@ -76,12 +76,12 @@ export async function generateQuizQuestions(
   const data = await res.json();
   let text = data.choices?.[0]?.message?.content;
   if (!text) {
-    throw new Error("No content returned from OpenRouter API");
+    throw new Error('No content returned from OpenRouter API');
   }
 
   const jsonMatch = text.match(/\{[\s\S]*\}/);
   if (!jsonMatch) {
-    throw new Error("AI response does not contain a JSON object");
+    throw new Error('AI response does not contain a JSON object');
   }
   text = jsonMatch[0];
 
@@ -91,13 +91,13 @@ export async function generateQuizQuestions(
   } catch (e) {
     console.log(e);
 
-    throw new Error("AI response is not valid JSON");
+    throw new Error('AI response is not valid JSON');
   }
   const result = aiQuizGenerationSchema.safeParse(parsed);
   if (!result.success) {
     throw new Error(
-      "AI response does not match schema: " +
-        JSON.stringify(result.error.issues)
+      'AI response does not match schema: ' +
+        JSON.stringify(result.error.issues),
     );
   }
   return result.data.questions;

@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import { authClient } from '@/lib/auth-client';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export function useSignOut() {
   const router = useRouter();
@@ -10,11 +10,11 @@ export function useSignOut() {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          router.push("/");
-          toast.success("Singed out Successfully");
+          router.push('/');
+          toast.success('Singed out Successfully');
         },
         onError: () => {
-          toast.error("Failed to sign out");
+          toast.error('Failed to sign out');
         },
       },
     });

@@ -1,0 +1,30 @@
+/*
+ * This file themes the Puck editor UI to match your application's theme.
+ * It works by overriding Puck's default CSS variables with the variables
+ * you have already defined in your `globals.css` file.
+ */
+.puck-root {
+  --puck-color-background: var(--background);
+  --puck-color-foreground: var(--foreground);
+  --puck-color-accent: var(--primary);
+  --puck-color-accent-foreground: var(--primary-foreground);
+  --puck-color-border: var(--border);
+
+  --puck-color-input-background: var(--input);
+  --puck-color-input-foreground: var(--foreground);
+  --puck-color-input-border: var(--border);
+  --puck-color-input-accent-border: var(--primary);
+
+  --puck-color-secondary-background: var(--secondary);
+  --puck-color-secondary-foreground: var(--secondary-foreground);
+
+  --puck-font-family: var(--font-geist-sans);
+  --puck-radius: var(--radius);
+}
+
+/*
+ * Specific override for the header to ensure text and icons are always visible.
+ */
+.puck-header {
+  color: var(--foreground);
+}
