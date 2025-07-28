@@ -2,13 +2,12 @@ import { Suspense } from 'react';
 import {
   Card,
   CardContent,
-  CardDescription,
+  CardFooter,
   CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { getSubscription } from '@/app/s/[subdomain]/data/admin/get-subscription';
 import { BillingPageClient } from './_components/BillingPageClient';
+import { checkPlanStatus } from '@/lib/subscription';
 
 export default function BillingPage() {
   return (
@@ -27,7 +26,7 @@ export default function BillingPage() {
 }
 
 async function LoadSubscription() {
-  const subscription = await getSubscription();
+  const subscription = await checkPlanStatus();
   return <BillingPageClient subscription={subscription} />;
 }
 
@@ -39,11 +38,19 @@ function BillingSkeleton() {
         <Skeleton className='h-4 w-72' />
       </CardHeader>
       <CardContent>
-        <Skeleton className='h-24 w-full' />
+        <div className='space-y-4 rounded-lg border p-4'>
+          <div className='flex items-center justify-between'>
+            <Skeleton className='h-6 w-32' />
+            <Skeleton className='h-5 w-24' />
+          </div>
+          <Skeleton className='h-2 w-full' />
+          <Skeleton className='h-4 w-48' />
+        </div>
       </CardContent>
-      {/* <CardFooter> */}
-      {/* <Skeleton className='h-10 w-40' /> */}
-      {/* </CardFooter> */}
+      <CardFooter className='flex-col items-start gap-4'>
+        <Skeleton className='h-4 w-full max-w-lg' />
+        <Skeleton className='h-10 w-40' />
+      </CardFooter>
     </Card>
   );
 }

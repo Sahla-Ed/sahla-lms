@@ -15,13 +15,13 @@ import {
 } from '@/components/ui/accordion';
 import {
   CheckCircle,
-  XCircle,
   Users,
   Globe,
   BarChart,
-  Mail,
   Code,
   ShieldCheck,
+  FolderKanban,
+  Sparkles,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
@@ -29,16 +29,12 @@ import { Badge } from '@/components/ui/badge';
 export default function PricingPage() {
   const pricingFaqs = [
     {
-      q: 'What is a tenant?',
-      a: 'A tenant refers to a single, independent learning platform you create within Sahla. Each tenant can have its own branding, courses, and users.',
-    },
-    {
       q: 'Can I change my plan later?',
-      a: 'Yes, you can upgrade or downgrade your plan at any time from your administrative dashboard.',
+      a: 'Yes, you can upgrade from the trial to the Pro plan at any time from your administrative dashboard.',
     },
     {
       q: 'Are there any hidden fees?',
-      a: 'No, our pricing is transparent. The monthly fee covers all features listed for your chosen plan. Transaction fees from payment gateways (like Stripe) may apply.',
+      a: 'No, our pricing is transparent. The Pro plan fee covers all features listed. Transaction fees from payment gateways (like Stripe) may apply to your course sales.',
     },
     {
       q: 'Do you offer custom enterprise solutions?',
@@ -51,25 +47,25 @@ export default function PricingPage() {
       <div className='mb-12 text-center'>
         <h1 className='mb-4 text-4xl font-bold'>Simple, Transparent Pricing</h1>
         <p className='text-muted-foreground text-xl'>
-          Choose the plan that&apos;s right for your learning platform.
+          Choose the plan that's right for your learning platform.
         </p>
       </div>
 
       <div className='bg-muted/20 grid grid-cols-1 gap-8 rounded-lg p-8 shadow-inner md:grid-cols-3'>
-        {/* Basic Plan */}
+        {/* Starter Plan */}
         <Card className='flex flex-col'>
           <CardHeader>
-            <CardTitle className='text-2xl'>Basic</CardTitle>
+            <CardTitle className='text-2xl'>Starter</CardTitle>
             <CardDescription>Perfect for new creators.</CardDescription>
           </CardHeader>
           <CardContent className='flex-grow'>
             <div className='mb-4 text-4xl font-bold'>
-              $29<span className='text-muted-foreground text-lg'>/month</span>
+              Free
+              <span className='text-muted-foreground text-lg'> / 14 days</span>
             </div>
             <ul className='text-muted-foreground space-y-2'>
               <li className='flex items-center'>
-                <CheckCircle className='mr-2 h-5 w-5 text-green-500' />{' '}
-                Unlimited Courses
+                <CheckCircle className='mr-2 h-5 w-5 text-green-500' /> 1 Course
               </li>
               <li className='flex items-center'>
                 <Users className='mr-2 h-5 w-5 text-green-500' /> 1 Admin User
@@ -78,21 +74,11 @@ export default function PricingPage() {
                 <BarChart className='mr-2 h-5 w-5 text-green-500' /> Basic
                 Analytics
               </li>
-              <li className='flex items-center'>
-                <Mail className='mr-2 h-5 w-5 text-green-500' /> Email Support
-              </li>
-              <li className='flex items-center text-red-500'>
-                <XCircle className='mr-2 h-5 w-5 text-red-500' /> No Custom
-                Domain
-              </li>
-              <li className='flex items-center text-red-500'>
-                <XCircle className='mr-2 h-5 w-5 text-red-500' /> No API Access
-              </li>
             </ul>
           </CardContent>
           <CardFooter>
             <Button className='w-full' asChild>
-              <Link href='/start'>Get Started</Link>
+              <Link href='/start'>Start Your Free Trial</Link>
             </Button>
           </CardFooter>
         </Card>
@@ -111,35 +97,34 @@ export default function PricingPage() {
           </CardHeader>
           <CardContent className='flex-grow'>
             <div className='mb-4 text-4xl font-bold'>
-              $79<span className='text-muted-foreground text-lg'>/month</span>
+              $29<span className='text-muted-foreground text-lg'>/month</span>
             </div>
             <ul className='text-muted-foreground space-y-2'>
               <li className='flex items-center'>
-                <CheckCircle className='mr-2 h-5 w-5 text-green-500' /> All
-                Basic features
+                <CheckCircle className='mr-2 h-5 w-5 text-green-500' />{' '}
+                Unlimited Courses
               </li>
               <li className='flex items-center'>
-                <Users className='mr-2 h-5 w-5 text-green-500' /> 5 Admin Users
+                <Globe className='mr-2 h-5 w-5 text-green-500' /> Custom
+                Subdomain
               </li>
               <li className='flex items-center'>
                 <BarChart className='mr-2 h-5 w-5 text-green-500' /> Advanced
                 Analytics
               </li>
               <li className='flex items-center'>
-                <ShieldCheck className='mr-2 h-5 w-5 text-green-500' /> Priority
-                Support
+                <Sparkles className='mr-2 h-5 w-5 text-green-500' /> Create with
+                AI
               </li>
               <li className='flex items-center'>
-                <Globe className='mr-2 h-5 w-5 text-green-500' /> Custom Domain
-              </li>
-              <li className='flex items-center text-red-500'>
-                <XCircle className='mr-2 h-5 w-5 text-red-500' /> No API Access
+                <ShieldCheck className='mr-2 h-5 w-5 text-green-500' /> Priority
+                Support
               </li>
             </ul>
           </CardContent>
           <CardFooter>
             <Button className='w-full' asChild>
-              <Link href='/start'>Choose Pro</Link>
+              <Link href='/start'>Upgrade to Pro</Link>
             </Button>
           </CardFooter>
         </Card>
@@ -158,22 +143,29 @@ export default function PricingPage() {
             <ul className='text-muted-foreground space-y-2'>
               <li className='flex items-center'>
                 <CheckCircle className='mr-2 h-5 w-5 text-green-500' /> All Pro
-                features
+                features, plus:
               </li>
               <li className='flex items-center'>
                 <Users className='mr-2 h-5 w-5 text-green-500' /> Unlimited
                 Admin Users
               </li>
               <li className='flex items-center'>
+                <FolderKanban className='mr-2 h-5 w-5 text-green-500' /> Teams &
+                Projects
+              </li>
+              <li className='flex items-center'>
                 <ShieldCheck className='mr-2 h-5 w-5 text-green-500' />{' '}
                 Dedicated Support
               </li>
               <li className='flex items-center'>
-                <Code className='mr-2 h-5 w-5 text-green-500' /> API Access
+                <Globe className='mr-2 h-5 w-5 text-green-500' /> Custom Domain
               </li>
               <li className='flex items-center'>
                 <CheckCircle className='mr-2 h-5 w-5 text-green-500' />{' '}
                 On-premise Option
+              </li>
+              <li className='flex items-center'>
+                <Code className='mr-2 h-5 w-5 text-green-500' /> API Access
               </li>
             </ul>
           </CardContent>
@@ -184,7 +176,6 @@ export default function PricingPage() {
           </CardFooter>
         </Card>
       </div>
-
       {/* Pricing FAQs */}
       <section className='px-4 py-20'>
         <div className='mx-auto max-w-4xl space-y-12'>

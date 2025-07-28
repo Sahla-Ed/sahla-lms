@@ -1,56 +1,72 @@
 'use server';
 
-import { auth } from '@/lib/auth';
 import { requireAdmin } from '@/app/s/[subdomain]/data/admin/require-admin';
-import { redirect } from 'next/navigation';
-import { headers } from 'next/headers';
-import { getTenantIdFromSlug } from '@/lib/get-tenant-id';
-import { extractSubdomain } from '@/lib/subdomain';
+import { prisma } from '@/lib/db';
+import { stripe } from '@/lib/stripe';
 import { protocol } from '@/lib/utils';
-import { authClient } from '@/lib/auth-client';
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
 
-export async function createCheckoutSession(planName: string, annual: boolean) {
+const PRO_PLAN_PRICE_ID = 'price_1RpiDnIzJqhYU7tdZK7d43rO';
+
+export async function createProUpgradeCheckoutSession() {
+  const { user: sessionUser } = await requireAdmin();
   const host = Object.fromEntries(await headers()).host;
-  const subdomain = await extractSubdomain(undefined, host);
-  const tenantId = await getTenantIdFromSlug(subdomain);
-  const { user } = await requireAdmin();
 
   const baseUrl = `${protocol}://${host}`;
-  const successUrl = `${baseUrl}/admin/settings/billing?success=true`;
+  const successUrl = `${baseUrl}/admin/settings/billing?upgrade=success`;
   const cancelUrl = `${baseUrl}/admin/settings/billing`;
 
-  const res = await authClient.subscription.upgrade({
-    plan: planName,
-    annual,
-    referenceId: user.id,
-    successUrl,
-    cancelUrl,
+  const user = await prisma.user.findUnique({
+    where: {
+      id: sessionUser.id,
+    },
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      stripeCustomerId: true,
+    },
   });
-  console.log(JSON.stringify(res, null, 2));
-  if (res.data?.url) {
-    redirect(res.data?.url);
+
+  if (!user) {
+    throw new Error('User not found in database.');
   }
 
-  // if (url) {
-  //   redirect(url);
-  // }
-}
-
-export async function createBillingPortalSession() {
-  const host = Object.fromEntries(await headers()).host;
-  const subdomain = await extractSubdomain(undefined, host);
-  const tenantId = await getTenantIdFromSlug(subdomain);
-  const { user } = await requireAdmin();
-
-  const baseUrl = `${protocol}://${host}`;
-  const returnUrl = `${baseUrl}/admin/settings/billing`;
-
-  const res = await authClient.subscription.cancel({
-    referenceId: user.id,
-    returnUrl,
-  });
-  console.log(JSON.stringify(res, null, 2));
-  if (res.data?.url) {
-    redirect(res.data?.url);
+  let stripeCustomerId = user.stripeCustomerId;
+  if (!stripeCustomerId) {
+    const customer = await stripe.customers.create({
+      email: user.email,
+      name: user.name,
+      metadata: { userId: user.id },
+    });
+    stripeCustomerId = customer.id;
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { stripeCustomerId },
+    });
   }
+
+  const checkoutSession = await stripe.checkout.sessions.create({
+    customer: stripeCustomerId,
+    mode: 'payment',
+    line_items: [
+      {
+        price: PRO_PLAN_PRICE_ID,
+        quantity: 1,
+      },
+    ],
+    success_url: successUrl,
+    cancel_url: cancelUrl,
+    metadata: {
+      userId: user.id,
+      upgrade: 'pro',
+    },
+  });
+
+  if (!checkoutSession.url) {
+    throw new Error('Could not create Stripe checkout session.');
+  }
+
+  redirect(checkoutSession.url);
 }
