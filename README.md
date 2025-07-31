@@ -6,7 +6,7 @@
 
 **Sahla** (سهلة - Arabic for "Easy") is a powerful, multi-tenant Learning Management System (LMS) built with a modern technology stack. It empowers educators, developers, and entrepreneurs to launch their own branded online learning platforms with unparalleled ease and power. From intuitive course creation and AI-powered tools to seamless payment processing and a drag-and-drop landing page builder, Sahla handles the complexities so you can focus on what you do best: educating and inspiring.
 
-**Live Demo:** `https://sahla-lms.vercel.app/` (Replace with your actual demo link)
+**Live Demo:** `https://sahla-lms.vercel.app/` 
 
 ## ✨ Key Features
 
