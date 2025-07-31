@@ -1,6 +1,4 @@
-Of course! Here is a comprehensive and well-structured README for your Sahla LMS project, highlighting its strengths and technology stack.
 
----
 
 # Sahla LMS - The All-in-One Platform to Build Your Learning Empire
 
