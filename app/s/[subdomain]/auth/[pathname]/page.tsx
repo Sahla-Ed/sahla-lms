@@ -1,11 +1,11 @@
-import { authViewPaths } from '@daveyplate/better-auth-ui/server';
+// import { authViewPaths } from '@daveyplate/better-auth-ui/server';
 import { AuthView } from './view';
 import { requireUser } from '@/app/s/[subdomain]/data/user/require-user';
 import { redirect } from 'next/navigation';
 
-export function generateStaticParams() {
-  return Object.values(authViewPaths).map((pathname) => ({ pathname }));
-}
+// export function generateStaticParams() {
+//   return Object.values(authViewPaths).map((pathname) => ({ pathname }));
+// }
 
 export default async function AuthPage({
   params,
@@ -16,14 +16,14 @@ export default async function AuthPage({
   const user = await requireUser(false);
   if (
     user &&
-    (pathname === 'sign-up' ||
-      pathname === 'sign-in' ||
-      pathname === 'login' ||
-      pathname === 'signup' ||
-      pathname === 'signin')
+    ['sign-up', 'sign-in', 'login', 'signup', 'signin'].includes(pathname)
   ) {
     redirect('/');
   }
 
-  return <AuthView pathname={pathname} />;
+  return (
+    <>
+      <AuthView pathname={pathname} />
+    </>
+  );
 }

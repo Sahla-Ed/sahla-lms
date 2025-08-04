@@ -1,58 +1,55 @@
-
 # Sahla LMS - The All-in-One Platform to Build Your Learning Empire
-
-
 
 **Sahla** (سهلة - Arabic for "Easy") is a powerful, multi-tenant Learning Management System (LMS) built with a modern technology stack. It empowers educators, developers, and entrepreneurs to launch their own branded online learning platforms with unparalleled ease and power. From intuitive course creation and AI-powered tools to seamless payment processing and a drag-and-drop landing page builder, Sahla handles the complexities so you can focus on what you do best: educating and inspiring.
 
-**Live Demo:** `https://sahla-lms.vercel.app/` 
+**Live Demo:** `https://sahla-lms.vercel.app/`
 
 ## ✨ Key Features
 
 Sahla is packed with features designed to provide a world-class experience for both platform administrators and students.
 
-*   **🏢 Multi-Tenancy Architecture:** Launch multiple, fully-isolated learning platforms, each with its own unique subdomain, branding, courses, and user base, all managed from a single codebase.
-*   **💳 Stripe Integration for Payments & Subscriptions:** Monetize your content effortlessly. Sell courses individually or offer subscription plans with secure payment processing handled by Stripe. Webhooks are configured for real-time updates on enrollments and plan upgrades.
-*   **🛠️ Advanced Course & Content Management:**
-    *   **Rich Course Structure:** Organize content with chapters and lessons.
-    *   **Multiple Lesson Types:** Engage students with diverse content formats including **video lessons**, interactive **quizzes**, and hands-on **coding playgrounds**.
-    *   **Rich Text Editor:** Create beautiful and detailed course descriptions using a Tiptap-based WYSIWYG editor.
-*   **🤖 AI-Powered Quiz Generation:** (Pro Plan Feature) Save hours of content creation time by automatically generating relevant quiz questions on any topic using the OpenRouter AI API.
-*   **💻 Interactive Coding Playgrounds:** A standout feature for technical courses!
-    *   **Live Code Execution:** Powered by the Judge0 API, students can run code in various languages directly in the browser.
-    *   **Web & Server-Side Support:** Supports both frontend (HTML, CSS, JS) playgrounds with a live preview and popular backend languages (Python, C++, TypeScript, etc.).
-    *   **Submission History:** Students can track their attempts and review past submissions.
-*   **🎨 Drag-and-Drop Landing Page Builder:** No coding required! Admins can create and customize a beautiful, responsive public landing page for their platform using an integrated instance of **Puck.js**.
-*   **📊 Admin & Analytics Dashboard:**
-    *   Gain insights into your platform's performance with key metrics like total revenue, enrollments, and user sign-ups.
-    *   Visualize trends with interactive charts for enrollments and top-performing courses.
-    *   Manage students, courses, and platform settings from a centralized admin panel.
-*   **🎓 Student Experience & Certification:**
-    *   **Personalized Dashboard:** Students can track their progress across all enrolled courses.
-    *   **Lesson Completion Tracking:** A clear path for students to follow, unlocking lessons as they progress.
-    *   **PDF Certificate Generation:** Award verifiable PDF certificates upon course completion to motivate students and validate their skills.
-    *   **Public Verification Page:** Each certificate comes with a unique link to a public page to verify its authenticity.
-*   **💬 Comments & Discussion:** Foster a community of learners with a built-in commenting system on each lesson, allowing for replies and instructor interaction.
-*   **☁️ S3-Compatible File Storage:** Securely upload and stream course materials like videos and images using a robust file handling system compatible with AWS S3, Cloudflare R2, and more.
+- **🏢 Multi-Tenancy Architecture:** Launch multiple, fully-isolated learning platforms, each with its own unique subdomain, branding, courses, and user base, all managed from a single codebase.
+- **💳 Stripe Integration for Payments & Subscriptions:** Monetize your content effortlessly. Sell courses individually or offer subscription plans with secure payment processing handled by Stripe. Webhooks are configured for real-time updates on enrollments and plan upgrades.
+- **🛠️ Advanced Course & Content Management:**
+  - **Rich Course Structure:** Organize content with chapters and lessons.
+  - **Multiple Lesson Types:** Engage students with diverse content formats including **video lessons**, interactive **quizzes**, and hands-on **coding playgrounds**.
+  - **Rich Text Editor:** Create beautiful and detailed course descriptions using a Tiptap-based WYSIWYG editor.
+- **🤖 AI-Powered Quiz Generation:** (Pro Plan Feature) Save hours of content creation time by automatically generating relevant quiz questions on any topic using the OpenRouter AI API.
+- **💻 Interactive Coding Playgrounds:** A standout feature for technical courses!
+  - **Live Code Execution:** Powered by the Judge0 API, students can run code in various languages directly in the browser.
+  - **Web & Server-Side Support:** Supports both frontend (HTML, CSS, JS) playgrounds with a live preview and popular backend languages (Python, C++, TypeScript, etc.).
+  - **Submission History:** Students can track their attempts and review past submissions.
+- **🎨 Drag-and-Drop Landing Page Builder:** No coding required! Admins can create and customize a beautiful, responsive public landing page for their platform using an integrated instance of **Puck.js**.
+- **📊 Admin & Analytics Dashboard:**
+  - Gain insights into your platform's performance with key metrics like total revenue, enrollments, and user sign-ups.
+  - Visualize trends with interactive charts for enrollments and top-performing courses.
+  - Manage students, courses, and platform settings from a centralized admin panel.
+- **🎓 Student Experience & Certification:**
+  - **Personalized Dashboard:** Students can track their progress across all enrolled courses.
+  - **Lesson Completion Tracking:** A clear path for students to follow, unlocking lessons as they progress.
+  - **PDF Certificate Generation:** Award verifiable PDF certificates upon course completion to motivate students and validate their skills.
+  - **Public Verification Page:** Each certificate comes with a unique link to a public page to verify its authenticity.
+- **💬 Comments & Discussion:** Foster a community of learners with a built-in commenting system on each lesson, allowing for replies and instructor interaction.
+- **☁️ S3-Compatible File Storage:** Securely upload and stream course materials like videos and images using a robust file handling system compatible with AWS S3, Cloudflare R2, and more.
 
 ## 🚀 Tech Stack
 
 Sahla is built with a modern, scalable, and type-safe technology stack.
 
-| Category          | Technologies                                                                                                   |
-| ----------------- | -------------------------------------------------------------------------------------------------------------- |
-| **Framework**     | [Next.js](https://nextjs.org/) (App Router), [React](https://react.dev/)                                         |
-| **Language**      | [TypeScript](https://www.typescriptlang.org/)                                                                  |
-| **Database**      | [PostgreSQL](https://www.postgresql.org/) with [Prisma](https://www.prisma.io/) ORM                            |
-| **Styling**       | [Tailwind CSS](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/), [Radix UI](https://www.radix-ui.com/) |
-| **Authentication**| [Better Auth](https://better-auth.dev/)                                                                        |
-| **Payments**      | [Stripe](https://stripe.com/)                                                                                  |
-| **File Storage**  | S3-Compatible (e.g., [Cloudflare R2](https://www.cloudflare.com/developer-platform/r2/))                         |
-| **Emails**        | [Resend](https://resend.com/)                                                                                  |
-| **AI Services**   | [OpenRouter](https://openrouter.ai/)                                                                           |
-| **Code Execution**| [Judge0](https://judge0.com/)                                                                                  |
-| **Page Builder**  | [Puck.js](https://puck.js.org/)                                                                                |
-| **Deployment**    | [Vercel](https://vercel.com/)                                                                                  |
+| Category           | Technologies                                                                                                         |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| **Framework**      | [Next.js](https://nextjs.org/) (App Router), [React](https://react.dev/)                                             |
+| **Language**       | [TypeScript](https://www.typescriptlang.org/)                                                                        |
+| **Database**       | [PostgreSQL](https://www.postgresql.org/) with [Prisma](https://www.prisma.io/) ORM                                  |
+| **Styling**        | [Tailwind CSS](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/), [Radix UI](https://www.radix-ui.com/) |
+| **Authentication** | [Better Auth](https://better-auth.dev/)                                                                              |
+| **Payments**       | [Stripe](https://stripe.com/)                                                                                        |
+| **File Storage**   | S3-Compatible (e.g., [Cloudflare R2](https://www.cloudflare.com/developer-platform/r2/))                             |
+| **Emails**         | [Resend](https://resend.com/)                                                                                        |
+| **AI Services**    | [OpenRouter](https://openrouter.ai/)                                                                                 |
+| **Code Execution** | [Judge0](https://judge0.com/)                                                                                        |
+| **Page Builder**   | [Puck.js](https://puck.js.org/)                                                                                      |
+| **Deployment**     | [Vercel](https://vercel.com/)                                                                                        |
 
 ## ⚙️ Getting Started
 
@@ -60,9 +57,9 @@ Follow these steps to get a local instance of Sahla up and running.
 
 ### Prerequisites
 
-*   Node.js (v18 or later)
-*   pnpm
-*   PostgreSQL database (e.g., via Docker, Neon, or a local installation)
+- Node.js (v18 or later)
+- pnpm
+- PostgreSQL database (e.g., via Docker, Neon, or a local installation)
 
 ### 1. Clone the Repository
 
@@ -141,15 +138,15 @@ The application will be available at `http://localhost:3000`. You can create you
 
 ## Project Structure
 
-*   `app/(sahla)/`: Contains the routes for the main marketing website (`/`, `/pricing`, `/about`, etc.).
-*   `app/s/[subdomain]/`: The core multi-tenant application. All platform-specific logic resides here.
-    *   `(public)/`: Public-facing pages for a tenant (landing page, course catalog).
-    *   `admin/`: The admin dashboard for platform owners.
-    *   `dashboard/`: The dashboard for enrolled students.
-*   `lib/`: Core logic, utilities, database client (Prisma), and service integrations (Stripe, Resend, etc.).
-*   `components/`: Shared React components used throughout the application, including a rich `ui` library based on shadcn/ui.
-*   `prisma/`: Database schema and migrations.
-*   `hooks/`: Custom React hooks for shared client-side logic.
+- `app/(sahla)/`: Contains the routes for the main marketing website (`/`, `/pricing`, `/about`, etc.).
+- `app/s/[subdomain]/`: The core multi-tenant application. All platform-specific logic resides here.
+  - `(public)/`: Public-facing pages for a tenant (landing page, course catalog).
+  - `admin/`: The admin dashboard for platform owners.
+  - `dashboard/`: The dashboard for enrolled students.
+- `lib/`: Core logic, utilities, database client (Prisma), and service integrations (Stripe, Resend, etc.).
+- `components/`: Shared React components used throughout the application, including a rich `ui` library based on shadcn/ui.
+- `prisma/`: Database schema and migrations.
+- `hooks/`: Custom React hooks for shared client-side logic.
 
 ## 🤝 Contributing
 

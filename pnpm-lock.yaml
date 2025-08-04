@@ -228,6 +228,9 @@ importers:
       resend:
         specifier: ^4.6.0
         version: 4.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
       slugify:
         specifier: ^1.6.6
         version: 1.6.6
@@ -7011,6 +7014,12 @@ packages:
     engines: { node: '>=10' }
     hasBin: true
 
+  server-only@0.0.1:
+    resolution:
+      {
+        integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==,
+      }
+
   set-cookie-parser@2.7.1:
     resolution:
       {
@@ -12546,6 +12555,8 @@ snapshots:
   semver@6.3.1: {}
 
   semver@7.7.2: {}
+
+  server-only@0.0.1: {}
 
   set-cookie-parser@2.7.1: {}
 

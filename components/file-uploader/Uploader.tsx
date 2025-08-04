@@ -120,6 +120,7 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
 
           xhr.open('PUT', presignedUrl);
           xhr.setRequestHeader('Content-Type', file.type);
+          xhr.setRequestHeader('Content-Length', file.size.toString());
           xhr.send(file);
         });
       } catch {

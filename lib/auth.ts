@@ -15,10 +15,13 @@ export const auth = (tenantId: string) =>
       tenantId: tenantId,
     }),
 
+    //FIX:this shouldnot be hardcoded or allowing all but doing this for testing
     trustedOrigins: [
       `https://${env.VERCEL_BRANCH_URL}`,
       `*.localhost:3000`,
       `https${env.VERCEL_URL}`,
+      `*.sahlah.tech`,
+      '*',
     ],
     socialProviders: {
       github: {

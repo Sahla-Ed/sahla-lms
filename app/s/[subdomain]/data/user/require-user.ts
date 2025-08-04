@@ -7,7 +7,8 @@ import { cache } from 'react';
 import { extractSubdomain } from '@/lib/subdomain';
 import { getTenantIdFromSlug } from '@/lib/get-tenant-id';
 
-export const requireUser = cache(async (shouldRedirect = true) => {
+// cache(
+export const requireUser = async (shouldRedirect = true) => {
   const host = Object.fromEntries(await headers()).host;
   const subdomain = await extractSubdomain(undefined, host);
   const tenantId = await getTenantIdFromSlug(subdomain);
@@ -24,4 +25,5 @@ export const requireUser = cache(async (shouldRedirect = true) => {
   }
 
   return session.user;
-});
+};
+// );
