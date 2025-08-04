@@ -25,6 +25,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Update the matcher to exclude the new error page from the middleware.
   matcher: ['/((?!api|_next/static|_next/image|favicon.ico|not-found).*)'],
 };

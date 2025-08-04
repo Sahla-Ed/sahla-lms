@@ -33,6 +33,11 @@ export async function extractSubdomain(
     const parts = hostname.split('---');
     return parts.length > 0 ? parts[0] : null;
   }
+  //FIXME:this should not be hardcoded but carentlly we are testing
+  const sahlaSubdomainMatch = hostname.match(/^([^.]+)\.sahla\.tech$/);
+  if (sahlaSubdomainMatch && sahlaSubdomainMatch[1]) {
+    return sahlaSubdomainMatch[1].replace(/^(https?:\/\/)?/, '');
+  }
 
   const isSubdomain =
     hostname !== rootDomainFormatted &&
