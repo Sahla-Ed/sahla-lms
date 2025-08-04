@@ -6,6 +6,7 @@ import { env } from '@/lib/env';
 import { stripe } from '@/lib/stripe';
 import { ApiResponse } from '@/lib/types';
 import { protocol } from '@/lib/utils';
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Stripe from 'stripe';
 
@@ -14,15 +15,17 @@ export async function enrollInCourseAction(
 ): Promise<ApiResponse | never> {
   // 1. Authenticate the user and get their session.
   const sessionUser = await requireUser();
+  const host = Object.fromEntries(await headers()).host;
+
+  const baseUrl = `${protocol}://${host}`;
+  const successUrl = `${baseUrl}/payment/success`;
+  const cancelUrl = `${baseUrl}/payment/cancel`;
   if (!sessionUser) {
     // This will redirect to login if the user is not authenticated.
     return { status: 'error', message: 'Unauthorized' };
   }
 
   // 2. Construct a complete base URL for Stripe redirects.
-  const baseUrl = env.VERCEL_BRANCH_URL
-    ? `https://${env.VERCEL_BRANCH_URL}`
-    : `${protocol}://localhost:3000`;
 
   let checkoutUrl: string | null = null;
 

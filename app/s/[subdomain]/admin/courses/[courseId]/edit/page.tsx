@@ -16,7 +16,6 @@ import { buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
 import { Eye } from 'lucide-react';
 
-
 interface EditRouteProps {
   params: Promise<{ courseId: string }>;
 }
@@ -24,18 +23,15 @@ interface EditRouteProps {
 export default async function EditRoute({ params }: EditRouteProps) {
   const { courseId } = await params;
 
-
   const [data, planStatus] = await Promise.all([
     adminGetCourse(courseId),
     checkPlanStatus(),
   ]);
 
-
   const firstLesson = data.chapter[0]?.lessons[0];
   const previewUrl = firstLesson
     ? `/admin/lessons/${firstLesson.id}`
     : `/courses/${data.slug}`;
-
 
   return (
     <div>

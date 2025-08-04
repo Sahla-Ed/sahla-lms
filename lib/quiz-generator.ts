@@ -45,40 +45,52 @@ export async function generateQuizQuestions(
     - Return only the JSON object, nothing else.
   `;
 
-  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${env.OPEN_ROUTER_API_KEY}`,
+  const res = await fetch(
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-goog-api-key': env?.OPEN_ROUTER_API_KEY || '', // Use your Google AI API key
+      },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [
+              {
+                text: "You are an expert quiz creator. You generate questions and answers based on the user's topic and strictly adhere to the provided JSON schema, including all validation rules.",
+              },
+              {
+                text: prompt,
+              },
+            ],
+          },
+        ],
+        generationConfig: {
+          temperature: 0.7,
+          response_mime_type: 'application/json', // Instruct the model to output JSON
+        },
+      }),
     },
-    body: JSON.stringify({
-      model: 'moonshotai/kimi-k2:free',
-      messages: [
-        {
-          role: 'system',
-          content:
-            "You are an expert quiz creator. You generate questions and answers based on the user's topic and strictly adhere to the provided JSON schema, including all validation rules.",
-        },
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ],
-      temperature: 0.7,
-    }),
-  });
+  );
   console.log(res);
 
   if (!res.ok) {
-    throw new Error(`OpenRouter API error: ${res.status} ${res.statusText}`);
+    const errorBody = await res.text();
+    throw new Error(
+      `Google AI API error: ${res.status} ${res.statusText} - ${errorBody}`,
+    );
   }
 
   const data = await res.json();
-  let text = data.choices?.[0]?.message?.content;
+  let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
   if (!text) {
-    throw new Error('No content returned from OpenRouter API');
+    throw new Error('No content returned from Google AI API');
   }
 
+  // The Gemini API with response_mime_type should return valid JSON directly.
+  // The match and re-parse might not be strictly necessary if the API behaves as expected,
+  // but it's kept here for robustness against minor variations in the response.
   const jsonMatch = text.match(/\{[\s\S]*\}/);
   if (!jsonMatch) {
     throw new Error('AI response does not contain a JSON object');
@@ -90,9 +102,9 @@ export async function generateQuizQuestions(
     parsed = JSON.parse(text);
   } catch (e) {
     console.log(e);
-
     throw new Error('AI response is not valid JSON');
   }
+
   const result = aiQuizGenerationSchema.safeParse(parsed);
   if (!result.success) {
     throw new Error(
@@ -100,5 +112,6 @@ export async function generateQuizQuestions(
         JSON.stringify(result.error.issues),
     );
   }
+
   return result.data.questions;
 }

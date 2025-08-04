@@ -23,7 +23,6 @@ export default async function AdminLayout({
         } as React.CSSProperties
       }
     >
-
       <AppSidebar variant='inset' planName={plan.planName} />
 
       <SidebarInset>

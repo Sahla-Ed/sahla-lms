@@ -76,29 +76,29 @@ export default function Home() {
           <h3 className='text-muted-foreground mb-8 text-xl font-semibold'>
             Trusted by leading academies worldwide
           </h3>
-         <div className='flex flex-wrap items-center justify-center gap-8 md:gap-16'>
-  <Image
-    src={Lms1}
-    alt='Client Logo 1'
-    width={120}
-    height={40}
-    className='object-contain opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0'
-  />
-  <Image
-    src={Lms2}
-    alt='Client Logo 2'
-    width={120}
-    height={40}
-    className='object-contain opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0'
-  />
-  <Image
-    src={Lms3}
-    alt='Client Logo 3'
-    width={120}
-    height={40}
-    className='object-contain opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0'
-  />
-</div>
+          <div className='flex flex-wrap items-center justify-center gap-8 md:gap-16'>
+            <Image
+              src={Lms1}
+              alt='Client Logo 1'
+              width={120}
+              height={40}
+              className='object-contain opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0'
+            />
+            <Image
+              src={Lms2}
+              alt='Client Logo 2'
+              width={120}
+              height={40}
+              className='object-contain opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0'
+            />
+            <Image
+              src={Lms3}
+              alt='Client Logo 3'
+              width={120}
+              height={40}
+              className='object-contain opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0'
+            />
+          </div>
         </div>
       </section>
 
