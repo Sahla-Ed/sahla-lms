@@ -46,11 +46,7 @@ export default function Home() {
           <p className='animate-in mx-auto mb-6 max-w-3xl text-base leading-relaxed sm:mb-8 sm:text-lg md:mb-10 md:max-w-4xl md:text-xl lg:text-2xl'>
             Sahla provides a robust, multi-tenant platform for you to launch,
             manage, and scale your online learning business with unparalleled
-            ease and power. From intuitive course creation to seamless payment
-            processing and insightful analytics, we handle the complexities so
-            you can focus on what you do best: educating and inspiring. Join us
-            to unlock new possibilities for your educational content and
-            audience.
+            ease and power.
           </p>
           <div className='animate-in animation-delay-400 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4'>
             <Button
