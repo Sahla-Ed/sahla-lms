@@ -3,8 +3,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Facebook, Instagram, Youtube, Twitter } from 'lucide-react';
-
+import { useTheme } from 'next-themes';
+import LogoLight from '@/public/logoLight.png';
+import LogoDark from '@/public/logoDark.png';
 export function MainSiteFooter() {
+  const { theme, systemTheme } = useTheme();
+
+  const currentTheme = theme === 'system' ? systemTheme : theme;
+
   const footerLinks = {
     support: [
       { name: 'Contact us', href: '/contact' },
@@ -23,7 +29,12 @@ export function MainSiteFooter() {
         <div className='grid grid-cols-1 gap-16 lg:grid-cols-12'>
           <div className='lg:col-span-5'>
             <Link href='/' className='mb-4 flex items-center space-x-2'>
-              <Image src='/logo.png' alt='Sahla Logo' width={48} height={48} />
+              <Image
+                src={currentTheme === 'dark' ? LogoDark : LogoLight}
+                alt='Sahla Logo'
+                width={48}
+                height={48}
+              />
               <span className='text-2xl font-bold'>Sahla</span>
             </Link>
             <p className='text-muted-foreground max-w-md'>
