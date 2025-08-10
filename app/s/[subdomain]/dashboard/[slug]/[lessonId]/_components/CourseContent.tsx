@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 import { CommentWithUserAndReplies } from '../comment-actions';
 import { CommentForm } from './CommentForm';
 import { CommentList } from './CommentList';
+import { Player } from '@/components/player/player';
 interface iAppProps {
   data: LessonContentType;
   comments: CommentWithUserAndReplies[];
@@ -52,16 +53,17 @@ export function CourseContent({
 
     return (
       <div className='relative aspect-video overflow-hidden rounded-lg bg-black'>
-        <video
-          className='h-full w-full object-cover'
-          controls
-          poster={thumbnailUrl}
-        >
-          <source src={videoUrl} type='video/mp4' />
-          <source src={videoUrl} type='video/webm' />
-          <source src={videoUrl} type='video/ogg' />
-          Your browser does not support the video tag.
-        </video>
+        {/* <video */}
+        {/*   className='h-full w-full object-cover' */}
+        {/*   controls */}
+        {/*   poster={thumbnailUrl} */}
+        {/* > */}
+        {/*   <source src={videoUrl} type='video/mp4' /> */}
+        {/*   <source src={videoUrl} type='video/webm' /> */}
+        {/*   <source src={videoUrl} type='video/ogg' /> */}
+        {/*   Your browser does not support the video tag. */}
+        {/* </video> */}
+        <Player src={videoUrl} />
       </div>
     );
   }
