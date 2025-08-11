@@ -10,18 +10,28 @@ import { authClient } from '@/lib/auth-client';
 
 export function Providers({ children }: { children: ReactNode }) {
   const router = useRouter();
+  const customPush = (url: string) => {
+    console.log('Navigating to:', url);
+    router.push(url);
+  };
+
+  const customReplace = (url: string) => {
+    console.log('Replacing to:', url);
+    router.replace(url);
+  };
 
   return (
     <AuthUIProvider
       authClient={authClient}
-      navigate={router.push}
-      replace={router.replace}
+      navigate={customPush}
+      replace={customReplace}
       onSessionChange={() => {
         // Clear router cache (protected routes)
         router.refresh();
       }}
       Link={Link}
       social={{ providers: ['github'] }}
+      redirectTo='/random'
     >
       <ThemeProvider
         attribute='class'

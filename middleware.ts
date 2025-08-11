@@ -9,8 +9,13 @@ export async function middleware(request: NextRequest) {
     // Rewrite requests for a subdomain to the /s/[subdomain] directory.
     // The validation of whether the subdomain (tenant) exists will happen
     // in the layout or page component, which can access the database.
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set('x-pathname', request.nextUrl.pathname);
     return NextResponse.rewrite(
       new URL(`/s/${subdomain}${pathname}`, request.url),
+      {
+        headers: requestHeaders,
+      },
     );
   }
 
