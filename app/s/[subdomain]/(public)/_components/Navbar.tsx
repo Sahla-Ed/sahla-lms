@@ -94,7 +94,7 @@ export function Navbar() {
             ) : (
               <>
                 <Link
-                  href='/auth/login'
+                  href='/auth/sign-in'
                   className={buttonVariants({ variant: 'ghost' })}
                 >
                   Login
@@ -167,7 +167,7 @@ export function Navbar() {
               <div className='border-border border-t pt-4 pb-3'>
                 <div className='flex flex-col space-y-2 px-3'>
                   <Link
-                    href='/auth/login'
+                    href='/auth/sign-in'
                     className={buttonVariants({
                       variant: 'ghost',
                       className: 'w-full justify-start',

@@ -109,7 +109,7 @@ export function DefaultLandingPage() {
                     variant='outline'
                     className='group relative overflow-hidden rounded-full border border-white/50 bg-transparent px-10 py-4 text-lg font-light text-white backdrop-blur-sm transition-all duration-500 hover:border-white/70'
                   >
-                    <Link href='/auth/login' className='relative z-10'>
+                    <Link href='/auth/sign-in' className='relative z-10'>
                       <span className='inline-block transition-transform duration-500 group-hover:-translate-y-full group-hover:opacity-0'>
                         Sign In
                       </span>
@@ -196,7 +196,7 @@ export function DefaultLandingPage() {
               size='lg'
               className='group relative overflow-hidden rounded-full px-12 py-6 text-lg font-medium transition-all duration-500 hover:scale-105'
             >
-              <Link href='/login' className='relative z-10'>
+              <Link href='/sign-in' className='relative z-10'>
                 <span className='inline-block transition-transform duration-500 group-hover:-translate-y-full group-hover:opacity-0'>
                   Get Started Today
                 </span>

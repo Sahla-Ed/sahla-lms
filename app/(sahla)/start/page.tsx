@@ -87,7 +87,7 @@ export default function StartplatformPage() {
       const result = await createTenantAndAdmin(values);
       if (result.status === 'success' && result.slug) {
         toast.success(result.message);
-        const url = `${protocol}://${result.slug}.${rootDomain}/auth/login`;
+        const url = `${protocol}://${result.slug}.${rootDomain}/auth/sign-in`;
         router.push(url);
       } else {
         toast.error(result.message);

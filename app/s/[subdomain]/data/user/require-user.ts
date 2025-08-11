@@ -3,13 +3,13 @@ import 'server-only';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { cache } from 'react';
 import { extractSubdomain } from '@/lib/subdomain';
 import { getTenantIdFromSlug } from '@/lib/get-tenant-id';
 
-// cache(
 export const requireUser = async (shouldRedirect = true) => {
-  const host = Object.fromEntries(await headers()).host;
+  const headersList = Object.fromEntries(await headers());
+  const host = headersList.host;
+  const origin = headersList['x-pathname'];
   const subdomain = await extractSubdomain(undefined, host);
   const tenantId = await getTenantIdFromSlug(subdomain);
 
@@ -19,11 +19,10 @@ export const requireUser = async (shouldRedirect = true) => {
 
   if (!session) {
     if (shouldRedirect) {
-      return redirect('/auth/login');
+      return redirect(`/auth/sign-in?redirectTo=${origin}`);
     }
     return null;
   }
 
   return session.user;
 };
-// );

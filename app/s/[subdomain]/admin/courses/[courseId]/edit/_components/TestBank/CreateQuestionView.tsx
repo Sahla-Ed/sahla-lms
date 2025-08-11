@@ -23,6 +23,7 @@ export const CreateQuestionView: FC<CreateQuestionViewProps> = ({
     <Tabs defaultValue='manual'>
       <TabsList className='grid w-full grid-cols-3'>
         <TabsTrigger value='manual'>Manual</TabsTrigger>
+        {/* //TODO:add pop to suggest getting pro */}
         <TabsTrigger
           value='ai'
           disabled={!canUseAi}

@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   const tenantId = await getTenantIdFromSlug(subdomain);
   const newHost = ` ${protocol}://${request.headers.get('host')}`;
   console.log(newHost);
-  const loginUrl = new URL('/auth/login', newHost);
+  const loginUrl = new URL('/auth/sign-in', newHost);
   if (!token || !tenantId) {
     loginUrl.searchParams.set('error', 'Invalid transfer request.');
     return NextResponse.redirect(loginUrl);
