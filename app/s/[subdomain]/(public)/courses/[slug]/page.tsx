@@ -71,6 +71,21 @@ export default async function SlugPage({ params }: { params: PageParams }) {
               {/* Course Image - Always first on mobile and desktop */}
 
               <div className='group shadow-primary/10 border-border/50 relative aspect-video w-full overflow-hidden rounded-2xl border shadow-2xl'>
+                {course.videoKey && (
+                  <Player
+                    src={constructUrl(course.videoKey)}
+                    coverSrc={constructUrl(course.fileKey!)}
+                    coverAlt={course.title + ' cover'}
+                  />
+                )}
+                {/* <Image */}
+                {/*   src={constructUrl(course.fileKey!)} */}
+                {/*   alt={course.title} */}
+                {/*   fill */}
+                {/*   className='object-cover transition-transform duration-700 group-hover:scale-105' */}
+                {/*   priority */}
+                {/* /> */}
+                {/* <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent'></div> */}
 
                 {/* Play Button Overlay */}
                 {/* <div className='absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100'> */}
