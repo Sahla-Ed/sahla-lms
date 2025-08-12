@@ -11,7 +11,7 @@ import {
   IconSearch,
   IconSettings,
   IconUsers,
-  IconFolder,
+  IconCashBanknote,
   IconBuilding,
   IconLayout2,
 } from '@tabler/icons-react';
@@ -35,7 +35,7 @@ import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
-  planName: 'FREE' | 'PRO'; // <-- Accept the planName prop
+  planName: 'FREE' | 'PRO';
 }
 
 export function AppSidebar({ className, planName, ...props }: AppSidebarProps) {
@@ -46,7 +46,6 @@ export function AppSidebar({ className, planName, ...props }: AppSidebarProps) {
   }, []);
   const currentTheme = theme === 'system' ? systemTheme : theme;
 
-  // --- START: Dynamic Navigation Logic ---
   const navMain = [
     { title: 'Dashboard', url: '/admin', icon: IconDashboard },
     { title: 'Courses', url: '/admin/courses', icon: IconListDetails },
@@ -60,7 +59,6 @@ export function AppSidebar({ className, planName, ...props }: AppSidebarProps) {
       icon: IconUsers,
     });
   }
-  // --- END: Dynamic Navigation Logic ---
 
   const navSecondary = [
     {
@@ -72,6 +70,11 @@ export function AppSidebar({ className, planName, ...props }: AppSidebarProps) {
       title: 'Landing Page',
       url: '/admin/settings/landing-page',
       icon: IconLayout2,
+    },
+    {
+      title: 'billing',
+      url: '/admin/settings/billing',
+      icon: IconCashBanknote,
     },
     { title: 'Settings', url: '/admin/settings', icon: IconSettings },
     { title: 'Get Help', url: '/faqs', icon: IconHelp },
