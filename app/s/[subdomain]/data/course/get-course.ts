@@ -19,6 +19,7 @@ export async function getIndividualCourse(slug: string) {
       category: true,
       smallDescription: true,
       slug: true,
+      videoKey: true,
       chapter: {
         select: {
           id: true,
