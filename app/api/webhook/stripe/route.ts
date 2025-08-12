@@ -4,7 +4,6 @@ import { stripe } from '@/lib/stripe';
 import { headers } from 'next/headers';
 import Stripe from 'stripe';
 
-// Utility function to get subscription period dates
 function getSubscriptionPeriod(subscription: Stripe.Subscription) {
   const firstItem = subscription.items?.data?.[0];
   if (firstItem?.current_period_start && firstItem?.current_period_end) {
@@ -14,13 +13,15 @@ function getSubscriptionPeriod(subscription: Stripe.Subscription) {
     };
   }
   return {
-    periodStart: new Date(0), // Fallback to epoch if no valid period
+    periodStart: new Date(0),
     periodEnd: new Date(0),
   };
 }
 
 export async function POST(req: Request) {
-  const body = await req.text();
+  // Read the request body as a raw Buffer to prevent any parsing.
+  const body = Buffer.from(await req.arrayBuffer());
+
   const headersList = await headers();
 
   const signature = headersList.get('Stripe-Signature') as string;
@@ -38,7 +39,6 @@ export async function POST(req: Request) {
     return new Response(`Webhook Error: ${errorMessage}`, { status: 400 });
   }
 
-  // --- Main Webhook Logic ---
   switch (event.type) {
     case 'checkout.session.completed': {
       const session = event.data.object as Stripe.Checkout.Session;
