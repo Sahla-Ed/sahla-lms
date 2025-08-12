@@ -12,22 +12,31 @@ import { Button } from '@/components/ui/button';
 import { useTransition } from 'react';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
-import { PlanStatus } from '@/lib/subscription';
-import { createProUpgradeCheckoutSession } from '../actions';
+import { Badge } from '@/components/ui/badge';
+import {
+  createProUpgradeCheckoutSession,
+  createStripePortalSession,
+} from '../actions';
+
+interface SubscriptionStatus {
+  planName: 'FREE' | 'PRO';
+  status: string | null;
+  periodEnd: Date | null;
+}
 
 interface BillingPageClientProps {
-  subscription: PlanStatus;
+  subscription: SubscriptionStatus;
 }
 
 export function BillingPageClient({ subscription }: BillingPageClientProps) {
   const [isPending, startTransition] = useTransition();
 
-  const handleUpgrade = () => {
+  const handleAction = (action: () => Promise<void>) => {
     startTransition(async () => {
       try {
-        await createProUpgradeCheckoutSession();
+        await action();
       } catch (error) {
-        toast.error('Could not create checkout session.');
+        toast.error('An error occurred. Please try again.');
       }
     });
   };
@@ -42,12 +51,24 @@ export function BillingPageClient({ subscription }: BillingPageClientProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        {subscription.planName === 'PRO' ? (
-          <div className='bg-muted/30 rounded-lg border p-4'>
-            <p className='text-lg font-semibold'>You are a Pro member!</p>
-            <p className='text-muted-foreground'>
-              You have access to all Pro features.
-            </p>
+        {subscription.planName === 'PRO' && subscription.status ? (
+          <div className='bg-muted/30 space-y-2 rounded-lg border p-4'>
+            <div className='flex items-center justify-between'>
+              <p className='text-lg font-semibold'>You are a Pro member!</p>
+              <Badge
+                variant={
+                  subscription.status === 'active' ? 'default' : 'secondary'
+                }
+              >
+                Status: {subscription.status}
+              </Badge>
+            </div>
+            {subscription.periodEnd && (
+              <p className='text-muted-foreground text-sm'>
+                Your plan renews on{' '}
+                {new Date(subscription.periodEnd).toLocaleDateString()}.
+              </p>
+            )}
           </div>
         ) : (
           <div className='bg-muted/30 rounded-lg border p-4 text-center'>
@@ -58,8 +79,21 @@ export function BillingPageClient({ subscription }: BillingPageClientProps) {
         )}
       </CardContent>
       <CardFooter>
-        {subscription.planName !== 'PRO' && (
-          <Button size='lg' onClick={handleUpgrade} disabled={isPending}>
+        {subscription.planName === 'PRO' ? (
+          <Button
+            size='lg'
+            onClick={() => handleAction(createStripePortalSession)}
+            disabled={isPending}
+          >
+            {isPending && <Loader2 className='mr-2 size-4 animate-spin' />}
+            Manage Billing
+          </Button>
+        ) : (
+          <Button
+            size='lg'
+            onClick={() => handleAction(createProUpgradeCheckoutSession)}
+            disabled={isPending}
+          >
             {isPending && <Loader2 className='mr-2 size-4 animate-spin' />}
             Upgrade to Pro
           </Button>

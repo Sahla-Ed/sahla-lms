@@ -17,7 +17,7 @@ export function MainSiteFooter() {
       { name: 'FAQs', href: '/faqs' },
     ],
     platform: [
-      { name: 'Home', href: '/landing' },
+      { name: 'Home', href: '/' },
       { name: 'Pricing', href: '/pricing' },
       { name: 'About us', href: '/about' },
     ],

@@ -75,7 +75,7 @@ export default function PricingPage() {
           </CardContent>
           <CardFooter>
             <Button className='w-full' asChild>
-              <Link href='/start'>Start Your Free Trial</Link>
+              <Link href='/start'>It's completely free!</Link>
             </Button>
           </CardFooter>
         </Card>
@@ -121,7 +121,7 @@ export default function PricingPage() {
           </CardContent>
           <CardFooter>
             <Button className='w-full' asChild>
-              <Link href='/start'>Upgrade to Pro</Link>
+              <Link href='/start'>Start now upgrade later!</Link>
             </Button>
           </CardFooter>
         </Card>

@@ -7,7 +7,7 @@ import { protocol } from '@/lib/utils';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-const PRO_PLAN_PRICE_ID = 'price_1RpiDnIzJqhYU7tdZK7d43rO';
+const PRO_PLAN_PRICE_ID = 'price_1RvKJVIzJqhYU7tdV889RBuP';
 
 export async function createProUpgradeCheckoutSession() {
   const { user: sessionUser } = await requireAdmin();
@@ -49,18 +49,20 @@ export async function createProUpgradeCheckoutSession() {
 
   const checkoutSession = await stripe.checkout.sessions.create({
     customer: stripeCustomerId,
-    mode: 'payment',
+    mode: 'subscription',
     line_items: [
       {
         price: PRO_PLAN_PRICE_ID,
         quantity: 1,
       },
     ],
+    subscription_data: {
+      trial_period_days: 14,
+    },
     success_url: successUrl,
     cancel_url: cancelUrl,
     metadata: {
       userId: user.id,
-      upgrade: 'pro',
     },
   });
 
@@ -69,4 +71,30 @@ export async function createProUpgradeCheckoutSession() {
   }
 
   redirect(checkoutSession.url);
+}
+
+export async function createStripePortalSession() {
+  const { user: sessionUser } = await requireAdmin();
+  const host = Object.fromEntries(await headers()).host;
+  const returnUrl = `${protocol}://${host}/admin/settings/billing`;
+
+  const user = await prisma.user.findUnique({
+    where: { id: sessionUser.id },
+    select: { stripeCustomerId: true },
+  });
+
+  if (!user?.stripeCustomerId) {
+    throw new Error('Stripe customer ID not found for user.');
+  }
+
+  const portalSession = await stripe.billingPortal.sessions.create({
+    customer: user.stripeCustomerId,
+    return_url: returnUrl,
+  });
+
+  if (!portalSession.url) {
+    throw new Error('Could not create Stripe portal session.');
+  }
+
+  redirect(portalSession.url);
 }
