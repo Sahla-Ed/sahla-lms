@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/db';
 import { Prisma } from '@/lib/generated/prisma';
 import { getTenantIdFromSlug } from '@/lib/get-tenant-id';
-import { extractSubdomain } from '@/lib/subdomain';
+import { getSubdomain } from '@/lib/subdomain';
 import { headers } from 'next/headers';
 import 'server-only';
 
@@ -12,7 +12,7 @@ export interface CourseFilters {
 
 export async function getAllCourses(filters: CourseFilters = {}) {
   const host = Object.fromEntries(await headers()).host;
-  const subdomain = await extractSubdomain(undefined, host);
+  const subdomain = await getSubdomain(undefined, host);
   const tenantId = await getTenantIdFromSlug(subdomain);
   const { q, category } = filters;
 

@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getTenantIdFromSlug } from '@/lib/get-tenant-id';
-import { extractSubdomain } from '@/lib/subdomain';
+import { getSubdomain } from '@/lib/subdomain';
 import { protocol } from '@/lib/utils';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const token = searchParams.get('token');
 
-  const subdomain = await extractSubdomain(request);
+  const subdomain = getSubdomain(request);
   const tenantId = await getTenantIdFromSlug(subdomain);
   const newHost = ` ${protocol}://${request.headers.get('host')}`;
   console.log(newHost);
