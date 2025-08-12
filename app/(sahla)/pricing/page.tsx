@@ -79,7 +79,7 @@ export default function PricingPage() {
           </CardContent>
           <CardFooter>
             <Button className='w-full' asChild>
-              <Link href='/start'>It's completely free!</Link>
+              <Link href='/start'>It&apos;s completely free!</Link>
             </Button>
           </CardFooter>
         </Card>
