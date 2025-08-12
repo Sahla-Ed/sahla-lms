@@ -2,7 +2,7 @@ import 'server-only';
 import { cache } from 'react';
 import { headers } from 'next/headers';
 import { auth } from '@/lib/auth';
-import { extractSubdomain } from '@/lib/subdomain';
+import { getSubdomain } from '@/lib/subdomain';
 import { getTenantIdFromSlug } from '@/lib/get-tenant-id';
 
 /**
@@ -11,7 +11,7 @@ import { getTenantIdFromSlug } from '@/lib/get-tenant-id';
 export const getUserSession = cache(async () => {
   try {
     const host = Object.fromEntries(await headers()).host;
-    const subdomain = await extractSubdomain(undefined, host);
+    const subdomain = await getSubdomain(undefined, host);
     const tenantId = await getTenantIdFromSlug(subdomain);
 
     const session = await auth(tenantId ?? '').api.getSession({
