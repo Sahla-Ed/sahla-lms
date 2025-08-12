@@ -22,7 +22,7 @@ export async function middleware(request: NextRequest) {
   // On the root domain, allow normal access.
   return NextResponse.next();
 }
-
+// exclude the Stripe webhook API route.
 export const config = {
-  matcher: ['/((?!_next|[\\w-]+\\.\\w+).*)'],
+  matcher: ['/((?!api/webhook/stripe|_next|[\\w-]+\\.\\w+).*)'],
 };
