@@ -1,4 +1,5 @@
 'use client';
+import '@measured/puck/puck.css';
 
 import { Puck, Data } from '@measured/puck';
 import { puckConfig } from '../puck.config';
@@ -21,7 +22,7 @@ export function LandingPageEditorClient({
   };
 
   return (
-    <div className='h-[calc(100vh-var(--header-height))] w-full'>
+    <div className='-mx-4 -my-4 h-[calc(100vh-var(--header-height))] md:-mx-6 md:-my-6 lg:-mx-6'>
       <Puck
         config={puckConfig}
         data={initialData}
