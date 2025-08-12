@@ -63,7 +63,7 @@ export function CourseContent({
         {/*   <source src={videoUrl} type='video/ogg' /> */}
         {/*   Your browser does not support the video tag. */}
         {/* </video> */}
-        <Player src={videoUrl} />
+        <Player src={videoUrl} coverSrc={thumbnailUrl} />
       </div>
     );
   }

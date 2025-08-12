@@ -28,6 +28,7 @@ import { cn } from '@/lib/utils';
 import { Metadata } from 'next';
 import { constructUrl } from '@/hooks/use-construct-url';
 import { getUserRole } from '@/lib/get-user-session';
+import { Player } from '@/components/player/player';
 
 type PageParams = Promise<{ slug: string }>;
 
@@ -66,24 +67,154 @@ export default async function SlugPage({ params }: { params: PageParams }) {
         <div className='container mx-auto px-4 py-8'>
           <div className='grid grid-cols-1 gap-8 lg:grid-cols-12'>
             {/* Left Content */}
-            <div className='order-2 lg:order-1 lg:col-span-8'>
-              {/* Course Image */}
+            <div className='lg:col-span-8'>
+              {/* Course Image - Always first on mobile and desktop */}
+
               <div className='group shadow-primary/10 border-border/50 relative aspect-video w-full overflow-hidden rounded-2xl border shadow-2xl'>
-                <Image
-                  src={constructUrl(course.fileKey!)}
-                  alt={course.title}
-                  fill
-                  className='object-cover transition-transform duration-700 group-hover:scale-105'
-                  priority
-                />
-                <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent'></div>
+                {course.videoKey && (
+                  <Player
+                    src={constructUrl(course.videoKey)}
+                    coverSrc={constructUrl(course.fileKey!)}
+                    coverAlt={course.title + ' cover'}
+                  />
+                )}
+                {/* <Image */}
+                {/*   src={constructUrl(course.fileKey!)} */}
+                {/*   alt={course.title} */}
+                {/*   fill */}
+                {/*   className='object-cover transition-transform duration-700 group-hover:scale-105' */}
+                {/*   priority */}
+                {/* /> */}
+                {/* <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent'></div> */}
 
                 {/* Play Button Overlay */}
-                <div className='absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100'>
-                  <div className='rounded-full border border-white/30 bg-white/20 p-6 backdrop-blur-sm'>
-                    <PlayCircle className='size-16 text-white' />
-                  </div>
-                </div>
+                {/* <div className='absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100'> */}
+                {/*   <div className='rounded-full border border-white/30 bg-white/20 p-6 backdrop-blur-sm'> */}
+                {/*     <PlayCircle className='size-16 text-white' /> */}
+                {/*   </div> */}
+                {/* </div> */}
+              </div>
+
+              {/* Pricing Card - Show on mobile after image, hide on desktop */}
+              <div className='mt-8 lg:hidden'>
+                <Card className='border-border/50 bg-card/80 shadow-primary/10 overflow-hidden shadow-2xl backdrop-blur-sm'>
+                  <CardContent className='p-0'>
+                    {/* Price Header */}
+                    <div className='from-primary/10 to-primary/5 border-border/50 border-b bg-gradient-to-r p-6'>
+                      <div className='text-center'>
+                        <p className='text-muted-foreground mb-2 text-sm font-medium'>
+                          Course Price
+                        </p>
+                        <div className='flex items-center justify-center gap-2'>
+                          <span className='text-primary text-4xl font-bold'>
+                            {new Intl.NumberFormat('en-US', {
+                              style: 'currency',
+                              currency: 'USD',
+                            }).format(course.price)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className='space-y-6 p-6'>
+                      {/* Course Features */}
+                      <div className='space-y-4'>
+                        <h4 className='text-lg font-semibold'>
+                          This course includes:
+                        </h4>
+                        <div className='grid gap-3'>
+                          {[
+                            {
+                              icon: IconInfinity,
+                              text: 'Full lifetime access',
+                              highlight: true,
+                            },
+                            {
+                              icon: IconDownload,
+                              text: 'Downloadable resources',
+                            },
+                            {
+                              icon: IconCertificate,
+                              text: 'Certificate of completion',
+                            },
+                          ].map((feature, index) => (
+                            <div
+                              key={index}
+                              className={cn(
+                                'flex items-center gap-3 rounded-lg p-3 transition-all duration-200',
+                                feature.highlight
+                                  ? 'bg-primary/5 border-primary/20 border'
+                                  : 'hover:bg-muted/50',
+                              )}
+                            >
+                              <div
+                                className={cn(
+                                  'rounded-lg p-2',
+                                  feature.highlight
+                                    ? 'bg-primary/10 text-primary'
+                                    : 'bg-muted text-muted-foreground',
+                                )}
+                              >
+                                <feature.icon className='size-4' />
+                              </div>
+                              <span className='text-sm font-medium'>
+                                {feature.text}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Course Stats */}
+                      <div className='grid grid-cols-2 gap-4'>
+                        <div className='bg-muted/50 rounded-lg p-4 text-center'>
+                          <div className='text-primary text-2xl font-bold'>
+                            {course.duration}
+                          </div>
+                          <div className='text-muted-foreground text-xs'>
+                            Hours
+                          </div>
+                        </div>
+                        <div className='bg-muted/50 rounded-lg p-4 text-center'>
+                          <div className='text-primary text-2xl font-bold'>
+                            {totalLessons}
+                          </div>
+                          <div className='text-muted-foreground text-xs'>
+                            Lessons
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* CTA Button */}
+                      <div className='space-y-3'>
+                        {userRole === 'admin' ? (
+                          <Link
+                            href={`/admin/courses/${course.id}/edit`}
+                            className={buttonVariants({
+                              className:
+                                'from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 shadow-primary/25 h-12 w-full bg-gradient-to-r text-lg font-semibold shadow-lg',
+                            })}
+                          >
+                            Manage Course
+                          </Link>
+                        ) : isEnrolled ? (
+                          <Link
+                            className={buttonVariants({
+                              className:
+                                'from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80 shadow-primary/25 h-12 w-full bg-gradient-to-r text-lg font-semibold shadow-lg',
+                            })}
+                            href={`/dashboard/${course.slug}`}
+                          >
+                            <IconPlayerPlay className='mr-2 size-5' />
+                            Continue Learning
+                          </Link>
+                        ) : (
+                          <EnrollmentButton courseId={course.id} />
+                        )}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
 
               {/* Course Header */}
@@ -282,8 +413,8 @@ export default async function SlugPage({ params }: { params: PageParams }) {
               </div>
             </div>
 
-            {/* Right Sidebar - Enrollment Card */}
-            <div className='order-1 lg:order-2 lg:col-span-4'>
+            {/* Right Sidebar - Enrollment Card (Hidden on mobile, shown on desktop) */}
+            <div className='hidden lg:col-span-4 lg:block'>
               <div className='sticky top-8'>
                 <Card className='border-border/50 bg-card/80 shadow-primary/10 overflow-hidden shadow-2xl backdrop-blur-sm'>
                   <CardContent className='p-0'>

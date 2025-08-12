@@ -120,10 +120,14 @@ model Course {
 
   title       String
   description String
+  // this represent cover file in bucket 
   fileKey     String?
-  price       Int
-  duration    Int
-  level       CourseLevel @default(Beginner)
+  // represent key for video on bucker || yt url 
+  videoKey    String?
+
+  price    Int
+  duration Int
+  level    CourseLevel @default(Beginner)
 
   stripePriceId String @unique
 
