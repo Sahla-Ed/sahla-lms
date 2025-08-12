@@ -25,7 +25,11 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
-
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'Pricing & Plans | Sahla LMS',
+  description: 'Find all you need to know about our plans',
+};
 export default function PricingPage() {
   const pricingFaqs = [
     {
@@ -75,7 +79,7 @@ export default function PricingPage() {
           </CardContent>
           <CardFooter>
             <Button className='w-full' asChild>
-              <Link href='/start'>Start Your Free Trial</Link>
+              <Link href='/start'>It's completely free!</Link>
             </Button>
           </CardFooter>
         </Card>
@@ -121,7 +125,7 @@ export default function PricingPage() {
           </CardContent>
           <CardFooter>
             <Button className='w-full' asChild>
-              <Link href='/start'>Upgrade to Pro</Link>
+              <Link href='/start'>Start now upgrade later!</Link>
             </Button>
           </CardFooter>
         </Card>

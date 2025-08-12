@@ -12,10 +12,9 @@ import { format } from 'date-fns';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Eye, Lock, Users } from 'lucide-react';
-import { EmptyState } from '@/components/general/EmptyState'; // <-- ADD IMPORT
-import { checkPlanStatus } from '@/lib/subscription'; // <-- IMPORT
+import { EmptyState } from '@/components/general/EmptyState';
+import { checkPlanStatus } from '@/lib/subscription';
 
-// Helper component for the upgrade notice
 const UpgradeNotice = () => (
   <Card className='flex flex-col items-center justify-center p-8 text-center'>
     <div className='bg-muted mb-4 rounded-full p-3'>
@@ -35,7 +34,6 @@ const UpgradeNotice = () => (
 export default async function StudentsPage() {
   const plan = await checkPlanStatus();
 
-  // --- START: THE FIX ---
   if (plan.planName !== 'PRO') {
     return (
       <div className='space-y-6'>
@@ -44,7 +42,6 @@ export default async function StudentsPage() {
       </div>
     );
   }
-  // --- END: THE FIX ---
   const students = await adminGetStudents();
 
   return (
@@ -55,18 +52,15 @@ export default async function StudentsPage() {
           <CardTitle>All Students ({students.length})</CardTitle>
         </CardHeader>
         <CardContent>
-          {students.length === 0 ? ( // <-- START: EMPTY STATE LOGIC
+          {students.length === 0 ? (
             <div className='py-8'>
               <EmptyState
                 title='No Students Yet'
                 description='Your students will appear here once they sign up and enroll in a course.'
                 icon={<Users className='text-primary size-10' />}
-                // buttonText="Invite a Student" // You can add a button if you wish
-                // href="/admin/teams" // The button links to the teams page
               />
             </div>
           ) : (
-            // <-- END: EMPTY STATE LOGIC
             <Table>
               <TableHeader>
                 <TableRow>

@@ -164,7 +164,7 @@ export default function StartplatformPage() {
                             .{rootDomain.split(':')[0]}
                           </span>
                         </div>
-                        <p className='text-muted-foreground text-xs'>
+                        <p className='text-muted-foreground pt-1 pb-2 text-xs'>
                           This will be the unique web address for your platform.
                         </p>
                         <FormMessage />
@@ -250,7 +250,7 @@ export default function StartplatformPage() {
                 <Button
                   type='submit'
                   size='lg'
-                  className='w-full'
+                  className='mt-6 w-full'
                   disabled={isCreating}
                 >
                   {isCreating ? (
