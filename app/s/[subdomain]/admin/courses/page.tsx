@@ -10,7 +10,7 @@ import {
   AdminCourseType,
   adminGetCourses,
 } from '@/app/s/[subdomain]/data/admin/admin-get-courses';
-import { checkPlanStatus } from '@/lib/subscription'; // <-- Using the simplified checker
+import { checkPlanStatus } from '@/lib/subscription';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Terminal } from 'lucide-react';
