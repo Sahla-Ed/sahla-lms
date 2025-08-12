@@ -25,7 +25,11 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
-
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'Pricing & Plans | Sahla LMS',
+  description: 'Find all you need to know about our plans',
+};
 export default function PricingPage() {
   const pricingFaqs = [
     {

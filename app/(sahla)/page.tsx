@@ -18,7 +18,12 @@ import { Badge } from '@/components/ui/badge';
 import Lms1 from '@/public/logosss/udemy.png';
 import Lms2 from '@/public/logosss/mesq.png';
 import Lms3 from '@/public/logosss/tech.png';
+import { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Landing | Sahla LMS',
+  description: 'The home page of the best multi-tenant learning platform',
+};
 export default function Home() {
   return (
     <div className='from-background via-background to-muted/20 min-h-screen bg-gradient-to-br'>
