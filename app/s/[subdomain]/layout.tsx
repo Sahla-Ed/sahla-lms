@@ -3,8 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/sonner';
 import { Providers } from '@/components/Providers';
-import { getTenantIdFromSlug } from '@/lib/get-tenant-id';
-import { notFound } from 'next/navigation';
+import { getTenantSettings } from './data/admin/get-tenant-settings';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,15 +28,19 @@ export default async function RootLayout({
   params: Promise<{ subdomain: string }>;
 }>) {
   const { subdomain } = await params;
+  let tenantSetting;
   if (subdomain) {
-    const tenantId = await getTenantIdFromSlug(subdomain);
-    if (!tenantId) {
-      notFound();
-    }
+    tenantSetting = await getTenantSettings();
   }
+  console.log(tenantSetting);
 
   return (
     <html lang='en' suppressHydrationWarning>
+      <head>
+        <style
+          dangerouslySetInnerHTML={{ __html: tenantSetting?.theme || '' }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

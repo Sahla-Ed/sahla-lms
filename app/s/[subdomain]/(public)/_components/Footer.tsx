@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { Facebook, Instagram, Youtube, Twitter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -17,8 +17,8 @@ import {
 import Marquee from 'react-fast-marquee';
 import Link from 'next/link';
 import RenderFooterSection from '@/components/RenderFooterSection';
-import Footer1 from '@/public/footer/footer1.jpg';
-import Footer2 from '@/public/footer/footer2.jpg';
+// import Footer1 from '@/public/footer/footer1.jpg';
+// import Footer2 from '@/public/footer/footer2.jpg';
 
 const footerLinks = {
   support: [
@@ -95,7 +95,7 @@ export default function Footer() {
       <div className='mx-auto max-w-7xl px-6 py-16'>
         <div className='grid grid-cols-1 gap-16 lg:grid-cols-12'>
           {/* Left Side - Newsletter Text */}
-          <div className='lg:col-span-5'>
+          <div className='lg:col-span-8'>
             <h2 className='mb-16 text-4xl leading-tight font-light lg:text-5xl'>
               Join our learning community and unlock your potential.
             </h2>
@@ -155,28 +155,28 @@ export default function Footer() {
           </div>
 
           {/* Images - Educational themed */}
-          <div className='lg:col-span-3'>
-            <div className='grid grid-cols-2 gap-3'>
-              <div className='aspect-square h-40 w-full overflow-hidden rounded-lg sm:h-48 lg:h-56'>
-                <Image
-                  src={Footer1}
-                  alt='learning'
-                  width={600}
-                  height={600}
-                  className='h-full w-full object-cover'
-                />
-              </div>
-              <div className='aspect-square h-40 w-full overflow-hidden rounded-lg sm:h-48 lg:h-56'>
-                <Image
-                  src={Footer2}
-                  alt='learning'
-                  width={600}
-                  height={600}
-                  className='h-full w-full object-cover'
-                />
-              </div>
-            </div>
-          </div>
+          {/*   <div className='lg:col-span-3'> */}
+          {/*     <div className='grid grid-cols-2 gap-3'> */}
+          {/*       <div className='aspect-square h-40 w-full overflow-hidden rounded-lg sm:h-48 lg:h-56'> */}
+          {/*         <Image */}
+          {/*           src={Footer1} */}
+          {/*           alt='learning' */}
+          {/*           width={600} */}
+          {/*           height={600} */}
+          {/*           className='h-full w-full object-cover' */}
+          {/*         /> */}
+          {/*       </div> */}
+          {/*       <div className='aspect-square h-40 w-full overflow-hidden rounded-lg sm:h-48 lg:h-56'> */}
+          {/*         <Image */}
+          {/*           src={Footer2} */}
+          {/*           alt='learning' */}
+          {/*           width={600} */}
+          {/*           height={600} */}
+          {/*           className='h-full w-full object-cover' */}
+          {/*         /> */}
+          {/*       </div> */}
+          {/*     </div> */}
+          {/*   </div> */}
         </div>
 
         {/* Thin divider line */}
