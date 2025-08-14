@@ -11,12 +11,10 @@ import { authClient } from '@/lib/auth-client';
 export function Providers({ children }: { children: ReactNode }) {
   const router = useRouter();
   const customPush = (url: string) => {
-    console.log('Navigating to:', url);
     router.push(url);
   };
 
   const customReplace = (url: string) => {
-    console.log('Replacing to:', url);
     router.replace(url);
   };
 
