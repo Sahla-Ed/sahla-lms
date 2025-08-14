@@ -67,7 +67,6 @@ export async function getLessonContent(lessonId: string) {
       },
     },
   });
-  console.log('lesson', lesson);
 
   if (!lesson) {
     console.log('Lesson not found');

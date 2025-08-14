@@ -73,7 +73,6 @@ export async function generateQuizQuestions(
       }),
     },
   );
-  console.log(res);
 
   if (!res.ok) {
     const errorBody = await res.text();
