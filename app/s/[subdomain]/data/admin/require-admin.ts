@@ -4,14 +4,14 @@ import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { cache } from 'react';
-import { extractSubdomain } from '@/lib/subdomain';
+import { getSubdomain } from '@/lib/subdomain';
 import { getTenantIdFromSlug } from '@/lib/get-tenant-id';
 
 export const requireAdmin = cache(async (shouldRedirect = true) => {
   const headersList = Object.fromEntries(await headers());
   const host = headersList.host;
   const origin = headersList['x-pathname'];
-  const subdomain = await extractSubdomain(undefined, host);
+  const subdomain = await getSubdomain(undefined, host);
   const tenantId = await getTenantIdFromSlug(subdomain);
 
   const session = await auth(tenantId ?? '').api.getSession({

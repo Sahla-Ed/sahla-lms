@@ -76,19 +76,12 @@ export async function POST(req: Request) {
           where: { userId: userId },
           data: { plan: 'PRO' },
         });
-        console.log(`Successfully upgraded tenant for user ${userId} to PRO.`);
       } else if (session.mode === 'payment') {
         if (metadata?.courseId && metadata.enrollmentId) {
-          console.log(
-            `Processing Course Enrollment for enrollmentId: ${metadata.enrollmentId}`,
-          );
           await prisma.enrollment.update({
             where: { id: metadata.enrollmentId },
             data: { status: 'Active' },
           });
-          console.log(
-            `Successfully activated enrollment ${metadata.enrollmentId}.`,
-          );
         } else {
           console.warn(
             'Webhook received a one-time payment session without course metadata.',
