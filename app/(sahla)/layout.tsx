@@ -1,41 +1,26 @@
-'use client';
+import { getLocale, getMessages } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
+import { ReactNode } from 'react';
+import SahlaLayoutContent from './SahlaLayoutContent';
 
-import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css';
-import { ThemeProvider } from '@/components/theme-provider';
-import { MainSiteHeader } from '@/components/MainSiteHeader';
-import { MainSiteFooter } from '@/components/MainSiteFooter';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
-
-export default function RootLayout({
+export default async function SahlaRootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: ReactNode;
+}) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
+
+  const direction = locale === 'ar' ? 'rtl' : 'ltr';
+
   return (
-    <html lang='en' suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          <MainSiteHeader />
-          <main className='flex-1'>{children}</main>
-          <MainSiteFooter />
-        </ThemeProvider>
+    <html lang={locale} dir={direction} suppressHydrationWarning>
+      <body>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <SahlaLayoutContent>{children}</SahlaLayoutContent>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

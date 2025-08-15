@@ -1,0 +1,86 @@
+{
+    "SahlaPlatform": {
+      "common": {
+        "getStarted": "Get Started",
+        "explorePlans": "Explore Our Plans",
+        "startFreeTrial": "Start Your Free Trial Today",
+        "discoverMore": "Discover More",
+        "theme": "Theme",
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System"
+      },
+      "Header": {
+        "home": "Home",
+        "pricing": "Pricing",
+        "contact": "Contact",
+        "aboutUs": "About Us",
+        "faqs": "FAQs"
+      },
+      "Footer": {
+        "tagline": "Empowering educators and businesses to create, manage, and sell courses under their own brand.",
+        "support": "Support",
+        "platform": "Platform",
+        "terms": "Terms & conditions",
+        "privacy": "Privacy Policy",
+        "copyright": "© Sahla Learning Platform 2025"
+      },
+      "HomePage": {
+        "hero": {
+          "badge": "Your Learning Platform, Reimagined",
+          "title": "Transform Education. Empower Creators.",
+          "description": "Sahla provides a robust, multi-tenant platform for you to launch, manage, and scale your online learning business with unparalleled ease and power."
+        },
+        "trustedBy": {
+          "title": "Trusted by leading academies worldwide"
+        },
+        "features": {
+          "title": "Why Choose Our Platform?",
+          "description": "Experience the future of education with our comprehensive learning ecosystem.",
+          "multiTenancy": {
+            "title": "Multi-Tenancy",
+            "description": "Launch multiple branded learning platforms with unique subdomains, all from one powerful system."
+          },
+          "courseManagement": {
+            "title": "Comprehensive Course Management",
+            "description": "Create and manage courses with rich content, quizzes, and coding playgrounds."
+          },
+          "payments": {
+            "title": "Integrated Payments",
+            "description": "Seamlessly sell courses and manage subscriptions with built-in Stripe integration."
+          }
+        },
+        "howItWorks": {
+          "title": "How It Works",
+          "step1": {
+            "title": "1. Set Up Your Platform",
+            "description": "Quickly create your branded learning environment with our intuitive setup process."
+          },
+          "step2": {
+            "title": "2. Create & Manage Courses",
+            "description": "Populate your platform with engaging courses using our powerful content creation tools."
+          },
+          "step3": {
+            "title": "3. Grow Your Audience",
+            "description": "Attract students and scale your business with integrated marketing and analytics features."
+          }
+        },
+        "testimonials": {
+          "title": "What Our Clients Say",
+          "testimonial1": {
+            "quote": "\"Sahla transformed our online course delivery. The multi-tenancy feature is a game-changer!\"",
+            "author": "- Jane Doe, CEO of EduCorp"
+          },
+          "testimonial2": {
+            "quote": "\"The ease of use and powerful features of Sahla allowed us to launch our academy in record time.\"",
+            "author": "- John Smith, Founder of Tech Academy"
+          }
+        },
+        "cta": {
+          "title": "Ready to Build Your Learning Empire?",
+          "description": "Join countless successful educators and businesses using Sahla to deliver world-class online education.",
+          "button": "Start Your Free Trial"
+        }
+      }
+    }
+  }
