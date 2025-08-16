@@ -4,6 +4,8 @@ import './globals.css';
 import { Toaster } from '@/components/ui/sonner';
 import { Providers } from '@/components/Providers';
 import { getTenantSettings } from './data/admin/get-tenant-settings';
+import { getLocale, getMessages } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -34,6 +36,11 @@ export default async function RootLayout({
   }
   console.log(tenantSetting);
 
+
+  const locale = await getLocale();
+  const messages = await getMessages();
+  const direction = locale === 'ar' ? 'rtl' : 'ltr';
+
   return (
     <html lang='en' suppressHydrationWarning>
       <head>
@@ -44,10 +51,12 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <NextIntlClientProvider locale={locale} messages={messages}>
         <Providers>
           {children}
           <Toaster closeButton position='bottom-center' />
         </Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
