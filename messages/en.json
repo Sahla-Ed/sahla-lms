@@ -366,6 +366,107 @@
         "description": "Can't find the answer you're looking for? Our support team is here to help.",
         "button": "Contact Support"
       }
+    },
+    "TermsPage": {
+      "Metadata": {
+        "title": "Terms and Conditions | Sahla",
+        "description": "Read the terms and conditions for using the Sahla learning platform."
+      },
+      "hero": {
+        "badge": "Legal Document",
+        "title": "Terms & Conditions",
+        "description": "Essential terms and guidelines for using the Sahla learning platform safely and effectively."
+      },
+      "sections": {
+        "introduction": {
+          "title": "Introduction",
+          "content": "Welcome to Sahla. By using our platform, you agree to these terms and conditions."
+        },
+        "accounts": {
+          "title": "User Accounts",
+          "content": "Create an account with accurate information. Keep your login details secure and notify us of any unauthorized access."
+        },
+        "access": {
+          "title": "Course Access",
+          "content": "Enrolled courses are for personal use only. Lifetime access provided unless policy violations occur."
+        },
+        "ip": {
+          "title": "Intellectual Property",
+          "content": "All content is protected by copyright. No reproduction or distribution without written permission."
+        },
+        "payment": {
+          "title": "Payment & Refunds",
+          "content": "Payment required at enrollment. 30-day money-back guarantee if less than 30% completed."
+        },
+        "conduct": {
+          "title": "Code of Conduct",
+          "content": "Maintain respectful behavior. No harassment, hacking, or commercial use without authorization."
+        },
+        "disclaimers": {
+          "title": "Disclaimers",
+          "content": "Platform provided 'as is' without warranties. Our liability is limited to course fees paid."
+        },
+        "updates": {
+          "title": "Contact & Updates",
+          "content": "Terms may be updated with notification. Contact support for questions or concerns."
+        }
+      },
+      "cta": {
+        "title": "Need Clarification?",
+        "description": "Our support team is ready to help you understand these terms and answer any questions you might have.",
+        "contactButton": "Contact Support",
+        "privacyButton": "Privacy Policy"
+      }
+    },
+    "PrivacyPage": {
+      "Metadata": {
+        "title": "Privacy Policy | Sahla",
+        "description": "Learn how Sahla collects, uses, and protects your personal data."
+      },
+      "hero": {
+        "badge": "Privacy & Security",
+        "title": "Privacy Policy",
+        "description": "Your privacy is important to us. This policy explains how we collect, use, and protect your personal information with complete transparency."
+      },
+      "sections": {
+        "collect": {
+          "title": "Information We Collect",
+          "content": "We collect information you provide (name, email, profile), payment details, learning progress, support communications, and technical data (IP address, browser, device info) to improve our services."
+        },
+        "use": {
+          "title": "How We Use Your Information",
+          "content": "We use your data to provide our services, process payments, personalize learning, send updates, provide support, analyze usage, and ensure security."
+        },
+        "sharing": {
+          "title": "Information Sharing",
+          "content": "We share data only with instructors (for course progress), service providers (under confidentiality), for legal compliance, with your consent, or during business transfers."
+        },
+        "security": {
+          "title": "Data Security",
+          "content": "We use encryption, secure authentication, regular audits, and access controls to protect your data. However, no system is 100% secure."
+        },
+        "cookies": {
+          "title": "Cookies & Tracking",
+          "content": "We use essential, performance, functional, and analytics cookies. You can control cookie settings through your browser."
+        },
+        "rights": {
+          "title": "Your Rights",
+          "content": "You can access, update, delete your data, opt out of marketing, request data portability, and withdraw consent through your account dashboard."
+        }
+      },
+      "contact": {
+        "title": "Contact Our Privacy Team",
+        "description": "Have questions about this Privacy Policy? Our dedicated privacy team is here to help you understand how we protect your data.",
+        "emailLabel": "Email:",
+        "emailAddress": "privacy@sahla.com",
+        "responseTimeLabel": "Response time:",
+        "responseTimeValue": "Within 48 hours"
+      },
+      "cta": {
+        "title": "Manage Your Privacy Settings",
+        "description": "Take control of your data and privacy preferences through your personalized account dashboard.",
+        "termsButton": "Terms & Conditions"
+      }
     }
     }
   }
