@@ -20,14 +20,19 @@
         "aboutUs": "About Us",
         "faqs": "FAQs"
       },
-      "Footer": {
-        "tagline": "Empowering educators and businesses to create, manage, and sell courses under their own brand.",
-        "support": "Support",
-        "platform": "Platform",
-        "terms": "Terms & conditions",
-        "privacy": "Privacy Policy",
-        "copyright": "© Sahla Learning Platform 2025"
-      },
+     "Footer": {
+      "tagline": "Empowering educators and businesses to create, manage, and sell courses under their own brand.",
+      "support": "Support",
+      "platform": "Platform",
+      "contactUs": "Contact us",
+      "faqs": "FAQs",
+      "home": "Home",
+      "pricing": "Pricing",
+      "aboutUs": "About us",
+      "terms": "Terms & conditions",
+      "privacy": "Privacy Policy",
+      "copyright": "© Sahla Learning Platform 2025"
+    },
       "HomePage": {
         "hero": {
           "badge": "Your Learning Platform, Reimagined",

@@ -6,20 +6,23 @@ import { Facebook, Instagram, Youtube, Twitter } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import LogoLight from '@/public/logoLight.png';
 import LogoDark from '@/public/logoDark.png';
+import { useTranslations } from 'next-intl';
+
 export function MainSiteFooter() {
   const { theme, systemTheme } = useTheme();
+  const t = useTranslations('SahlaPlatform.Footer');
 
   const currentTheme = theme === 'system' ? systemTheme : theme;
 
   const footerLinks = {
     support: [
-      { name: 'Contact us', href: '/contact' },
-      { name: 'FAQs', href: '/faqs' },
+      { name: t('contactUs'), href: '/contact' },
+      { name: t('faqs'), href: '/faqs' },
     ],
     platform: [
-      { name: 'Home', href: '/' },
-      { name: 'Pricing', href: '/pricing' },
-      { name: 'About us', href: '/about' },
+      { name: t('home'), href: '/' },
+      { name: t('pricing'), href: '/pricing' },
+      { name: t('aboutUs'), href: '/about' },
     ],
   };
 
@@ -28,20 +31,18 @@ export function MainSiteFooter() {
       <div className='mx-auto max-w-7xl px-6 py-16'>
         <div className='grid grid-cols-1 gap-16 lg:grid-cols-12'>
           <div className='lg:col-span-5'>
-            <Link href='/' className='mb-4 flex items-center space-x-2'>
+            <Link href='/' className='mb-4 flex items-center'>
               <Image
                 src={currentTheme === 'dark' ? LogoDark : LogoLight}
                 alt='Sahla Logo'
-                width={48}
-                height={48}
+                className='size-16'
+                priority
               />
-              <span className='text-2xl font-bold'>Sahla</span>
             </Link>
             <p className='text-muted-foreground max-w-md'>
-              Empowering educators and businesses to create, manage, and sell
-              courses under their own brand.
+              {t('tagline')}
             </p>
-            <div className='mt-6 flex space-x-4'>
+            <div className='mt-6 flex gap-4'>
               <a
                 href='#'
                 className='text-muted-foreground hover:text-primary hover:bg-accent transform rounded-full p-2 transition-all duration-300 ease-in-out hover:scale-110'
@@ -72,7 +73,7 @@ export function MainSiteFooter() {
           <div className='grid grid-cols-2 gap-8 md:grid-cols-4 lg:col-span-7'>
             <div>
               <h3 className='text-foreground mb-6 text-lg font-semibold'>
-                Support
+                {t('support')}
               </h3>
               <ul className='space-y-3'>
                 {footerLinks.support.map((link, index) => (
@@ -89,7 +90,7 @@ export function MainSiteFooter() {
             </div>
             <div>
               <h3 className='text-foreground mb-6 text-lg font-semibold'>
-                Platform
+                {t('platform')}
               </h3>
               <ul className='space-y-3'>
                 {footerLinks.platform.map((link, index) => (
@@ -109,22 +110,22 @@ export function MainSiteFooter() {
 
         <div className='border-border mt-16 border-t pt-8'>
           <div className='flex flex-col items-center justify-between text-sm md:flex-row'>
-            <div className='mb-4 flex flex-wrap gap-6 md:mb-0'>
+            <div className='mb-4 flex flex-wrap justify-center gap-x-6 gap-y-2 md:mb-0'>
               <Link
                 href='/terms'
                 className='text-muted-foreground hover:text-primary font-medium transition-colors hover:underline'
               >
-                Terms & conditions
+                {t('terms')}
               </Link>
               <Link
                 href='/privacy'
                 className='text-muted-foreground hover:text-primary font-medium transition-colors hover:underline'
               >
-                Privacy Policy
+                {t('privacy')}
               </Link>
             </div>
             <p className='text-muted-foreground'>
-              © Sahla Learning Platform 2025
+              {t('copyright')}
             </p>
           </div>
         </div>
