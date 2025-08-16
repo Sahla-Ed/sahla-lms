@@ -30,7 +30,10 @@ import { getLocale, getTranslations } from 'next-intl/server';
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const t = await getTranslations({ locale, namespace: 'SahlaPlatform.PricingPage.Metadata' });
+  const t = await getTranslations({
+    locale,
+    namespace: 'SahlaPlatform.PricingPage.Metadata',
+  });
 
   return {
     title: t('title'),
@@ -40,7 +43,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function PricingPage() {
   const t = await getTranslations('SahlaPlatform.PricingPage');
-
 
   const pricingFaqs = [
     { q: t('faq.q1'), a: t('faq.a1') },
@@ -52,9 +54,7 @@ export default async function PricingPage() {
     <div className='container mx-auto py-12'>
       <div className='mb-12 text-center'>
         <h1 className='mb-4 text-4xl font-bold'>{t('title')}</h1>
-        <p className='text-muted-foreground text-xl'>
-          {t('description')}
-        </p>
+        <p className='text-muted-foreground text-xl'>{t('description')}</p>
       </div>
 
       <div className='bg-muted/20 grid grid-cols-1 gap-8 rounded-lg p-8 shadow-inner md:grid-cols-3'>
@@ -65,16 +65,21 @@ export default async function PricingPage() {
             <CardDescription>{t('starterPlan.description')}</CardDescription>
           </CardHeader>
           <CardContent className='flex-grow'>
-            <div className='mb-4 text-4xl font-bold'>{t('starterPlan.price')}</div>
+            <div className='mb-4 text-4xl font-bold'>
+              {t('starterPlan.price')}
+            </div>
             <ul className='space-y-2 text-start'>
               <li className='flex items-center'>
-                <CheckCircle className='me-2 h-5 w-5 text-green-500' /> {t('starterPlan.feature1')}
+                <CheckCircle className='me-2 h-5 w-5 text-green-500' />{' '}
+                {t('starterPlan.feature1')}
               </li>
               <li className='flex items-center'>
-                <Users className='me-2 h-5 w-5 text-green-500' /> {t('starterPlan.feature2')}
+                <Users className='me-2 h-5 w-5 text-green-500' />{' '}
+                {t('starterPlan.feature2')}
               </li>
               <li className='flex items-center'>
-                <BarChart className='me-2 h-5 w-5 text-green-500' /> {t('starterPlan.feature3')}
+                <BarChart className='me-2 h-5 w-5 text-green-500' />{' '}
+                {t('starterPlan.feature3')}
               </li>
             </ul>
           </CardContent>
@@ -99,23 +104,31 @@ export default async function PricingPage() {
           </CardHeader>
           <CardContent className='flex-grow'>
             <div className='mb-4 text-4xl font-bold'>
-              {t('proPlan.price')}<span className='text-muted-foreground text-lg'>{t('proPlan.perMonth')}</span>
+              {t('proPlan.price')}
+              <span className='text-muted-foreground text-lg'>
+                {t('proPlan.perMonth')}
+              </span>
             </div>
-            <ul className='space-y-2 text-start'> 
+            <ul className='space-y-2 text-start'>
               <li className='flex items-center'>
-                <CheckCircle className='me-2 h-5 w-5 text-green-500' /> {t('proPlan.feature1')}
+                <CheckCircle className='me-2 h-5 w-5 text-green-500' />{' '}
+                {t('proPlan.feature1')}
               </li>
               <li className='flex items-center'>
-                <Globe className='me-2 h-5 w-5 text-green-500' /> {t('proPlan.feature2')}
+                <Globe className='me-2 h-5 w-5 text-green-500' />{' '}
+                {t('proPlan.feature2')}
               </li>
               <li className='flex items-center'>
-                <BarChart className='me-2 h-5 w-5 text-green-500' /> {t('proPlan.feature3')}
+                <BarChart className='me-2 h-5 w-5 text-green-500' />{' '}
+                {t('proPlan.feature3')}
               </li>
               <li className='flex items-center'>
-                <Sparkles className='me-2 h-5 w-5 text-green-500' /> {t('proPlan.feature4')}
+                <Sparkles className='me-2 h-5 w-5 text-green-500' />{' '}
+                {t('proPlan.feature4')}
               </li>
               <li className='flex items-center'>
-                <ShieldCheck className='me-2 h-5 w-5 text-green-500' /> {t('proPlan.feature5')}
+                <ShieldCheck className='me-2 h-5 w-5 text-green-500' />{' '}
+                {t('proPlan.feature5')}
               </li>
             </ul>
           </CardContent>
@@ -129,35 +142,46 @@ export default async function PricingPage() {
         {/* Enterprise Plan */}
         <Card className='flex flex-col'>
           <CardHeader>
-            <CardTitle className='text-2xl'>{t('enterprisePlan.title')}</CardTitle>
+            <CardTitle className='text-2xl'>
+              {t('enterprisePlan.title')}
+            </CardTitle>
             <CardDescription>{t('enterprisePlan.description')}</CardDescription>
           </CardHeader>
           <CardContent className='flex-grow'>
             <div className='mb-4 text-4xl font-bold'>
               {t('enterprisePlan.price')}
-              <span className='text-muted-foreground text-lg'>{t('proPlan.perMonth')}</span>
+              <span className='text-muted-foreground text-lg'>
+                {t('proPlan.perMonth')}
+              </span>
             </div>
             <ul className='space-y-2 text-start'>
               <li className='flex items-center'>
-                <CheckCircle className='me-2 h-5 w-5 text-green-500' /> {t('enterprisePlan.feature1')}
+                <CheckCircle className='me-2 h-5 w-5 text-green-500' />{' '}
+                {t('enterprisePlan.feature1')}
               </li>
               <li className='flex items-center'>
-                <Users className='me-2 h-5 w-5 text-green-500' /> {t('enterprisePlan.feature2')}
+                <Users className='me-2 h-5 w-5 text-green-500' />{' '}
+                {t('enterprisePlan.feature2')}
               </li>
               <li className='flex items-center'>
-                <FolderKanban className='me-2 h-5 w-5 text-green-500' /> {t('enterprisePlan.feature3')}
+                <FolderKanban className='me-2 h-5 w-5 text-green-500' />{' '}
+                {t('enterprisePlan.feature3')}
               </li>
               <li className='flex items-center'>
-                <ShieldCheck className='me-2 h-5 w-5 text-green-500' /> {t('enterprisePlan.feature4')}
+                <ShieldCheck className='me-2 h-5 w-5 text-green-500' />{' '}
+                {t('enterprisePlan.feature4')}
               </li>
               <li className='flex items-center'>
-                <Globe className='me-2 h-5 w-5 text-green-500' /> {t('enterprisePlan.feature5')}
+                <Globe className='me-2 h-5 w-5 text-green-500' />{' '}
+                {t('enterprisePlan.feature5')}
               </li>
               <li className='flex items-center'>
-                <CheckCircle className='me-2 h-5 w-5 text-green-500' /> {t('enterprisePlan.feature6')}
+                <CheckCircle className='me-2 h-5 w-5 text-green-500' />{' '}
+                {t('enterprisePlan.feature6')}
               </li>
               <li className='flex items-center'>
-                <Code className='me-2 h-5 w-5 text-green-500' /> {t('enterprisePlan.feature7')}
+                <Code className='me-2 h-5 w-5 text-green-500' />{' '}
+                {t('enterprisePlan.feature7')}
               </li>
             </ul>
           </CardContent>

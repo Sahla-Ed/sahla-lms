@@ -17,7 +17,10 @@ import { getLocale, getTranslations } from 'next-intl/server';
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const t = await getTranslations({ locale, namespace: 'SahlaPlatform.TermsPage.Metadata' });
+  const t = await getTranslations({
+    locale,
+    namespace: 'SahlaPlatform.TermsPage.Metadata',
+  });
 
   return {
     title: t('title'),

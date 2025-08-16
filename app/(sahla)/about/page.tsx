@@ -12,10 +12,12 @@ import { Metadata } from 'next';
 import { OurTeamSection } from '@/components/sections/OurTeamSection';
 import { getLocale, getTranslations } from 'next-intl/server';
 
-
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const t = await getTranslations({ locale, namespace: 'SahlaPlatform.AboutPage.Metadata' });
+  const t = await getTranslations({
+    locale,
+    namespace: 'SahlaPlatform.AboutPage.Metadata',
+  });
 
   return {
     title: t('title'),
@@ -25,7 +27,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AboutUsPage() {
   const t = await getTranslations('SahlaPlatform.AboutPage');
-
 
   const teamMembers = [
     {
@@ -99,7 +100,9 @@ export default async function AboutUsPage() {
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
               <CardContent className='pt-6'>
                 <Lightbulb className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>{t('visionMission.vision.title')}</h3>
+                <h3 className='mb-2 font-semibold'>
+                  {t('visionMission.vision.title')}
+                </h3>
                 <p className='text-muted-foreground text-sm'>
                   {t('visionMission.vision.description')}
                 </p>
@@ -109,7 +112,9 @@ export default async function AboutUsPage() {
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
               <CardContent className='pt-6'>
                 <Users className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>{t('visionMission.team.title')}</h3>
+                <h3 className='mb-2 font-semibold'>
+                  {t('visionMission.team.title')}
+                </h3>
                 <p className='text-muted-foreground text-sm'>
                   {t('visionMission.team.description')}
                 </p>
@@ -119,7 +124,9 @@ export default async function AboutUsPage() {
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
               <CardContent className='pt-6'>
                 <Globe className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>{t('visionMission.reach.title')}</h3>
+                <h3 className='mb-2 font-semibold'>
+                  {t('visionMission.reach.title')}
+                </h3>
                 <p className='text-muted-foreground text-sm'>
                   {t('visionMission.reach.description')}
                 </p>
@@ -132,7 +139,9 @@ export default async function AboutUsPage() {
       {/* Our History Section */}
       <section className='bg-muted/30 px-4 py-20'>
         <div className='container mx-auto max-w-4xl'>
-          <h2 className='mb-12 text-center text-4xl font-bold'>{t('history.title')}</h2>
+          <h2 className='mb-12 text-center text-4xl font-bold'>
+            {t('history.title')}
+          </h2>
           <div className='flex flex-col items-center gap-8 md:flex-row md:items-start'>
             <History className='text-primary h-24 w-24 flex-shrink-0' />
             <p className='text-muted-foreground flex-grow text-center text-lg leading-relaxed md:text-start'>
@@ -145,12 +154,16 @@ export default async function AboutUsPage() {
       {/* Our Values Section */}
       <section className='px-4 py-20'>
         <div className='container mx-auto max-w-4xl'>
-          <h2 className='mb-12 text-center text-4xl font-bold'>{t('values.title')}</h2>
+          <h2 className='mb-12 text-center text-4xl font-bold'>
+            {t('values.title')}
+          </h2>
           <div className='grid grid-cols-1 gap-8 md:grid-cols-2'>
             <Card className='text-center'>
               <CardContent className='pt-6'>
                 <Handshake className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>{t('values.integrity.title')}</h3>
+                <h3 className='mb-2 font-semibold'>
+                  {t('values.integrity.title')}
+                </h3>
                 <p className='text-muted-foreground text-sm'>
                   {t('values.integrity.description')}
                 </p>
@@ -159,7 +172,9 @@ export default async function AboutUsPage() {
             <Card className='text-center'>
               <CardContent className='pt-6'>
                 <Lightbulb className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>{t('values.innovation.title')}</h3>
+                <h3 className='mb-2 font-semibold'>
+                  {t('values.innovation.title')}
+                </h3>
                 <p className='text-muted-foreground text-sm'>
                   {t('values.innovation.description')}
                 </p>
@@ -168,7 +183,9 @@ export default async function AboutUsPage() {
             <Card className='text-center'>
               <CardContent className='pt-6'>
                 <Users className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>{t('values.community.title')}</h3>
+                <h3 className='mb-2 font-semibold'>
+                  {t('values.community.title')}
+                </h3>
                 <p className='text-muted-foreground text-sm'>
                   {t('values.community.description')}
                 </p>
@@ -177,7 +194,9 @@ export default async function AboutUsPage() {
             <Card className='text-center'>
               <CardContent className='pt-6'>
                 <Award className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>{t('values.excellence.title')}</h3>
+                <h3 className='mb-2 font-semibold'>
+                  {t('values.excellence.title')}
+                </h3>
                 <p className='text-muted-foreground text-sm'>
                   {t('values.excellence.description')}
                 </p>
@@ -188,8 +207,8 @@ export default async function AboutUsPage() {
       </section>
 
       {/* Our Team Section */}
-      <OurTeamSection 
-        teamMembers={teamMembers} 
+      <OurTeamSection
+        teamMembers={teamMembers}
         title={t('teamSection.title')}
         description={t('teamSection.description')}
       />

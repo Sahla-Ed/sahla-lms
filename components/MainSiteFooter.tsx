@@ -39,9 +39,7 @@ export function MainSiteFooter() {
                 priority
               />
             </Link>
-            <p className='text-muted-foreground max-w-md'>
-              {t('tagline')}
-            </p>
+            <p className='text-muted-foreground max-w-md'>{t('tagline')}</p>
             <div className='mt-6 flex gap-4'>
               <a
                 href='#'
@@ -124,9 +122,7 @@ export function MainSiteFooter() {
                 {t('privacy')}
               </Link>
             </div>
-            <p className='text-muted-foreground'>
-              {t('copyright')}
-            </p>
+            <p className='text-muted-foreground'>{t('copyright')}</p>
           </div>
         </div>
       </div>

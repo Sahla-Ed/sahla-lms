@@ -23,7 +23,10 @@ import { Metadata } from 'next';
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const t = await getTranslations({ locale, namespace: 'SahlaPlatform.HomePage.Metadata' });
+  const t = await getTranslations({
+    locale,
+    namespace: 'SahlaPlatform.HomePage.Metadata',
+  });
 
   return {
     title: t('title'),
@@ -55,7 +58,7 @@ export default async function Home() {
           >
             {t('hero.badge')}
           </Badge>
-          <h1 className='animate-in animation-duration-initial mb-4 text-3xl font-extrabold leading-tight drop-shadow-lg sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl'>
+          <h1 className='animate-in animation-duration-initial mb-4 text-3xl leading-tight font-extrabold drop-shadow-lg sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl'>
             {t('hero.title')}
           </h1>
           <p className='animate-in mx-auto mb-6 max-w-3xl text-base leading-relaxed sm:mb-8 sm:text-lg md:mb-10 md:max-w-4xl md:text-xl lg:text-2xl'>
@@ -71,7 +74,7 @@ export default async function Home() {
             <Button
               size='lg'
               variant='outline'
-              className='border-white text-primary shadow-lg transition-transform hover:scale-105 hover:bg-white'
+              className='text-primary border-white shadow-lg transition-transform hover:scale-105 hover:bg-white'
             >
               <Link href='/pricing'>{tCommon('explorePlans')}</Link>
             </Button>

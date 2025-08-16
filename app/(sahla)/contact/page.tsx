@@ -7,7 +7,10 @@ import { getLocale, getTranslations } from 'next-intl/server';
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const t = await getTranslations({ locale, namespace: 'SahlaPlatform.ContactPage.Metadata' });
+  const t = await getTranslations({
+    locale,
+    namespace: 'SahlaPlatform.ContactPage.Metadata',
+  });
 
   return {
     title: t('title'),
@@ -49,7 +52,9 @@ export default async function ContactUsPage() {
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
               <CardContent className='pt-6'>
                 <Mail className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>{t('contactMethods.email.title')}</h3>
+                <h3 className='mb-2 font-semibold'>
+                  {t('contactMethods.email.title')}
+                </h3>
                 <p className='text-muted-foreground text-sm'>
                   {t('contactMethods.email.description')}
                 </p>
@@ -62,7 +67,9 @@ export default async function ContactUsPage() {
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
               <CardContent className='pt-6'>
                 <Phone className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>{t('contactMethods.phone.title')}</h3>
+                <h3 className='mb-2 font-semibold'>
+                  {t('contactMethods.phone.title')}
+                </h3>
                 <p className='text-muted-foreground text-sm'>
                   {t('contactMethods.phone.description')}
                 </p>
@@ -75,7 +82,9 @@ export default async function ContactUsPage() {
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
               <CardContent className='pt-6'>
                 <MessageCircle className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>{t('contactMethods.chat.title')}</h3>
+                <h3 className='mb-2 font-semibold'>
+                  {t('contactMethods.chat.title')}
+                </h3>
                 <p className='text-muted-foreground text-sm'>
                   {t('contactMethods.chat.description')}
                 </p>
@@ -90,7 +99,9 @@ export default async function ContactUsPage() {
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
               <CardContent className='pt-6 text-center'>
                 <MapPin className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>{t('location.office.title')}</h3>
+                <h3 className='mb-2 font-semibold'>
+                  {t('location.office.title')}
+                </h3>
                 <p className='text-muted-foreground text-sm'>
                   {t('location.office.addressLine1')}
                   <br />
@@ -103,7 +114,9 @@ export default async function ContactUsPage() {
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
               <CardContent className='pt-6 text-center'>
                 <Clock className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>{t('location.hours.title')}</h3>
+                <h3 className='mb-2 font-semibold'>
+                  {t('location.hours.title')}
+                </h3>
                 <p className='text-muted-foreground text-sm'>
                   {t('location.hours.weekdays')}
                   <br />

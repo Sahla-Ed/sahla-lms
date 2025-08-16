@@ -16,7 +16,10 @@ import { getLocale, getTranslations } from 'next-intl/server';
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const t = await getTranslations({ locale, namespace: 'SahlaPlatform.PrivacyPage.Metadata' });
+  const t = await getTranslations({
+    locale,
+    namespace: 'SahlaPlatform.PrivacyPage.Metadata',
+  });
 
   return {
     title: t('title'),
@@ -26,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function PrivacyPolicyPage() {
   const t = await getTranslations('SahlaPlatform.PrivacyPage');
-  
+
   const sections = [
     {
       icon: <Database className='text-primary h-6 w-6' />,
@@ -115,17 +118,20 @@ export default async function PrivacyPolicyPage() {
               <div className='bg-primary/10 mx-auto mb-4 w-fit rounded-full p-4'>
                 <Mail className='text-primary h-8 w-8' />
               </div>
-              <CardTitle className='text-2xl'>
-                {t('contact.title')}
-              </CardTitle>
+              <CardTitle className='text-2xl'>{t('contact.title')}</CardTitle>
             </CardHeader>
             <CardContent className='space-y-6 text-center'>
               <p className='text-muted-foreground text-lg leading-relaxed'>
                 {t('contact.description')}
               </p>
               <div className='text-muted-foreground'>
-                <p className='font-medium'>{t('contact.emailLabel')} {t('contact.emailAddress')}</p>
-                <p className='text-sm'>{t('contact.responseTimeLabel')} {t('contact.responseTimeValue')}</p>
+                <p className='font-medium'>
+                  {t('contact.emailLabel')} {t('contact.emailAddress')}
+                </p>
+                <p className='text-sm'>
+                  {t('contact.responseTimeLabel')}{' '}
+                  {t('contact.responseTimeValue')}
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -134,9 +140,7 @@ export default async function PrivacyPolicyPage() {
 
       <section className='from-primary/5 to-primary/10 bg-gradient-to-r px-4 py-20'>
         <div className='mx-auto max-w-4xl space-y-8 text-center'>
-          <h2 className='mb-6 text-4xl font-bold'>
-            {t('cta.title')}
-          </h2>
+          <h2 className='mb-6 text-4xl font-bold'>{t('cta.title')}</h2>
           <p className='text-muted-foreground mx-auto max-w-2xl text-xl'>
             {t('cta.description')}
           </p>

@@ -5,7 +5,6 @@ import { Github, Linkedin } from 'lucide-react';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
-
 interface TeamMember {
   name: string;
   role: string;
@@ -14,7 +13,6 @@ interface TeamMember {
   github?: string;
   linkedin?: string;
 }
-
 
 interface OurTeamSectionProps {
   teamMembers: TeamMember[];

@@ -31,24 +31,23 @@ import { rootDomain, protocol } from '@/lib/utils';
 import slugify from 'slugify';
 import { useTranslations } from 'next-intl';
 
-
-const getFormSchema = (t: (key: string) => string) => z.object({
-  platformName: z.string().min(3, t('validation.platformNameMin')),
-  slug: z
-    .string()
-    .min(3, t('validation.slugMin'))
-    .regex(/^[a-z0-9-]+$/, t('validation.slugRegex')),
-  name: z.string().min(2, t('validation.nameMin')),
-  email: z.string().email(t('validation.emailInvalid')),
-  password: z.string().min(8, t('validation.passwordMin')),
-});
-
+const getFormSchema = (t: (key: string) => string) =>
+  z.object({
+    platformName: z.string().min(3, t('validation.platformNameMin')),
+    slug: z
+      .string()
+      .min(3, t('validation.slugMin'))
+      .regex(/^[a-z0-9-]+$/, t('validation.slugRegex')),
+    name: z.string().min(2, t('validation.nameMin')),
+    email: z.string().email(t('validation.emailInvalid')),
+    password: z.string().min(8, t('validation.passwordMin')),
+  });
 
 type FormValues = z.infer<ReturnType<typeof getFormSchema>>;
 
 export default function StartplatformPage() {
   const t = useTranslations('SahlaPlatform.StartPage');
-  
+
   const formSchema = getFormSchema(t);
 
   const [step, setStep] = useState(1);
@@ -78,8 +77,13 @@ export default function StartplatformPage() {
       if (result.available) {
         setStep(2);
       } else {
-        const messageKey = result.message?.includes('taken') ? 'slugTaken' : 'creationError';
-        form.setError('slug', { type: 'manual', message: t(`serverMessages.${messageKey}`) });
+        const messageKey = result.message?.includes('taken')
+          ? 'slugTaken'
+          : 'creationError';
+        form.setError('slug', {
+          type: 'manual',
+          message: t(`serverMessages.${messageKey}`),
+        });
       }
     });
   };
@@ -87,17 +91,17 @@ export default function StartplatformPage() {
   const onSubmit = (values: FormValues) => {
     startCreating(async () => {
       const result = await createTenantAndAdmin(values);
-       if (result.status === 'success' && result.slug) {
+      if (result.status === 'success' && result.slug) {
         toast.success(t('serverMessages.creationSuccess'));
         const url = `${protocol}://${result.slug}.${rootDomain}/auth/sign-in`;
         router.push(url);
       } else {
         // Handle specific server-side errors
-        const messageKey = result.message.includes('email already exists') 
-          ? 'emailExists' 
-          : result.message.includes('URL is already taken') 
-          ? 'slugTaken'
-          : 'creationError';
+        const messageKey = result.message.includes('email already exists')
+          ? 'emailExists'
+          : result.message.includes('URL is already taken')
+            ? 'slugTaken'
+            : 'creationError';
         toast.error(t(`serverMessages.${messageKey}`));
       }
     });
@@ -110,13 +114,9 @@ export default function StartplatformPage() {
           <div className='bg-primary/10 mx-auto mb-4 w-fit rounded-full p-4'>
             <Rocket className='text-primary size-8' />
           </div>
-          <CardTitle className='text-3xl'>
-            {t('title')}
-          </CardTitle>
+          <CardTitle className='text-3xl'>{t('title')}</CardTitle>
           <CardDescription>
-            {step === 1
-              ? t('step1.description')
-              : t('step2.description')}
+            {step === 1 ? t('step1.description') : t('step2.description')}
           </CardDescription>
         </CardHeader>
         <Form {...form}>
@@ -159,7 +159,9 @@ export default function StartplatformPage() {
                     name='slug'
                     render={({ field }) => (
                       <FormItem>
-                        <Label htmlFor='platformUrl'>{t('step1.platformUrl')}</Label>
+                        <Label htmlFor='platformUrl'>
+                          {t('step1.platformUrl')}
+                        </Label>
                         <div className='flex items-center'>
                           <FormControl>
                             <Input

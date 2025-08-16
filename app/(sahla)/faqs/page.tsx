@@ -14,7 +14,10 @@ import { getLocale, getTranslations } from 'next-intl/server';
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const t = await getTranslations({ locale, namespace: 'SahlaPlatform.FaqsPage.Metadata' });
+  const t = await getTranslations({
+    locale,
+    namespace: 'SahlaPlatform.FaqsPage.Metadata',
+  });
 
   return {
     title: t('title'),
@@ -27,11 +30,26 @@ export default async function FaqsPage() {
 
   const faqCategories = {
     [t('categories.platformFeatures.title')]: [
-      { q: t('categories.platformFeatures.q1'), a: t('categories.platformFeatures.a1') },
-      { q: t('categories.platformFeatures.q2'), a: t('categories.platformFeatures.a2') },
-      { q: t('categories.platformFeatures.q3'), a: t('categories.platformFeatures.a3') },
-      { q: t('categories.platformFeatures.q4'), a: t('categories.platformFeatures.a4') },
-      { q: t('categories.platformFeatures.q5'), a: t('categories.platformFeatures.a5') },
+      {
+        q: t('categories.platformFeatures.q1'),
+        a: t('categories.platformFeatures.a1'),
+      },
+      {
+        q: t('categories.platformFeatures.q2'),
+        a: t('categories.platformFeatures.a2'),
+      },
+      {
+        q: t('categories.platformFeatures.q3'),
+        a: t('categories.platformFeatures.a3'),
+      },
+      {
+        q: t('categories.platformFeatures.q4'),
+        a: t('categories.platformFeatures.a4'),
+      },
+      {
+        q: t('categories.platformFeatures.q5'),
+        a: t('categories.platformFeatures.a5'),
+      },
     ],
     [t('categories.pricing.title')]: [
       { q: t('categories.pricing.q1'), a: t('categories.pricing.a1') },
@@ -64,7 +82,7 @@ export default async function FaqsPage() {
             {t('hero.description')}
           </p>
           <div className='relative mx-auto mt-8 max-w-xl'>
-            <Search className='text-muted-foreground absolute top-1/2 start-4 -translate-y-1/2' />
+            <Search className='text-muted-foreground absolute start-4 top-1/2 -translate-y-1/2' />
             <Input
               placeholder={t('hero.searchPlaceholder')}
               className='h-12 rounded-full ps-12'
@@ -102,9 +120,7 @@ export default async function FaqsPage() {
       <section className='bg-primary text-primary-foreground px-4 py-12 text-center'>
         <div className='container mx-auto'>
           <h2 className='mb-4 text-3xl font-bold'>{t('cta.title')}</h2>
-          <p className='mb-8 text-lg'>
-            {t('cta.description')}
-          </p>
+          <p className='mb-8 text-lg'>{t('cta.description')}</p>
           <Button size='lg' variant='secondary' asChild>
             <Link href='/contact'>{t('cta.button')}</Link>
           </Button>

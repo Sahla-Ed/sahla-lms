@@ -1,26 +1,26 @@
 {
-    "SahlaPlatform": {
-      "common": {
-        "getStarted": "Get Started",
-        "explorePlans": "Explore Our Plans",
-        "startFreeTrial": "Start Your Free Trial",
-        "startFreeTrialToday": "Start Your Free Trial Today",
-        "discoverMore": "Discover More",
-        "themeToggle": {
-          "toggle": "Toggle theme",
-          "light": "Light",
-          "dark": "Dark",
-          "system": "System"
-        }
-      },
-      "Header": {
-        "home": "Home",
-        "pricing": "Pricing",
-        "contact": "Contact",
-        "aboutUs": "About Us",
-        "faqs": "FAQs"
-      },
-     "Footer": {
+  "SahlaPlatform": {
+    "common": {
+      "getStarted": "Get Started",
+      "explorePlans": "Explore Our Plans",
+      "startFreeTrial": "Start Your Free Trial",
+      "startFreeTrialToday": "Start Your Free Trial Today",
+      "discoverMore": "Discover More",
+      "themeToggle": {
+        "toggle": "Toggle theme",
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System"
+      }
+    },
+    "Header": {
+      "home": "Home",
+      "pricing": "Pricing",
+      "contact": "Contact",
+      "aboutUs": "About Us",
+      "faqs": "FAQs"
+    },
+    "Footer": {
       "tagline": "Empowering educators and businesses to create, manage, and sell courses under their own brand.",
       "support": "Support",
       "platform": "Platform",
@@ -33,217 +33,217 @@
       "privacy": "Privacy Policy",
       "copyright": "© Sahla Learning Platform 2025"
     },
-      "HomePage": {
-        "Metadata": {
+    "HomePage": {
+      "Metadata": {
         "title": "Sahla LMS | Your All-in-One Learning Platform",
         "description": "Launch, manage, and scale your online learning business with Sahla, the powerful multi-tenant LMS."
       },
-        "hero": {
-          "badge": "Your Learning Platform, Reimagined",
-          "title": "Transform Education. Empower Creators.",
-          "description": "Sahla provides a robust, multi-tenant platform for you to launch, manage, and scale your online learning business with unparalleled ease and power."
+      "hero": {
+        "badge": "Your Learning Platform, Reimagined",
+        "title": "Transform Education. Empower Creators.",
+        "description": "Sahla provides a robust, multi-tenant platform for you to launch, manage, and scale your online learning business with unparalleled ease and power."
+      },
+      "trustedBy": {
+        "title": "Trusted by leading academies worldwide",
+        "logo1Alt": "Udemy Logo",
+        "logo2Alt": "Mesq Logo",
+        "logo3Alt": "Tech Stars Logo"
+      },
+      "keyFeatures": {
+        "title": "Key Features",
+        "multiTenancy": {
+          "title": "Multi-Tenancy",
+          "description": "Launch multiple branded learning platforms with unique subdomains, all from one powerful system."
         },
-        "trustedBy": {
-          "title": "Trusted by leading academies worldwide",
-          "logo1Alt": "Udemy Logo",
-          "logo2Alt": "Mesq Logo",
-          "logo3Alt": "Tech Stars Logo"
+        "courseManagement": {
+          "title": "Comprehensive Course Management",
+          "description": "Create and manage courses with rich content, quizzes, and coding playgrounds."
         },
-        "keyFeatures": {
-          "title": "Key Features",
-          "multiTenancy": {
-            "title": "Multi-Tenancy",
-            "description": "Launch multiple branded learning platforms with unique subdomains, all from one powerful system."
-          },
-          "courseManagement": {
-            "title": "Comprehensive Course Management",
-            "description": "Create and manage courses with rich content, quizzes, and coding playgrounds."
-          },
-          "payments": {
-            "title": "Integrated Payments",
-            "description": "Seamlessly sell courses and manage subscriptions with built-in Stripe integration."
-          }
-        },
-        "howItWorks": {
-          "title": "How It Works",
-          "step1": {
-            "title": "1. Set Up Your Platform",
-            "description": "Quickly create your branded learning environment with our intuitive setup process."
-          },
-          "step2": {
-            "title": "2. Create & Manage Courses",
-            "description": "Populate your platform with engaging courses using our powerful content creation tools."
-          },
-          "step3": {
-            "title": "3. Grow Your Audience",
-            "description": "Attract students and scale your business with integrated marketing and analytics features."
-          }
-        },
-        "whyChooseUs": {
-          "title": "Why Choose Sahla?",
-          "support": {
-            "title": "Award-Winning Support",
-            "description": "Our dedicated support team is always ready to help you succeed."
-          },
-          "features": {
-            "title": "Innovative Features",
-            "description": "Stay ahead with AI-powered tools, interactive coding, and more."
-          },
-          "community": {
-            "title": "Community Driven",
-            "description": "Join a thriving community of educators and learners."
-          }
-        },
-        "testimonials": {
-          "title": "What Our Clients Say",
-          "testimonial1": {
-            "quote": "\"Sahla transformed our online course delivery. The multi-tenancy feature is a game-changer!\"",
-            "author": "- Jane Doe, CEO of EduCorp"
-          },
-          "testimonial2": {
-            "quote": "\"The ease of use and powerful features of Sahla allowed us to launch our academy in record time.\"",
-            "author": "- John Smith, Founder of Tech Academy"
-          }
-        },
-        "cta": {
-          "title": "Ready to Build Your Learning Empire?",
-          "description": "Join countless successful educators and businesses using Sahla to deliver world-class online education.",
-          "button": "Start Your Free Trial"
+        "payments": {
+          "title": "Integrated Payments",
+          "description": "Seamlessly sell courses and manage subscriptions with built-in Stripe integration."
         }
       },
+      "howItWorks": {
+        "title": "How It Works",
+        "step1": {
+          "title": "1. Set Up Your Platform",
+          "description": "Quickly create your branded learning environment with our intuitive setup process."
+        },
+        "step2": {
+          "title": "2. Create & Manage Courses",
+          "description": "Populate your platform with engaging courses using our powerful content creation tools."
+        },
+        "step3": {
+          "title": "3. Grow Your Audience",
+          "description": "Attract students and scale your business with integrated marketing and analytics features."
+        }
+      },
+      "whyChooseUs": {
+        "title": "Why Choose Sahla?",
+        "support": {
+          "title": "Award-Winning Support",
+          "description": "Our dedicated support team is always ready to help you succeed."
+        },
+        "features": {
+          "title": "Innovative Features",
+          "description": "Stay ahead with AI-powered tools, interactive coding, and more."
+        },
+        "community": {
+          "title": "Community Driven",
+          "description": "Join a thriving community of educators and learners."
+        }
+      },
+      "testimonials": {
+        "title": "What Our Clients Say",
+        "testimonial1": {
+          "quote": "\"Sahla transformed our online course delivery. The multi-tenancy feature is a game-changer!\"",
+          "author": "- Jane Doe, CEO of EduCorp"
+        },
+        "testimonial2": {
+          "quote": "\"The ease of use and powerful features of Sahla allowed us to launch our academy in record time.\"",
+          "author": "- John Smith, Founder of Tech Academy"
+        }
+      },
+      "cta": {
+        "title": "Ready to Build Your Learning Empire?",
+        "description": "Join countless successful educators and businesses using Sahla to deliver world-class online education.",
+        "button": "Start Your Free Trial"
+      }
+    },
 
-      "PricingPage": {
-        "Metadata": {
-          "title": "Pricing & Plans | Sahla LMS",
-          "description": "Explore simple, transparent pricing plans designed for every stage of your online education business."
+    "PricingPage": {
+      "Metadata": {
+        "title": "Pricing & Plans | Sahla LMS",
+        "description": "Explore simple, transparent pricing plans designed for every stage of your online education business."
+      },
+      "title": "Simple, Transparent Pricing",
+      "description": "Choose the plan that's right for your learning platform.",
+      "starterPlan": {
+        "title": "Starter",
+        "description": "Perfect for new creators.",
+        "price": "Free",
+        "feature1": "1 Course",
+        "feature2": "1 Admin User",
+        "feature3": "Basic Analytics",
+        "button": "It's completely free!"
+      },
+      "proPlan": {
+        "badge": "Most Popular",
+        "title": "Pro",
+        "description": "For growing academies.",
+        "price": "$29",
+        "perMonth": "/month",
+        "feature1": "Unlimited Courses",
+        "feature2": "Custom Subdomain",
+        "feature3": "Advanced Analytics",
+        "feature4": "Create with AI",
+        "feature5": "Priority Support",
+        "button": "Start now upgrade later!"
+      },
+      "enterprisePlan": {
+        "title": "Enterprise",
+        "description": "Tailored for large organizations.",
+        "price": "Custom",
+        "feature1": "All Pro features, plus:",
+        "feature2": "Unlimited Admin Users",
+        "feature3": "Teams & Projects",
+        "feature4": "Dedicated Support",
+        "feature5": "Custom Domain",
+        "feature6": "On-premise Option",
+        "feature7": "API Access",
+        "button": "Contact Sales"
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": "Can I change my plan later?",
+        "a1": "Yes, you can upgrade from the trial to the Pro plan at any time from your administrative dashboard.",
+        "q2": "Are there any hidden fees?",
+        "a2": "No, our pricing is transparent. The Pro plan fee covers all features listed. Transaction fees from payment gateways (like Stripe) may apply to your course sales.",
+        "q3": "Do you offer custom enterprise solutions?",
+        "a3": "Yes, for large organizations with specific needs, we offer custom enterprise plans. Please contact our sales team for more information."
+      }
+    },
+    "AboutPage": {
+      "Metadata": {
+        "title": "About Us | Sahla LMS",
+        "description": "Learn more about Sahla Learning Platform, our mission, vision, and the team behind our innovative LMS solution."
+      },
+      "hero": {
+        "badge": "About Us",
+        "title": "Our Story",
+        "description": "At Sahla, we believe in empowering knowledge. Our mission is to provide a seamless and powerful platform for educators and organizations to share their expertise with the world."
+      },
+      "visionMission": {
+        "vision": {
+          "title": "Our Vision",
+          "description": "To be the leading platform for online education, fostering a global community of learners and instructors."
         },
-        "title": "Simple, Transparent Pricing",
-        "description": "Choose the plan that's right for your learning platform.",
-        "starterPlan": {
-          "title": "Starter",
-          "description": "Perfect for new creators.",
-          "price": "Free",
-          "feature1": "1 Course",
-          "feature2": "1 Admin User",
-          "feature3": "Basic Analytics",
-          "button": "It's completely free!"
+        "team": {
+          "title": "Our Team",
+          "description": "A dedicated group of passionate individuals committed to innovation and excellence in e-learning."
         },
-        "proPlan": {
-          "badge": "Most Popular",
-          "title": "Pro",
-          "description": "For growing academies.",
-          "price": "$29",
-          "perMonth": "/month",
-          "feature1": "Unlimited Courses",
-          "feature2": "Custom Subdomain",
-          "feature3": "Advanced Analytics",
-          "feature4": "Create with AI",
-          "feature5": "Priority Support",
-          "button": "Start now upgrade later!"
-        },
-        "enterprisePlan": {
-          "title": "Enterprise",
-          "description": "Tailored for large organizations.",
-          "price": "Custom",
-          "feature1": "All Pro features, plus:",
-          "feature2": "Unlimited Admin Users",
-          "feature3": "Teams & Projects",
-          "feature4": "Dedicated Support",
-          "feature5": "Custom Domain",
-          "feature6": "On-premise Option",
-          "feature7": "API Access",
-          "button": "Contact Sales"
-        },
-        "faq": {
-          "title": "Frequently Asked Questions",
-          "q1": "Can I change my plan later?",
-          "a1": "Yes, you can upgrade from the trial to the Pro plan at any time from your administrative dashboard.",
-          "q2": "Are there any hidden fees?",
-          "a2": "No, our pricing is transparent. The Pro plan fee covers all features listed. Transaction fees from payment gateways (like Stripe) may apply to your course sales.",
-          "q3": "Do you offer custom enterprise solutions?",
-          "a3": "Yes, for large organizations with specific needs, we offer custom enterprise plans. Please contact our sales team for more information."
+        "reach": {
+          "title": "Our Reach",
+          "description": "Connecting learners and educators across the globe with a platform that knows no boundaries."
         }
       },
-      "AboutPage": {
-        "Metadata": {
-          "title": "About Us | Sahla LMS",
-          "description": "Learn more about Sahla Learning Platform, our mission, vision, and the team behind our innovative LMS solution."
+      "history": {
+        "title": "Our History",
+        "description": "Founded in 2023, Sahla began with a simple idea: to make online education accessible and powerful for everyone. We started as a small team with a big vision, and through dedication and innovation, we've grown into a leading multi-tenant LMS provider. Over the years, we've continuously evolved our platform, adding features like integrated payments, AI-powered tools, and robust analytics, all while maintaining our commitment to user-friendliness and scalability. Our journey is a testament to our belief in the transformative power of education."
+      },
+      "values": {
+        "title": "Our Values",
+        "integrity": {
+          "title": "Integrity",
+          "description": "We operate with honesty and transparency in all our dealings."
         },
-        "hero": {
-          "badge": "About Us",
-          "title": "Our Story",
-          "description": "At Sahla, we believe in empowering knowledge. Our mission is to provide a seamless and powerful platform for educators and organizations to share their expertise with the world."
+        "innovation": {
+          "title": "Innovation",
+          "description": "We constantly strive to bring new and better solutions to our users."
         },
-        "visionMission": {
-          "vision": {
-            "title": "Our Vision",
-            "description": "To be the leading platform for online education, fostering a global community of learners and instructors."
-          },
-          "team": {
-            "title": "Our Team",
-            "description": "A dedicated group of passionate individuals committed to innovation and excellence in e-learning."
-          },
-          "reach": {
-            "title": "Our Reach",
-            "description": "Connecting learners and educators across the globe with a platform that knows no boundaries."
-          }
+        "community": {
+          "title": "Community",
+          "description": "We foster a supportive and collaborative environment for all."
         },
-        "history": {
-          "title": "Our History",
-          "description": "Founded in 2023, Sahla began with a simple idea: to make online education accessible and powerful for everyone. We started as a small team with a big vision, and through dedication and innovation, we've grown into a leading multi-tenant LMS provider. Over the years, we've continuously evolved our platform, adding features like integrated payments, AI-powered tools, and robust analytics, all while maintaining our commitment to user-friendliness and scalability. Our journey is a testament to our belief in the transformative power of education."
-        },
-        "values": {
-          "title": "Our Values",
-          "integrity": {
-            "title": "Integrity",
-            "description": "We operate with honesty and transparency in all our dealings."
-          },
-          "innovation": {
-            "title": "Innovation",
-            "description": "We constantly strive to bring new and better solutions to our users."
-          },
-          "community": {
-            "title": "Community",
-            "description": "We foster a supportive and collaborative environment for all."
-          },
-          "excellence": {
-            "title": "Excellence",
-            "description": "We are committed to delivering high-quality products and services."
-          }
-        },
-        "teamSection": {
-          "title": "Meet Our Team",
-          "description": "The passionate individuals behind Sahla's success",
-          "members": {
-            "badran": {
-              "name": "Mohamed Badran",
-              "role": "Founder & CEO",
-              "bio": "Visionary leader passionate about accessible education."
-            },
-            "saleh": {
-              "name": "Mohammed Saleh",
-              "role": "Full-Stack Developer",
-              "bio": "Full-Stack Developer with MERN specialization"
-            },
-            "rizk": {
-              "name": "Eslam Rizk",
-              "role": "Full-Stack Developer",
-              "bio": "Full-Stack Developer with MERN specialization"
-            },
-            "ibrahim": {
-              "name": "Amr Ibrahim",
-              "role": "Full-Stack Developer",
-              "bio": "Full-Stack Developer with MERN specialization"
-            },
-            "elnagar": {
-              "name": "Mohamed Elnagar",
-              "role": "Full-Stack Developer",
-              "bio": "Full-Stack Developer with MERN specialization"
-            }
-          }
+        "excellence": {
+          "title": "Excellence",
+          "description": "We are committed to delivering high-quality products and services."
         }
       },
-      "ContactPage": {
+      "teamSection": {
+        "title": "Meet Our Team",
+        "description": "The passionate individuals behind Sahla's success",
+        "members": {
+          "badran": {
+            "name": "Mohamed Badran",
+            "role": "Founder & CEO",
+            "bio": "Visionary leader passionate about accessible education."
+          },
+          "saleh": {
+            "name": "Mohammed Saleh",
+            "role": "Full-Stack Developer",
+            "bio": "Full-Stack Developer with MERN specialization"
+          },
+          "rizk": {
+            "name": "Eslam Rizk",
+            "role": "Full-Stack Developer",
+            "bio": "Full-Stack Developer with MERN specialization"
+          },
+          "ibrahim": {
+            "name": "Amr Ibrahim",
+            "role": "Full-Stack Developer",
+            "bio": "Full-Stack Developer with MERN specialization"
+          },
+          "elnagar": {
+            "name": "Mohamed Elnagar",
+            "role": "Full-Stack Developer",
+            "bio": "Full-Stack Developer with MERN specialization"
+          }
+        }
+      }
+    },
+    "ContactPage": {
       "Metadata": {
         "title": "Contact Us | Sahla LMS",
         "description": "Have questions or need support? Reach out to the Sahla team through our contact page. We're here to help with inquiries, feedback, or collaboration opportunities."
@@ -304,16 +304,16 @@
           "weekend": "Saturday - Sunday: Closed"
         }
       },
-        "successDialog": {
-          "title": "🎉 Thank You!",
-          "description": "Thank you for contacting us! We've received your message and will get back to you within 24 hours.",
-          "button": "Great!"
-        },
-        "errorDialog": {
-          "title": "⚠️ Error",
-          "description": "Please fill in all fields before submitting the form.",
-          "button": "OK"
-        }
+      "successDialog": {
+        "title": "🎉 Thank You!",
+        "description": "Thank you for contacting us! We've received your message and will get back to you within 24 hours.",
+        "button": "Great!"
+      },
+      "errorDialog": {
+        "title": "⚠️ Error",
+        "description": "Please fill in all fields before submitting the form.",
+        "button": "OK"
+      }
     },
     "FaqsPage": {
       "Metadata": {
@@ -470,9 +470,9 @@
     },
     "StartPage": {
       "Metadata": {
-    "title": "Get Started | Build Your Sahla Platform",
-    "description": "Create your own multi-tenant online learning platform in just a few simple steps. Name your platform and set up your admin account to begin."
-  },
+        "title": "Get Started | Build Your Sahla Platform",
+        "description": "Create your own multi-tenant online learning platform in just a few simple steps. Name your platform and set up your admin account to begin."
+      },
       "title": "Let's build your platform",
       "step1": {
         "description": "First, let's get your platform's details.",
@@ -514,5 +514,5 @@
         "emailExists": "An account with this email already exists for this platform."
       }
     }
-    }
   }
+}

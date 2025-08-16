@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { OurTeamSection } from '@/components/sections/OurTeamSection';
+// import { OurTeamSection } from '@/components/sections/OurTeamSection';
 
 export const metadata: Metadata = {
   title: 'About Sahla | Empowering Learners Across the Globe',
@@ -294,7 +294,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <OurTeamSection teamMembers={teamMembers} />
+      {/* <OurTeamSection teamMembers={teamMembers} /> */}
 
       {/* CTA Section */}
       <section className='from-primary/5 to-primary/10 bg-gradient-to-r px-4 py-20'>
