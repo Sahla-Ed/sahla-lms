@@ -34,6 +34,10 @@
       "copyright": "© Sahla Learning Platform 2025"
     },
       "HomePage": {
+        "Metadata": {
+        "title": "Sahla LMS | Your All-in-One Learning Platform",
+        "description": "Launch, manage, and scale your online learning business with Sahla, the powerful multi-tenant LMS."
+      },
         "hero": {
           "badge": "Your Learning Platform, Reimagined",
           "title": "Transform Education. Empower Creators.",
@@ -105,6 +109,59 @@
           "title": "Ready to Build Your Learning Empire?",
           "description": "Join countless successful educators and businesses using Sahla to deliver world-class online education.",
           "button": "Start Your Free Trial"
+        }
+      },
+
+      "PricingPage": {
+        "Metadata": {
+          "title": "Pricing & Plans | Sahla LMS",
+          "description": "Explore simple, transparent pricing plans designed for every stage of your online education business."
+        },
+        "title": "Simple, Transparent Pricing",
+        "description": "Choose the plan that's right for your learning platform.",
+        "starterPlan": {
+          "title": "Starter",
+          "description": "Perfect for new creators.",
+          "price": "Free",
+          "feature1": "1 Course",
+          "feature2": "1 Admin User",
+          "feature3": "Basic Analytics",
+          "button": "It's completely free!"
+        },
+        "proPlan": {
+          "badge": "Most Popular",
+          "title": "Pro",
+          "description": "For growing academies.",
+          "price": "$29",
+          "perMonth": "/month",
+          "feature1": "Unlimited Courses",
+          "feature2": "Custom Subdomain",
+          "feature3": "Advanced Analytics",
+          "feature4": "Create with AI",
+          "feature5": "Priority Support",
+          "button": "Start now upgrade later!"
+        },
+        "enterprisePlan": {
+          "title": "Enterprise",
+          "description": "Tailored for large organizations.",
+          "price": "Custom",
+          "feature1": "All Pro features, plus:",
+          "feature2": "Unlimited Admin Users",
+          "feature3": "Teams & Projects",
+          "feature4": "Dedicated Support",
+          "feature5": "Custom Domain",
+          "feature6": "On-premise Option",
+          "feature7": "API Access",
+          "button": "Contact Sales"
+        },
+        "faq": {
+          "title": "Frequently Asked Questions",
+          "q1": "Can I change my plan later?",
+          "a1": "Yes, you can upgrade from the trial to the Pro plan at any time from your administrative dashboard.",
+          "q2": "Are there any hidden fees?",
+          "a2": "No, our pricing is transparent. The Pro plan fee covers all features listed. Transaction fees from payment gateways (like Stripe) may apply to your course sales.",
+          "q3": "Do you offer custom enterprise solutions?",
+          "a3": "Yes, for large organizations with specific needs, we offer custom enterprise plans. Please contact our sales team for more information."
         }
       }
     }

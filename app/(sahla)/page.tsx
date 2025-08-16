@@ -18,13 +18,18 @@ import { Badge } from '@/components/ui/badge';
 import Lms1 from '@/public/logosss/udemy.png';
 import Lms2 from '@/public/logosss/mesq.png';
 import Lms3 from '@/public/logosss/tech.png';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Landing | Sahla LMS',
-  description: 'The home page of the best multi-tenant learning platform',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const t = await getTranslations({ locale, namespace: 'SahlaPlatform.HomePage.Metadata' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}
 
 export default async function Home() {
   const t = await getTranslations('SahlaPlatform.HomePage');
