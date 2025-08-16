@@ -15,7 +15,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { Mail, Phone, User, MessageCircle } from 'lucide-react';
+import { Mail, Phone, User, MessageCircle, Loader2 } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface FormData {
   name: string;
@@ -27,6 +28,12 @@ interface FormData {
 type FormField = keyof FormData;
 
 export function ContactForm() {
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
+  const t = useTranslations('SahlaPlatform.ContactPage.contactForm');
+  const tSuccess = useTranslations('SahlaPlatform.ContactPage.successDialog');
+  const tError = useTranslations('SahlaPlatform.ContactPage.errorDialog');
+
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -51,20 +58,11 @@ export function ContactForm() {
       setShowErrorDialog(true);
       return;
     }
-
     setIsSubmitting(true);
-
     await new Promise((resolve) => setTimeout(resolve, 1000));
-
     setShowSuccessDialog(true);
     setIsSubmitting(false);
-
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      role: '',
-    });
+    setFormData({ name: '', email: '', phone: '', role: '' });
   };
 
   return (
@@ -73,11 +71,10 @@ export function ContactForm() {
         <AlertDialogContent className='max-w-md'>
           <AlertDialogHeader>
             <AlertDialogTitle className='text-center text-2xl font-semibold'>
-              🎉 Thank You!
+              {tSuccess('title')}
             </AlertDialogTitle>
             <AlertDialogDescription className='text-center text-base leading-relaxed'>
-              Thank you for contacting us! We&apos;ve received your message and
-              will get back to you within 24 hours.
+              {tSuccess('description')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -85,7 +82,7 @@ export function ContactForm() {
               onClick={() => setShowSuccessDialog(false)}
               className='bg-primary hover:bg-primary/90 w-full'
             >
-              Great!
+              {tSuccess('button')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -95,10 +92,10 @@ export function ContactForm() {
         <AlertDialogContent className='max-w-md'>
           <AlertDialogHeader>
             <AlertDialogTitle className='text-center text-2xl font-semibold text-red-600'>
-              ⚠️ Error
+              {tError('title')}
             </AlertDialogTitle>
             <AlertDialogDescription className='text-center text-base leading-relaxed'>
-              Please fill in all fields before submitting the form.
+              {tError('description')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -106,7 +103,7 @@ export function ContactForm() {
               onClick={() => setShowErrorDialog(false)}
               className='w-full bg-red-600 hover:bg-red-700'
             >
-              OK
+              {tError('button')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -116,11 +113,9 @@ export function ContactForm() {
         <CardHeader className='pb-8 text-center'>
           <CardTitle className='flex items-center justify-center gap-3 text-3xl font-bold'>
             <MessageCircle className='text-primary h-8 w-8' />
-            Contact Form
+            {t('title')}
           </CardTitle>
-          <p className='text-muted-foreground'>
-            Tell us about yourself and how we can help you
-          </p>
+          <p className='text-muted-foreground'>{t('description')}</p>
         </CardHeader>
 
         <CardContent className='space-y-6'>
@@ -131,12 +126,12 @@ export function ContactForm() {
                 className='flex items-center gap-2 text-sm font-medium'
               >
                 <User className='text-primary h-4 w-4' />
-                Full Name
+                {t('fullName')}
               </Label>
               <Input
                 id='name'
                 type='text'
-                placeholder='Enter your full name'
+                placeholder={t('fullNamePlaceholder')}
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
                 className='border-muted-foreground/20 focus:border-primary h-12'
@@ -150,12 +145,12 @@ export function ContactForm() {
                 className='flex items-center gap-2 text-sm font-medium'
               >
                 <Mail className='text-primary h-4 w-4' />
-                Email Address
+                {t('email')}
               </Label>
               <Input
                 id='email'
                 type='email'
-                placeholder='Enter your email address'
+                placeholder={t('emailPlaceholder')}
                 value={formData.email}
                 onChange={(e) => handleInputChange('email', e.target.value)}
                 className='border-muted-foreground/20 focus:border-primary h-12'
@@ -169,12 +164,14 @@ export function ContactForm() {
                 className='flex items-center gap-2 text-sm font-medium'
               >
                 <Phone className='text-primary h-4 w-4' />
-                Phone Number
+                {t('phone')}
               </Label>
               <Input
                 id='phone'
-                type='tel'
-                placeholder='Enter your phone number'
+                type='text'
+                inputMode='tel'
+                style={{ direction: isRTL ? 'rtl' : 'ltr' }}
+                placeholder={t('phonePlaceholder')}
                 value={formData.phone}
                 onChange={(e) => handleInputChange('phone', e.target.value)}
                 className='border-muted-foreground/20 focus:border-primary h-12'
@@ -183,30 +180,46 @@ export function ContactForm() {
             </div>
 
             <div className='space-y-4'>
-              <Label className='text-sm font-medium'>
-                I am interested in joining as:
-              </Label>
+              <Label className='text-sm font-medium'>{t('roleQuestion')}</Label>
               <RadioGroup
                 value={formData.role}
                 onValueChange={(value) => handleInputChange('role', value)}
                 className='grid grid-cols-1 gap-4'
               >
-                <div className='hover:bg-muted/50 flex items-center space-x-3 rounded-lg border p-4 transition-colors'>
+                <div
+                  className={`hover:bg-muted/50 flex items-center gap-3 rounded-lg border p-4 transition-colors ${
+                    isRTL ? 'flex-row-reverse' : 'flex-row'
+                  }`}
+                >
                   <RadioGroupItem value='student' id='student' />
-                  <Label htmlFor='student' className='flex-1 cursor-pointer'>
-                    <div className='font-medium'>Student</div>
+                  <Label
+                    htmlFor='student'
+                    className={`flex-1 cursor-pointer ${isRTL ? 'text-right' : 'text-left'}`}
+                    style={{ direction: isRTL ? 'rtl' : 'ltr' }}
+                  >
+                    <div className='font-medium'>{t('roleStudent.title')}</div>
                     <div className='text-muted-foreground text-sm'>
-                      I want to learn new skills and advance my career
+                      {t('roleStudent.description')}
                     </div>
                   </Label>
                 </div>
 
-                <div className='hover:bg-muted/50 flex items-center space-x-3 rounded-lg border p-4 transition-colors'>
+                <div
+                  className={`hover:bg-muted/50 flex items-center gap-3 rounded-lg border p-4 transition-colors ${
+                    isRTL ? 'flex-row-reverse' : 'flex-row'
+                  }`}
+                >
                   <RadioGroupItem value='instructor' id='instructor' />
-                  <Label htmlFor='instructor' className='flex-1 cursor-pointer'>
-                    <div className='font-medium'>Instructor</div>
+                  <Label
+                    htmlFor='instructor'
+                    className={`flex-1 cursor-pointer ${isRTL ? 'text-right' : 'text-left'}`}
+                    style={{ direction: isRTL ? 'rtl' : 'ltr' }}
+                  >
+                    <div className='font-medium'>
+                      {t('roleInstructor.title')}
+                    </div>
                     <div className='text-muted-foreground text-sm'>
-                      I want to share my expertise and teach others
+                      {t('roleInstructor.description')}
                     </div>
                   </Label>
                 </div>
@@ -221,11 +234,11 @@ export function ContactForm() {
             >
               {isSubmitting ? (
                 <>
-                  <div className='mr-2 h-4 w-4 animate-spin rounded-full border-b-2 border-white'></div>
-                  Sending...
+                  <Loader2 className='me-2 h-4 w-4 animate-spin' />
+                  {t('submittingButton')}
                 </>
               ) : (
-                'Send Message'
+                t('submitButton')
               )}
             </Button>
           </div>

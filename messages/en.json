@@ -242,6 +242,78 @@
             }
           }
         }
-      }
+      },
+      "ContactPage": {
+      "Metadata": {
+        "title": "Contact Us | Sahla LMS",
+        "description": "Have questions or need support? Reach out to the Sahla team through our contact page. We're here to help with inquiries, feedback, or collaboration opportunities."
+      },
+      "hero": {
+        "badge": "Contact Us",
+        "title": "Get in Touch",
+        "description": "Ready to elevate your learning platform? We'd love to hear from you. Fill out the form below and we'll get back to you soon."
+      },
+      "contactForm": {
+        "title": "Contact Form",
+        "description": "Tell us about yourself and how we can help you.",
+        "fullName": "Full Name",
+        "fullNamePlaceholder": "Enter your full name",
+        "email": "Email Address",
+        "emailPlaceholder": "Enter your email address",
+        "phone": "Phone Number",
+        "phonePlaceholder": "Enter your phone number",
+        "roleQuestion": "I am interested in joining as:",
+        "roleStudent": {
+          "title": "Student",
+          "description": "I want to learn new skills and advance my career"
+        },
+        "roleInstructor": {
+          "title": "Instructor",
+          "description": "I want to share my expertise and teach others"
+        },
+        "submitButton": "Send Message",
+        "submittingButton": "Sending..."
+      },
+      "contactMethods": {
+        "email": {
+          "title": "Email Us",
+          "description": "Get in touch via email and we'll respond within 24 hours",
+          "address": "info@sahla.com"
+        },
+        "phone": {
+          "title": "Call Us",
+          "description": "Speak directly with our team for immediate assistance",
+          "number": "+1 (555) 123-4567"
+        },
+        "chat": {
+          "title": "Live Chat",
+          "description": "Start a conversation with our support team right away",
+          "availability": "Available 9 AM - 5 PM EST"
+        }
+      },
+      "location": {
+        "office": {
+          "title": "Our Office",
+          "addressLine1": "123 Learning Lane, Suite 400",
+          "addressLine2": "Knowledge City, KC 90210",
+          "addressLine3": "Country"
+        },
+        "hours": {
+          "title": "Business Hours",
+          "weekdays": "Monday - Friday: 9:00 AM - 5:00 PM",
+          "weekend": "Saturday - Sunday: Closed"
+        }
+      },
+        "successDialog": {
+          "title": "🎉 Thank You!",
+          "description": "Thank you for contacting us! We've received your message and will get back to you within 24 hours.",
+          "button": "Great!"
+        },
+        "errorDialog": {
+          "title": "⚠️ Error",
+          "description": "Please fill in all fields before submitting the form.",
+          "button": "OK"
+        }
+    }
     }
   }
