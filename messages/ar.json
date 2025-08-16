@@ -466,6 +466,52 @@
         "description": "تحكم في بياناتك وتفضيلات الخصوصية من خلال لوحة تحكم حسابك الشخصية.",
         "termsButton": "الشروط والأحكام"
       }
+    },
+    "StartPage": {
+      "Metadata": {
+    "title": "ابدأ الآن | أنشئ منصة سهلة الخاصة بك",
+    "description": "أنشئ منصة التعليم عبر الإنترنت متعددة المستأجرين الخاصة بك في خطوات بسيطة. اختر اسمًا لمنصتك وأنشئ حساب المسؤول للبدء."
+  },
+      "title": "لنبدأ في بناء منصتك",
+      "step1": {
+        "description": "أولاً، لنحصل على تفاصيل منصتك.",
+        "platformName": "اسم المنصة",
+        "platformNamePlaceholder": "مثال: Sahla",
+        "platformNameHint": "هذا هو الاسم الذي سيراه طلابك.",
+        "platformUrl": "رابط المنصة",
+        "platformUrlPlaceholder": "Sahla.com",
+        "platformUrlHint": "سيكون هذا هو عنوان الويب الفريد لمنصتك.",
+        "continueButton": "متابعة" 
+      },
+      "step2": {
+        "description": "رائع! الآن قم بإنشاء حساب المسؤول الخاص بك.",
+        "yourName": "اسمك",
+        "yourNamePlaceholder": "مثال: amr.",
+        "email": "البريد الإلكتروني",
+        "emailPlaceholder": "مثال: amr@example.com",
+        "password": "كلمة المرور",
+        "passwordPlaceholder": "••••••••",
+        "createButton": "أنشئ منصتي",
+        "backButton": "رجوع"
+      },
+      "loading": {
+        "checking": "جاري التحقق...",
+        "creating": "جاري الإنشاء..."
+      },
+      "validation": {
+        "platformNameMin": "يجب أن يتكون اسم المنصة من 3 أحرف على الأقل",
+        "slugMin": "يجب أن يتكون الرابط من 3 أحرف على الأقل",
+        "slugRegex": "يمكن أن يحتوي الرابط على أحرف إنجليزية صغيرة وأرقام وشرطات فقط",
+        "nameMin": "اسمك مطلوب",
+        "emailInvalid": "بريد إلكتروني غير صالح",
+        "passwordMin": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل"
+      },
+      "serverMessages": {
+        "slugTaken": "هذا الرابط مستخدم بالفعل. الرجاء اختيار رابط آخر.",
+        "creationSuccess": "تم إنشاء منصتك وحساب المسؤول بنجاح!",
+        "creationError": "حدث خطأ غير متوقع. الرجاء المحاولة مرة أخرى.",
+        "emailExists": "يوجد حساب بهذا البريد الإلكتروني بالفعل لهذه المنصة."
+      }
     }
     }
   }

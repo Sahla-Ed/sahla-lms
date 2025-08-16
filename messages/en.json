@@ -467,6 +467,52 @@
         "description": "Take control of your data and privacy preferences through your personalized account dashboard.",
         "termsButton": "Terms & Conditions"
       }
+    },
+    "StartPage": {
+      "Metadata": {
+    "title": "Get Started | Build Your Sahla Platform",
+    "description": "Create your own multi-tenant online learning platform in just a few simple steps. Name your platform and set up your admin account to begin."
+  },
+      "title": "Let's build your platform",
+      "step1": {
+        "description": "First, let's get your platform's details.",
+        "platformName": "Platform Name",
+        "platformNamePlaceholder": "e.g., The Design Academy",
+        "platformNameHint": "This is the name your students will see.",
+        "platformUrl": "Platform URL",
+        "platformUrlPlaceholder": "design-academy",
+        "platformUrlHint": "This will be the unique web address for your platform.",
+        "continueButton": "Continue"
+      },
+      "step2": {
+        "description": "Great! Now create your admin account.",
+        "yourName": "Your Name",
+        "yourNamePlaceholder": "a.t., amr tolba",
+        "email": "Email Address",
+        "emailPlaceholder": "a.t., amr@example.com",
+        "password": "Password",
+        "passwordPlaceholder": "••••••••",
+        "createButton": "Create My Platform",
+        "backButton": "Back"
+      },
+      "loading": {
+        "checking": "Checking...",
+        "creating": "Creating..."
+      },
+      "validation": {
+        "platformNameMin": "Platform name must be at least 3 characters long",
+        "slugMin": "URL must be at least 3 characters long",
+        "slugRegex": "URL can only contain lowercase letters, numbers, and hyphens",
+        "nameMin": "Your name is required",
+        "emailInvalid": "Invalid email address",
+        "passwordMin": "Password must be at least 8 characters long"
+      },
+      "serverMessages": {
+        "slugTaken": "This platform URL is already taken. Please choose another.",
+        "creationSuccess": "Your platform and admin account have been created!",
+        "creationError": "An unexpected error occurred. Please try again.",
+        "emailExists": "An account with this email already exists for this platform."
+      }
     }
     }
   }
