@@ -5,6 +5,7 @@ import { Github, Linkedin } from 'lucide-react';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
+
 interface TeamMember {
   name: string;
   role: string;
@@ -14,19 +15,24 @@ interface TeamMember {
   linkedin?: string;
 }
 
+
 interface OurTeamSectionProps {
   teamMembers: TeamMember[];
+  title: string;
+  description: string;
 }
 
 export const OurTeamSection: React.FC<OurTeamSectionProps> = ({
   teamMembers,
+  title,
+  description,
 }) => {
   return (
     <section className='bg-muted/30 px-4 py-20'>
       <div className='container mx-auto max-w-7xl'>
-        <h2 className='mb-12 text-center text-4xl font-bold'>Meet Our Team</h2>
+        <h2 className='mb-12 text-center text-4xl font-bold'>{title}</h2>
         <p className='text-muted-foreground mx-auto mb-16 max-w-2xl text-center text-xl'>
-          The passionate individuals behind Sahla&apos;s success
+          {description}
         </p>
 
         <div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'>
@@ -50,7 +56,7 @@ export const OurTeamSection: React.FC<OurTeamSectionProps> = ({
                 <p className='text-muted-foreground mt-2 mb-4 text-xs leading-relaxed'>
                   {member.bio}
                 </p>
-                <div className='flex justify-center space-x-3'>
+                <div className='flex justify-center gap-3'>
                   {member.github && (
                     <Link
                       href={member.github}

@@ -163,6 +163,85 @@
           "q3": "Do you offer custom enterprise solutions?",
           "a3": "Yes, for large organizations with specific needs, we offer custom enterprise plans. Please contact our sales team for more information."
         }
+      },
+      "AboutPage": {
+        "Metadata": {
+          "title": "About Us | Sahla LMS",
+          "description": "Learn more about Sahla Learning Platform, our mission, vision, and the team behind our innovative LMS solution."
+        },
+        "hero": {
+          "badge": "About Us",
+          "title": "Our Story",
+          "description": "At Sahla, we believe in empowering knowledge. Our mission is to provide a seamless and powerful platform for educators and organizations to share their expertise with the world."
+        },
+        "visionMission": {
+          "vision": {
+            "title": "Our Vision",
+            "description": "To be the leading platform for online education, fostering a global community of learners and instructors."
+          },
+          "team": {
+            "title": "Our Team",
+            "description": "A dedicated group of passionate individuals committed to innovation and excellence in e-learning."
+          },
+          "reach": {
+            "title": "Our Reach",
+            "description": "Connecting learners and educators across the globe with a platform that knows no boundaries."
+          }
+        },
+        "history": {
+          "title": "Our History",
+          "description": "Founded in 2023, Sahla began with a simple idea: to make online education accessible and powerful for everyone. We started as a small team with a big vision, and through dedication and innovation, we've grown into a leading multi-tenant LMS provider. Over the years, we've continuously evolved our platform, adding features like integrated payments, AI-powered tools, and robust analytics, all while maintaining our commitment to user-friendliness and scalability. Our journey is a testament to our belief in the transformative power of education."
+        },
+        "values": {
+          "title": "Our Values",
+          "integrity": {
+            "title": "Integrity",
+            "description": "We operate with honesty and transparency in all our dealings."
+          },
+          "innovation": {
+            "title": "Innovation",
+            "description": "We constantly strive to bring new and better solutions to our users."
+          },
+          "community": {
+            "title": "Community",
+            "description": "We foster a supportive and collaborative environment for all."
+          },
+          "excellence": {
+            "title": "Excellence",
+            "description": "We are committed to delivering high-quality products and services."
+          }
+        },
+        "teamSection": {
+          "title": "Meet Our Team",
+          "description": "The passionate individuals behind Sahla's success",
+          "members": {
+            "badran": {
+              "name": "Mohamed Badran",
+              "role": "Founder & CEO",
+              "bio": "Visionary leader passionate about accessible education."
+            },
+            "saleh": {
+              "name": "Mohammed Saleh",
+              "role": "Full-Stack Developer",
+              "bio": "Full-Stack Developer with MERN specialization"
+            },
+            "rizk": {
+              "name": "Eslam Rizk",
+              "role": "Full-Stack Developer",
+              "bio": "Full-Stack Developer with MERN specialization"
+            },
+            "ibrahim": {
+              "name": "Amr Ibrahim",
+              "role": "Full-Stack Developer",
+              "bio": "Full-Stack Developer with MERN specialization"
+            },
+            "elnagar": {
+              "name": "Mohamed Elnagar",
+              "role": "Full-Stack Developer",
+              "bio": "Full-Stack Developer with MERN specialization"
+            }
+          }
+        }
       }
     }
   }
