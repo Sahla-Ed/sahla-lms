@@ -100,6 +100,7 @@ export async function POST(req: Request) {
 
     case 'invoice.payment_succeeded': {
       const invoice = event.data.object as Stripe.Invoice;
+
       if (!invoice.id) {
         console.error('Webhook Error: Invoice ID is missing');
         return new Response('Webhook Error: Missing invoice ID', {
@@ -107,8 +108,8 @@ export async function POST(req: Request) {
         });
       }
 
-      // Expand invoice lines to get detailed line item data
       try {
+        // Expand invoice lines to get detailed line item data
         const expandedInvoice = await stripe.invoices.retrieve(invoice.id, {
           expand: ['lines.data'],
         });
@@ -117,11 +118,17 @@ export async function POST(req: Request) {
         const subscriptionLine = expandedInvoice.lines.data.find(
           (line) => line.subscription !== null,
         );
-        if (subscriptionLine) {
-          const subscription = await stripe.subscriptions.retrieve(
-            subscriptionLine.subscription as string,
-            { expand: ['items.data'] },
-          );
+
+        if (subscriptionLine?.subscription) {
+          const subscription =
+            typeof subscriptionLine.subscription === 'string'
+              ? await stripe.subscriptions.retrieve(
+                  subscriptionLine.subscription,
+                  {
+                    expand: ['items.data'],
+                  },
+                )
+              : subscriptionLine.subscription;
 
           const { periodStart, periodEnd } =
             getSubscriptionPeriod(subscription);
@@ -135,16 +142,13 @@ export async function POST(req: Request) {
               cancelAtPeriodEnd: subscription.cancel_at_period_end,
             },
           });
-          console.log(`Subscription ${subscription.id} renewed.`);
         }
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : 'Unknown error';
-        console.error(
-          `Failed to retrieve invoice or subscription: ${errorMessage}`,
-        );
         return new Response(`Webhook Error: ${errorMessage}`, { status: 400 });
       }
+
       break;
     }
 
