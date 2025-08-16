@@ -314,6 +314,58 @@
           "description": "Please fill in all fields before submitting the form.",
           "button": "OK"
         }
+    },
+    "FaqsPage": {
+      "Metadata": {
+        "title": "Frequently Asked Questions | Sahla LMS",
+        "description": "Find answers to the most common questions about Sahla. Learn about account management, platform features, and more."
+      },
+      "hero": {
+        "badge": "FAQs",
+        "title": "Frequently Asked Questions",
+        "description": "Have a question? We've probably answered it below.",
+        "searchPlaceholder": "Search questions..."
+      },
+      "categories": {
+        "platformFeatures": {
+          "title": "Platform Features",
+          "q1": "What is Sahla Learning Platform?",
+          "a1": "Sahla is a multi-tenant, web-based Learning Management System (LMS) that allows you to launch your own branded online learning platform with unique subdomains.",
+          "q2": "What features does Sahla offer?",
+          "a2": "Sahla offers comprehensive course management, integrated payment processing via Stripe, user authentication, an administrative dashboard with analytics, and a customizable landing page.",
+          "q3": "Can I customize my learning platform?",
+          "a3": "Yes, Sahla provides a visual, drag-and-drop landing page editor powered by Puck, allowing you to customize your public-facing landing page without writing code.",
+          "q4": "Does Sahla support interactive coding?",
+          "a4": "Yes, Sahla integrates with the Judge0 API for executing user-submitted code in various programming languages, enabling interactive coding challenges.",
+          "q5": "Can Sahla help with quiz generation?",
+          "a5": "Absolutely! Sahla leverages OpenRouter integration for AI-powered quiz question generation, making content creation easier and faster."
+        },
+        "pricing": {
+          "title": "Pricing & Subscription",
+          "q1": "What are the pricing plans for Sahla?",
+          "a1": "We offer various pricing plans tailored to different needs, including Basic, Pro, and Enterprise options. Please visit our pricing page for more details.",
+          "q2": "Do you offer a free trial?",
+          "a2": "Yes, we offer a free trial period for you to explore Sahla's features before committing to a subscription.",
+          "q3": "What payment methods do you accept?",
+          "a3": "We accept all major credit cards through our secure Stripe integration.",
+          "q4": "Is there a refund policy?",
+          "a4": "Yes, we offer a 30-day money-back guarantee on our subscription plans. Please refer to our Terms and Conditions for more details."
+        },
+        "support": {
+          "title": "Technical Support",
+          "q1": "How can I get support?",
+          "a1": "You can reach out to us via our contact page, or refer to our help center for common issues and guides.",
+          "q2": "Do you offer API access?",
+          "a2": "API access is available with our Enterprise plan, allowing for deeper integration and customization.",
+          "q3": "What kind of technical assistance can I expect?",
+          "a3": "Our technical support team is available to assist with platform setup, troubleshooting, and any technical queries you may have to ensure a smooth experience."
+        }
+      },
+      "cta": {
+        "title": "Still have questions?",
+        "description": "Can't find the answer you're looking for? Our support team is here to help.",
+        "button": "Contact Support"
+      }
     }
     }
   }
