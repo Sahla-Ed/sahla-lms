@@ -20,7 +20,6 @@ export default function LanguageSwitcher() {
   const changeLanguage = (nextLocale: string) => {
     if (locale === nextLocale) return;
 
-    
     document.cookie = `NEXT_LOCALE=${nextLocale}; path=/; max-age=31536000; SameSite=Lax`;
     startTransition(() => {
       router.refresh();

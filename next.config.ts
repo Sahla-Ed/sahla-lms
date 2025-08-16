@@ -3,9 +3,7 @@ import type { NextConfig } from 'next';
 import { env } from './lib/env';
 const { PrismaPlugin } = require('@prisma/nextjs-monorepo-workaround-plugin');
 
-
 const withNextIntl = createNextIntlPlugin('./i18n.ts');
-
 
 const nextConfig: NextConfig = {
   experimental: {

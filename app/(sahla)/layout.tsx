@@ -3,7 +3,6 @@ import { NextIntlClientProvider } from 'next-intl';
 import { ReactNode } from 'react';
 import SahlaLayoutContent from './SahlaLayoutContent';
 
-
 export default async function SahlaRootLayout({
   children,
 }: {
@@ -11,7 +10,6 @@ export default async function SahlaRootLayout({
 }) {
   const locale = await getLocale();
   const messages = await getMessages();
-
 
   const direction = locale === 'ar' ? 'rtl' : 'ltr';
 

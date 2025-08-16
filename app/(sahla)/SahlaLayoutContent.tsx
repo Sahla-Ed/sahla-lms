@@ -6,7 +6,6 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { MainSiteHeader } from '@/components/MainSiteHeader';
 import { MainSiteFooter } from '@/components/MainSiteFooter';
 
-
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -23,9 +22,7 @@ export default function SahlaLayoutContent({
   children: React.ReactNode;
 }>) {
   return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-    >
+    <div className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <ThemeProvider
         attribute='class'
         defaultTheme='system'

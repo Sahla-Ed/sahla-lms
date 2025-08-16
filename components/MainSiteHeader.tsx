@@ -62,7 +62,7 @@ export function MainSiteHeader() {
                 href={item.href}
                 className={`hover:text-primary relative pb-2 text-base font-medium transition-colors ${
                   pathname === item.href
-                    ? 'text-primary after:bg-primary after:absolute after:start-0 after:bottom-0 after:end-0 after:h-0.5 after:rounded-full'
+                    ? 'text-primary after:bg-primary after:absolute after:start-0 after:end-0 after:bottom-0 after:h-0.5 after:rounded-full'
                     : ''
                 }`}
               >
