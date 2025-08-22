@@ -14,6 +14,7 @@ import {
   IconCashBanknote,
   IconBuilding,
   IconLayout2,
+  IconMessage,
 } from '@tabler/icons-react';
 
 import { NavMain } from '@/components/sidebar/nav-main';
@@ -49,6 +50,7 @@ export function AppSidebar({ className, planName, ...props }: AppSidebarProps) {
   const navMain = [
     { title: 'Dashboard', url: '/admin', icon: IconDashboard },
     { title: 'Courses', url: '/admin/courses', icon: IconListDetails },
+    { title: 'Messages', url: '/admin/messages', icon: IconMessage },
     { title: 'Analytics', url: '/admin/analytics', icon: IconChartBar },
   ];
 
