@@ -23,8 +23,8 @@ export async function submitContactForm(
     return { status: 'error', message: 'Invalid form data.' };
   }
 
-  const host = headers().get('host');
-  const subdomain = getSubdomain(undefined, host as string);
+  const host = Object.fromEntries(await headers()).host;
+  const subdomain = await getSubdomain(undefined, host);
   const tenantId = await getTenantIdFromSlug(subdomain);
 
   if (!tenantId) {
@@ -39,9 +39,15 @@ export async function submitContactForm(
       },
     });
 
-    return { status: 'success', message: "We've received your message and will be in touch soon!" };
+    return {
+      status: 'success',
+      message: "We've received your message and will be in touch soon!",
+    };
   } catch (error) {
     console.error('Contact form submission error:', error);
-    return { status: 'error', message: 'An unexpected error occurred. Please try again.' };
+    return {
+      status: 'error',
+      message: 'An unexpected error occurred. Please try again.',
+    };
   }
 }
