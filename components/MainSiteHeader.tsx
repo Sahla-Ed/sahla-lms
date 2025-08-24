@@ -72,7 +72,7 @@ export function MainSiteHeader() {
           </div>
 
           <div className='flex items-center gap-4'>
-            <ThemeToggle />
+          <ThemeToggle translationNamespace="SahlaPlatform.common.themeToggle" />
             <LanguageSwitcher />
             <Link
               href='/start'
@@ -85,7 +85,7 @@ export function MainSiteHeader() {
 
         {/* Mobile menu button */}
         <div className='ms-auto flex items-center gap-4 md:hidden'>
-          <ThemeToggle />
+        <ThemeToggle translationNamespace="SahlaPlatform.common.themeToggle" />
           <LanguageSwitcher />
           <button
             onClick={toggleMobileMenu}

@@ -13,9 +13,14 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useTranslations } from 'next-intl';
 
-export function ThemeToggle() {
+interface ThemeToggleProps {
+  translationNamespace: string;
+}
+
+
+export function ThemeToggle({ translationNamespace }: ThemeToggleProps) {
   const { setTheme } = useTheme();
-  const t = useTranslations('TenantPlatform.common.themeToggle');
+  const t = useTranslations(translationNamespace);
 
   return (
     <DropdownMenu>

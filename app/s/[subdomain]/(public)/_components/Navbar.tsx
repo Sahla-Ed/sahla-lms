@@ -76,7 +76,7 @@ export function Navbar() {
           </div>
 
           <div className='flex items-center space-x-4'>
-            <ThemeToggle />
+            <ThemeToggle translationNamespace="TenantPlatform.common.themeToggle" />
 
             {isPending ? (
               <LoadingSpinner />
@@ -111,7 +111,7 @@ export function Navbar() {
 
         {/* Mobile menu button */}
         <div className='ml-auto flex items-center space-x-4 md:hidden'>
-          <ThemeToggle />
+          <ThemeToggle translationNamespace="TenantPlatform.common.themeToggle" />
 
           {isPending ? (
             <LoadingSpinner />
