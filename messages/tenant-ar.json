@@ -1,25 +1,33 @@
 {
-    "TenantPlatform": {
-      "Sidebar": {
-        "dashboard": "لوحة التحكم",
-        "myCourses": "دوراتي"
-      },
-      "Dashboard": {
-        "welcomeMessage": "مرحبًا بعودتك، {username}!"
-      },
-      "Navbar": {
-        "home": "الرئيسية",
-        "courses": "الدورات",
-        "dashboard": "لوحة التحكم",
-        "contact": "تواصل معنا",
-        "login": "تسجيل الدخول",
-        "discoverMore": "اكتشف المزيد",
-        "openMenu": "فتح القائمة الرئيسية"
+  "TenantPlatform": {
+    "common": {
+      "themeToggle": {
+        "toggle": "تغيير المظهر",
+        "light": "فاتح",
+        "dark": "داكن",
+        "system": "النظام"
       }
     },
-    "Metadata": {
-"templateTitle": "%s | {tenantName}",
-"defaultTitle": "مرحباً بك في {tenantName}",
-"description": "منصة {tenantName} هي وجهتك الأولى للتعلم عبر الإنترنت. اكتشف دوراتنا اليوم."
-}
+    "Sidebar": {
+      "dashboard": "لوحة التحكم",
+      "myCourses": "دوراتي"
+    },
+    "Dashboard": {
+      "welcomeMessage": "مرحبًا بعودتك، {username}!"
+    },
+    "Navbar": {
+      "home": "الرئيسية",
+      "courses": "الدورات",
+      "dashboard": "لوحة التحكم",
+      "contact": "تواصل معنا",
+      "login": "تسجيل الدخول",
+      "discoverMore": "اكتشف المزيد",
+      "openMenu": "فتح القائمة الرئيسية"
+    }
+  },
+  "Metadata": {
+    "templateTitle": "%s | {tenantName}",
+    "defaultTitle": "مرحباً بك في {tenantName}",
+    "description": "منصة {tenantName} هي وجهتك الأولى للتعلم عبر الإنترنت. اكتشف دوراتنا اليوم."
+  }
 }

@@ -15,7 +15,7 @@ import { useTranslations } from 'next-intl';
 
 export function ThemeToggle() {
   const { setTheme } = useTheme();
-  const t = useTranslations('SahlaPlatform.common.themeToggle');
+  const t = useTranslations('TenantPlatform.common.themeToggle');
 
   return (
     <DropdownMenu>

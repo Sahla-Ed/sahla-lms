@@ -1,25 +1,33 @@
 {
-    "TenantPlatform": {
-      "Sidebar": {
-        "dashboard": "Dashboard",
-        "myCourses": "My Courses"
-      },
-      "Dashboard": {
-        "welcomeMessage": "Welcome back, {username}!"
-      },
-      "Navbar": {
-        "home": "Home",
-        "courses": "Courses",
-        "dashboard": "Dashboard",
-        "contact": "Contact",
-        "login": "Login",
-        "discoverMore": "Discover More",
-        "openMenu": "Open main menu"
+  "TenantPlatform": {
+    "common": {
+      "themeToggle": {
+        "toggle": "Toggle theme",
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System"
       }
     },
-    "Metadata": {
-      "templateTitle": "%s | {tenantName}",
-      "defaultTitle": "Welcome to {tenantName}",
-      "description": "{tenantName} is your premier destination for online learning. Explore our courses today."
+    "Sidebar": {
+      "dashboard": "Dashboard",
+      "myCourses": "My Courses"
+    },
+    "Dashboard": {
+      "welcomeMessage": "Welcome back, {username}!"
+    },
+    "Navbar": {
+      "home": "Home",
+      "courses": "Courses",
+      "dashboard": "Dashboard",
+      "contact": "Contact",
+      "login": "Login",
+      "discoverMore": "Discover More",
+      "openMenu": "Open main menu"
     }
+  },
+  "Metadata": {
+    "templateTitle": "%s | {tenantName}",
+    "defaultTitle": "Welcome to {tenantName}",
+    "description": "{tenantName} is your premier destination for online learning. Explore our courses today."
   }
+}
