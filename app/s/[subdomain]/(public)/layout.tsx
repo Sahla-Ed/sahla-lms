@@ -31,12 +31,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 
-export default function LayoutPublic({ children }: { children: ReactNode }) {
+export default async function LayoutPublic({ children }: { children: ReactNode }) {
+  const tenant = await getTenantSettings();
+
+  const tenantName = tenant ? tenant.name : "Learning Platform";
   return (
     <div>
       <Navbar />
       <main>{children}</main>
-      <Footer />
+      <Footer tenantName={tenantName} />
     </div>
   );
 }

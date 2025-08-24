@@ -61,5 +61,64 @@
       "getStartedButton": "Get Started Today",
       "exploreMoreButton": "Explore More Courses"
     }
+  },
+  "Footer": {
+    "newsletterTitle": "Join our learning community and unlock your potential.",
+    "emailPlaceholder": "Email Address*",
+    "subscribeButton": "Subscribe",
+    "connectTitle": "Connect with us",
+    "supportTitle": "Support",
+    "coursesTitle": "Courses",
+    "aboutTitle": "About",
+    "communityTitle": "Community",
+    "supportLinks": {
+      "contact": "Contact us",
+      "help": "Help Center",
+      "faqs": "FAQs",
+      "techSupport": "Technical Support",
+      "chat": "Live Chat"
+    },
+    "coursesLinks": {
+      "browse": "Browse Courses",
+      "free": "Free Courses",
+      "certificates": "Certificates",
+      "catalog": "Course Catalog",
+      "paths": "Learning Paths"
+    },
+    "aboutLinks": {
+      "about": "About us",
+      "mission": "Our Mission",
+      "careers": "Careers",
+      "instructorProgram": "Instructor Program"
+    },
+    "communityLinks": {
+      "students": "Student Community",
+      "forums": "Discussion Forums",
+      "groups": "Study Groups",
+      "stories": "Success Stories"
+    },
+    "benefitsMarquee": [
+      "24/7 Learning Support",
+      "Expert Instructors",
+      "Certificate Programs",
+      "Interactive Learning",
+      "Lifetime Access",
+      "Student Community"
+    ],
+    "bottomLinks": {
+      "terms": "Terms & conditions",
+      "privacy": "Privacy Policy",
+      "agreement": "Student Agreement"
+    },
+    "copyrightTenant": "© {year} {tenantName}.",
+    "copyrightBrand": "All rights reserved for Sahla.",
+    "dialogs": {
+      "successTitle": "🎉 Thank You!",
+      "successDescription": "Your email has been successfully registered to our newsletter. We'll be in touch soon!",
+      "successButton": "Great!",
+      "errorTitle": "⚠️ Invalid Email",
+      "errorDescription": "Please enter a valid email address.",
+      "errorButton": "Try Again"
+    }
   }
 }
