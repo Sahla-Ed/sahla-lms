@@ -29,7 +29,8 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { rootDomain, protocol } from '@/lib/utils';
 import slugify from 'slugify';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 const getFormSchema = (t: (key: string) => string) =>
   z.object({
@@ -41,12 +42,15 @@ const getFormSchema = (t: (key: string) => string) =>
     name: z.string().min(2, t('validation.nameMin')),
     email: z.string().email(t('validation.emailInvalid')),
     password: z.string().min(8, t('validation.passwordMin')),
+    language: z.enum(['en', 'ar']),
   });
 
 type FormValues = z.infer<ReturnType<typeof getFormSchema>>;
 
 export default function StartplatformPage() {
   const t = useTranslations('SahlaPlatform.StartPage');
+  const locale = useLocale();
+  const direction = locale === 'ar' ? 'rtl' : 'ltr';
 
   const formSchema = getFormSchema(t);
 
@@ -63,12 +67,13 @@ export default function StartplatformPage() {
       name: '',
       email: '',
       password: '',
+      language: 'ar',
     },
   });
 
   const handleNextStep = async () => {
     const slug = form.getValues('slug');
-    const isValid = await form.trigger(['platformName', 'slug']);
+    const isValid = await form.trigger(['platformName', 'slug', 'language']);
 
     if (!isValid) return;
 
@@ -96,7 +101,6 @@ export default function StartplatformPage() {
         const url = `${protocol}://${result.slug}.${rootDomain}/auth/sign-in`;
         router.push(url);
       } else {
-        // Handle specific server-side errors
         const messageKey = result.message.includes('email already exists')
           ? 'emailExists'
           : result.message.includes('URL is already taken')
@@ -166,17 +170,55 @@ export default function StartplatformPage() {
                           <FormControl>
                             <Input
                               placeholder={t('step1.platformUrlPlaceholder')}
-                              className='h-11 rounded-r-none focus-visible:ring-0'
+                              className='h-11 rounded-r-none focus-visible:ring-0 rtl:rounded-l-none rtl:rounded-r-md'
                               {...field}
                             />
                           </FormControl>
-                          <span className='border-input bg-muted text-muted-foreground inline-flex h-11 items-center rounded-r-md border border-l-0 px-3 text-sm'>
+                          <span className='border-input bg-muted text-muted-foreground inline-flex h-11 items-center rounded-r-md border border-l-0 px-3 text-sm rtl:rounded-l-md rtl:rounded-r-none rtl:border-l rtl:border-r-0'>
                             .{rootDomain.split(':')[0]}
                           </span>
                         </div>
                         <p className='text-muted-foreground pt-1 pb-2 text-xs'>
                           {t('step1.platformUrlHint')}
                         </p>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name='language'
+                    render={({ field }) => (
+                      <FormItem className='space-y-3'>
+                        <FormLabel>
+                          {t('step1.platformLanguage.label')}
+                        </FormLabel>
+                        <FormControl>
+                          <RadioGroup
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                            dir={direction}
+                            className='flex gap-4'
+                          >
+                            <FormItem className='flex items-center gap-2'>
+                              <FormControl>
+                                <RadioGroupItem value='en' />
+                              </FormControl>
+                              <FormLabel className='font-normal'>
+                                {t('step1.platformLanguage.english')}
+                              </FormLabel>
+                            </FormItem>
+                            <FormItem className='flex items-center gap-2'>
+                              <FormControl>
+                                <RadioGroupItem value='ar' />
+                              </FormControl>
+                              <FormLabel className='font-normal'>
+                                {t('step1.platformLanguage.arabic')}
+                              </FormLabel>
+                            </FormItem>
+                          </RadioGroup>
+                        </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -242,7 +284,7 @@ export default function StartplatformPage() {
                 </>
               )}
             </CardContent>
-            <CardFooter className='flex-col gap-4'>
+            <CardFooter className='flex-col gap-4 my-4'>
               {step === 1 ? (
                 <Button
                   type='button'
@@ -252,7 +294,7 @@ export default function StartplatformPage() {
                   disabled={isChecking}
                 >
                   {isChecking ? (
-                    <Loader2 className='mr-2 size-4 animate-spin' />
+                    <Loader2 className='me-2 size-4 animate-spin' />
                   ) : null}
                   {t('step1.continueButton')}
                 </Button>
@@ -260,11 +302,11 @@ export default function StartplatformPage() {
                 <Button
                   type='submit'
                   size='lg'
-                  className='mt-6 w-full'
+                  className='w-full'
                   disabled={isCreating}
                 >
                   {isCreating ? (
-                    <Loader2 className='mr-2 size-4 animate-spin' />
+                    <Loader2 className='me-2 size-4 animate-spin' />
                   ) : null}
                   {t('step2.createButton')}
                 </Button>
@@ -279,7 +321,7 @@ export default function StartplatformPage() {
                   className='w-full'
                   disabled={isCreating}
                 >
-                  <ArrowLeft className='mr-2 size-4' />
+                  <ArrowLeft className='me-2 size-4' />
                   {t('step2.backButton')}
                 </Button>
               )}

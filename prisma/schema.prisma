@@ -6,6 +6,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
 }
 
 model SessionTransferToken {
@@ -63,6 +64,7 @@ model tenants {
   data            Json
   landingPageData Json?
   plan            String? @default("FREE")
+  defaultLanguage String? @default("ar")
 }
 
 model Session {

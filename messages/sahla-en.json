@@ -482,7 +482,12 @@
         "platformUrl": "Platform URL",
         "platformUrlPlaceholder": "design-academy",
         "platformUrlHint": "This will be the unique web address for your platform.",
-        "continueButton": "Continue"
+        "continueButton": "Continue",
+        "platformLanguage": {
+          "label": "Platform Default Language",
+          "english": "English",
+          "arabic": "Arabic"
+        }
       },
       "step2": {
         "description": "Great! Now create your admin account.",

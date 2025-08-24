@@ -30,9 +30,11 @@ export default async function RootLayout({
   params: Promise<{ subdomain: string }>;
 }>) {
   const { subdomain } = await params;
+  console.log(`[Layout] 1. Rendering layout for subdomain: ${subdomain}`); 
   let tenantSetting;
   if (subdomain) {
     tenantSetting = await getTenantSettings();
+    console.log(`[Layout] 2. Tenant settings loaded:`, tenantSetting); 
   }
   console.log(tenantSetting);
 

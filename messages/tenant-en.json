@@ -1,0 +1,20 @@
+{
+    "TenantPlatform": {
+      "Sidebar": {
+        "dashboard": "Dashboard",
+        "myCourses": "My Courses"
+      },
+      "Dashboard": {
+        "welcomeMessage": "Welcome back, {username}!"
+      },
+      "Navbar": {
+        "home": "Home",
+        "courses": "Courses",
+        "dashboard": "Dashboard",
+        "contact": "Contact",
+        "login": "Login",
+        "discoverMore": "Discover More",
+        "openMenu": "Open main menu"
+      }
+    }
+  }

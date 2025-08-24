@@ -481,7 +481,12 @@
         "platformUrl": "رابط المنصة",
         "platformUrlPlaceholder": "Sahla.com",
         "platformUrlHint": "سيكون هذا هو عنوان الويب الفريد لمنصتك.",
-        "continueButton": "متابعة"
+        "continueButton": "متابعة",
+        "platformLanguage": {
+          "label": "اللغة الافتراضية للمنصة",
+          "english": "English",
+          "arabic": "العربية"
+        }
       },
       "step2": {
         "description": "رائع! الآن قم بإنشاء حساب المسؤول الخاص بك.",

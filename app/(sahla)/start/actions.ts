@@ -31,6 +31,7 @@ const tenantAndAdminSchema = z.object({
   name: z.string().min(2, 'Your name is required'),
   email: z.email('Invalid email address'),
   password: z.string().min(8, 'Password must be at least 8 characters long'),
+  language: z.enum(['en', 'ar']),
 });
 
 export async function checkSlugAvailability(
@@ -63,7 +64,7 @@ export async function createTenantAndAdmin(
     return { status: 'error', message: validation.error.message };
   }
 
-  const { platformName, slug, name, email, password } = validation.data;
+  const { platformName, slug, name, email, password, language } = validation.data;
 
   try {
     const newTenantId = uuidv4();
@@ -104,6 +105,7 @@ export async function createTenantAndAdmin(
             logo: ``,
             userId: newAdmin.id,
             data: {},
+            defaultLanguage: language,
           },
         });
       },
