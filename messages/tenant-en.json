@@ -29,5 +29,37 @@
     "templateTitle": "%s | {tenantName}",
     "defaultTitle": "Welcome to {tenantName}",
     "description": "{tenantName} is your premier destination for online learning. Explore our courses today."
+  },
+  "DefaultLandingPage": {
+    "hero": {
+      "badge": "The Future of Online Education",
+      "title": "Elevate Your Learning",
+      "description": "Discover a new way to learn with our modern, interactive learning management system. Access high-quality courses anytime, anywhere.",
+      "exploreButton": "Explore Courses",
+      "signInButton": "Sign In",
+      "dashboardButton": "Go to Dashboard"
+    },
+    "features": {
+      "title": "Why Choose Our Platform?",
+      "description": "Experience the future of education with our comprehensive learning ecosystem",
+      "teaching": {
+        "title": "Empower Your Teaching",
+        "description": "Seamless tools for instructors to create, publish, and manage high-quality educational content with ease."
+      },
+      "learningPath": {
+        "title": "Discover Your Learning Path",
+        "description": "Students easily find relevant courses and engage with modern, interactive content tailored to their needs."
+      },
+      "content": {
+        "title": "Diverse & In-Demand Content",
+        "description": "Access a rich library of specialized courses, continuously updated to align with current industry demands."
+      }
+    },
+    "cta": {
+      "title": "Ready to Start Your Journey?",
+      "description": "Join thousands of learners who have already transformed their careers with our platform",
+      "getStartedButton": "Get Started Today",
+      "exploreMoreButton": "Explore More Courses"
+    }
   }
 }
