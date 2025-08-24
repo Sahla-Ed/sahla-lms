@@ -120,5 +120,35 @@
       "errorDescription": "Please enter a valid email address.",
       "errorButton": "Try Again"
     }
+  },
+ "Auth": {
+   "SIGN_IN_WITH": "Sign in with",
+    "SIGN_IN": "Sign In",
+    "SIGN_IN_DESCRIPTION": "Welcome back! Please enter your details.",
+    "SIGN_UP": "Create an Account",
+    "SIGN_UP_DESCRIPTION": "Enter your details to get started.",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "NAME": "Name",
+    "SIGN_IN_ACTION": "Sign In",
+    "SIGN_UP_ACTION": "Sign Up",
+    "MAGIC_LINK_ACTION": "Sign In with Magic Link",
+    "FORGOT_PASSWORD_LINK": "Forgot password?",
+    "OR_CONTINUE_WITH": "OR CONTINUE WITH",
+    "DONT_HAVE_AN_ACCOUNT": "Don't have an account?",
+    "ALREADY_HAVE_AN_ACCOUNT": "Already have an account?",
+    "EMAIL_PLACEHOLDER": "e.g., name@example.com",
+    "PASSWORD_PLACEHOLDER": "Enter your password",
+    "NAME_PLACEHOLDER": "Enter your full name",
+    "FORGOT_PASSWORD": "Forgot Password",
+    "FORGOT_PASSWORD_DESCRIPTION": "Enter your email to receive a reset link.",
+    "FORGOT_PASSWORD_ACTION": "Send Reset Link",
+    "GO_BACK": "Go back"
+  },
+  "AuthMetadata": {
+    "signInTitle": "Sign In",
+    "signUpTitle": "Create Account",
+    "forgotPasswordTitle": "Reset Password",
+    "defaultTitle": "Authentication"
   }
 }

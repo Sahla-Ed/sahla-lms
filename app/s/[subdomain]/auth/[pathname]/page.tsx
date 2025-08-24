@@ -1,21 +1,86 @@
-// import { authViewPaths } from '@daveyplate/better-auth-ui/server';
+
 import { AuthView } from './view';
 import { requireUser } from '@/app/s/[subdomain]/data/user/require-user';
-// export function generateStaticParams() {
-//   return Object.values(authViewPaths).map((pathname) => ({ pathname }));
-// }
+import { getTranslations } from 'next-intl/server';
+import type { Metadata } from 'next';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { pathname: string };
+}): Promise<Metadata> {
+  const { pathname } = params;
+  const t = await getTranslations('AuthMetadata');
+
+  let title = t('defaultTitle');
+
+
+  if (['sign-in', 'login', 'signin'].includes(pathname)) {
+    title = t('signInTitle');
+  } else if (['sign-up', 'signup'].includes(pathname)) {
+    title = t('signUpTitle');
+  } else if (['forgot-password', 'reset-password'].includes(pathname)) {
+    title = t('forgotPasswordTitle');
+  }
+
+  return {
+    title: title,
+  };
+}
+
 
 export default async function AuthPage({
   params,
 }: {
-  params: Promise<{ pathname: string }>;
+  params: { pathname: string };
 }) {
-  const { pathname } = await params;
+  const { pathname } = params;
   const user = await requireUser(false);
+
+
+  const t = await getTranslations('Auth');
+
+
+  const localization = {
+
+    OR_CONTINUE_WITH: t('OR_CONTINUE_WITH'),
+    GO_BACK: t('GO_BACK'),
+
+
+    SIGN_IN: t('SIGN_IN'),
+    SIGN_IN_DESCRIPTION: t('SIGN_IN_DESCRIPTION'),
+    SIGN_IN_ACTION: t('SIGN_IN_ACTION'),
+    DONT_HAVE_AN_ACCOUNT: t('DONT_HAVE_AN_ACCOUNT'),
+    SIGN_UP: t('SIGN_UP'),
+    SIGN_IN_WITH: t('SIGN_IN_WITH'),
+
+    SIGN_UP_ACTION: t('SIGN_UP_ACTION'),
+    SIGN_UP_DESCRIPTION: t('SIGN_UP_DESCRIPTION'),
+    ALREADY_HAVE_AN_ACCOUNT: t('ALREADY_HAVE_AN_ACCOUNT'),
+
+    FORGOT_PASSWORD: t('FORGOT_PASSWORD'),
+    FORGOT_PASSWORD_LINK: t('FORGOT_PASSWORD_LINK'),
+    FORGOT_PASSWORD_DESCRIPTION: t('FORGOT_PASSWORD_DESCRIPTION'),
+    FORGOT_PASSWORD_ACTION: t('FORGOT_PASSWORD_ACTION'),
+
+
+    EMAIL: t('EMAIL'),
+    EMAIL_PLACEHOLDER: t('EMAIL_PLACEHOLDER'),
+    PASSWORD: t('PASSWORD'),
+    PASSWORD_PLACEHOLDER: t('PASSWORD_PLACEHOLDER'),
+    NAME: t('NAME'),
+    NAME_PLACEHOLDER: t('NAME_PLACEHOLDER'),
+
+    MAGIC_LINK_ACTION: t('MAGIC_LINK_ACTION'),   
+  };
 
   return (
     <>
-      <AuthView pathname={pathname} role={user?.role} />
+      <AuthView 
+        pathname={pathname} 
+        role={user?.role} 
+        localization={localization}
+      />
     </>
   );
 }

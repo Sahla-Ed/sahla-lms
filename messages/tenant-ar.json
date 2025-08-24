@@ -120,5 +120,35 @@
       "errorDescription": "الرجاء إدخال عنوان بريد إلكتروني صالح.",
       "errorButton": "حاول مرة أخرى"
     }
+  },
+  "Auth": {
+    "SIGN_IN_WITH": "التسجيل باستخدام",
+    "SIGN_IN": "تسجيل الدخول",
+    "SIGN_IN_DESCRIPTION": "مرحبًا بعودتك! الرجاء إدخال بياناتك.",
+    "SIGN_UP": "إنشاء حساب",
+    "SIGN_UP_DESCRIPTION": "أدخل بياناتك للبدء.",
+    "EMAIL": "البريد الإلكتروني",
+    "PASSWORD": "كلمة المرور",
+    "NAME": "الاسم",
+    "SIGN_IN_ACTION": "تسجيل الدخول",
+    "SIGN_UP_ACTION": "إنشاء حساب",
+    "MAGIC_LINK_ACTION": "الدخول برابط سحري",
+    "FORGOT_PASSWORD_LINK": "هل نسيت كلمة المرور؟",
+    "OR_CONTINUE_WITH": "أو المتابعة باستخدام",
+    "DONT_HAVE_AN_ACCOUNT": "ليس لديك حساب؟",
+    "ALREADY_HAVE_AN_ACCOUNT": "هل لديك حساب بالفعل؟",
+    "EMAIL_PLACEHOLDER": "مثال: name@example.com",
+    "PASSWORD_PLACEHOLDER": "أدخل كلمة المرور الخاصة بك",
+    "NAME_PLACEHOLDER": "أدخل اسمك الكامل",
+    "FORGOT_PASSWORD": "هل نسيت كلمة المرور؟",
+    "FORGOT_PASSWORD_DESCRIPTION": "أدخل بريدك الإلكتروني لاستلام رابط إعادة التعيين.",
+    "FORGOT_PASSWORD_ACTION": "إرسال رابط إعادة التعيين",
+    "GO_BACK": "العودة"
+  },
+  "AuthMetadata": {
+    "signInTitle": "تسجيل الدخول",
+    "signUpTitle": "إنشاء حساب",
+    "forgotPasswordTitle": "إعادة تعيين كلمة المرور",
+    "defaultTitle": "المصادقة"
   }
 }
