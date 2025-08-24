@@ -16,5 +16,10 @@
         "discoverMore": "اكتشف المزيد",
         "openMenu": "فتح القائمة الرئيسية"
       }
-    }
-  }
+    },
+    "Metadata": {
+"templateTitle": "%s | {tenantName}",
+"defaultTitle": "مرحباً بك في {tenantName}",
+"description": "منصة {tenantName} هي وجهتك الأولى للتعلم عبر الإنترنت. اكتشف دوراتنا اليوم."
+}
+}

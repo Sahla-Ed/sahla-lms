@@ -16,5 +16,10 @@
         "discoverMore": "Discover More",
         "openMenu": "Open main menu"
       }
+    },
+    "Metadata": {
+      "templateTitle": "%s | {tenantName}",
+      "defaultTitle": "Welcome to {tenantName}",
+      "description": "{tenantName} is your premier destination for online learning. Explore our courses today."
     }
   }
