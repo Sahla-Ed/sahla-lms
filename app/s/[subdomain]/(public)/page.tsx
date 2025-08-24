@@ -1,4 +1,3 @@
-
 import { getTenantSettings } from '@/app/s/[subdomain]/data/admin/get-tenant-settings';
 import { puckConfig } from '@/app/s/[subdomain]/admin/settings/landing-page/puck.config';
 import { DefaultLandingPage } from './_components/DefaultLandingPage';

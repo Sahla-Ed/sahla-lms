@@ -25,9 +25,11 @@ export default function RenderFooterSection({
 
   return (
     <div className='space-y-4'>
-      <h3 className={`text-foreground mb-6 text-lg font-semibold ${
-        isRTL ? 'text-right' : 'text-left'
-      }`}>
+      <h3
+        className={`text-foreground mb-6 text-lg font-semibold ${
+          isRTL ? 'text-right' : 'text-left'
+        }`}
+      >
         {title}
       </h3>
       <ul className='space-y-3'>
@@ -45,9 +47,11 @@ export default function RenderFooterSection({
             >
               {link.name}
               {hoveredSection === type && hoveredIndex === index && (
-                <span className={`text-primary absolute top-1/2 -translate-y-1/2 ${
-                  isRTL ? '-right-2' : '-left-2'
-                }`}>
+                <span
+                  className={`text-primary absolute top-1/2 -translate-y-1/2 ${
+                    isRTL ? '-right-2' : '-left-2'
+                  }`}
+                >
                   {isRTL ? '←' : '→'}
                 </span>
               )}

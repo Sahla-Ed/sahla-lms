@@ -174,7 +174,7 @@ export default function StartplatformPage() {
                               {...field}
                             />
                           </FormControl>
-                          <span className='border-input bg-muted text-muted-foreground inline-flex h-11 items-center rounded-r-md border border-l-0 px-3 text-sm rtl:rounded-l-md rtl:rounded-r-none rtl:border-l rtl:border-r-0'>
+                          <span className='border-input bg-muted text-muted-foreground inline-flex h-11 items-center rounded-r-md border border-l-0 px-3 text-sm rtl:rounded-l-md rtl:rounded-r-none rtl:border-r-0 rtl:border-l'>
                             .{rootDomain.split(':')[0]}
                           </span>
                         </div>
@@ -284,7 +284,7 @@ export default function StartplatformPage() {
                 </>
               )}
             </CardContent>
-            <CardFooter className='flex-col gap-4 my-4'>
+            <CardFooter className='my-4 flex-col gap-4'>
               {step === 1 ? (
                 <Button
                   type='button'

@@ -17,7 +17,6 @@ interface ThemeToggleProps {
   translationNamespace: string;
 }
 
-
 export function ThemeToggle({ translationNamespace }: ThemeToggleProps) {
   const { setTheme } = useTheme();
   const t = useTranslations(translationNamespace);

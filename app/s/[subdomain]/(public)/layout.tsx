@@ -5,14 +5,11 @@ import type { Metadata } from 'next';
 import { getTenantSettings } from '../data/admin/get-tenant-settings';
 import { getTranslations } from 'next-intl/server';
 
-
 export async function generateMetadata(): Promise<Metadata> {
-  
   const [tenant, t] = await Promise.all([
     getTenantSettings(),
-    getTranslations('Metadata')
+    getTranslations('Metadata'),
   ]);
-
 
   if (!tenant) {
     return {
@@ -30,11 +27,14 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-
-export default async function LayoutPublic({ children }: { children: ReactNode }) {
+export default async function LayoutPublic({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const tenant = await getTenantSettings();
 
-  const tenantName = tenant ? tenant.name : "Learning Platform";
+  const tenantName = tenant ? tenant.name : 'Learning Platform';
   return (
     <div>
       <Navbar />

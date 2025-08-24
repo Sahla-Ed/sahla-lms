@@ -64,7 +64,8 @@ export async function createTenantAndAdmin(
     return { status: 'error', message: validation.error.message };
   }
 
-  const { platformName, slug, name, email, password, language } = validation.data;
+  const { platformName, slug, name, email, password, language } =
+    validation.data;
 
   try {
     const newTenantId = uuidv4();

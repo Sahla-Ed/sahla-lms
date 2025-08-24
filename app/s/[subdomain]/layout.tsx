@@ -7,7 +7,6 @@ import { getTenantSettings } from './data/admin/get-tenant-settings';
 import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 
-
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -18,7 +17,6 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-
 export const metadata: Metadata = {
   title: 'Learning Platform', // Generic fallback title
 };
@@ -28,10 +26,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
   const tenantSetting = await getTenantSettings();
 
- 
   const locale = await getLocale();
   const messages = await getMessages();
   const direction = locale === 'ar' ? 'rtl' : 'ltr';

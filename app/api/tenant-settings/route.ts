@@ -22,6 +22,9 @@ export async function GET(request: Request) {
     return NextResponse.json(tenant);
   } catch (error) {
     console.error('[API/TENANT-SETTINGS] Error:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 },
+    );
   }
 }
