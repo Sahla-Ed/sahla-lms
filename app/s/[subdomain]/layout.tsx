@@ -6,7 +6,6 @@ import { Providers } from '@/components/Providers';
 import { getTenantSettings } from './data/admin/get-tenant-settings';
 import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
-import { getTranslations } from 'next-intl/server'; 
 
 
 const geistSans = Geist({
@@ -19,40 +18,20 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-export async function generateMetadata(): Promise<Metadata> {
-  const [tenant, t] = await Promise.all([
-    getTenantSettings(),
-    getTranslations('Metadata')
-  ]);
 
-  if (!tenant) {
-    return {
-      title: 'Learning Platform',
-      description: 'An online learning platform.',
-    };
-  }
-
-  return {
-    title: {
-      template: t('templateTitle', { tenantName: tenant.name }), 
-      default: t('defaultTitle', { tenantName: tenant.name }),
-    },
-    description: t('description', { tenantName: tenant.name }),
-  };
-}
-
+export const metadata: Metadata = {
+  title: 'Learning Platform', // Generic fallback title
+};
 
 export default async function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ subdomain: string }>;
 }>) {
-  const { subdomain } = await params;
-  let tenantSetting;
+  
+  const tenantSetting = await getTenantSettings();
 
-
+ 
   const locale = await getLocale();
   const messages = await getMessages();
   const direction = locale === 'ar' ? 'rtl' : 'ltr';
@@ -68,10 +47,10 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
-        <Providers>
-          {children}
-          <Toaster closeButton position='bottom-center' />
-        </Providers>
+          <Providers>
+            {children}
+            <Toaster closeButton position='bottom-center' />
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>
