@@ -1,4 +1,33 @@
 {
+  "AdminLayout": {
+    "headerTitle": "{tenantName} Admin"
+  },
+  "AdminIndexPage": {
+    "recentCoursesTitle": "Recent Courses",
+    "viewAllCoursesButton": "View All Courses",
+    "emptyState": {
+      "title": "You don't have any courses yet!",
+      "description": "You don't have any courses. Create some to see them here.",
+      "buttonText": "Create new Course"
+    }
+  },
+  "AdminSidebar": {
+    "navMain": {
+      "quickCreate": "Quick Create",
+      "dashboard": "Dashboard",
+      "courses": "Courses",
+      "analytics": "Analytics",
+      "students": "Students"
+    },
+    "navSecondary": {
+      "platformSettings": "Platform Settings",
+      "landingPage": "Landing Page",
+      "billing": "Billing",
+      "settings": "Settings",
+      "getHelp": "Get Help",
+      "search": "Search"
+    }
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {

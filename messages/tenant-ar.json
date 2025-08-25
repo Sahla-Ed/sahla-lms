@@ -1,4 +1,33 @@
 {
+  "AdminLayout": {
+    "headerTitle": "لوحة تحكم {tenantName}"
+  },
+  "AdminIndexPage": {
+    "recentCoursesTitle": "أحدث الدورات",
+    "viewAllCoursesButton": "عرض كل الدورات",
+    "emptyState": {
+      "title": "ليس لديك أي دورات بعد!",
+      "description": "ليس لديك أي دورات. أنشئ بعض الدورات لكي تظهر هنا.",
+      "buttonText": "أنشئ دورة جديدة"
+    }
+  },
+  "AdminSidebar": {
+    "navMain": {
+      "quickCreate": "إنشاء سريع",
+      "dashboard": "لوحة التحكم",
+      "courses": "الدورات",
+      "analytics": "التحليلات",
+      "students": "الطلاب"
+    },
+    "navSecondary": {
+      "platformSettings": "إعدادات المنصة",
+      "landingPage": "الصفحة الرئيسية",
+      "billing": "الفواتير",
+      "settings": "الإعدادات",
+      "getHelp": "المساعدة",
+      "search": "بحث"
+    }
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {

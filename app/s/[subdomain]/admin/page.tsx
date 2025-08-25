@@ -13,9 +13,12 @@ import { adminGetEnrollmentStats } from '../data/admin/admin-get-enrollment-stat
 import { AdminCourseType } from '../data/admin/admin-get-courses';
 import { TrialBanner } from './_components/TrialBanner';
 import { AdminWelcomeToast } from './_components/AdminWelcomeToast';
+import { getTranslations } from 'next-intl/server';
 
 export default async function AdminIndexPage() {
   const enrollmentData = await adminGetEnrollmentStats();
+  const t = await getTranslations('AdminIndexPage');
+
   return (
     <>
      <AdminWelcomeToast />
@@ -26,12 +29,12 @@ export default async function AdminIndexPage() {
 
       <div className='space-y-4'>
         <div className='flex items-center justify-between'>
-          <h2 className='text-xl font-semibold'>Recent Courses</h2>
+        <h2 className='text-xl font-semibold'>{t('recentCoursesTitle')}</h2>
           <Link
             className={buttonVariants({ variant: 'outline' })}
             href='/admin/courses'
           >
-            View All Courses
+           {t('viewAllCoursesButton')}
           </Link>
         </div>
 

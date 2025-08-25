@@ -15,12 +15,14 @@ import { cn } from '@/lib/utils';
 
 export function NavMain({
   items,
+  quickCreateText,
 }: {
   items: {
     title: string;
     url: string;
     icon?: Icon;
   }[];
+  quickCreateText: string;
 }) {
   const pathname = usePathname();
   return (
@@ -31,12 +33,12 @@ export function NavMain({
             <SidebarMenuItem className='flex items-center gap-2'>
               <SidebarMenuButton
                 asChild
-                tooltip='Quick Create'
+                tooltip={quickCreateText}
                 className='bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear'
               >
                 <Link href='/admin/courses/create'>
                   <IconCirclePlusFilled />
-                  <span>Quick Create</span>
+                  <span>{quickCreateText}</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
