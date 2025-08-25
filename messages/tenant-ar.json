@@ -143,7 +143,17 @@
     "FORGOT_PASSWORD": "هل نسيت كلمة المرور؟",
     "FORGOT_PASSWORD_DESCRIPTION": "أدخل بريدك الإلكتروني لاستلام رابط إعادة التعيين.",
     "FORGOT_PASSWORD_ACTION": "إرسال رابط إعادة التعيين",
-    "GO_BACK": "العودة"
+    "GO_BACK": "العودة",
+    "Validation": {
+      "EMAIL_REQUIRED": "البريد الإلكتروني مطلوب",
+      "PASSWORD_REQUIRED": "كلمة المرور مطلوبة",
+      "IS_INVALID": "غير صالح",
+      "PASSWORDS_DO_NOT_MATCH": "كلمتا المرور غير متطابقتين",
+      "PASSWORD_TOO_SHORT": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل",
+      "INVALID_EMAIL_OR_PASSWORD": "البريد الإلكتروني أو كلمة المرور التي أدخلتها غير صحيحة. الرجاء المحاولة مرة أخرى.",
+      "IS_REQUIRED": "مطلوب",
+      "USER_ALREADY_EXISTS": "يوجد مستخدم بهذا البريد الإلكتروني بالفعل. الرجاء تسجيل الدخول."
+    }
   },
   "AuthMetadata": {
     "signInTitle": "تسجيل الدخول",

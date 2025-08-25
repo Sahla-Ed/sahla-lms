@@ -143,7 +143,18 @@
     "FORGOT_PASSWORD": "Forgot Password",
     "FORGOT_PASSWORD_DESCRIPTION": "Enter your email to receive a reset link.",
     "FORGOT_PASSWORD_ACTION": "Send Reset Link",
-    "GO_BACK": "Go back"
+    "GO_BACK": "Go back",
+    "Validation": {
+    "EMAIL_REQUIRED": "Email address is required",
+    "PASSWORD_REQUIRED": "Password is required",
+    "IS_INVALID": "is invalid",
+    "PASSWORDS_DO_NOT_MATCH": "Passwords do not match",
+    "PASSWORD_TOO_SHORT": "Password must be at least 8 characters",
+    "INVALID_EMAIL_OR_PASSWORD": "The email or password you entered is incorrect. Please try again.",
+    "IS_REQUIRED": "is required",
+    "USER_ALREADY_EXISTS": "A user with this email already exists. Please sign in."
+
+    }
   },
   "AuthMetadata": {
     "signInTitle": "Sign In",

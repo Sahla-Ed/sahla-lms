@@ -71,7 +71,16 @@ export default async function AuthPage({
     NAME: t('NAME'),
     NAME_PLACEHOLDER: t('NAME_PLACEHOLDER'),
 
-    MAGIC_LINK_ACTION: t('MAGIC_LINK_ACTION'),   
+    MAGIC_LINK_ACTION: t('MAGIC_LINK_ACTION'),
+
+    EMAIL_REQUIRED: t('Validation.EMAIL_REQUIRED'),
+    PASSWORD_REQUIRED: t('Validation.PASSWORD_REQUIRED'),
+    IS_INVALID: t('Validation.IS_INVALID'),
+    PASSWORDS_DO_NOT_MATCH: t('Validation.PASSWORDS_DO_NOT_MATCH'),
+    PASSWORD_TOO_SHORT: t('Validation.PASSWORD_TOO_SHORT'),
+    INVALID_EMAIL_OR_PASSWORD: t('Validation.INVALID_EMAIL_OR_PASSWORD'),
+    IS_REQUIRED: t('Validation.IS_REQUIRED'),
+    USER_ALREADY_EXISTS: t('Validation.USER_ALREADY_EXISTS'),
   };
 
   return (
