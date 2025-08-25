@@ -13,7 +13,8 @@
       "myCourses": "دوراتي"
     },
     "Dashboard": {
-      "welcomeMessage": "مرحبًا بعودتك، {username}!"
+      "welcomeMessage": "مرحبًا بعودتك، {username}!",
+      "adminWelcomeMessage": "أهلاً بك أيها المدير، {username}!"
     },
     "Navbar": {
       "home": "الرئيسية",
@@ -144,6 +145,8 @@
     "FORGOT_PASSWORD_DESCRIPTION": "أدخل بريدك الإلكتروني لاستلام رابط إعادة التعيين.",
     "FORGOT_PASSWORD_ACTION": "إرسال رابط إعادة التعيين",
     "GO_BACK": "العودة",
+    "signOutSuccess": "تم تسجيل الخروج بنجاح!",
+    "signOutError": "فشل تسجيل الخروج. الرجاء المحاولة مرة أخرى.",
     "Validation": {
       "EMAIL_REQUIRED": "البريد الإلكتروني مطلوب",
       "PASSWORD_REQUIRED": "كلمة المرور مطلوبة",
@@ -153,6 +156,7 @@
       "INVALID_EMAIL_OR_PASSWORD": "البريد الإلكتروني أو كلمة المرور التي أدخلتها غير صحيحة. الرجاء المحاولة مرة أخرى.",
       "IS_REQUIRED": "مطلوب",
       "USER_ALREADY_EXISTS": "يوجد مستخدم بهذا البريد الإلكتروني بالفعل. الرجاء تسجيل الدخول."
+  
     }
   },
   "AuthMetadata": {

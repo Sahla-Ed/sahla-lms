@@ -6,13 +6,13 @@ import { emailOTP } from 'better-auth/plugins';
 import { resend } from './resend';
 import { admin } from 'better-auth/plugins';
 
-export const auth = (tenantId: string) =>
+export const auth = (tenantId?: string | null) =>
   betterAuth({
     tenantId: tenantId,
     database: prismaAdapter(prisma, {
       // debugLogs: true,
       provider: 'postgresql',
-      tenantId: tenantId,
+      tenantId: tenantId ?? undefined,
     }),
 
     //FIX:this shouldnot be hardcoded or allowing all but doing this for testing

@@ -12,11 +12,13 @@ import { adminGetRecentCourses } from '../data/admin/admin-get-recent-courses';
 import { adminGetEnrollmentStats } from '../data/admin/admin-get-enrollment-stats';
 import { AdminCourseType } from '../data/admin/admin-get-courses';
 import { TrialBanner } from './_components/TrialBanner';
+import { AdminWelcomeToast } from './_components/AdminWelcomeToast';
 
 export default async function AdminIndexPage() {
   const enrollmentData = await adminGetEnrollmentStats();
   return (
     <>
+     <AdminWelcomeToast />
       <TrialBanner />
       <SectionCards />
 

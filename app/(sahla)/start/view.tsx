@@ -82,12 +82,9 @@ export default function StartplatformPage() {
       if (result.available) {
         setStep(2);
       } else {
-        const messageKey = result.message?.includes('taken')
-          ? 'slugTaken'
-          : 'creationError';
         form.setError('slug', {
           type: 'manual',
-          message: t(`serverMessages.${messageKey}`),
+          message: result.message,
         });
       }
     });
@@ -99,14 +96,10 @@ export default function StartplatformPage() {
       if (result.status === 'success' && result.slug) {
         toast.success(t('serverMessages.creationSuccess'));
         const url = `${protocol}://${result.slug}.${rootDomain}/auth/sign-in`;
+        console.log('Redirecting to:', url);
         router.push(url);
       } else {
-        const messageKey = result.message.includes('email already exists')
-          ? 'emailExists'
-          : result.message.includes('URL is already taken')
-            ? 'slugTaken'
-            : 'creationError';
-        toast.error(t(`serverMessages.${messageKey}`));
+        toast.error(result.message);
       }
     });
   };

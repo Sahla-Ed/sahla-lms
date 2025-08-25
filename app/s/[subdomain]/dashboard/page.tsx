@@ -14,6 +14,7 @@ import {
 } from '@tabler/icons-react';
 import { BookOpen, PlayCircle, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
+import { WelcomeToast } from './_components/WelcomeToast';
 
 export default async function DashboardPage() {
   const [courses, enrolledCourses] = await Promise.all([
@@ -46,6 +47,7 @@ export default async function DashboardPage() {
   return (
     <div className='flex flex-1 flex-col gap-4 p-4 pt-0'>
       {/* Welcome Section */}
+      <WelcomeToast />
       <div className='mb-6 flex flex-col gap-2'>
         <div className='flex items-center gap-2'>
           <Badge

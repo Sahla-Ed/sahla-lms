@@ -28,9 +28,9 @@ export function AuthView({
       redirect(redirectTo);
     }
     if (role === 'admin') {
-      redirect('/admin');
+      redirect('/admin?welcome=true');
     }
-    redirect('/dashboard');
+    redirect('/dashboard?welcome=true');
   }
 
   return (

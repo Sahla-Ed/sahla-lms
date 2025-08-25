@@ -6,6 +6,7 @@ import { ApiResponse } from '@/lib/types';
 import { v4 as uuidv4 } from 'uuid';
 import { auth } from '@/lib/auth';
 import { Prisma } from '@/lib/generated/prisma';
+import { getTranslations } from 'next-intl/server';
 
 const slugSchema = z.object({
   slug: z
@@ -29,7 +30,7 @@ const tenantAndAdminSchema = z.object({
       'URL can only contain lowercase letters, numbers, and hyphens',
     ),
   name: z.string().min(2, 'Your name is required'),
-  email: z.email('Invalid email address'),
+  email: z.string().email('Invalid email address'),
   password: z.string().min(8, 'Password must be at least 8 characters long'),
   language: z.enum(['en', 'ar']),
 });
@@ -37,6 +38,8 @@ const tenantAndAdminSchema = z.object({
 export async function checkSlugAvailability(
   slug: string,
 ): Promise<{ available: boolean; message?: string }> {
+  const t = await getTranslations('SahlaPlatform.StartPage');
+
   const validation = slugSchema.safeParse({ slug });
   if (!validation.success) {
     return { available: false, message: validation.error.message };
@@ -49,7 +52,7 @@ export async function checkSlugAvailability(
   if (existingTenant) {
     return {
       available: false,
-      message: 'This platform URL is already taken. Please choose another.',
+      message: t('serverMessages.slugTaken'),
     };
   }
 
@@ -59,6 +62,7 @@ export async function checkSlugAvailability(
 export async function createTenantAndAdmin(
   values: z.infer<typeof tenantAndAdminSchema>,
 ): Promise<ApiResponse & { slug?: string }> {
+  const t = await getTranslations('SahlaPlatform.StartPage');
   const validation = tenantAndAdminSchema.safeParse(values);
   if (!validation.success) {
     return { status: 'error', message: validation.error.message };
@@ -72,15 +76,12 @@ export async function createTenantAndAdmin(
 
     await prisma.$transaction(
       async (tx) => {
-        // 1. Re-check slug availability inside transaction to prevent race conditions
         const existingTenant = await tx.tenants.findUnique({ where: { slug } });
-
         if (existingTenant) {
-          console.error('Slug is already taken:', slug);
-          throw new Error('This platform URL is already taken.');
+          throw new Error(t('serverMessages.slugTaken'));
         }
 
-        const { user: newAdmin } = await auth(newTenantId).api.signUpEmail({
+        const { user: newAdmin } = await auth().api.signUpEmail({
           body: {
             name,
             email,
@@ -89,14 +90,8 @@ export async function createTenantAndAdmin(
         });
 
         if (!newAdmin) {
-          console.error('Failed to create admin user account.');
-          // throw new Error('Failed to create admin user account.');
+          throw new Error('Failed to create the admin user account.');
         }
-
-        await tx.user.update({
-          where: { id: newAdmin.id },
-          data: { role: 'admin' },
-        });
 
         await tx.tenants.create({
           data: {
@@ -109,25 +104,40 @@ export async function createTenantAndAdmin(
             defaultLanguage: language,
           },
         });
+
+        await tx.user.update({
+          where: { id: newAdmin.id },
+          data: {
+            role: 'admin',
+            tenantId: newTenantId,
+          },
+        });
+
+        await tx.account.updateMany({
+          where: { userId: newAdmin.id },
+          data: { tenantId: newTenantId },
+        });
       },
       {
         timeout: 15000,
       },
     );
+
     return {
       status: 'success',
-      message: 'Your platform and admin account have been created!',
+      message: t('serverMessages.creationSuccess'),
       slug: slug,
     };
   } catch (error) {
-    let errorMessage = 'An unexpected error occurred. Please try again.';
+    let errorMessage = t('serverMessages.creationError');
     if (error instanceof Error) {
-      if (
+      if (error.message.includes('taken')) {
+        errorMessage = t('serverMessages.slugTaken');
+      } else if (
         error instanceof Prisma.PrismaClientKnownRequestError &&
         error.code === 'P2002'
       ) {
-        errorMessage =
-          'An account with this email already exists for this platform.';
+        errorMessage = t('serverMessages.emailExists');
       } else {
         errorMessage = error.message;
       }
