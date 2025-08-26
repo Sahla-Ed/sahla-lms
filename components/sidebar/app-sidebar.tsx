@@ -35,13 +35,17 @@ import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 
-
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   planName: 'FREE' | 'PRO';
   side: 'left' | 'right';
 }
 
-export function AppSidebar({ className, planName, side, ...props }: AppSidebarProps) {
+export function AppSidebar({
+  className,
+  planName,
+  side,
+  ...props
+}: AppSidebarProps) {
   const { theme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const t = useTranslations('AdminSidebar');
@@ -52,8 +56,16 @@ export function AppSidebar({ className, planName, side, ...props }: AppSidebarPr
 
   const navMain = [
     { title: t('navMain.dashboard'), url: '/admin', icon: IconDashboard },
-    { title: t('navMain.courses'), url: '/admin/courses', icon: IconListDetails },
-    { title: t('navMain.analytics'), url: '/admin/analytics', icon: IconChartBar },
+    {
+      title: t('navMain.courses'),
+      url: '/admin/courses',
+      icon: IconListDetails,
+    },
+    {
+      title: t('navMain.analytics'),
+      url: '/admin/analytics',
+      icon: IconChartBar,
+    },
   ];
 
   if (planName === 'PRO') {
@@ -80,7 +92,11 @@ export function AppSidebar({ className, planName, side, ...props }: AppSidebarPr
       url: '/admin/settings/billing',
       icon: IconCashBanknote,
     },
-    { title: t('navSecondary.settings'), url: '/admin/settings', icon: IconSettings },
+    {
+      title: t('navSecondary.settings'),
+      url: '/admin/settings',
+      icon: IconSettings,
+    },
     { title: t('navSecondary.getHelp'), url: '/faqs', icon: IconHelp },
     { title: t('navSecondary.search'), url: '/admin/search', icon: IconSearch },
   ];
@@ -89,7 +105,7 @@ export function AppSidebar({ className, planName, side, ...props }: AppSidebarPr
     <Sidebar
       collapsible='offcanvas'
       side={side}
-      className={cn(className)} 
+      className={cn(className)}
       {...props}
     >
       <SidebarHeader>
@@ -111,7 +127,7 @@ export function AppSidebar({ className, planName, side, ...props }: AppSidebarPr
         </SidebarMenuItem>
       </SidebarHeader>
       <SidebarContent>
-      <NavMain items={navMain} quickCreateText={t('navMain.quickCreate')} />
+        <NavMain items={navMain} quickCreateText={t('navMain.quickCreate')} />
         <NavSecondary items={navSecondary} className='mt-auto' />
       </SidebarContent>
       <SidebarFooter>

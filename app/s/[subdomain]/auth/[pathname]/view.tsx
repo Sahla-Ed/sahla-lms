@@ -3,7 +3,6 @@
 import { AuthCard } from '@daveyplate/better-auth-ui';
 import { redirect, useSearchParams } from 'next/navigation';
 
-
 type AuthLocalization = {
   [key: string]: string;
 };
@@ -11,15 +10,15 @@ type AuthLocalization = {
 export function AuthView({
   pathname,
   role,
-  localization, 
+  localization,
 }: {
   pathname: string;
   role: string | null | undefined;
-  localization: AuthLocalization; 
+  localization: AuthLocalization;
 }) {
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get('redirectTo');
-  
+
   if (
     role &&
     ['sign-up', 'sign-in', 'login', 'signup', 'signin'].includes(pathname)

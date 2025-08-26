@@ -1,4 +1,3 @@
-
 import { AuthView } from './view';
 import { requireUser } from '@/app/s/[subdomain]/data/user/require-user';
 import { getTranslations } from 'next-intl/server';
@@ -7,13 +6,12 @@ import type { Metadata } from 'next';
 export async function generateMetadata({
   params,
 }: {
-  params: { pathname: string };
+  params: Promise<{ pathname: string }>;
 }): Promise<Metadata> {
-  const { pathname } = params;
+  const { pathname } = await params;
   const t = await getTranslations('AuthMetadata');
 
   let title = t('defaultTitle');
-
 
   if (['sign-in', 'login', 'signin'].includes(pathname)) {
     title = t('signInTitle');
@@ -28,24 +26,21 @@ export async function generateMetadata({
   };
 }
 
+interface AuthPageProps {
+  params: Promise<{
+    pathname: string;
+  }>;
+}
 
-export default async function AuthPage({
-  params,
-}: {
-  params: { pathname: string };
-}) {
-  const { pathname } = params;
+export default async function AuthPage({ params }: AuthPageProps) {
+  const { pathname } = await params;
   const user = await requireUser(false);
-
 
   const t = await getTranslations('Auth');
 
-
   const localization = {
-
     OR_CONTINUE_WITH: t('OR_CONTINUE_WITH'),
     GO_BACK: t('GO_BACK'),
-
 
     SIGN_IN: t('SIGN_IN'),
     SIGN_IN_DESCRIPTION: t('SIGN_IN_DESCRIPTION'),
@@ -62,7 +57,6 @@ export default async function AuthPage({
     FORGOT_PASSWORD_LINK: t('FORGOT_PASSWORD_LINK'),
     FORGOT_PASSWORD_DESCRIPTION: t('FORGOT_PASSWORD_DESCRIPTION'),
     FORGOT_PASSWORD_ACTION: t('FORGOT_PASSWORD_ACTION'),
-
 
     EMAIL: t('EMAIL'),
     EMAIL_PLACEHOLDER: t('EMAIL_PLACEHOLDER'),
@@ -85,9 +79,9 @@ export default async function AuthPage({
 
   return (
     <>
-      <AuthView 
-        pathname={pathname} 
-        role={user?.role} 
+      <AuthView
+        pathname={pathname}
+        role={user?.role}
         localization={localization}
       />
     </>

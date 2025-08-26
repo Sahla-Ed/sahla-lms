@@ -21,7 +21,7 @@ export default async function AdminIndexPage() {
 
   return (
     <>
-     <AdminWelcomeToast />
+      <AdminWelcomeToast />
       <TrialBanner />
       <SectionCards />
 
@@ -29,12 +29,12 @@ export default async function AdminIndexPage() {
 
       <div className='space-y-4'>
         <div className='flex items-center justify-between'>
-        <h2 className='text-xl font-semibold'>{t('recentCoursesTitle')}</h2>
+          <h2 className='text-xl font-semibold'>{t('recentCoursesTitle')}</h2>
           <Link
             className={buttonVariants({ variant: 'outline' })}
             href='/admin/courses'
           >
-           {t('viewAllCoursesButton')}
+            {t('viewAllCoursesButton')}
           </Link>
         </div>
 

@@ -10,7 +10,6 @@ export function WelcomeToast() {
   const searchParams = useSearchParams();
   const t = useTranslations('TenantPlatform.Dashboard');
 
-
   const { data: session } = authClient.useSession();
 
   useEffect(() => {

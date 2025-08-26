@@ -8,7 +8,7 @@ import { authClient } from '@/lib/auth-client';
 
 export function AdminWelcomeToast() {
   const searchParams = useSearchParams();
-  const t = useTranslations('TenantPlatform.Dashboard'); 
+  const t = useTranslations('TenantPlatform.Dashboard');
   const { data: session } = authClient.useSession();
 
   useEffect(() => {

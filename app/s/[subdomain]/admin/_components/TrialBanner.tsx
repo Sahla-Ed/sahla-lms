@@ -10,7 +10,6 @@ export async function TrialBanner() {
   const subscription = await getSubscription();
   const t = await getTranslations('TrialBanner');
 
-
   if (subscription?.status !== 'trialing' || !subscription.periodEnd) {
     return null;
   }
@@ -20,8 +19,6 @@ export async function TrialBanner() {
     new Date(),
   );
 
-
-
   if (daysLeft < 0) {
     return null;
   }
@@ -29,9 +26,7 @@ export async function TrialBanner() {
   return (
     <Alert className='border-primary/30 bg-primary/5 text-primary'>
       <Sparkles className='size-4' />
-      <AlertTitle className='font-semibold'>
-        {t('title')}
-      </AlertTitle>
+      <AlertTitle className='font-semibold'>{t('title')}</AlertTitle>
       <AlertDescription className='flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between'>
         <span>
           {t.rich('description', {
@@ -53,7 +48,6 @@ export async function TrialBanner() {
 // export async function TrialBanner() {
 //   const t = await getTranslations('TrialBanner');
 
-
 //   const endDate = new Date();
 //   endDate.setDate(endDate.getDate() + 10);
 
@@ -62,9 +56,7 @@ export async function TrialBanner() {
 //     periodEnd: endDate,
 //   };
 
-
-//   const subscription = fakeSubscription; 
-
+//   const subscription = fakeSubscription;
 
 //   const daysLeft = differenceInDays(
 //     new Date(subscription.periodEnd ?? new Date()),

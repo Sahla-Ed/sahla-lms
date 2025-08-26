@@ -156,8 +156,8 @@
       "errorButton": "Try Again"
     }
   },
- "Auth": {
-   "SIGN_IN_WITH": "Sign in with",
+  "Auth": {
+    "SIGN_IN_WITH": "Sign in with",
     "SIGN_IN": "Sign In",
     "SIGN_IN_DESCRIPTION": "Welcome back! Please enter your details.",
     "SIGN_UP": "Create an Account",
@@ -182,14 +182,14 @@
     "signOutSuccess": "Signed out successfully!",
     "signOutError": "Failed to sign out. Please try again.",
     "Validation": {
-    "EMAIL_REQUIRED": "Email address is required",
-    "PASSWORD_REQUIRED": "Password is required",
-    "IS_INVALID": "is invalid",
-    "PASSWORDS_DO_NOT_MATCH": "Passwords do not match",
-    "PASSWORD_TOO_SHORT": "Password must be at least 8 characters",
-    "INVALID_EMAIL_OR_PASSWORD": "The email or password you entered is incorrect. Please try again.",
-    "IS_REQUIRED": "is required",
-    "USER_ALREADY_EXISTS": "A user with this email already exists. Please sign in."
+      "EMAIL_REQUIRED": "Email address is required",
+      "PASSWORD_REQUIRED": "Password is required",
+      "IS_INVALID": "is invalid",
+      "PASSWORDS_DO_NOT_MATCH": "Passwords do not match",
+      "PASSWORD_TOO_SHORT": "Password must be at least 8 characters",
+      "INVALID_EMAIL_OR_PASSWORD": "The email or password you entered is incorrect. Please try again.",
+      "IS_REQUIRED": "is required",
+      "USER_ALREADY_EXISTS": "A user with this email already exists. Please sign in."
     }
   },
   "AuthMetadata": {

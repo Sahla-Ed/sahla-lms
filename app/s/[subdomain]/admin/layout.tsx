@@ -6,7 +6,6 @@ import { checkPlanStatus } from '@/lib/subscription';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { getTenantSettings } from '../data/admin/get-tenant-settings';
 
-
 export default async function AdminLayout({
   children,
 }: {
@@ -20,7 +19,7 @@ export default async function AdminLayout({
   ]);
 
   const headerTitle = t('headerTitle', { tenantName: tenant.name });
-  const sidebarSide = locale === 'ar' ? 'right' : 'left'; 
+  const sidebarSide = locale === 'ar' ? 'right' : 'left';
 
   return (
     <SidebarProvider
@@ -31,10 +30,10 @@ export default async function AdminLayout({
         } as React.CSSProperties
       }
     >
-       <AppSidebar variant='inset' planName={plan.planName} side={sidebarSide} />
+      <AppSidebar variant='inset' planName={plan.planName} side={sidebarSide} />
 
       <SidebarInset>
-      <SiteHeader title={headerTitle} />
+        <SiteHeader title={headerTitle} />
         <div className='flex flex-1 flex-col'>
           <div className='@container/main flex flex-1 flex-col gap-2'>
             <div className='flex flex-col gap-4 px-4 py-4 md:gap-6 md:py-6 lg:px-6'>

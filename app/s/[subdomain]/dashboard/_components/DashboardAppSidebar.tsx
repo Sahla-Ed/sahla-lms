@@ -28,6 +28,7 @@ import {
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 const data = {
   navMain: [
@@ -107,6 +108,7 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { theme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const t = useTranslations('AdminSidebar');
 
   useEffect(() => {
     setMounted(true);
@@ -144,7 +146,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent className='bg-background'>
-        <NavMain items={data.navMain} />
+        <NavMain
+          items={data.navMain}
+          quickCreateText={t('navMain.quickCreate')}
+        />
         <NavSecondary items={data.navSecondary} className='mt-auto' />
       </SidebarContent>
       <SidebarFooter className='bg-background border-t'>
