@@ -3,48 +3,64 @@ import { prisma } from '@/lib/db';
 import { requireAdmin } from './require-admin';
 
 export async function adminGetDashboardStats() {
-  // Get the current admin user to access their tenantId
   const { user } = await requireAdmin();
+  const tenantId = user.tenantId;
 
-  const [totalSignups, totalCustomers, totalCourses, totalLessons] =
-    await Promise.all([
-      // Total Signups - count of all non-admin users *in this tenant*
-      prisma.user.count({
-        where: {
-          tenantId: user.tenantId,
-          role: { not: 'admin' },
-        },
-      }),
+  if (!tenantId) {
+    throw new Error("Tenant not found for the current admin.");
+  }
 
-      // Total Customers - count of distinct users *in this tenant* who have active enrollments
-      prisma.user.count({
-        where: {
-          tenantId: user.tenantId, // Filter users by tenant first
-          enrollment: {
-            some: { status: 'Active' }, // Then check if they have any enrollments
-          },
-        },
-      }),
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
-      // Total Courses - count of all courses *in this tenant*
-      prisma.course.count({
-        where: {
-          tenantId: user.tenantId,
-        },
-      }),
+  const [totalCustomers, activeStudents, newEnrollments, revenueData] = await Promise.all([
+    
+   
+    prisma.user.count({
+      where: {
+        tenantId: tenantId,
+        role: 'user',
+        enrollment: { some: { status: 'Active' } }
+      }
+    }),
 
-      // Total Lessons - count of all lessons *in this tenant*
-      prisma.lesson.count({
-        where: {
-          tenantId: user.tenantId,
-        },
-      }),
-    ]);
+
+    prisma.user.count({
+      where: {
+        tenantId: tenantId,
+        role: 'user',
+        enrollment: { some: { status: 'Active' } },
+        // last_activity: { gte: thirtyDaysAgo }
+      },
+    }),
+
+
+    prisma.enrollment.count({
+      where: {
+        tenantId: tenantId,
+        status: 'Active',
+        createdAt: { gte: thirtyDaysAgo },
+      },
+    }),
+
+  
+    prisma.enrollment.aggregate({
+      _sum: { amount: true },
+      where: {
+        tenantId: tenantId,
+        status: 'Active',
+        createdAt: { gte: startOfMonth },
+      },
+    }),
+  ]);
+
+  const totalRevenue = (revenueData._sum.amount || 0) / 100;
 
   return {
-    totalSignups,
     totalCustomers,
-    totalCourses,
-    totalLessons,
+    activeStudents,
+    newEnrollments,
+    totalRevenue,
   };
 }
