@@ -3,6 +3,8 @@
     "headerTitle": "{tenantName} Admin"
   },
   "AdminIndexPage": {
+    "welcomeMessage": "Welcome back, {username}!",
+    "welcomeDescription": "Here's a quick overview of your platform's performance today.", 
     "recentCoursesTitle": "Recent Courses",
     "viewAllCoursesButton": "View All Courses",
     "emptyState": {
@@ -32,6 +34,26 @@
     "title": "You are on a 14-day free trial!",
     "description": "You have <strong>{days} days</strong> left. Upgrade now to unlock all features and keep your platform running.",
     "upgradeButton": "Upgrade Now"
+  },
+  "AdminDashboard": {
+    "kpi": {
+      "totalStudents": {
+        "title": "Total Students",
+        "description": "Users enrolled in courses"
+      },
+      "activeStudents": {
+        "title": "Active Students",
+        "description": "Last 30 days"
+      },
+      "newEnrollments": {
+        "title": "New Enrollments",
+        "description": "Last 30 days"
+      },
+      "revenueThisMonth": {
+        "title": "Revenue This Month",
+        "description": "Total sales this month"
+      }
+    }
   },
   "TenantPlatform": {
     "common": {

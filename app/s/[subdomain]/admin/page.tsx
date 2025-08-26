@@ -18,18 +18,23 @@ import { adminGetRecentCourses } from '../data/admin/admin-get-recent-courses';
 import { adminGetEnrollmentStats } from '../data/admin/admin-get-enrollment-stats';
 import { AdminCourseType } from '../data/admin/admin-get-courses';
 import { adminGetDashboardStats } from '../data/admin/admin-get-dashboard-stats'; // <-- استيراد الدالة الجديدة
+import { requireAdmin } from '../data/admin/require-admin';
 
 
-async function DashboardStats() {
+interface DashboardStatsProps {
+  t: Awaited<ReturnType<typeof getTranslations<'AdminDashboard'>>>;
+}
+
+async function DashboardStats({ t }: DashboardStatsProps) {
   const stats = await adminGetDashboardStats();
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      <StatCard title="Total Students" value={stats.totalCustomers} description="Users enrolled in courses" Icon={Users} />
-      <StatCard title="Active Students" value={stats.activeStudents} description="Last 30 days" Icon={Activity} />
-      <StatCard title="New Enrollments" value={stats.newEnrollments} description="Last 30 days" Icon={ShoppingCart} />
-      <StatCard title="Revenue This Month" value={`$${stats.totalRevenue.toFixed(2)}`} description="Total sales this month" Icon={DollarSign} />
-    </div>
+    <StatCard title={t('kpi.totalStudents.title')} value={stats.totalCustomers} description={t('kpi.totalStudents.description')} Icon={Users} />
+    <StatCard title={t('kpi.activeStudents.title')} value={stats.activeStudents} description={t('kpi.activeStudents.description')} Icon={Activity} />
+    <StatCard title={t('kpi.newEnrollments.title')} value={stats.newEnrollments} description={t('kpi.newEnrollments.description')} Icon={ShoppingCart} />
+    <StatCard title={t('kpi.revenueThisMonth.title')} value={`$${stats.totalRevenue.toFixed(2)}`} description={t('kpi.revenueThisMonth.description')} Icon={DollarSign} />
+  </div>
   );
 }
 
@@ -47,8 +52,12 @@ function StatsSkeleton() {
 
 
 export default async function AdminIndexPage() {
+  const { user } = await requireAdmin();
+  const displayName = user.name || user.email.split('@')[0];
   const enrollmentData = await adminGetEnrollmentStats();
   const t = await getTranslations('AdminIndexPage');
+  const tDashboard = await getTranslations('AdminDashboard');
+
 
   return (
     <div className="space-y-6">
@@ -56,9 +65,18 @@ export default async function AdminIndexPage() {
       <TrialBanner />
 
 
+      <div className="mb-2">
+        <h1 className="text-3xl font-bold tracking-tight">
+          {t('welcomeMessage', { username: displayName })}
+        </h1>
+        <p className="text-muted-foreground">
+          {t('welcomeDescription')}
+        </p>
+      </div>
       <Suspense fallback={<StatsSkeleton />}>
-        <DashboardStats />
+        <DashboardStats t={tDashboard} /> 
       </Suspense>
+
 
       <ChartAreaInteractive data={enrollmentData} />
 

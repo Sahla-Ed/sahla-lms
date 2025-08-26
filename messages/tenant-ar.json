@@ -2,7 +2,10 @@
   "AdminLayout": {
     "headerTitle": "لوحة تحكم {tenantName}"
   },
+  
   "AdminIndexPage": {
+   "welcomeMessage": "مرحبًا بعودتك، {username}!",
+   "welcomeDescription": "إليك نظرة عامة سريعة على أداء منصتك اليوم.",
     "recentCoursesTitle": "أحدث الدورات",
     "viewAllCoursesButton": "عرض كل الدورات",
     "emptyState": {
@@ -33,6 +36,26 @@
     "description": "لديك <strong>{days} أيام</strong> متبقية. قم بالترقية الآن لفتح جميع الميزات والحفاظ على تشغيل منصتك.",
     "upgradeButton": "الترقية الآن"
   },
+  "AdminDashboard": {
+  "kpi": {
+    "totalStudents": {
+      "title": "إجمالي الطلاب",
+      "description": "المستخدمون الملتحقون بالدورات"
+    },
+    "activeStudents": {
+      "title": "الطلاب النشطون",
+      "description": "آخر 30 يومًا"
+    },
+    "newEnrollments": {
+      "title": "التحاقات جديدة",
+      "description": "آخر 30 يومًا"
+    },
+    "revenueThisMonth": {
+      "title": "أرباح هذا الشهر",
+      "description": "إجمالي المبيعات هذا الشهر"
+    }
+  }
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {
