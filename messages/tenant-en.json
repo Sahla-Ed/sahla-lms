@@ -28,6 +28,11 @@
       "search": "Search"
     }
   },
+  "TrialBanner": {
+    "title": "You are on a 14-day free trial!",
+    "description": "You have <strong>{days} days</strong> left. Upgrade now to unlock all features and keep your platform running.",
+    "upgradeButton": "Upgrade Now"
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {

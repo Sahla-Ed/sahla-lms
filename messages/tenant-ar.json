@@ -28,6 +28,11 @@
       "search": "بحث"
     }
   },
+  "TrialBanner": {
+    "title": "أنت في فترة تجريبية مجانية لمدة 14 يومًا!",
+    "description": "لديك <strong>{days} أيام</strong> متبقية. قم بالترقية الآن لفتح جميع الميزات والحفاظ على تشغيل منصتك.",
+    "upgradeButton": "الترقية الآن"
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {
