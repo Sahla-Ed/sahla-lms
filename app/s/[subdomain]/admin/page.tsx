@@ -100,15 +100,16 @@ export default async function AdminIndexPage() {
 
 
 async function RenderRecentCourses() {
+  const t = await getTranslations('AdminIndexPage');
     const data = await adminGetRecentCourses();
     if (data.length === 0) {
       return (
         <EmptyState
-          buttonText='Create new Course'
-          description='you dont have any courses. create some to see them here'
-          title='You dont have any courses yet!'
-          href='/admin/courses/create'
-        />
+        title={t('emptyState.title')}
+        description={t('emptyState.description')}
+        buttonText={t('emptyState.buttonText')}
+        href='/admin/courses/create'
+      />
       );
     }
     return (
