@@ -54,6 +54,12 @@
       "title": "أرباح هذا الشهر",
       "description": "إجمالي المبيعات هذا الشهر"
     }
+  },
+  "enrollmentChart": {
+    "title": "إجمالي الالتحاقات",
+    "description": "إجمالي الالتحاقات في آخر 30 يومًا: {total}",
+    "descriptionMobile": "آخر 30 يومًا: {total}",
+    "tooltipLabel": "التحاقات"
   }
 },
   "TenantPlatform": {

@@ -53,6 +53,12 @@
         "title": "Revenue This Month",
         "description": "Total sales this month"
       }
+    },
+    "enrollmentChart": {
+      "title": "Total Enrollments",
+      "description": "Total Enrollments for the last 30 days: {total}",
+      "descriptionMobile": "Last 30 days: {total}",
+      "tooltipLabel": "Enrollments"
     }
   },
   "TenantPlatform": {
