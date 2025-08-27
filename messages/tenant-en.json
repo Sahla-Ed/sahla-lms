@@ -64,6 +64,57 @@
       "tooltipLabel": "Enrollments"
     }
   },
+"CreateCoursePage": {
+  "header": "Create a New Course",
+  "cardTitle": "Basic Information",
+  "cardDescription": "Provide basic information about the course below",
+  "form": {
+    "title": "Title",
+    "titlePlaceholder": "Course Title",
+    "slug": "Slug",
+    "slugPlaceholder": "unique-course-slug",
+    "generateSlug": "Generate Slug",
+    "smallDescription": "Small Description",
+    "smallDescriptionPlaceholder": "A short, catchy description for the course...",
+    "description": "Full Description",
+    "thumbnail": "Thumbnail Image",
+    "category": "Category",
+    "selectCategory": "Select a category",
+    "level": "Level",
+    "selectLevel": "Select a level",
+    "duration": "Duration (in hours)",
+    "durationPlaceholder": "Duration",
+    "price": "Price ($)",
+    "pricePlaceholder": "Price",
+    "status": "Status",
+    "selectStatus": "Select a status",
+    "createButton": "Create Course",
+    "creatingButton": "Creating..."
+  },
+  "notifications": {
+    "success": "Course created successfully!",
+    "error": "An unexpected error occurred. Please try again.",
+    "slugTaken": "This slug is already in use. Please choose another one."
+  }
+},
+"RichTextEditor": {
+  "defaultContent": "<p>Write your course description here... 🚀</p>",
+  "menubar": {
+    "bold": "Bold",
+    "italic": "Italic",
+    "strike": "Strike",
+    "heading1": "Heading 1",
+    "heading2": "Heading 2",
+    "heading3": "Heading 3",
+    "bulletList": "Bullet List",
+    "orderedList": "Ordered List",
+    "alignLeft": "Align Left",
+    "alignCenter": "Align Center",
+    "alignRight": "Align Right",
+    "undo": "Undo",
+    "redo": "Redo"
+  }
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {

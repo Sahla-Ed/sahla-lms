@@ -9,16 +9,19 @@ import {
   type FieldValues,
   type FieldPath,
 } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 export function RichTextEditor<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({ field }: { field: ControllerRenderProps<TFieldValues, TName> }) {
+  const t = useTranslations('RichTextEditor');
   const editor = useEditor({
     extensions: [
       StarterKit,
       TextAlign.configure({
         types: ['heading', 'paragraph'],
       }),
+      
     ],
 
     editorProps: {
@@ -34,7 +37,7 @@ export function RichTextEditor<
       field.onChange(JSON.stringify(editor.getJSON()));
     },
 
-    content: field.value ? JSON.parse(field.value) : '<p>Hello World 🚀</p>',
+    content: field.value ? JSON.parse(field.value) : t.raw('defaultContent'),
   });
 
   return (
