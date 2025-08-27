@@ -17,7 +17,7 @@ import { StatCard } from './_components/StatCard';
 import { adminGetRecentCourses } from '../data/admin/admin-get-recent-courses';
 import { adminGetEnrollmentStats } from '../data/admin/admin-get-enrollment-stats';
 import { AdminCourseType } from '../data/admin/admin-get-courses';
-import { adminGetDashboardStats } from '../data/admin/admin-get-dashboard-stats'; // <-- استيراد الدالة الجديدة
+import { adminGetDashboardStats } from '../data/admin/admin-get-dashboard-stats';
 import { requireAdmin } from '../data/admin/require-admin';
 
 
