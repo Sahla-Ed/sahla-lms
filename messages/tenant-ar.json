@@ -1,4 +1,7 @@
 {
+  "AdminDashboardMetadata": {
+    "title": "لوحة التحكم | {tenantName}"
+  },
   "AdminLayout": {
     "headerTitle": "لوحة تحكم {tenantName}"
   },

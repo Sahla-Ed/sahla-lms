@@ -1,4 +1,7 @@
 {
+   "AdminDashboardMetadata": {
+    "title": "Dashboard | {tenantName}"
+  },
   "AdminLayout": {
     "headerTitle": "{tenantName} Admin"
   },
