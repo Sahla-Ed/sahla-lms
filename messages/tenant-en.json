@@ -64,6 +64,9 @@
       "tooltipLabel": "Enrollments"
     }
   },
+  "CreateCourseMetadata": {
+  "title": "Create New Course | Admin"
+},
 "CreateCoursePage": {
   "header": "Create a New Course",
   "cardTitle": "Basic Information",
@@ -94,7 +97,9 @@
   "notifications": {
     "success": "Course created successfully!",
     "error": "An unexpected error occurred. Please try again.",
-    "slugTaken": "This slug is already in use. Please choose another one."
+    "slugTaken": "This slug is already in use. Please choose another one.",
+    "planLimit": "You have reached your plan limit. Please upgrade to Pro to create more courses.",
+    "invalidData": "Invalid Form Data"
   }
 },
 "RichTextEditor": {
@@ -113,6 +118,76 @@
     "alignRight": "Align Right",
     "undo": "Undo",
     "redo": "Redo"
+  }
+},
+"Uploader": {
+  "emptyState": {
+    "title": "Drop your files here or",
+    "cta": "click to upload",
+    "selectButton": "Select File"
+  },
+  "errorState": {
+    "title": "Upload Failed",
+    "description": "Something went wrong",
+    "retryButton": "Retry File Selection"
+  },
+  "uploadingState": {
+    "title": "Uploading..."
+  },
+  "notifications": {
+    "presignedUrlError": "Failed to get presigned URL",
+    "uploadFailed": "Upload failed...",
+    "uploadSuccess": "File uploaded successfully",
+    "genericError": "Something went wrong",
+    "removeSuccess": "File removed successfully",
+    "removeError": "Error removing file. Please try again",
+    "fileTooLarge": "File size exceeds the limit",
+    "tooManyFiles": "Too many files selected, max is 1"
+  }
+},
+"CourseEnums": {
+  "levels": {
+    "Beginner": "Beginner",
+    "Intermediate": "Intermediate",
+    "Advanced": "Advanced"
+  },
+  "statuses": {
+    "Draft": "Draft",
+    "Published": "Published",
+    "Archived": "Archived"
+  },
+  "categories": {
+    "Development": "Development",
+    "Business": "Business",
+    "Finance": "Finance",
+    "IT & Software": "IT & Software",
+    "Office Productivity": "Office Productivity",
+    "Personal Development": "Personal Development",
+    "Design": "Design",
+    "Marketing": "Marketing",
+    "Health & Fitness": "Health & Fitness",
+    "Music": "Music",
+    "Teaching & Academics": "Teaching & Academics"
+  }
+},
+"ZodValidation": {
+  "course": {
+    "titleMin": "Title must be at least 3 characters long",
+    "titleMax": "Title must be at most 100 characters long",
+    "descriptionMin": "Description must be at least 3 characters long",
+    "priceMin": "Price must be a positive number",
+    "durationMin": "Duration must be at least 1 hour",
+    "durationMax": "Duration must be at most 500 hours",
+    "levelRequired": "Level is required",
+    "categoryRequired": "Category is required",
+    "smallDescriptionMin": "Small Description must be at least 3 characters long",
+    "smallDescriptionMax": "Small Description must be at most 200 characters long",
+    "slugMin": "Slug must be at least 3 characters long",
+    "statusRequired": "Status is required"
+  },
+  "chapter": {
+    "nameMin": "Name must be at least 3 characters long",
+    "courseIdInvalid": "Invalid course id"
   }
 },
   "TenantPlatform": {

@@ -13,6 +13,7 @@ import {
 import { toast } from 'sonner';
 import { v4 as uuidv4 } from 'uuid';
 import { useConstructUrl } from '@/hooks/use-construct-url';
+import { useTranslations } from 'next-intl';
 
 interface UploaderState {
   id: string | null;
@@ -33,6 +34,7 @@ interface iAppProps {
 }
 
 export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
+  const t = useTranslations('Uploader.notifications');
   const fileUrl = useConstructUrl(value || '');
   const [fileState, setFileState] = useState<UploaderState>({
     error: false,
@@ -69,7 +71,7 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
         });
 
         if (!presignedResponse.ok) {
-          toast.error('Failed to get presigned URL');
+          toast.error(t('presignedUrlError')); 
           setFileState((prev) => ({
             ...prev,
             uploading: false,
@@ -106,16 +108,16 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
 
               onChange?.(key);
 
-              toast.success('File uploaded succesfully');
+              toast.success(t('uploadSuccess'));
 
               resolve();
             } else {
-              reject(new Error('Upload failed...'));
+              reject(new Error(t('uploadFailed'))); 
             }
           };
 
           xhr.onerror = () => {
-            reject(new Error('Upload failed'));
+            reject(new Error(t('uploadFailed')));
           };
 
           xhr.open('PUT', presignedUrl);
@@ -124,7 +126,7 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
           xhr.send(file);
         });
       } catch {
-        toast.error('Something went wrong');
+        toast.error(t('genericError'));
 
         setFileState((prev) => ({
           ...prev,
@@ -134,7 +136,7 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
         }));
       }
     },
-    [fileTypeAccepted, onChange],
+    [fileTypeAccepted, onChange, t], 
   );
 
   const onDrop = useCallback(
@@ -180,7 +182,7 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
       });
 
       if (!response.ok) {
-        toast.error('Failed to remove file from storage');
+        toast.error(t('removeError'));
 
         setFileState((prev) => ({
           ...prev,
@@ -208,9 +210,9 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
         isDeleting: false,
       }));
 
-      toast.success('File removed successfully');
+      toast.success(t('removeSuccess'));
     } catch {
-      toast.error('Error removing file. please try again');
+      toast.error(t('removeError')); 
 
       setFileState((prev) => ({
         ...prev,
@@ -231,11 +233,11 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
       );
 
       if (fileSizeToBig) {
-        toast.error('File Size exceeds the limit');
+        toast.error(t('fileTooLarge'));
       }
 
       if (tooManyFiles) {
-        toast.error('Too many files selected, max is 1');
+        toast.error(t('tooManyFiles'));
       }
     }
   }
