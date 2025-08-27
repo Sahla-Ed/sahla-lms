@@ -7,28 +7,35 @@ import { ApiResponse } from '@/lib/types';
 import {
   chapterSchema,
   ChapterSchemaType,
-  courseSchema,
+  getCourseSchema,
+  ZodValidationKeys,
   CourseSchemaType,
   lessonSchema,
   LessonSchemaType,
   // codeSubmissionSchema,
   // CodeSubmissionType,
 } from '@/lib/zodSchemas';
+
 import { revalidatePath } from 'next/cache';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 export async function editCourse(
   data: CourseSchemaType,
   courseId: string,
 ): Promise<ApiResponse> {
   const { user } = await requireAdmin();
+  const locale = await getLocale();
+  const t = await getTranslations({ locale, namespace: 'ZodValidation' });
+  const courseSchema = getCourseSchema((key) => t(key as ZodValidationKeys));
 
   try {
     const result = courseSchema.safeParse(data);
 
     if (!result.success) {
+      const firstError = Object.values(result.error.flatten().fieldErrors)[0]?.[0];
       return {
         status: 'error',
-        message: 'Invalid data',
+        message: firstError || 'Invalid data',
       };
     }
     if (result.data.status === 'Published') {

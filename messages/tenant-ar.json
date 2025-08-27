@@ -191,6 +191,18 @@
     "Teaching & Academics": "التدريس والأكاديميات"
   }
 },
+"AdminCoursesPage": {
+  "title": "دوراتك التدريبية",
+  "createCourse": "إنشاء دورة تدريبية",
+  "upgradeTooltip": "قم بالترقية لإنشاء المزيد من الدورات",
+  "limitReached": "تم الوصول إلى حد الخطة المجانية",
+  "limitDescription": "يمكنك إنشاء دورة واحدة فقط في الخطة المجانية. <upgradeLink>الترقية إلى Pro</upgradeLink> لإنشاء عدد غير محدود من الدورات.",
+  "emptyState": {
+    "title": "لم يتم العثور على دورات",
+    "description": "ابدأ بإنشاء دورة تدريبية جديدة للبدء",
+    "button": "إنشاء دورة تدريبية"
+  }
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {

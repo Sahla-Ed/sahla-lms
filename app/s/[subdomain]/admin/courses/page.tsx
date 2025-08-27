@@ -13,11 +13,13 @@ import {
 import { checkPlanStatus } from '@/lib/subscription';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Terminal } from 'lucide-react';
+import { Crown } from 'lucide-react';
 import { requireAdmin } from '../../data/admin/require-admin';
 import { prisma } from '@/lib/db';
+import { getTranslations } from 'next-intl/server';
 
 export default async function CoursesPage() {
+  const t = await getTranslations('AdminCoursesPage');
   const { user } = await requireAdmin();
   const plan = await checkPlanStatus();
   const courseCount = await prisma.course.count({ where: { userId: user.id } });
@@ -27,32 +29,34 @@ export default async function CoursesPage() {
   return (
     <div className='space-y-6'>
       <div className='flex items-center justify-between'>
-        <h1 className='text-2xl font-bold'>Your Courses</h1>
+        <h1 className='text-2xl font-bold'>{t('title')}</h1>
 
         {canCreateCourse ? (
           <Link className={buttonVariants()} href='/admin/courses/create'>
-            Create Course
+            {t('createCourse')}
           </Link>
         ) : (
-          <Button disabled title='Upgrade to create more courses'>
-            Create Course
+          <Button disabled title={t('upgradeTooltip')}>
+            {t('createCourse')}
           </Button>
         )}
       </div>
 
       {!canCreateCourse && (
         <Alert>
-          <Terminal className='h-4 w-4' />
-          <AlertTitle>Free Plan Limit Reached</AlertTitle>
+          <Crown className='h-4 w-4' />
+          <AlertTitle>{t('limitReached')}</AlertTitle>
           <AlertDescription>
-            You can only create 1 course on the Free plan.
-            <Link
-              href='/admin/settings/billing'
-              className='ml-1 font-bold underline'
-            >
-              Upgrade to Pro
-            </Link>{' '}
-            to create unlimited courses.
+            {t.rich('limitDescription', {
+              upgradeLink: (chunks) => (
+                <Link
+                  href='/admin/settings/billing'
+                  className='ml-1 font-bold underline'
+                >
+                  {chunks}
+                </Link>
+              ),
+            })}
           </AlertDescription>
         </Alert>
       )}
@@ -65,14 +69,15 @@ export default async function CoursesPage() {
 }
 
 async function RenderCourses() {
+  const t = await getTranslations('AdminCoursesPage.emptyState');
   const data = await adminGetCourses();
 
   if (data.length === 0) {
     return (
       <EmptyState
-        title='No courses found'
-        description='Create a new course to get started'
-        buttonText='Create Course'
+        title={t('title')}
+        description={t('description')}
+        buttonText={t('button')}
         href='/admin/courses/create'
       />
     );

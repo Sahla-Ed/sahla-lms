@@ -190,6 +190,18 @@
     "courseIdInvalid": "Invalid course id"
   }
 },
+"AdminCoursesPage": {
+  "title": "Your Courses",
+  "createCourse": "Create Course",
+  "upgradeTooltip": "Upgrade to create more courses",
+  "limitReached": "Free Plan Limit Reached",
+  "limitDescription": "You can only create 1 course on the Free plan. <upgradeLink>Upgrade to Pro</upgradeLink> to create unlimited courses.",
+  "emptyState": {
+    "title": "No courses found",
+    "description": "Create a new course to get started",
+    "button": "Create Course"
+  }
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {

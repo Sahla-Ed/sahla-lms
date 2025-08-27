@@ -11,9 +11,10 @@ import {
 import {
   courseCategories,
   courseLevels,
-  courseSchema,
+  getCourseSchema,
   CourseSchemaType,
   courseStatus,
+  ZodValidationKeys,
 } from '@/lib/zodSchemas';
 import { ArrowLeft, Loader2, PlusIcon, SparkleIcon } from 'lucide-react';
 import Link from 'next/link';
@@ -45,7 +46,7 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { editCourse } from '../actions';
 import { AdminCourseSingularType } from '@/app/s/[subdomain]/data/admin/admin-get-course';
-
+import { useTranslations } from 'next-intl';
 interface iAppProps {
   data: AdminCourseSingularType;
 }
@@ -53,7 +54,10 @@ interface iAppProps {
 export function EditCourseForm({ data }: iAppProps) {
   const [pending, startTransition] = useTransition();
   const router = useRouter();
-
+  const tValidation = useTranslations('ZodValidation');
+  const courseSchema = getCourseSchema((key) =>
+    tValidation(key as ZodValidationKeys),
+  );
   // 1. Define your form.
   const form = useForm<CourseSchemaType>({
     resolver: zodResolver(courseSchema),
