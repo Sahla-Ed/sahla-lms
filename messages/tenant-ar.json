@@ -210,6 +210,40 @@
   "thumbnailAlt": "صورة مصغرة للدورة",
   "hoursAbr": "س"
 },
+"EditCoursePage": {
+  "header": "تعديل الدورة: <title>{courseTitle}</title>",
+  "previewButton": "معاينة ومراجعة",
+  "tabs": {
+    "basicInfo": "المعلومات الأساسية",
+    "courseStructure": "هيكل الدورة",
+    "testBank": "بنك الأسئلة"
+  },
+  "basicInfo": {
+    "title": "المعلومات الأساسية",
+    "description": "أدخل المعلومات الأساسية للدورة"
+  },
+  "courseStructure": {
+    "title": "هيكل الدورة",
+    "description": "هنا يمكنك تحديث هيكل الدورة"
+  },
+  "testBank": {
+    "title": "بنك الأسئلة",
+    "description": "إدارة الأسئلة الخاصة بهذه الدورة."
+  }
+},
+"EditCourseForm": {
+  "backButton": "العودة إلى الدورات",
+  "header": "تعديل الدورة",
+  "cardTitle": "معلومات الدورة",
+  "cardDescription": "قم بتحديث معلومات الدورة أدناه",
+  "updateButton": "تحديث الدورة",
+  "updatingButton": "جاري التحديث...",
+  "notifications": {
+    "success": "تم تحديث الدورة بنجاح!",
+    "error": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
+    "publishError": "لا يمكن النشر. الاختبارات التالية لا تحتوي على أسئلة: {quizTitles}"
+  }
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {

@@ -26,6 +26,8 @@ export async function editCourse(
   const { user } = await requireAdmin();
   const locale = await getLocale();
   const t = await getTranslations({ locale, namespace: 'ZodValidation' });
+
+  const tNotifications = await getTranslations('EditCourseForm.notifications');
   const courseSchema = getCourseSchema((key) => t(key as ZodValidationKeys));
 
   try {

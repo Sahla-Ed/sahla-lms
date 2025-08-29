@@ -16,7 +16,7 @@ import {
   courseStatus,
   ZodValidationKeys,
 } from '@/lib/zodSchemas';
-import { ArrowLeft, Loader2, PlusIcon, SparkleIcon } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Loader2, PlusIcon, SparkleIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -46,7 +46,7 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { editCourse } from '../actions';
 import { AdminCourseSingularType } from '@/app/s/[subdomain]/data/admin/admin-get-course';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl'; 
 interface iAppProps {
   data: AdminCourseSingularType;
 }
@@ -54,7 +54,17 @@ interface iAppProps {
 export function EditCourseForm({ data }: iAppProps) {
   const [pending, startTransition] = useTransition();
   const router = useRouter();
+
+  const t = useTranslations('EditCourseForm');
+  const tCreate = useTranslations('CreateCoursePage');
+  const tEnums = useTranslations('CourseEnums');
+
+
   const tValidation = useTranslations('ZodValidation');
+
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
+
   const courseSchema = getCourseSchema((key) =>
     tValidation(key as ZodValidationKeys),
   );
@@ -83,7 +93,7 @@ export function EditCourseForm({ data }: iAppProps) {
       );
 
       if (error) {
-        toast.error('An unexpected error occurred. Please try again.');
+        toast.error(t('notifications.error'));
         return;
       }
 
@@ -107,15 +117,15 @@ export function EditCourseForm({ data }: iAppProps) {
             size: 'icon',
           })}
         >
-          <ArrowLeft className='size-4' />
+              {isRTL ? <ArrowRight className='size-4' /> : <ArrowLeft className='size-4' />}
         </Link>
-        <h1 className='text-2xl font-bold'>Edit Course</h1>
+        <h1 className='text-2xl font-bold'>{t('header')}</h1>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Course Information</CardTitle>
-          <CardDescription>Update the course information below</CardDescription>
+        <CardTitle>{t('cardTitle')}</CardTitle>
+          <CardDescription>{t('cardDescription')}</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -125,9 +135,9 @@ export function EditCourseForm({ data }: iAppProps) {
                 name='title'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>{tCreate('form.title')}</FormLabel>
                     <FormControl>
-                      <Input placeholder='Title' {...field} />
+                      <Input placeholder={tCreate('form.titlePlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -140,27 +150,25 @@ export function EditCourseForm({ data }: iAppProps) {
                   name='slug'
                   render={({ field }) => (
                     <FormItem className='w-full'>
-                      <FormLabel>Slug</FormLabel>
+                        <FormLabel>{tCreate('form.slug')}</FormLabel>
                       <FormControl>
-                        <Input placeholder='Slug' {...field} />
+                        <Input placeholder={tCreate('form.slugPlaceholder')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
-                <Button
+<Button
                   type='button'
                   className='w-fit'
                   onClick={() => {
                     const titleValue = form.getValues('title');
-
-                    const slug = slugify(titleValue);
-
+                    const slug = slugify(titleValue, { lower: true, strict: true });
                     form.setValue('slug', slug, { shouldValidate: true });
                   }}
                 >
-                  Generate Slug <SparkleIcon className='ml-1' size={16} />
+                  {tCreate('form.generateSlug')} <SparkleIcon className='ml-1' size={16} />
                 </Button>
               </div>
 
@@ -169,10 +177,10 @@ export function EditCourseForm({ data }: iAppProps) {
                 name='smallDescription'
                 render={({ field }) => (
                   <FormItem className='w-full'>
-                    <FormLabel>Small Description</FormLabel>
+                   <FormLabel>{tCreate('form.smallDescription')}</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder='Small Description'
+                        placeholder={tCreate('form.smallDescriptionPlaceholder')}
                         className='min-h-[120px]'
                         {...field}
                       />
@@ -187,7 +195,7 @@ export function EditCourseForm({ data }: iAppProps) {
                 name='description'
                 render={({ field }) => (
                   <FormItem className='w-full'>
-                    <FormLabel>Description</FormLabel>
+                  <FormLabel>{tCreate('form.description')}</FormLabel>
                     <FormControl>
                       <RichTextEditor field={field} />
                     </FormControl>
@@ -201,7 +209,7 @@ export function EditCourseForm({ data }: iAppProps) {
                 name='fileKey'
                 render={({ field }) => (
                   <FormItem className='w-full'>
-                    <FormLabel>Thumbnail image</FormLabel>
+                    <FormLabel>{tCreate('form.thumbnail')}</FormLabel>
                     <FormControl>
                       <Uploader
                         fileTypeAccepted='image'
@@ -220,20 +228,17 @@ export function EditCourseForm({ data }: iAppProps) {
                   name='category'
                   render={({ field }) => (
                     <FormItem className='w-full'>
-                      <FormLabel>Category</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
+                      <FormLabel>{tCreate('form.category')}</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value} dir={isRTL ? 'rtl' : 'ltr'}>
                         <FormControl>
                           <SelectTrigger className='w-full'>
-                            <SelectValue placeholder='Select Category' />
+                          <SelectValue placeholder={tCreate('form.selectCategory')} />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent>
+                        <SelectContent dir={isRTL ? 'rtl' : 'ltr'}>
                           {courseCategories.map((category) => (
                             <SelectItem key={category} value={category}>
-                              {category}
+                            {tEnums(`categories.${category}`)}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -249,20 +254,17 @@ export function EditCourseForm({ data }: iAppProps) {
                   name='level'
                   render={({ field }) => (
                     <FormItem className='w-full'>
-                      <FormLabel>Level</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
+                      <FormLabel>{tCreate('form.level')}</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value} dir={isRTL ? 'rtl' : 'ltr'}>
                         <FormControl>
                           <SelectTrigger className='w-full'>
-                            <SelectValue placeholder='Select Value' />
+                          <SelectValue placeholder={tCreate('form.selectLevel')} />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent>
-                          {courseLevels.map((category) => (
-                            <SelectItem key={category} value={category}>
-                              {category}
+                        <SelectContent dir={isRTL ? 'rtl' : 'ltr'}>
+                        {courseLevels.map((level) => (
+                            <SelectItem key={level} value={level}>
+                              {tEnums(`levels.${level}`)}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -278,10 +280,10 @@ export function EditCourseForm({ data }: iAppProps) {
                   name='duration'
                   render={({ field }) => (
                     <FormItem className='w-full'>
-                      <FormLabel>Duration (hours)</FormLabel>
+                     <FormLabel>{tCreate('form.duration')}</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder='Duration'
+                         placeholder={tCreate('form.durationPlaceholder')}
                           type='number'
                           {...field}
                           value={field.value === 0 ? '' : field.value}
@@ -304,10 +306,10 @@ export function EditCourseForm({ data }: iAppProps) {
                   name='price'
                   render={({ field }) => (
                     <FormItem className='w-full'>
-                      <FormLabel>Price ($)</FormLabel>
+                    <FormLabel>{tCreate('form.price')}</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder='Price'
+                         placeholder={tCreate('form.pricePlaceholder')}
                           type='number'
                           {...field}
                           value={field.value === 0 ? '' : field.value}
@@ -331,20 +333,17 @@ export function EditCourseForm({ data }: iAppProps) {
                 name='status'
                 render={({ field }) => (
                   <FormItem className='w-full'>
-                    <FormLabel>Status</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+                    <FormLabel>{tCreate('form.status')}</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value} dir={isRTL ? 'rtl' : 'ltr'}>
                       <FormControl>
                         <SelectTrigger className='w-full'>
-                          <SelectValue placeholder='Select Status' />
+                        <SelectValue placeholder={tCreate('form.selectStatus')} />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent>
-                        {courseStatus.map((category) => (
-                          <SelectItem key={category} value={category}>
-                            {category}
+                      <SelectContent dir={isRTL ? 'rtl' : 'ltr'}>
+                      {courseStatus.map((status) => (
+                          <SelectItem key={status} value={status}>
+                            {tEnums(`statuses.${status}`)}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -358,12 +357,12 @@ export function EditCourseForm({ data }: iAppProps) {
               <Button type='submit' disabled={pending}>
                 {pending ? (
                   <>
-                    Updating...
+                    {t('updatingButton')}
                     <Loader2 className='ml-1 animate-spin' />
                   </>
                 ) : (
                   <>
-                    Update Course <PlusIcon className='ml-1' size={16} />
+                     {t('updateButton')} <PlusIcon className='ml-1' size={16} />
                   </>
                 )}
               </Button>

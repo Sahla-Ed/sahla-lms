@@ -209,6 +209,40 @@
   "thumbnailAlt": "Course thumbnail",
   "hoursAbr": "h"
 },
+"EditCoursePage": {
+    "header": "Edit Course: <title>{courseTitle}</title>", 
+    "previewButton": "Preview & Moderate",
+    "tabs": {
+      "basicInfo": "Basic Info",
+      "courseStructure": "Course Structure",
+      "testBank": "Test Bank"
+    },
+    "basicInfo": {
+      "title": "Basic Info",
+      "description": "Provide basic information about the course"
+    },
+    "courseStructure": {
+      "title": "Course Structure",
+      "description": "Here you can update your Course Structure"
+    },
+    "testBank": {
+      "title": "Test Bank",
+      "description": "Manage the questions for this course."
+    }
+  },
+  "EditCourseForm": {
+    "backButton": "Back to Courses",
+    "header": "Edit Course",
+    "cardTitle": "Course Information",
+    "cardDescription": "Update the course information below",
+    "updateButton": "Update Course",
+    "updatingButton": "Updating...",
+    "notifications": {
+      "success": "Course updated successfully!",
+      "error": "An unexpected error occurred. Please try again.",
+      "publishError": "Cannot publish. The following quizzes have no questions: {quizTitles}"
+    }
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {
