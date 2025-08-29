@@ -203,6 +203,13 @@
     "button": "إنشاء دورة تدريبية"
   }
 },
+"AdminCourseCard": {
+  "editCourse": "تعديل الدورة",
+  "preview": "معاينة",
+  "deleteCourse": "حذف الدورة",
+  "thumbnailAlt": "صورة مصغرة للدورة",
+  "hoursAbr": "س"
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {

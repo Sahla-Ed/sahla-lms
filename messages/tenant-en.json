@@ -202,6 +202,13 @@
     "button": "Create Course"
   }
 },
+"AdminCourseCard": {
+  "editCourse": "Edit Course",
+  "preview": "Preview",
+  "deleteCourse": "Delete Course",
+  "thumbnailAlt": "Course thumbnail",
+  "hoursAbr": "h"
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {

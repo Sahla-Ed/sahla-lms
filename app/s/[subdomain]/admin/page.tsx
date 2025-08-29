@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
-import { getLocale, getTranslations } from 'next-intl/server';
-import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
 
 import { buttonVariants } from '@/components/ui/button';
@@ -14,17 +13,11 @@ import { RecentCourses, RecentCoursesSkeleton } from './_components/RecentCourse
 
 import { adminGetEnrollmentStats } from '../data/admin/admin-get-enrollment-stats';
 import { requireAdmin } from '../data/admin/require-admin';
-import { getTenantSettings } from '../data/admin/get-tenant-settings';
 
 
 
-export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const t = await getTranslations({ locale, namespace: 'AdminDashboardMetadata' });
-  const tenant = await getTenantSettings();
-  const title = t('title', { tenantName: tenant.name });
-  return { title };
-}
+
+
 
 
 export default async function AdminIndexPage() {

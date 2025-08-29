@@ -5,6 +5,25 @@ import { ReactNode } from 'react';
 import { checkPlanStatus } from '@/lib/subscription';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { getTenantSettings } from '../data/admin/get-tenant-settings';
+import { Metadata } from 'next';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const [tenant, tMetadata, tDashboard] = await Promise.all([
+    getTenantSettings(),
+    getTranslations('Metadata'),
+    getTranslations('AdminDashboardMetadata'),
+    getLocale(),
+  ]);
+
+  return {
+    title: {
+      template: tMetadata('templateTitle', { tenantName: tenant.name }),
+      default: tDashboard('title', { tenantName: tenant.name }),
+    },
+  };
+}
+
+
 
 export default async function AdminLayout({
   children,

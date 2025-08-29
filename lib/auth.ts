@@ -12,7 +12,6 @@ export const auth = (tenantId?: string | null) =>
     database: prismaAdapter(prisma, {
       // debugLogs: true,
       provider: 'postgresql',
-      tenantId: tenantId ?? undefined,
     }),
 
     //FIX:this shouldnot be hardcoded or allowing all but doing this for testing
