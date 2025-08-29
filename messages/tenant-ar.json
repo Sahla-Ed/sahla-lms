@@ -244,6 +244,85 @@
     "publishError": "لا يمكن النشر. الاختبارات التالية لا تحتوي على أسئلة: {quizTitles}"
   }
 },
+"CourseStructure": {
+  "title": "الوحدات",
+  "notifications": {
+    "reorderingChapters": "جاري إعادة ترتيب الوحدات...",
+    "reorderChaptersSuccess": "تمت إعادة ترتيب الوحدات بنجاح",
+    "reorderChaptersError": "فشلت إعادة ترتيب الوحدات.",
+    "reorderingLessons": "جاري إعادة ترتيب الدروس...",
+    "reorderLessonsSuccess": "تمت إعادة ترتيب الدروس بنجاح",
+    "reorderLessonsError": "فشلت إعادة ترتيب الدروس."
+  },
+  "errors": {
+    "determineTargetChapter": "لا يمكن تحديد الوحدة الهدف لإعادة الترتيب.",
+    "findChapterIndex": "لا يمكن العثور على الفهرس القديم/الجديد للوحدة لإعادة الترتيب.",
+    "moveBetweenChapters": "غير مسموح بنقل الدرس بين وحدات مختلفة أو أن معرف الوحدة غير صالح.",
+    "findChapterForLesson": "لا يمكن العثور على الوحدة لإعادة ترتيب الدرس.",
+    "findLesson": "لا يمكن العثور على الدرس لإعادة الترتيب."
+  }
+},
+"NewChapterModal": {
+  "buttonText": "وحدة جديدة",
+  "dialogTitle": "إنشاء وحدة جديدة",
+  "dialogDescription": "ما الاسم الذي تود إطلاقه على وحدتك؟",
+  "formLabel": "الاسم",
+  "formPlaceholder": "اسم الوحدة",
+  "saveButton": "حفظ التغييرات",
+  "savingButton": "جاري الحفظ...",
+  "notifications": {
+    "success": "تم إنشاء الوحدة بنجاح",
+    "error": "فشل إنشاء الوحدة",
+    "invalidData": "بيانات غير صالحة"
+  }
+},
+"NewLessonModal": {
+  "buttonText": "درس جديد",
+  "dialogTitle": "إنشاء درس جديد",
+  "dialogDescription": "ما الاسم الذي تود إطلاقه على درسك؟",
+  "formLabel": "الاسم",
+  "formPlaceholder": "اسم الدرس",
+  "lessonTypeLabel": "نوع الدرس",
+  "notifications": {
+  "successVideo": "تم إنشاء الدرس بنجاح",
+  "successQuiz": "تم إنشاء الاختبار بنجاح",
+  "successCoding": "تم إنشاء ساحة البرمجة بنجاح",
+  "error": "فشل إنشاء الدرس"
+},
+  "types": {
+    "video": "فيديو",
+    "quiz": "اختبار",
+    "coding": "ساحة برمجة"
+  },
+  "saveButton": "حفظ التغييرات",
+  "savingButton": "جاري الحفظ..."
+},
+"DeleteChapter": {
+  "dialogTitle": "هل أنت متأكد تمامًا؟",
+  "dialogDescription": "لا يمكن التراجع عن هذا الإجراء. سيؤدي هذا إلى حذف هذه الوحدة بشكل دائم.",
+  "cancelButton": "إلغاء",
+  "deleteButton": "حذف",
+  "deletingButton": "جاري الحذف...",
+  "notifications": {
+    "success": "تم حذف الوحدة وإعادة ترتيب المواقع بنجاح",
+    "error": "فشل حذف الوحدة",
+    "courseNotFound": "الدورة غير موجودة",
+    "chapterNotFound": "الوحدة غير موجودة في الدورة"
+  }
+},
+"DeleteLesson": {
+  "dialogTitle": "هل أنت متأكد تمامًا؟",
+  "dialogDescription": "لا يمكن التراجع عن هذا الإجراء. سيؤدي هذا إلى حذف هذا الدرس بشكل دائم.",
+  "cancelButton": "إلغاء",
+  "deleteButton": "حذف",
+  "deletingButton": "جاري الحذف...",
+  "notifications": {
+    "success": "تم حذف الدرس وإعادة ترتيب المواقع بنجاح",
+    "error": "فشل حذف الدرس",
+    "chapterNotFound": "الوحدة غير موجودة",
+    "lessonNotFound": "الدرس غير موجود في الوحدة"
+  }
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {

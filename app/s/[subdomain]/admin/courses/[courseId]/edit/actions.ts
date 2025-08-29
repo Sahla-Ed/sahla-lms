@@ -96,6 +96,7 @@ export async function reorderLessons(
   lessons: { id: string; position: number }[],
   courseId: string,
 ): Promise<ApiResponse> {
+  const t = await getTranslations('CourseStructure.notifications'); 
   const { user } = await requireAdmin();
   try {
     if (!lessons || lessons.length === 0) {
@@ -123,12 +124,12 @@ export async function reorderLessons(
     revalidatePath(`/admin/courses/${courseId}/edit`);
     return {
       status: 'success',
-      message: 'Lessons reordered successfully',
+      message: t('reorderLessonsSuccess'), 
     };
   } catch {
     return {
       status: 'error',
-      message: 'Failed to reorder lessons.',
+      message: t('reorderLessonsError'),
     };
   }
 }
@@ -137,6 +138,7 @@ export async function reorderChapters(
   courseId: string,
   chapters: { id: string; position: number }[],
 ): Promise<ApiResponse> {
+  const t = await getTranslations('CourseStructure.notifications'); 
   const { user } = await requireAdmin();
   try {
     if (!chapters || chapters.length === 0) {
@@ -165,12 +167,12 @@ export async function reorderChapters(
 
     return {
       status: 'success',
-      message: 'Chapters reordered successfully',
+      message: t('reorderChaptersSuccess'), 
     };
   } catch {
     return {
       status: 'error',
-      message: 'Failed to reorder chapters',
+      message: t('reorderChaptersError'), 
     };
   }
 }
@@ -179,13 +181,14 @@ export async function createChapter(
   values: ChapterSchemaType,
 ): Promise<ApiResponse> {
   const { user } = await requireAdmin();
+  const t = await getTranslations('NewChapterModal.notifications'); 
   try {
     const result = chapterSchema.safeParse(values);
 
     if (!result.success) {
       return {
         status: 'error',
-        message: 'Invalid Data',
+        message: t('invalidData'),
       };
     }
 
@@ -217,12 +220,12 @@ export async function createChapter(
 
     return {
       status: 'success',
-      message: 'Chapter created successfully',
+      message: t('success'),
     };
   } catch {
     return {
       status: 'error',
-      message: 'Failed to create chapter',
+      message: t('error'),
     };
   }
 }
@@ -232,6 +235,7 @@ export async function createLesson(
 ): Promise<ApiResponse> {
   const { user } = await requireAdmin();
   const session = await requireUser();
+  const t = await getTranslations('NewLessonModal.notifications');
   try {
     const result = lessonSchema.safeParse(values);
 
@@ -306,15 +310,26 @@ export async function createLesson(
 
     revalidatePath(`/admin/courses/${result.data.courseId}/edit`);
 
+    let successMessage = '';
+    switch (result.data.type) {
+      case 'QUIZ':
+        successMessage = t('successQuiz');
+        break;
+      case 'CODING':
+        successMessage = t('successCoding');
+        break;
+      default:
+        successMessage = t('successVideo');
+    }
     return {
       status: 'success',
-      message: 'Lesson created successfully',
+      message: successMessage,
       data: { lessonId: lessonId! },
     };
   } catch {
     return {
       status: 'error',
-      message: 'Failed to create lesson',
+      message: t('error'),
     };
   }
 }
@@ -329,6 +344,7 @@ export async function deleteLesson({
   lessonId: string;
 }): Promise<ApiResponse> {
   const { user } = await requireAdmin();
+  const t = await getTranslations('DeleteLesson.notifications');
   try {
     const chapterWithLessons = await prisma.chapter.findUnique({
       where: {
@@ -351,7 +367,7 @@ export async function deleteLesson({
     if (!chapterWithLessons) {
       return {
         status: 'error',
-        message: 'Chapter not Found',
+        message: t('chapterNotFound'),
       };
     }
 
@@ -362,7 +378,7 @@ export async function deleteLesson({
     if (!lessonToDelete) {
       return {
         status: 'error',
-        message: 'Lesson not found in the chapter.',
+        message: t('lessonNotFound'),
       };
     }
 
@@ -393,12 +409,12 @@ export async function deleteLesson({
 
     return {
       status: 'success',
-      message: 'Lesson deleted and positions reordered successfully',
+      message: t('success'),
     };
   } catch {
     return {
       status: 'error',
-      message: 'Failed to delete lesson',
+      message: t('error'),
     };
   }
 }
@@ -507,6 +523,7 @@ export async function deleteChapter({
   courseId: string;
 }): Promise<ApiResponse> {
   const { user } = await requireAdmin();
+  const t = await getTranslations('DeleteChapter.notifications'); 
   try {
     const courseWithChapters = await prisma.course.findUnique({
       where: {
@@ -529,7 +546,7 @@ export async function deleteChapter({
     if (!courseWithChapters) {
       return {
         status: 'error',
-        message: 'Course not Found',
+        message: t('courseNotFound'),
       };
     }
 
@@ -539,7 +556,7 @@ export async function deleteChapter({
     if (!chapterToDelete) {
       return {
         status: 'error',
-        message: 'Chapter not found in the Course.',
+        message: t('chapterNotFound'),
       };
     }
 
@@ -565,12 +582,12 @@ export async function deleteChapter({
 
     return {
       status: 'success',
-      message: 'Chapter deleted and positions reordered successfully',
+      message: t('success'),
     };
   } catch {
     return {
       status: 'error',
-      message: 'Failed to delete chapter',
+      message: t('error'),
     };
   }
 }

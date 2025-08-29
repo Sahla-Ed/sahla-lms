@@ -35,6 +35,7 @@ import { tryCatch } from '@/hooks/try-catch';
 import { createLesson } from '../actions';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl'; 
 
 const DEFAULT_WEB_CODE = {
   html: `<!DOCTYPE html>
@@ -223,6 +224,9 @@ export function NewLessonModal({
   const [isOpen, setIsOpen] = useState(false);
   const [pending, startTransition] = useTransition();
   const router = useRouter();
+  const t = useTranslations('NewLessonModal'); 
+  const locale = useLocale();
+  const isRTL = locale === 'ar'
 
   const form = useForm<LessonSchemaType>({
     resolver: zodResolver(lessonSchema),
@@ -253,15 +257,16 @@ export function NewLessonModal({
       }
 
       if (result.status === 'success') {
-        const isQuiz = values.type === 'QUIZ';
-        const isCoding = values.type === 'CODING';
-        toast.success(
-          isQuiz
-            ? 'Quiz created successfully'
-            : isCoding
-              ? 'Coding playground created successfully'
-              : result.message,
-        );
+         toast.success(result.message);
+        // const isQuiz = values.type === 'QUIZ';
+        // const isCoding = values.type === 'CODING';
+        // toast.success(
+        //   isQuiz
+        //     ? 'Quiz created successfully'
+        //     : isCoding
+        //       ? 'Coding playground created successfully'
+        //       : result.message,
+        // );
         form.reset({
           name: '',
           courseId: courseId,
@@ -275,7 +280,7 @@ export function NewLessonModal({
           codingInstructions: 'Complete the coding exercise below.',
         });
         setIsOpen(false);
-        if (isQuiz && result.data?.lessonId) {
+        if (values.type === 'QUIZ' && result.data?.lessonId) {
           router.push(
             `/admin/courses/${courseId}/${chapterId}/${result.data.lessonId}/edit`,
           );
@@ -283,6 +288,14 @@ export function NewLessonModal({
       } else if (result.status === 'error') {
         toast.error(result.message);
       }
+      //   if (isQuiz && result.data?.lessonId) {
+      //     router.push(
+      //       `/admin/courses/${courseId}/${chapterId}/${result.data.lessonId}/edit`,
+      //     );
+      //   }
+      // } else if (result.status === 'error') {
+      //   toast.error(result.message);
+      // }
     });
   }
 
@@ -319,7 +332,7 @@ export function NewLessonModal({
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button variant='outline' className='w-full justify-center gap-1'>
-          <Plus className='size-4' /> New Lesson
+          <Plus className='size-4' />  {t('buttonText')}
         </Button>
       </DialogTrigger>
       <DialogContent
@@ -332,9 +345,11 @@ export function NewLessonModal({
         aria-describedby='new-lesson-desc'
       >
         <DialogHeader>
-          <DialogTitle>Create new lesson</DialogTitle>
-          <DialogDescription id='new-lesson-desc'>
-            What would you like to name your lesson?
+        <DialogTitle className={isRTL ? 'text-right' : 'text-left'}>
+            {t('dialogTitle')}
+          </DialogTitle>
+          <DialogDescription id='new-lesson-desc' className={isRTL ? 'text-right' : 'text-left'}>
+            {t('dialogDescription')}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -344,45 +359,43 @@ export function NewLessonModal({
               name='name'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                   <FormLabel>{t('formLabel')}</FormLabel>
                   <FormControl>
-                    <Input placeholder='Lesson Name' {...field} />
+                    <Input placeholder={t('formPlaceholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <FormField
+             <FormField
               control={form.control}
               name='type'
               render={({ field }) => (
                 <FormItem className='space-y-3'>
-                  <FormLabel>Lesson Type</FormLabel>
+                  <FormLabel className={isRTL ? 'text-right w-full block' : ''}>{t('lessonTypeLabel')}</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
                       defaultValue={field.value}
-                      className='flex space-x-4'
+                      className={`flex space-x-4 ${isRTL ? 'flex-row-reverse space-x-reverse' : ''}`}
                     >
-                      <FormItem className='flex items-center space-y-0 space-x-2'>
+                      <FormItem className='flex items-center space-y-0 space-x-2 rtl:space-x-reverse'>
                         <FormControl>
                           <RadioGroupItem value='VIDEO' />
                         </FormControl>
-                        <FormLabel className='font-normal'>Video</FormLabel>
+                        <FormLabel className='font-normal'>{t('types.video')}</FormLabel>
                       </FormItem>
-                      <FormItem className='flex items-center space-y-0 space-x-2'>
+                      <FormItem className='flex items-center space-y-0 space-x-2 rtl:space-x-reverse'>
                         <FormControl>
                           <RadioGroupItem value='QUIZ' />
                         </FormControl>
-                        <FormLabel className='font-normal'>Quiz</FormLabel>
+                        <FormLabel className='font-normal'>{t('types.quiz')}</FormLabel>
                       </FormItem>
-                      <FormItem className='flex items-center space-y-0 space-x-2'>
+                      <FormItem className='flex items-center space-y-0 space-x-2 rtl:space-x-reverse'>
                         <FormControl>
                           <RadioGroupItem value='CODING' />
                         </FormControl>
-                        <FormLabel className='font-normal'>
-                          Coding Playground
-                        </FormLabel>
+                        <FormLabel className='font-normal'>{t('types.coding')}</FormLabel>
                       </FormItem>
                     </RadioGroup>
                   </FormControl>
@@ -522,7 +535,7 @@ export function NewLessonModal({
 
             <DialogFooter>
               <Button disabled={pending} type='submit'>
-                {pending ? 'Saving...' : ' Save Change'}
+              {pending ? t('savingButton') : t('saveButton')}
               </Button>
             </DialogFooter>
           </form>

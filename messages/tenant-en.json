@@ -243,6 +243,86 @@
       "publishError": "Cannot publish. The following quizzes have no questions: {quizTitles}"
     }
   },
+  "CourseStructure": {
+    "title": "Chapters",
+    "notifications": {
+      "reorderingChapters": "Reordering chapters...",
+      "reorderChaptersSuccess": "Chapters reordered successfully",
+      "reorderChaptersError": "Failed to reorder chapters.",
+      "reorderingLessons": "Reordering lessons...",
+      "reorderLessonsSuccess": "Lessons reordered successfully",
+      "reorderLessonsError": "Failed to reorder lessons."
+    },
+    "errors": {
+      "determineTargetChapter": "Could not determine target chapter for reordering.",
+      "findChapterIndex": "Could not find chapter old/new index for reordering.",
+      "moveBetweenChapters": "Lesson move between different chapters or invalid chapter ID is not allowed.",
+      "findChapterForLesson": "Could not find chapter for lesson reordering.",
+      "findLesson": "Could not find lesson for reordering."
+    }
+  },
+  "NewChapterModal": {
+    "buttonText": "New Chapter",
+    "dialogTitle": "Create new chapter",
+    "dialogDescription": "What would you like to name your chapter?",
+    "formLabel": "Name",
+    "formPlaceholder": "Chapter Name",
+    "saveButton": "Save Change",
+    "savingButton": "Saving...",
+    "notifications": {
+      "success": "Chapter created successfully",
+      "error": "Failed to create chapter",
+      "invalidData": "Invalid Data"
+    }
+  },
+  "NewLessonModal": {
+    "buttonText": "New Lesson",
+    "dialogTitle": "Create new lesson",
+    "dialogDescription": "What would you like to name your lesson?",
+    "formLabel": "Name",
+    "formPlaceholder": "Lesson Name",
+    "lessonTypeLabel": "Lesson Type",
+    "notifications": {
+  "successVideo": "Lesson created successfully",
+  "successQuiz": "Quiz created successfully",
+  "successCoding": "Coding playground created successfully",
+  "error": "Failed to create lesson"
+},
+    "types": {
+      "video": "Video",
+      "quiz": "Quiz",
+      "coding": "Coding Playground"
+    },
+
+    "saveButton": "Save Change",
+    "savingButton": "Saving..."
+  },
+  "DeleteChapter": {
+    "dialogTitle": "Are you absolutely sure?",
+    "dialogDescription": "This action cannot be undone. This will permanently delete this Chapter.",
+    "cancelButton": "Cancel",
+    "deleteButton": "Delete",
+    "deletingButton": "Deleting...",
+    "notifications": {
+      "success": "Chapter deleted and positions reordered successfully",
+      "error": "Failed to delete chapter",
+      "courseNotFound": "Course not found",
+      "chapterNotFound": "Chapter not found in the course"
+    }
+  },
+  "DeleteLesson": {
+    "dialogTitle": "Are you absolutely sure?",
+    "dialogDescription": "This action cannot be undone. This will permanently delete this lesson.",
+    "cancelButton": "Cancel",
+    "deleteButton": "Delete",
+    "deletingButton": "Deleting...",
+    "notifications": {
+      "success": "Lesson deleted and positions reordered successfully",
+      "error": "Failed to delete lesson",
+      "chapterNotFound": "Chapter not found",
+      "lessonNotFound": "Lesson not found in the chapter"
+    }
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {

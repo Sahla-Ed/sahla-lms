@@ -43,6 +43,7 @@ import { NewChapterModal } from './NewChapterModal';
 import { NewLessonModal } from './NewLessonModal';
 import { DeleteLesson } from './DeleteLesson';
 import { DeleteChapter } from './DeleteChapter';
+import { useTranslations } from 'next-intl'; 
 
 interface iAppProps {
   data: AdminCourseSingularType;
@@ -59,6 +60,7 @@ interface SortableItemProps {
 }
 
 export function CourseStructure({ data }: iAppProps) {
+  const t = useTranslations('CourseStructure');
   const initialItems =
     data.chapter.map((chapter) => ({
       id: chapter.id,
@@ -146,7 +148,7 @@ export function CourseStructure({ data }: iAppProps) {
       }
 
       if (!targetChapterId) {
-        toast.error('Could not determine target chapter for reordering.');
+        toast.error(t('errors.determineTargetChapter'));
         return;
       }
 
@@ -154,7 +156,7 @@ export function CourseStructure({ data }: iAppProps) {
       const newIndex = items.findIndex((item) => item.id === targetChapterId);
 
       if (oldIndex === -1 || newIndex === -1) {
-        toast.error('Could not find chapter old/new index for reordering.');
+        toast.error(t('errors.findChapterIndex'));
         return;
       }
 
@@ -176,14 +178,14 @@ export function CourseStructure({ data }: iAppProps) {
         const reorderPromise = () =>
           reorderChapters(courseId, chaptersToUpdate);
         toast.promise(reorderPromise(), {
-          loading: 'Reordering chapters...',
+          loading: t('notifications.reorderingChapters'), 
           success: (result) => {
             if (result.status === 'success') return result.message;
             throw new Error(result.message);
           },
           error: () => {
             setItems(previousItems);
-            return 'Failed to reorder chapters.';
+            return t('notifications.reorderChaptersError'); 
           },
         });
       }
@@ -196,9 +198,7 @@ export function CourseStructure({ data }: iAppProps) {
       const overChapterId = over.data.current?.chapterId;
 
       if (!chapterId || chapterId !== overChapterId) {
-        toast.error(
-          'Lesson move between different chapters or invalid chapter ID is not allowed.',
-        );
+        toast.error(t('errors.moveBetweenChapters'));
         return;
       }
 
@@ -206,7 +206,7 @@ export function CourseStructure({ data }: iAppProps) {
         (chapter) => chapter.id === chapterId,
       );
       if (chapterIndex === -1) {
-        toast.error('Could not find chapter for lesson reordering.');
+        toast.error(t('errors.findChapterForLesson')); 
         return;
       }
 
@@ -219,7 +219,7 @@ export function CourseStructure({ data }: iAppProps) {
       );
 
       if (oldLessonIndex === -1 || newLessonIndex === -1) {
-        toast.error('Could not find lesson for reordering.');
+        toast.error(t('errors.findLesson'));
         return;
       }
 
@@ -253,14 +253,14 @@ export function CourseStructure({ data }: iAppProps) {
           reorderLessons(chapterId, lessonsToUpdate, courseId);
 
         toast.promise(reorderLessonsPromise(), {
-          loading: 'Reordering lessons...',
+          loading: t('notifications.reorderingLessons'), 
           success: (result) => {
             if (result.status === 'success') return result.message;
             throw new Error(result.message);
           },
           error: () => {
             setItems(previousItems); // Revert to previous state
-            return 'Failed to reorder lessons.';
+            return t('notifications.reorderLessonsError'); 
           },
         });
       }
@@ -292,7 +292,7 @@ export function CourseStructure({ data }: iAppProps) {
     >
       <Card>
         <CardHeader className='border-border flex flex-row items-center justify-between border-b'>
-          <CardTitle>Chapters</CardTitle>
+        <CardTitle>{t('title')}</CardTitle> 
           <NewChapterModal courseId={data.id} />
         </CardHeader>
         <CardContent className='space-y-8'>
