@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { tryCatch } from '@/hooks/try-catch';
 import { Question, SubComponentProps } from './types';
 import { createMultipleQuestions } from '../../quiz-actions';
+import { useLocale, useTranslations } from 'next-intl';
 
 type ImportedQuestion = Omit<Question, 'id' | 'courseId'>;
 type CsvRow = {
@@ -24,6 +25,9 @@ export const ImportQuestionForm: FC<SubComponentProps> = ({
   onSuccess,
 }) => {
   const [isImporting, startTransition] = useTransition();
+  const t = useTranslations('ImportQuestionForm');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -35,7 +39,7 @@ export const ImportQuestionForm: FC<SubComponentProps> = ({
         try {
           const text = e.target?.result;
           if (typeof text !== 'string') {
-            toast.error('Could not read file content.');
+            toast.error(t('notifications.readError'));
             return;
           }
           const json = JSON.parse(text);
@@ -51,18 +55,18 @@ export const ImportQuestionForm: FC<SubComponentProps> = ({
 
           processQuestions(formattedQuestions);
         } catch (error) {
-          toast.error('Error parsing JSON file. Please check the format.');
+          toast.error(t('notifications.jsonParseError'));
           console.error('JSON Parse Error:', error);
         }
       };
       reader.readAsText(file);
-    } else if (file.name.endsWith('.txt') || file.name.endsWith('.csv')) {
+    } else if (file.name.endsWith('.csv')) {
       Papa.parse<CsvRow>(file, {
         header: true,
         skipEmptyLines: true,
         complete: (results) => {
           if (results.errors.length > 0) {
-            toast.error('Error parsing CSV/TXT file. Please check the format.');
+            toast.error(t('notifications.csvParseError'));
             console.error('CSV Errors:', results.errors);
             return;
           }
@@ -80,21 +84,19 @@ export const ImportQuestionForm: FC<SubComponentProps> = ({
         },
       });
     } else {
-      toast.error(
-        'Unsupported file type. Please upload a .json, .csv, or .txt file.',
-      );
+      toast.error(t('notifications.unsupportedType'));
     }
   };
-  //TODO:revalidate
+  
   const processQuestions = (questions: ImportedQuestion[]) => {
     startTransition(async () => {
       const { data, error } = await tryCatch(
         createMultipleQuestions(courseId, questions),
       );
       if (error || data?.status === 'error') {
-        toast.error(data?.message || 'Failed to import questions.');
+        toast.error(data?.message || t('notifications.importFailed'));
       } else {
-        toast.success(data.message);
+        toast.success(t('notifications.success', { count: questions.length }));
         onSuccess();
       }
     });
@@ -102,40 +104,39 @@ export const ImportQuestionForm: FC<SubComponentProps> = ({
 
   return (
     <Card className='border-dashed'>
-      <CardContent className='space-y-4 p-6 text-center'>
+      <CardContent className='space-y-4 p-6 text-center' dir={isRTL ? 'rtl' : 'ltr'}>
         <FileUp className='text-muted-foreground mx-auto h-12 w-12' />
-        <h3 className='text-lg font-semibold'>Import Questions from File</h3>
-        <p className='text-muted-foreground text-sm'>
-          Supported format: Json and Txt. Download a template to get started.
-        </p>
+        <h3 className='text-lg font-semibold'>{t('title')}</h3>
+        <p className='text-muted-foreground text-sm'>{t('description')}</p>
         <div className='flex justify-center gap-4'>
           <a
-            href='/api/templates/questions_template.json'
+            href={`/api/templates/questions_template.json?locale=${locale}`}
             download='questions_template.json'
             className={buttonVariants({ variant: 'outline' })}
           >
-            <Download className='mr-2 h-4 w-4' />
-            JSON Template
+            <Download className={isRTL ? 'ml-2' : 'mr-2'} />
+            {t('jsonTemplate')}
           </a>
           <a
-            href='/api/templates/questions_template.txt'
-            download='questions_template.txt'
+            href={`/api/templates/questions_template.csv?locale=${locale}`}
+            download='questions_template.csv'
             className={buttonVariants({ variant: 'outline' })}
           >
-            <Download className='mr-2 h-4 w-4' />
-            TXT Template
+            <Download className={isRTL ? 'ml-2' : 'mr-2'} />
+            {t('csvTemplate')}
           </a>
+
         </div>
         <Input
           type='file'
-          accept='.txt, .csv, .json'
+          accept='.csv, .json'
           onChange={handleFileChange}
           disabled={isImporting}
         />
         {isImporting && (
           <div className='flex items-center justify-center'>
-            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-            Importing...
+            <Loader2 className={isRTL ? 'ml-2' : 'mr-2'} />
+            {t('importing')}
           </div>
         )}
       </CardContent>

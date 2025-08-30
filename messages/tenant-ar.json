@@ -498,6 +498,25 @@
     "success": "تم إنشاء وحفظ {count} أسئلة جديدة بنجاح!"
   }
 },
+"ImportQuestionForm": {
+  "title": "استيراد أسئلة من ملف",
+  "description": "الصيغ المدعومة: JSON و CSV. قم بتنزيل قالب للبدء.",
+  "jsonTemplate": "قالب JSON",
+  "csvTemplate": "قالب CSV",
+  "importing": "جاري الاستيراد...",
+  "notifications": {
+    "unsupportedType": "نوع ملف غير مدعوم. يرجى رفع ملف بصيغة .json أو .csv.",
+    "readError": "تعذر قراءة محتوى الملف.",
+    "jsonParseError": "خطأ في تحليل ملف JSON. يرجى التحقق من الصيغة.",
+    "csvParseError": "خطأ في تحليل ملف CSV. يرجى التحقق من الصيغة.",
+    "importFailed": "فشل استيراد الأسئلة.",
+    "success": "تم استيراد {count} أسئلة بنجاح!"
+  }
+},
+"Pagination": {
+    "previous": "السابق",
+    "next": "التالي"
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {

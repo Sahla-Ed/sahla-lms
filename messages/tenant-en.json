@@ -500,6 +500,25 @@
     "success": "Generated and saved {count} new questions successfully!"
   }
 },
+"ImportQuestionForm": {
+  "title": "Import Questions from File",
+  "description": "Supported formats: JSON and CSV. Download a template to get started.",
+  "jsonTemplate": "JSON Template",
+  "csvTemplate": "CSV Template",
+  "importing": "Importing...",
+  "notifications": {
+    "unsupportedType": "Unsupported file type. Please upload a .json or .csv file.",
+    "readError": "Could not read file content.",
+    "jsonParseError": "Error parsing JSON file. Please check the format.",
+    "csvParseError": "Error parsing CSV file. Please check the format.",
+    "importFailed": "Failed to import questions.",
+    "success": "Imported {count} questions successfully!"
+  }
+},
+"Pagination": {
+  "previous": "Previous",
+  "next": "Next"
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {

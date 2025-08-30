@@ -519,5 +519,26 @@
         "emailExists": "An account with this email already exists for this platform."
       }
     }
+  },
+  "FileTemplates": {
+    "jsonTemplate": {
+      "questions": [
+        {
+          "text": "What is the capital of France?",
+          "type": "MCQ",
+          "options": ["Paris", "London", "Berlin", "Madrid"],
+          "answer": "Paris",
+          "explanation": "Paris is the capital and largest city of France."
+        },
+        {
+          "text": "JavaScript is a programming language.",
+          "type": "TRUE_FALSE",
+          "options": ["True", "False"],
+          "answer": "True",
+          "explanation": "JavaScript is indeed a programming language."
+        }
+      ]
+    },
+    "csvTemplate": "text,type,options,answer,explanation\n\"What is the capital of France?\",MCQ,\"Paris|London|Berlin|Madrid\",Paris,\"Paris is the capital and largest city of France.\"\n\"JavaScript is a programming language.\",TRUE_FALSE,\"True|False\",True,\"JavaScript is indeed a programming language.\""
   }
 }
