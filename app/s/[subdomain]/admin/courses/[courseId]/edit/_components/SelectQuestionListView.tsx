@@ -14,7 +14,8 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { Question } from './TestBank/types';
-import { useLocale, useTranslations } from 'next-intl'; 
+import { useLocale, useTranslations } from 'next-intl';
+
 
 interface SelectQuestionListViewProps {
   questions: Question[];

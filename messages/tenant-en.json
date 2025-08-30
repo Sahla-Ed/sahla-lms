@@ -403,6 +403,85 @@
   "addedButton": "Added",
   "pagination": "Page {currentPage} of {totalPages}"
 },
+"TestBank": {
+  "createCardTitle": "Create New Question",
+  "createCardDescription": "Choose your preferred method to create a new question for your test bank.",
+  "existingQuestionsTitle": "Existing Questions in Bank ({totalQuestions})",
+  "searchPlaceholder": "Search questions by text...",
+  "emptyState": {
+    "noMatch": "No questions found matching your search.",
+    "empty": "Your test bank is empty. Create a question above to get started!"
+  },
+  "notifications": {
+    "loadError": "Failed to load questions from the test bank.",
+    "deleteError": "Failed to delete question.",
+    "deleteSuccess": "Question deleted successfully!"
+  },
+  "pagination": "Page {currentPage} of {totalPages}"
+},
+"CreateQuestionView": {
+  "tabs": {
+    "manual": "Manual",
+    "ai": "AI ✨",
+    "import": "Import"
+  },
+  "aiDisabledTooltip": "Upgrade to Pro to use AI",
+  "upgradeNotice": {
+    "title": "Upgrade to Pro to use AI",
+    "description": "Automate quiz creation with AI by upgrading your plan."
+  },
+  "upgradeDialog": {
+    "title": "Unlock AI Features with Pro",
+    "description": "Generate quiz questions instantly, get suggestions, and save hours of work by upgrading to our Pro plan.",
+    "cancelButton": "Maybe Later",
+    "upgradeButton": "Upgrade Now"
+  }
+},
+"QuestionForm": {
+  "labels": {
+    "text": "Question Text",
+    "type": "Question Type",
+    "options": "Options",
+    "answer": "Correct Answer",
+    "explanation": "Explanation (Optional)"
+  },
+  "placeholders": {
+    "text": "e.g., What is the capital of France?",
+    "type": "Select a type",
+    "option": "Option {index}",
+    "answer": "Select the correct answer",
+    "explanation": "Explain why the answer is correct."
+  },
+  "buttons": {
+    "addOption": "Add Option",
+    "save": "Save Question",
+    "update": "Save Changes",
+    "saving": "Saving..."
+  },
+  "types": {
+    "mcq": "Multiple Choice",
+    "trueFalse": "True/False",
+    "true": "True",
+    "false": "False"
+  },
+  "notifications": {
+    "createSuccess": "Question created successfully!",
+    "createError": "Failed to create question.",
+    "updateSuccess": "Question updated successfully!",
+    "updateError": "Failed to update question."
+  }
+},
+"QuestionCard": {
+  "options": "{count} options",
+"correct": "Correct",
+"explanation": "Explanation:",
+  "editTooltip": "Edit Question",
+  "deleteTooltip": "Delete Question"
+},
+"EditQuestionDialog": {
+"title": "Edit Question",
+"description": "Make changes to your question here. Click save when you're done."
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {

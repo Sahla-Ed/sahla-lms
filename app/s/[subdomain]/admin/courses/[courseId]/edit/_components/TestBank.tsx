@@ -26,6 +26,7 @@ import { getCourseQuestions, deleteQuestion } from '../quiz-actions';
 import { CreateQuestionView } from './TestBank/CreateQuestionView';
 import { QuestionCard } from './TestBank/QuestionCard';
 import { EditQuestionDialog } from './TestBank/EditQuestionDialog';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface TestBankProps {
   courseId: string;
@@ -34,6 +35,9 @@ interface TestBankProps {
 }
 
 export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
+  const t = useTranslations('TestBank');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
   const [questions, setQuestions] = useState<Question[]>([]);
   const [isFetching, setIsFetching] = useState(true);
   const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
@@ -61,12 +65,12 @@ export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
         );
         setTotalQuestions(totalCount);
       } catch {
-        toast.error('Failed to load questions from the test bank.');
+        toast.error(t('notifications.loadError')); 
       } finally {
         setIsFetching(false);
       }
     },
-    [courseId],
+    [courseId, t],
   );
 
   const debouncedSearch = useDebouncedCallback((term: string) => {
@@ -81,9 +85,9 @@ export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
   const handleDeleteQuestion = async (questionId: string) => {
     const { error } = await tryCatch(deleteQuestion(questionId, courseId));
     if (error) {
-      toast.error('Failed to delete question.');
+      toast.error(t('notifications.deleteError'));
     } else {
-      toast.success('Question deleted successfully!');
+      toast.success(t('notifications.deleteSuccess')); 
       fetchAndSetQuestions(currentPage, searchTerm);
     }
   };
@@ -97,14 +101,11 @@ export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
   };
 
   return (
-    <div className='space-y-8'>
+    <div className='space-y-8' dir={isRTL ? 'rtl' : 'ltr'}>
       <Card>
         <CardHeader>
-          <CardTitle>Create New Question</CardTitle>
-          <CardDescription>
-            Choose your preferred method to create a new question for your test
-            bank.
-          </CardDescription>
+          <CardTitle>{t('createCardTitle')}</CardTitle>
+          <CardDescription>{t('createCardDescription')}</CardDescription>
         </CardHeader>
         <CardContent>
           <CreateQuestionView
@@ -116,16 +117,16 @@ export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
       </Card>
 
       <div className='space-y-4'>
-        <h3 className='text-xl font-bold'>
-          Existing Questions in Bank ({totalQuestions})
+        <h3 className={`text-xl font-bold ${isRTL ? 'text-right' : 'text-left'}`}>
+          {t('existingQuestionsTitle', { totalQuestions })}
         </h3>
         <div className='relative'>
-          <Search className='text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2' />
+          <Search className={`text-muted-foreground absolute top-1/2 h-4 w-4 -translate-y-1/2 ${isRTL ? 'right-3' : 'left-3'}`} />
           <Input
-            placeholder='Search questions by text...'
+            placeholder={t('searchPlaceholder')}
             defaultValue={searchTerm}
             onChange={(e) => debouncedSearch(e.target.value)}
-            className='pl-10'
+            className={isRTL ? 'pr-10' : 'pl-10'}
           />
         </div>
 
@@ -135,14 +136,14 @@ export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
           </div>
         ) : questions.length === 0 ? (
           <Card>
-            <CardContent className='text-muted-foreground py-12 text-center'>
-              <p>
-                {searchTerm
-                  ? 'No questions found matching your search.'
-                  : 'Your test bank is empty. Create a question above to get started!'}
-              </p>
-            </CardContent>
-          </Card>
+          <CardContent className='text-muted-foreground py-12 text-center'>
+            <p>
+              {searchTerm
+                ? t('emptyState.noMatch')
+                : t('emptyState.empty')}
+            </p>
+          </CardContent>
+        </Card>
         ) : (
           <div className='space-y-4'>
             {questions.map((question) => (
@@ -172,7 +173,7 @@ export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
               </PaginationItem>
               <PaginationItem>
                 <span className='px-4 text-sm font-medium'>
-                  Page {currentPage} of {totalPages}
+                {t('pagination', { currentPage, totalPages })}
                 </span>
               </PaginationItem>
               <PaginationItem>

@@ -10,6 +10,7 @@ import {
 import { QuestionForm } from './QuestionForm';
 import { Question } from './types';
 import { updateQuestion } from '../../quiz-actions';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface EditQuestionDialogProps {
   question: Question;
@@ -22,26 +23,29 @@ export const EditQuestionDialog: FC<EditQuestionDialogProps> = ({
   onOpenChange,
   onSuccess,
 }) => {
+  const t = useTranslations('EditQuestionDialog');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
+
   return (
     <Dialog open onOpenChange={onOpenChange}>
       <DialogContent className='max-w-2xl'>
-        <DialogHeader>
-          <DialogTitle>Edit Question</DialogTitle>
-          <DialogDescription>
-            Make changes to your question here. Click save when you&apos;re
-            done.
-          </DialogDescription>
-        </DialogHeader>
-        <div className='pt-4'>
-          <QuestionForm
-            courseId={question.courseId}
-            initialData={question}
-            onSave={(data) => updateQuestion(question.id, data)}
-            onSuccess={onSuccess}
-            buttonText='Save Changes'
-            toastSuccessMessage='Question updated successfully!'
-            toastErrorMessage='Failed to update question.'
-          />
+       
+        <div className='space-y-4'>
+        <DialogHeader className={isRTL ? 'text-right' : 'text-left'}>
+  <DialogTitle>{t('title')}</DialogTitle>
+  <DialogDescription>{t('description')}</DialogDescription>
+</DialogHeader>
+
+          <div className='pt-4' dir={isRTL ? 'rtl' : 'ltr'}>
+            <QuestionForm
+              courseId={question.courseId}
+              initialData={question}
+              onSave={(data) => updateQuestion(question.id, data)}
+              onSuccess={onSuccess}
+              mode="edit"
+            />
+          </div>
         </div>
       </DialogContent>
     </Dialog>

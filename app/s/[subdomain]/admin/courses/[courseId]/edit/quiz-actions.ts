@@ -18,6 +18,7 @@ export async function createQuestion(
 ): Promise<ApiResponse> {
   // const {user} =  await requireAdmin();
   await requireAdmin();
+  const t = await getTranslations('QuestionForm.notifications');
   try {
     const result = questionSchema.safeParse(data);
 
@@ -44,12 +45,12 @@ export async function createQuestion(
 
     return {
       status: 'success',
-      message: 'Question created successfully',
+      message: t('createSuccess'),
     };
   } catch {
     return {
       status: 'error',
-      message: 'Failed to create question',
+      message: t('createError'),
     };
   }
 }
@@ -59,6 +60,7 @@ export async function updateQuestion(
   data: QuestionSchemaType,
 ): Promise<ApiResponse> {
   await requireAdmin();
+  const t = await getTranslations('QuestionForm.notifications');
   try {
     const result = questionSchema.safeParse(data);
 
@@ -84,12 +86,12 @@ export async function updateQuestion(
 
     return {
       status: 'success',
-      message: 'Question updated successfully',
+      message: t('updateSuccess'),
     };
   } catch {
     return {
       status: 'error',
-      message: 'Failed to update question',
+      message: t('updateError'),
     };
   }
 }
@@ -99,6 +101,7 @@ export async function deleteQuestion(
   courseId: string,
 ): Promise<ApiResponse> {
   await requireAdmin();
+  const t = await getTranslations('TestBank.notifications');
   try {
     await prisma.question.delete({
       where: { id: questionId },
@@ -108,12 +111,12 @@ export async function deleteQuestion(
 
     return {
       status: 'success',
-      message: 'Question deleted successfully',
+      message: t('deleteSuccess'),
     };
   } catch {
     return {
       status: 'error',
-      message: 'Failed to delete question',
+      message: t('deleteError'),
     };
   }
 }
