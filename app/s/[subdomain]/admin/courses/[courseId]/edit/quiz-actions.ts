@@ -12,7 +12,7 @@ import {
 } from '@/lib/zodSchemas';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
-
+import { getTranslations } from 'next-intl/server';
 export async function createQuestion(
   data: QuestionSchemaType,
 ): Promise<ApiResponse> {
@@ -122,6 +122,7 @@ export async function updateQuizQuestions(
   data: QuizQuestionSchemaType,
 ): Promise<ApiResponse> {
   await requireAdmin();
+   const t = await getTranslations('QuizForm.notifications');
   try {
     const result = quizQuestionSchema.safeParse(data);
 
@@ -158,12 +159,12 @@ export async function updateQuizQuestions(
 
     return {
       status: 'success',
-      message: 'Quiz questions updated successfully',
+      message: t('updateSuccess'),
     };
   } catch {
     return {
       status: 'error',
-      message: 'Failed to update quiz questions',
+      message: t('updateError'),
     };
   }
 }

@@ -14,6 +14,7 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { Question } from './TestBank/types';
+import { useLocale, useTranslations } from 'next-intl'; 
 
 interface SelectQuestionListViewProps {
   questions: Question[];
@@ -38,20 +39,23 @@ export function SelectQuestionListView({
   totalPages,
   onPageChange,
 }: SelectQuestionListViewProps) {
+  const t = useTranslations('SelectQuestionListView');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
   return (
     <div className='space-y-4'>
-      <div className='bg-background sticky top-0 z-10 flex gap-4 py-2'>
+      <div className={`bg-background sticky top-0 z-10 flex gap-4 py-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
         <div className='relative flex-1'>
-          <Search className='text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2' />
+          <Search className={`text-muted-foreground absolute top-1/2 h-4 w-4 -translate-y-1/2 ${isRTL ? 'right-3' : 'left-3'}`} />
           <Input
-            placeholder='Search questions in your test bank...'
+            placeholder={t('searchPlaceholder')}
             onChange={(e) => onSearchChange(e.target.value)}
-            className='pl-10'
+            className={isRTL ? 'pr-10' : 'pl-10'}
           />
         </div>
         <Button onClick={onCreate} className='shrink-0'>
           <Plus className='mr-2 h-4 w-4' />
-          Create New
+          {t('createNewButton')}
         </Button>
       </div>
 
@@ -62,10 +66,10 @@ export function SelectQuestionListView({
       ) : questions.length === 0 ? (
         <div className='text-muted-foreground py-16 text-center'>
           <h3 className='text-foreground text-lg font-semibold'>
-            {'No Questions Found'}
+            {t('emptyState.title')}
           </h3>
           <p className='mt-2 text-sm'>
-            {'Try a different search term or create a new question.'}
+            {t('emptyState.description')}
           </p>
         </div>
       ) : (
@@ -81,7 +85,7 @@ export function SelectQuestionListView({
                     'border-green-300 bg-green-50 dark:border-green-800 dark:bg-green-950/30',
                 )}
               >
-                <CardContent className='flex items-start justify-between gap-4 p-4'>
+                <CardContent className={`flex items-start justify-between gap-4 p-4 ${isRTL ? 'text-right flex-row-reverse' : 'text-left'}`}>
                   <div className='flex-1 space-y-2'>
                     <p className='font-medium'>{q.text}</p>
                     <Badge variant='outline'>{q.type}</Badge>
@@ -90,14 +94,14 @@ export function SelectQuestionListView({
                     size='sm'
                     onClick={() => onSelect(q)}
                     disabled={isSelected}
-                    className='ml-4 shrink-0'
+                    className={`shrink-0 ${isRTL ? 'mr-4' : 'ml-4'}`}
                   >
                     {isSelected ? (
                       <Check className='mr-2 h-4 w-4' />
                     ) : (
                       <Plus className='mr-2 h-4 w-4' />
                     )}
-                    {isSelected ? 'Added' : 'Add'}
+                    {isSelected ? t('addedButton') : t('addButton')}
                   </Button>
                 </CardContent>
               </Card>
@@ -119,7 +123,7 @@ export function SelectQuestionListView({
             </PaginationItem>
             <PaginationItem>
               <span className='px-4 text-sm font-medium'>
-                Page {currentPage} of {totalPages}
+                {t('pagination', { currentPage: currentPage, totalPages: totalPages })}
               </span>
             </PaginationItem>
             <PaginationItem>

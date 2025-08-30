@@ -4,12 +4,14 @@ import { requireAdmin } from '@/app/s/[subdomain]/data/admin/require-admin';
 import { prisma } from '@/lib/db';
 import { ApiResponse } from '@/lib/types';
 import { lessonSchema, LessonSchemaType } from '@/lib/zodSchemas';
+import { getTranslations } from 'next-intl/server';
 
 export async function updateLesson(
   values: LessonSchemaType,
   lessonId: string,
 ): Promise<ApiResponse> {
   await requireAdmin();
+  const t = await getTranslations('LessonForm.notifications');
 
   try {
     const result = lessonSchema.safeParse(values);
@@ -35,12 +37,12 @@ export async function updateLesson(
 
     return {
       status: 'success',
-      message: 'Course updated successfully',
+      message: t('updateSuccess'),
     };
   } catch {
     return {
       status: 'error',
-      message: 'Failed to update course',
+      message: t('updateError'), 
     };
   }
 }

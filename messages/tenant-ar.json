@@ -323,6 +323,86 @@
     "lessonNotFound": "الدرس غير موجود في الوحدة"
   }
 },
+"LessonForm": {
+  "backButton": "العودة",
+  "cardTitle": "إعدادات الدرس",
+  "cardDescription": "قم بضبط الفيديو والوصف لهذا الدرس.",
+  "labels": {
+    "lessonName": "اسم الدرس",
+    "description": "الوصف",
+    "thumbnail": "الصورة المصغرة",
+    "video": "ملف الفيديو"
+  },
+  "placeholders": {
+    "lessonName": "مثال: مقدمة في React"
+  },
+  "buttons": {
+    "save": "حفظ الدرس",
+    "saving": "جاري الحفظ..."
+  },
+  "notifications": {
+    "invalid": "يرجى إصلاح الأخطاء الموضحة قبل الحفظ.",
+    "updateSuccess": "تم تحديث الدرس بنجاح!",
+    "updateError": "فشل تحديث الدرس.",
+    "genericError": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى."
+  }
+},
+"QuizForm": {
+  "header": "تعديل الاختبار: {lessonTitle}",
+  "detailsTitle": "تفاصيل الاختبار",
+  "labels": {
+    "title": "عنوان الاختبار",
+    "description": "الوصف",
+    "timer": "الوقت المحدد (بالدقائق)",
+    "timerOptional": "[اختياري]"
+  },
+  "placeholders": {
+    "title": "أدخل عنوان الاختبار...",
+    "description": "أدخل وصف الاختبار...",
+    "timer": "مثال: 30"
+  },
+  "questionsTitle": "أسئلة الاختبار",
+  "addQuestionButton": "إضافة سؤال من بنك الأسئلة",
+  "emptyState": {
+    "title": "لم تتم إضافة أي أسئلة بعد",
+    "description": "أضف أسئلة من بنك الأسئلة الخاص بالدورة"
+  },
+  "buttons": {
+    "cancel": "إلغاء",
+    "save": "حفظ الاختبار",
+    "saving": "جاري الحفظ..."
+  },
+  "notifications": {
+    "noQuestionsError": "يجب إضافة سؤال واحد على الأقل قبل حفظ الاختبار.",
+    "updateSuccess": "تم تحديث الاختبار بنجاح!",
+    "updateError": "فشل تحديث الاختبار"
+  },
+  "sortableQuestion": {
+    "questionLabel": "سؤال {index}",
+    "correctLabel": "صحيح",
+    "explanationLabel": "الشرح:"
+  }
+},
+"QuestionBankDialog": {
+  "selectTitle": "إضافة سؤال من بنك الأسئلة",
+  "selectDescription": "اختر من الأسئلة الموجودة أو أنشئ سؤالاً جديدًا لإضافته إلى اختبارك.",
+  "createTitle": "إنشاء سؤال جديد",
+  "createDescription": "سيكون سؤالك الجديد متاحًا في البنك فور حفظه.",
+  "notifications": {
+    "loadError": "فشل تحميل الأسئلة من بنك الأسئلة."
+  }
+},
+"SelectQuestionListView": {
+  "searchPlaceholder": "ابحث عن أسئلة في بنك الأسئلة الخاص بك...",
+  "createNewButton": "إنشاء جديد",
+  "emptyState": {
+    "title": "لم يتم العثور على أسئلة",
+    "description": "جرّب مصطلح بحث مختلف أو أنشئ سؤالاً جديدًا."
+  },
+  "addButton": "إضافة",
+  "addedButton": "تمت الإضافة",
+  "pagination": "صفحة {currentPage} من {totalPages}"
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {

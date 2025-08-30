@@ -323,6 +323,86 @@
       "lessonNotFound": "Lesson not found in the chapter"
     }
   },
+  "LessonForm": {
+  "backButton": "Go Back",
+  "cardTitle": "Lesson Configuration",
+  "cardDescription": "Configure the video and description for this lesson.",
+  "labels": {
+    "lessonName": "Lesson Name",
+    "description": "Description",
+    "thumbnail": "Thumbnail Image",
+    "video": "Video File"
+  },
+  "placeholders": {
+    "lessonName": "e.g., Introduction to React"
+  },
+  "buttons": {
+    "save": "Save Lesson",
+    "saving": "Saving..."
+  },
+  "notifications": {
+    "invalid": "Please fix the highlighted errors before saving.",
+    "updateSuccess": "Lesson updated successfully!",
+    "updateError": "Failed to update lesson.",
+    "genericError": "An unexpected error occurred. Please try again."
+  }
+},
+"QuizForm": {
+  "header": "Edit Quiz: {lessonTitle}",
+  "detailsTitle": "Quiz Details",
+  "labels": {
+    "title": "Quiz Title",
+    "description": "Description",
+    "timer": "Time limit (minutes)",
+    "timerOptional": "[optional]"
+  },
+  "placeholders": {
+    "title": "Enter quiz title...",
+    "description": "Enter quiz description...",
+    "timer": "e.g. 30"
+  },
+  "questionsTitle": "Quiz Questions",
+  "addQuestionButton": "Add Question from Bank",
+  "emptyState": {
+    "title": "No questions added yet",
+    "description": "Add questions from your course test bank"
+  },
+  "buttons": {
+    "cancel": "Cancel",
+    "save": "Save Quiz",
+    "saving": "Saving..."
+  },
+  "notifications": {
+    "noQuestionsError": "You must add at least one question before saving the quiz.",
+    "updateSuccess": "Quiz updated successfully!",
+    "updateError": "Failed to update quiz"
+  },
+  "sortableQuestion": {
+    "questionLabel": "Question {index}",
+    "correctLabel": "Correct",
+    "explanationLabel": "Explanation:"
+  }
+},
+"QuestionBankDialog": {
+  "selectTitle": "Add Question from Bank",
+  "selectDescription": "Select from existing questions or create a new one to add to your quiz.",
+  "createTitle": "Create New Question",
+  "createDescription": "Your new question will be available in the bank immediately after saving.",
+  "notifications": {
+    "loadError": "Failed to load questions from the test bank."
+  }
+},
+"SelectQuestionListView": {
+  "searchPlaceholder": "Search questions in your test bank...",
+  "createNewButton": "Create New",
+  "emptyState": {
+    "title": "No Questions Found",
+    "description": "Try a different search term or create a new question."
+  },
+  "addButton": "Add",
+  "addedButton": "Added",
+  "pagination": "Page {currentPage} of {totalPages}"
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {
