@@ -519,6 +519,54 @@
   "previous": "Previous",
   "next": "Next"
 },
+
+"CodingForm": {
+    "header": "Edit Coding Exercise: {lessonTitle}",
+    "loading": "Loading coding exercise...",
+    "showPreview": "Show Preview",
+    "hidePreview": "Hide Preview",
+    "detailsTitle": "Exercise Details",
+    "labels": {
+      "title": "Exercise Title",
+      "description": "Description",
+      "instructions": "Instructions",
+      "language": "Programming Language",
+      "starterCode": "Starter Code"
+    },
+    "placeholders": {
+      "title": "Enter exercise title...",
+      "description": "Enter exercise description...",
+      "instructions": "Provide instructions for the coding exercise...",
+      "htmlCode": "HTML code...",
+      "cssCode": "CSS code...",
+      "jsCode": "JavaScript code...",
+      "serverCode": "Write your starter code here..."
+    },
+    "languageConfigTitle": "Programming Language Configuration",
+    "languages": {
+      "web": "Web Development (HTML/CSS/JS)",
+      "python": "Python",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "cpp": "C++",
+      "c": "C"
+    },
+    "starterCodeTitle": "Starter Code",
+    "buttons": {
+      "cancel": "Cancel",
+      "save": "Save Exercise",
+      "saving": "Saving..."
+    },
+    "preview": {
+      "liveTitle": "Live Preview",
+      "codeTitle": "Code Preview"
+    },
+    "notifications": {
+      "loadError": "Failed to load coding exercise data",
+      "updateSuccess": "Coding exercise updated successfully!",
+      "updateError": "An unexpected error occurred. Please try again."
+    }
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {

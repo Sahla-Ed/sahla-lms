@@ -517,6 +517,53 @@
     "previous": "السابق",
     "next": "التالي"
   },
+  "CodingForm": {
+    "header": "تعديل تمرين البرمجة: {lessonTitle}",
+    "loading": "جاري تحميل تمرين البرمجة...",
+    "showPreview": "عرض المعاينة",
+    "hidePreview": "إخفاء المعاينة",
+    "detailsTitle": "تفاصيل التمرين",
+    "labels": {
+      "title": "عنوان التمرين",
+      "description": "الوصف",
+      "instructions": "التعليمات",
+      "language": "لغة البرمجة",
+      "starterCode": "الكود المبدئي"
+    },
+    "placeholders": {
+      "title": "أدخل عنوان التمرين...",
+      "description": "أدخل وصف التمرين...",
+      "instructions": "أدخل تعليمات تمرين البرمجة...",
+      "htmlCode": "كود HTML...",
+      "cssCode": "كود CSS...",
+      "jsCode": "كود JavaScript...",
+      "serverCode": "اكتب الكود المبدئي هنا..."
+    },
+    "languageConfigTitle": "إعدادات لغة البرمجة",
+    "languages": {
+      "web": "تطوير الويب (HTML/CSS/JS)",
+      "python": "بايثون",
+      "javascript": "جافاسكريبت",
+      "typescript": "تايبسكريبت",
+      "cpp": "سي++",
+      "c": "سي"
+    },
+    "starterCodeTitle": "الكود المبدئي",
+    "buttons": {
+      "cancel": "إلغاء",
+      "save": "حفظ التمرين",
+      "saving": "جاري الحفظ..."
+    },
+    "preview": {
+      "liveTitle": "معاينة حية",
+      "codeTitle": "معاينة الكود"
+    },
+    "notifications": {
+      "loadError": "فشل تحميل بيانات تمرين البرمجة",
+      "updateSuccess": "تم تحديث تمرين البرمجة بنجاح!",
+      "updateError": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى."
+    }
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {
