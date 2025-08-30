@@ -482,6 +482,24 @@
 "title": "Edit Question",
 "description": "Make changes to your question here. Click save when you're done."
 },
+"AiQuestionForm": {
+  "labels": {
+    "topic": "Topic",
+    "questionCount": "Number of Questions"
+  },
+  "placeholders": {
+    "topic": "e.g., JavaScript data types"
+  },
+  "buttons": {
+    "generate": "Generate Questions",
+    "generating": "Generating..."
+  },
+  "notifications": {
+    "generationFailed": "Failed to generate questions",
+    "noQuestionsGenerated": "AI did not generate any questions. Try a different topic.",
+    "success": "Generated and saved {count} new questions successfully!"
+  }
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {

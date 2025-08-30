@@ -89,11 +89,11 @@ export const CreateQuestionView: FC<CreateQuestionViewProps> = ({
             <AiQuestionForm courseId={courseId} onSuccess={onSuccess} />
           ) : (
             <div className='rounded-lg border p-8 text-center'>
-              <h3 className='font-bold'>Upgrade to Pro to use AI</h3>
-              <p className='text-muted-foreground text-sm'>
-                Automate quiz creation with AI by upgrading your plan.
-              </p>
-            </div>
+            <h3 className='font-bold'>{t('upgradeNotice.title')}</h3>
+            <p className='text-muted-foreground text-sm'>
+              {t('upgradeNotice.description')}
+            </p>
+          </div>
           )}
         </TabsContent>
 

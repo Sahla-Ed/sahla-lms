@@ -480,6 +480,24 @@
   "title": "تعديل السؤال",
   "description": "قم بإجراء تغييرات على سؤالك هنا. انقر فوق حفظ عند الانتهاء."
 },
+"AiQuestionForm": {
+  "labels": {
+    "topic": "الموضوع",
+    "questionCount": "عدد الأسئلة"
+  },
+  "placeholders": {
+    "topic": "مثال: أنواع البيانات في جافاسكريبت"
+  },
+  "buttons": {
+    "generate": "إنشاء أسئلة",
+    "generating": "جاري الإنشاء..."
+  },
+  "notifications": {
+    "generationFailed": "فشل إنشاء الأسئلة",
+    "noQuestionsGenerated": "لم يتمكن الذكاء الاصطناعي من إنشاء أي أسئلة. حاول استخدام موضوع مختلف.",
+    "success": "تم إنشاء وحفظ {count} أسئلة جديدة بنجاح!"
+  }
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {
