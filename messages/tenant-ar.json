@@ -403,22 +403,27 @@
     "addedButton": "تمت الإضافة",
     "pagination": "صفحة {currentPage} من {totalPages}"
   },
-  "TestBank": {
-    "createCardTitle": "إنشاء سؤال جديد",
-    "createCardDescription": "اختر طريقتك المفضلة لإنشاء سؤال جديد لبنك الأسئلة الخاص بك.",
-    "existingQuestionsTitle": "الأسئلة الموجودة في البنك ({totalQuestions})",
-    "searchPlaceholder": "ابحث عن الأسئلة بالنص...",
-    "emptyState": {
-      "noMatch": "لم يتم العثور على أسئلة تطابق بحثك.",
-      "empty": "بنك الأسئلة فارغ. أنشئ سؤالاً أعلاه للبدء!"
-    },
-    "notifications": {
-      "loadError": "فشل تحميل الأسئلة من بنك الأسئلة.",
-      "deleteError": "فشل حذف السؤال.",
-      "deleteSuccess": "تم حذف السؤال بنجاح!"
-    },
-    "pagination": "صفحة {currentPage} من {totalPages}"
+ "TestBank": {
+  "createCardTitle": "إنشاء سؤال جديد",
+  "createCardDescription": "اختر طريقتك المفضلة لإنشاء سؤال جديد لبنك الأسئلة الخاص بك.",
+  "existingQuestionsTitle": "الأسئلة الموجودة في البنك ({totalQuestions})",
+  "searchPlaceholder": "ابحث عن الأسئلة بالنص...",
+  "emptyState": {
+    "noMatch": "لم يتم العثور على أسئلة تطابق بحثك.",
+    "empty": "بنك الأسئلة فارغ. أنشئ سؤالاً أعلاه للبدء!"
   },
+  "notifications": {
+    "loadError": "فشل تحميل الأسئلة من بنك الأسئلة.",
+    "deleteError": "فشل حذف السؤال.",
+    "deleteSuccess": "تم حذف السؤال بنجاح!",
+    "deleteMultipleSuccess": "تم حذف الأسئلة المحددة بنجاح!",
+    "deleteMultipleError": "فشل حذف الأسئلة المحددة."
+  },
+  "pagination": "صفحة {currentPage} من {totalPages}",
+  "questionsSelected": "{count, plural, one {# سؤال محدد} two {# سؤالان محددان} few {# أسئلة محددة} other {# سؤالاً محددًا}}",
+  "deleteSelected": "حذف المحدد",
+  "selectAllOnPage": "تحديد الكل في هذه الصفحة"
+},
   "CreateQuestionView": {
     "tabs": {
       "manual": "يدوي",

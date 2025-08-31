@@ -403,22 +403,27 @@
     "addedButton": "Added",
     "pagination": "Page {currentPage} of {totalPages}"
   },
-  "TestBank": {
-    "createCardTitle": "Create New Question",
-    "createCardDescription": "Choose your preferred method to create a new question for your test bank.",
-    "existingQuestionsTitle": "Existing Questions in Bank ({totalQuestions})",
-    "searchPlaceholder": "Search questions by text...",
-    "emptyState": {
-      "noMatch": "No questions found matching your search.",
-      "empty": "Your test bank is empty. Create a question above to get started!"
-    },
-    "notifications": {
-      "loadError": "Failed to load questions from the test bank.",
-      "deleteError": "Failed to delete question.",
-      "deleteSuccess": "Question deleted successfully!"
-    },
-    "pagination": "Page {currentPage} of {totalPages}"
+"TestBank": {
+  "createCardTitle": "Create New Question",
+  "createCardDescription": "Choose your preferred method to create a new question for your test bank.",
+  "existingQuestionsTitle": "Existing Questions in Bank ({totalQuestions})",
+  "searchPlaceholder": "Search questions by text...",
+  "emptyState": {
+    "noMatch": "No questions found matching your search.",
+    "empty": "Your test bank is empty. Create a question above to get started!"
   },
+  "notifications": {
+    "loadError": "Failed to load questions from the test bank.",
+    "deleteError": "Failed to delete question.",
+    "deleteSuccess": "Question deleted successfully!",
+    "deleteMultipleSuccess": "Selected questions deleted successfully!",
+    "deleteMultipleError": "Failed to delete selected questions."
+  },
+  "pagination": "Page {currentPage} of {totalPages}",
+  "questionsSelected": "{count, plural, one {# question selected} other {# questions selected}}",
+  "deleteSelected": "Delete Selected",
+  "selectAllOnPage": "Select all on this page"
+},
   "CreateQuestionView": {
     "tabs": {
       "manual": "Manual",

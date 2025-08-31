@@ -240,3 +240,45 @@ export async function createMultipleQuestions(
     return { status: 'error', message: 'Failed to import questions.' };
   }
 }
+
+
+
+export async function deleteMultipleQuestions(
+  questionIds: string[],
+  courseId: string,
+): Promise<ApiResponse> {
+  const { user } = await requireAdmin();
+  const t = await getTranslations('TestBank.notifications'); 
+
+  if (!questionIds || questionIds.length === 0) {
+    return { status: 'error', message: 'No questions selected.' };
+  }
+
+  try {
+    const tenantId = user.tenantId;
+
+    await prisma.question.deleteMany({
+      where: {
+        id: {
+          in: questionIds,
+        },
+        course: {
+          tenantId: tenantId,
+        },
+      },
+    });
+
+    revalidatePath(`/admin/courses/${courseId}/edit`);
+
+    return {
+      status: 'success',
+      message: t('deleteMultipleSuccess'), 
+    };
+  } catch (error) {
+    console.error('Failed to delete questions:', error);
+    return {
+      status: 'error',
+      message: t('deleteMultipleError'), 
+    };
+  }
+}
