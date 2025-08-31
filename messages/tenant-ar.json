@@ -649,6 +649,12 @@
     "SIGN_OUT": "تسجيل الخروج"
   },
 
+  "NavUser": {
+    "homepage": "الصفحة الرئيسية",
+    "dashboard": "لوحة التحكم",
+    "courses": "الدورات",
+    "logout": "تسجيل الخروج"
+  },
   "TenantSettingsPage": {
     "header": {
       "title": "إعدادات المنصة",

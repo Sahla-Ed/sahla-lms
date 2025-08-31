@@ -712,6 +712,12 @@
       }
     }
   },
+  "NavUser": {
+    "homepage": "Homepage",
+    "dashboard": "Dashboard",
+    "courses": "Courses",
+    "logout": "Log out"
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {
