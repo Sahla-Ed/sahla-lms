@@ -44,7 +44,12 @@ export function DarkVeil({
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Create gradient background
-      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      const gradient = ctx.createLinearGradient(
+        0,
+        0,
+        canvas.width,
+        canvas.height,
+      );
       gradient.addColorStop(0, `hsl(${220 + hueShift}, 70%, 5%)`);
       gradient.addColorStop(1, `hsl(${240 + hueShift}, 70%, 10%)`);
 
@@ -58,7 +63,7 @@ export function DarkVeil({
 
         for (let i = 0; i < data.length; i += 4) {
           const noise = (Math.random() - 0.5) * noiseIntensity * 50;
-          data[i] = Math.min(255, Math.max(0, data[i] + noise));     // Red
+          data[i] = Math.min(255, Math.max(0, data[i] + noise)); // Red
           data[i + 1] = Math.min(255, Math.max(0, data[i + 1] + noise)); // Green
           data[i + 2] = Math.min(255, Math.max(0, data[i + 2] + noise)); // Blue
         }
@@ -121,7 +126,7 @@ export function DarkVeil({
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full"
+      className='absolute inset-0 h-full w-full'
       style={{ pointerEvents: 'none' }}
     />
   );
