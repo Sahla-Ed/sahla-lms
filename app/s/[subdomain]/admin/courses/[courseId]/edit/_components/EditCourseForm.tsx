@@ -16,7 +16,13 @@ import {
   courseStatus,
   ZodValidationKeys,
 } from '@/lib/zodSchemas';
-import { ArrowLeft, ArrowRight, Loader2, PlusIcon, SparkleIcon } from 'lucide-react';
+import {
+  ArrowLeft,
+  ArrowRight,
+  Loader2,
+  PlusIcon,
+  SparkleIcon,
+} from 'lucide-react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -46,7 +52,7 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { editCourse } from '../actions';
 import { AdminCourseSingularType } from '@/app/s/[subdomain]/data/admin/admin-get-course';
-import { useLocale, useTranslations } from 'next-intl'; 
+import { useLocale, useTranslations } from 'next-intl';
 interface iAppProps {
   data: AdminCourseSingularType;
 }
@@ -58,7 +64,6 @@ export function EditCourseForm({ data }: iAppProps) {
   const t = useTranslations('EditCourseForm');
   const tCreate = useTranslations('CreateCoursePage');
   const tEnums = useTranslations('CourseEnums');
-
 
   const tValidation = useTranslations('ZodValidation');
 
@@ -117,14 +122,18 @@ export function EditCourseForm({ data }: iAppProps) {
             size: 'icon',
           })}
         >
-              {isRTL ? <ArrowRight className='size-4' /> : <ArrowLeft className='size-4' />}
+          {isRTL ? (
+            <ArrowRight className='size-4' />
+          ) : (
+            <ArrowLeft className='size-4' />
+          )}
         </Link>
         <h1 className='text-2xl font-bold'>{t('header')}</h1>
       </div>
 
       <Card>
         <CardHeader>
-        <CardTitle>{t('cardTitle')}</CardTitle>
+          <CardTitle>{t('cardTitle')}</CardTitle>
           <CardDescription>{t('cardDescription')}</CardDescription>
         </CardHeader>
         <CardContent>
@@ -137,7 +146,10 @@ export function EditCourseForm({ data }: iAppProps) {
                   <FormItem>
                     <FormLabel>{tCreate('form.title')}</FormLabel>
                     <FormControl>
-                      <Input placeholder={tCreate('form.titlePlaceholder')} {...field} />
+                      <Input
+                        placeholder={tCreate('form.titlePlaceholder')}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -150,25 +162,32 @@ export function EditCourseForm({ data }: iAppProps) {
                   name='slug'
                   render={({ field }) => (
                     <FormItem className='w-full'>
-                        <FormLabel>{tCreate('form.slug')}</FormLabel>
+                      <FormLabel>{tCreate('form.slug')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={tCreate('form.slugPlaceholder')} {...field} />
+                        <Input
+                          placeholder={tCreate('form.slugPlaceholder')}
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
-<Button
+                <Button
                   type='button'
                   className='w-fit'
                   onClick={() => {
                     const titleValue = form.getValues('title');
-                    const slug = slugify(titleValue, { lower: true, strict: true });
+                    const slug = slugify(titleValue, {
+                      lower: true,
+                      strict: true,
+                    });
                     form.setValue('slug', slug, { shouldValidate: true });
                   }}
                 >
-                  {tCreate('form.generateSlug')} <SparkleIcon className='ml-1' size={16} />
+                  {tCreate('form.generateSlug')}{' '}
+                  <SparkleIcon className='ml-1' size={16} />
                 </Button>
               </div>
 
@@ -177,10 +196,12 @@ export function EditCourseForm({ data }: iAppProps) {
                 name='smallDescription'
                 render={({ field }) => (
                   <FormItem className='w-full'>
-                   <FormLabel>{tCreate('form.smallDescription')}</FormLabel>
+                    <FormLabel>{tCreate('form.smallDescription')}</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder={tCreate('form.smallDescriptionPlaceholder')}
+                        placeholder={tCreate(
+                          'form.smallDescriptionPlaceholder',
+                        )}
                         className='min-h-[120px]'
                         {...field}
                       />
@@ -195,7 +216,7 @@ export function EditCourseForm({ data }: iAppProps) {
                 name='description'
                 render={({ field }) => (
                   <FormItem className='w-full'>
-                  <FormLabel>{tCreate('form.description')}</FormLabel>
+                    <FormLabel>{tCreate('form.description')}</FormLabel>
                     <FormControl>
                       <RichTextEditor field={field} />
                     </FormControl>
@@ -229,16 +250,22 @@ export function EditCourseForm({ data }: iAppProps) {
                   render={({ field }) => (
                     <FormItem className='w-full'>
                       <FormLabel>{tCreate('form.category')}</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value} dir={isRTL ? 'rtl' : 'ltr'}>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        dir={isRTL ? 'rtl' : 'ltr'}
+                      >
                         <FormControl>
                           <SelectTrigger className='w-full'>
-                          <SelectValue placeholder={tCreate('form.selectCategory')} />
+                            <SelectValue
+                              placeholder={tCreate('form.selectCategory')}
+                            />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent dir={isRTL ? 'rtl' : 'ltr'}>
                           {courseCategories.map((category) => (
                             <SelectItem key={category} value={category}>
-                            {tEnums(`categories.${category}`)}
+                              {tEnums(`categories.${category}`)}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -255,14 +282,20 @@ export function EditCourseForm({ data }: iAppProps) {
                   render={({ field }) => (
                     <FormItem className='w-full'>
                       <FormLabel>{tCreate('form.level')}</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value} dir={isRTL ? 'rtl' : 'ltr'}>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        dir={isRTL ? 'rtl' : 'ltr'}
+                      >
                         <FormControl>
                           <SelectTrigger className='w-full'>
-                          <SelectValue placeholder={tCreate('form.selectLevel')} />
+                            <SelectValue
+                              placeholder={tCreate('form.selectLevel')}
+                            />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent dir={isRTL ? 'rtl' : 'ltr'}>
-                        {courseLevels.map((level) => (
+                          {courseLevels.map((level) => (
                             <SelectItem key={level} value={level}>
                               {tEnums(`levels.${level}`)}
                             </SelectItem>
@@ -280,10 +313,10 @@ export function EditCourseForm({ data }: iAppProps) {
                   name='duration'
                   render={({ field }) => (
                     <FormItem className='w-full'>
-                     <FormLabel>{tCreate('form.duration')}</FormLabel>
+                      <FormLabel>{tCreate('form.duration')}</FormLabel>
                       <FormControl>
                         <Input
-                         placeholder={tCreate('form.durationPlaceholder')}
+                          placeholder={tCreate('form.durationPlaceholder')}
                           type='number'
                           {...field}
                           value={field.value === 0 ? '' : field.value}
@@ -306,10 +339,10 @@ export function EditCourseForm({ data }: iAppProps) {
                   name='price'
                   render={({ field }) => (
                     <FormItem className='w-full'>
-                    <FormLabel>{tCreate('form.price')}</FormLabel>
+                      <FormLabel>{tCreate('form.price')}</FormLabel>
                       <FormControl>
                         <Input
-                         placeholder={tCreate('form.pricePlaceholder')}
+                          placeholder={tCreate('form.pricePlaceholder')}
                           type='number'
                           {...field}
                           value={field.value === 0 ? '' : field.value}
@@ -334,14 +367,20 @@ export function EditCourseForm({ data }: iAppProps) {
                 render={({ field }) => (
                   <FormItem className='w-full'>
                     <FormLabel>{tCreate('form.status')}</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value} dir={isRTL ? 'rtl' : 'ltr'}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      dir={isRTL ? 'rtl' : 'ltr'}
+                    >
                       <FormControl>
                         <SelectTrigger className='w-full'>
-                        <SelectValue placeholder={tCreate('form.selectStatus')} />
+                          <SelectValue
+                            placeholder={tCreate('form.selectStatus')}
+                          />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent dir={isRTL ? 'rtl' : 'ltr'}>
-                      {courseStatus.map((status) => (
+                        {courseStatus.map((status) => (
                           <SelectItem key={status} value={status}>
                             {tEnums(`statuses.${status}`)}
                           </SelectItem>
@@ -362,7 +401,7 @@ export function EditCourseForm({ data }: iAppProps) {
                   </>
                 ) : (
                   <>
-                     {t('updateButton')} <PlusIcon className='ml-1' size={16} />
+                    {t('updateButton')} <PlusIcon className='ml-1' size={16} />
                   </>
                 )}
               </Button>

@@ -34,7 +34,9 @@ export async function editCourse(
     const result = courseSchema.safeParse(data);
 
     if (!result.success) {
-      const firstError = Object.values(result.error.flatten().fieldErrors)[0]?.[0];
+      const firstError = Object.values(
+        result.error.flatten().fieldErrors,
+      )[0]?.[0];
       return {
         status: 'error',
         message: firstError || 'Invalid data',
@@ -96,7 +98,7 @@ export async function reorderLessons(
   lessons: { id: string; position: number }[],
   courseId: string,
 ): Promise<ApiResponse> {
-  const t = await getTranslations('CourseStructure.notifications'); 
+  const t = await getTranslations('CourseStructure.notifications');
   const { user } = await requireAdmin();
   try {
     if (!lessons || lessons.length === 0) {
@@ -124,7 +126,7 @@ export async function reorderLessons(
     revalidatePath(`/admin/courses/${courseId}/edit`);
     return {
       status: 'success',
-      message: t('reorderLessonsSuccess'), 
+      message: t('reorderLessonsSuccess'),
     };
   } catch {
     return {
@@ -138,7 +140,7 @@ export async function reorderChapters(
   courseId: string,
   chapters: { id: string; position: number }[],
 ): Promise<ApiResponse> {
-  const t = await getTranslations('CourseStructure.notifications'); 
+  const t = await getTranslations('CourseStructure.notifications');
   const { user } = await requireAdmin();
   try {
     if (!chapters || chapters.length === 0) {
@@ -167,12 +169,12 @@ export async function reorderChapters(
 
     return {
       status: 'success',
-      message: t('reorderChaptersSuccess'), 
+      message: t('reorderChaptersSuccess'),
     };
   } catch {
     return {
       status: 'error',
-      message: t('reorderChaptersError'), 
+      message: t('reorderChaptersError'),
     };
   }
 }
@@ -181,7 +183,7 @@ export async function createChapter(
   values: ChapterSchemaType,
 ): Promise<ApiResponse> {
   const { user } = await requireAdmin();
-  const t = await getTranslations('NewChapterModal.notifications'); 
+  const t = await getTranslations('NewChapterModal.notifications');
   try {
     const result = chapterSchema.safeParse(values);
 
@@ -523,7 +525,7 @@ export async function deleteChapter({
   courseId: string;
 }): Promise<ApiResponse> {
   const { user } = await requireAdmin();
-  const t = await getTranslations('DeleteChapter.notifications'); 
+  const t = await getTranslations('DeleteChapter.notifications');
   try {
     const courseWithChapters = await prisma.course.findUnique({
       where: {

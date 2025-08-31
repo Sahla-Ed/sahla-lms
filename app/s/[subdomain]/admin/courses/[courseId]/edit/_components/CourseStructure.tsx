@@ -43,7 +43,7 @@ import { NewChapterModal } from './NewChapterModal';
 import { NewLessonModal } from './NewLessonModal';
 import { DeleteLesson } from './DeleteLesson';
 import { DeleteChapter } from './DeleteChapter';
-import { useTranslations } from 'next-intl'; 
+import { useTranslations } from 'next-intl';
 
 interface iAppProps {
   data: AdminCourseSingularType;
@@ -178,14 +178,14 @@ export function CourseStructure({ data }: iAppProps) {
         const reorderPromise = () =>
           reorderChapters(courseId, chaptersToUpdate);
         toast.promise(reorderPromise(), {
-          loading: t('notifications.reorderingChapters'), 
+          loading: t('notifications.reorderingChapters'),
           success: (result) => {
             if (result.status === 'success') return result.message;
             throw new Error(result.message);
           },
           error: () => {
             setItems(previousItems);
-            return t('notifications.reorderChaptersError'); 
+            return t('notifications.reorderChaptersError');
           },
         });
       }
@@ -206,7 +206,7 @@ export function CourseStructure({ data }: iAppProps) {
         (chapter) => chapter.id === chapterId,
       );
       if (chapterIndex === -1) {
-        toast.error(t('errors.findChapterForLesson')); 
+        toast.error(t('errors.findChapterForLesson'));
         return;
       }
 
@@ -253,14 +253,14 @@ export function CourseStructure({ data }: iAppProps) {
           reorderLessons(chapterId, lessonsToUpdate, courseId);
 
         toast.promise(reorderLessonsPromise(), {
-          loading: t('notifications.reorderingLessons'), 
+          loading: t('notifications.reorderingLessons'),
           success: (result) => {
             if (result.status === 'success') return result.message;
             throw new Error(result.message);
           },
           error: () => {
             setItems(previousItems); // Revert to previous state
-            return t('notifications.reorderLessonsError'); 
+            return t('notifications.reorderLessonsError');
           },
         });
       }
@@ -292,7 +292,7 @@ export function CourseStructure({ data }: iAppProps) {
     >
       <Card>
         <CardHeader className='border-border flex flex-row items-center justify-between border-b'>
-        <CardTitle>{t('title')}</CardTitle> 
+          <CardTitle>{t('title')}</CardTitle>
           <NewChapterModal courseId={data.id} />
         </CardHeader>
         <CardContent className='space-y-8'>

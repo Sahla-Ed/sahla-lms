@@ -42,7 +42,6 @@ export function Menubar({ editor }: iAppProps) {
     <div className='border-input bg-card flex flex-wrap items-center gap-1 rounded-t-lg border border-x-0 border-t-0 p-2'>
       <TooltipProvider>
         <div className='flex flex-wrap gap-1'>
-     
           <Tooltip>
             <TooltipTrigger asChild>
               <Toggle
@@ -58,7 +57,6 @@ export function Menubar({ editor }: iAppProps) {
             <TooltipContent>{t('bold')}</TooltipContent>
           </Tooltip>
 
-     
           <Tooltip>
             <TooltipTrigger asChild>
               <Toggle
@@ -74,7 +72,6 @@ export function Menubar({ editor }: iAppProps) {
             <TooltipContent>{t('italic')}</TooltipContent>
           </Tooltip>
 
-    
           <Tooltip>
             <TooltipTrigger asChild>
               <Toggle
@@ -90,7 +87,6 @@ export function Menubar({ editor }: iAppProps) {
             <TooltipContent>{t('strike')}</TooltipContent>
           </Tooltip>
 
-       
           <Tooltip>
             <TooltipTrigger asChild>
               <Toggle
@@ -106,7 +102,6 @@ export function Menubar({ editor }: iAppProps) {
             <TooltipContent>{t('heading1')}</TooltipContent>
           </Tooltip>
 
-       
           <Tooltip>
             <TooltipTrigger asChild>
               <Toggle
@@ -122,7 +117,6 @@ export function Menubar({ editor }: iAppProps) {
             <TooltipContent>{t('heading2')}</TooltipContent>
           </Tooltip>
 
-         
           <Tooltip>
             <TooltipTrigger asChild>
               <Toggle
@@ -138,7 +132,6 @@ export function Menubar({ editor }: iAppProps) {
             <TooltipContent>{t('heading3')}</TooltipContent>
           </Tooltip>
 
-    
           <Tooltip>
             <TooltipTrigger asChild>
               <Toggle
@@ -154,7 +147,6 @@ export function Menubar({ editor }: iAppProps) {
             <TooltipContent>{t('bulletList')}</TooltipContent>
           </Tooltip>
 
-          
           <Tooltip>
             <TooltipTrigger asChild>
               <Toggle
@@ -174,7 +166,6 @@ export function Menubar({ editor }: iAppProps) {
         <div className='bg-border mx-2 h-6 w-px'></div>
 
         <div className='flex flex-wrap gap-1'>
-        
           <Tooltip>
             <TooltipTrigger asChild>
               <Toggle
@@ -190,7 +181,6 @@ export function Menubar({ editor }: iAppProps) {
             <TooltipContent>{t('alignLeft')}</TooltipContent>
           </Tooltip>
 
-       
           <Tooltip>
             <TooltipTrigger asChild>
               <Toggle
@@ -206,7 +196,6 @@ export function Menubar({ editor }: iAppProps) {
             <TooltipContent>{t('alignCenter')}</TooltipContent>
           </Tooltip>
 
-       
           <Tooltip>
             <TooltipTrigger asChild>
               <Toggle
@@ -226,7 +215,6 @@ export function Menubar({ editor }: iAppProps) {
         <div className='bg-border mx-2 h-6 w-px'></div>
 
         <div className='flex flex-wrap gap-1'>
-       
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
@@ -242,7 +230,6 @@ export function Menubar({ editor }: iAppProps) {
             <TooltipContent>{t('undo')}</TooltipContent>
           </Tooltip>
 
-     
           <Tooltip>
             <TooltipTrigger asChild>
               <Button

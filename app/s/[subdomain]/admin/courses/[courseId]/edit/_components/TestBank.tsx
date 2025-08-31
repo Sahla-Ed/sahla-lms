@@ -65,7 +65,7 @@ export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
         );
         setTotalQuestions(totalCount);
       } catch {
-        toast.error(t('notifications.loadError')); 
+        toast.error(t('notifications.loadError'));
       } finally {
         setIsFetching(false);
       }
@@ -87,7 +87,7 @@ export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
     if (error) {
       toast.error(t('notifications.deleteError'));
     } else {
-      toast.success(t('notifications.deleteSuccess')); 
+      toast.success(t('notifications.deleteSuccess'));
       fetchAndSetQuestions(currentPage, searchTerm);
     }
   };
@@ -117,11 +117,15 @@ export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
       </Card>
 
       <div className='space-y-4'>
-        <h3 className={`text-xl font-bold ${isRTL ? 'text-right' : 'text-left'}`}>
+        <h3
+          className={`text-xl font-bold ${isRTL ? 'text-right' : 'text-left'}`}
+        >
           {t('existingQuestionsTitle', { totalQuestions })}
         </h3>
         <div className='relative'>
-          <Search className={`text-muted-foreground absolute top-1/2 h-4 w-4 -translate-y-1/2 ${isRTL ? 'right-3' : 'left-3'}`} />
+          <Search
+            className={`text-muted-foreground absolute top-1/2 h-4 w-4 -translate-y-1/2 ${isRTL ? 'right-3' : 'left-3'}`}
+          />
           <Input
             placeholder={t('searchPlaceholder')}
             defaultValue={searchTerm}
@@ -136,14 +140,12 @@ export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
           </div>
         ) : questions.length === 0 ? (
           <Card>
-          <CardContent className='text-muted-foreground py-12 text-center'>
-            <p>
-              {searchTerm
-                ? t('emptyState.noMatch')
-                : t('emptyState.empty')}
-            </p>
-          </CardContent>
-        </Card>
+            <CardContent className='text-muted-foreground py-12 text-center'>
+              <p>
+                {searchTerm ? t('emptyState.noMatch') : t('emptyState.empty')}
+              </p>
+            </CardContent>
+          </Card>
         ) : (
           <div className='space-y-4'>
             {questions.map((question) => (
@@ -173,7 +175,7 @@ export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
               </PaginationItem>
               <PaginationItem>
                 <span className='px-4 text-sm font-medium'>
-                {t('pagination', { currentPage, totalPages })}
+                  {t('pagination', { currentPage, totalPages })}
                 </span>
               </PaginationItem>
               <PaginationItem>

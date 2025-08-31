@@ -108,13 +108,13 @@ export function QuestionBankDialog({
     <Dialog open={open} onOpenChange={handleDialogChange}>
       <DialogContent className='flex max-h-[90vh] max-w-4xl flex-col'>
         <DialogHeader>
-          <div className="relative">
+          <div className='relative'>
             {view === 'create' && isRTL && (
               <Button
                 variant='ghost'
                 size='icon'
                 onClick={() => setView('select')}
-                className="absolute right-0 top-0 z-10"
+                className='absolute top-0 right-0 z-10'
               >
                 <ArrowRight className='h-4 w-4' />
               </Button>
@@ -124,18 +124,22 @@ export function QuestionBankDialog({
                 variant='ghost'
                 size='icon'
                 onClick={() => setView('select')}
-                className="absolute left-0 top-0 z-10"
+                className='absolute top-0 left-0 z-10'
               >
                 <ArrowLeft className='h-4 w-4' />
               </Button>
             )}
 
-            <div className={`${view === 'create' ? 'mx-12' : ''} ${isRTL ? 'text-right' : 'text-left'}`}>
+            <div
+              className={`${view === 'create' ? 'mx-12' : ''} ${isRTL ? 'text-right' : 'text-left'}`}
+            >
               <DialogTitle>
                 {view === 'select' ? t('selectTitle') : t('createTitle')}
               </DialogTitle>
               <DialogDescription>
-                {view === 'select' ? t('selectDescription') : t('createDescription')}
+                {view === 'select'
+                  ? t('selectDescription')
+                  : t('createDescription')}
               </DialogDescription>
             </div>
           </div>

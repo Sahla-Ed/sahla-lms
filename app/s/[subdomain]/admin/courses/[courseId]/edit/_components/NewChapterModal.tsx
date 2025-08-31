@@ -25,7 +25,7 @@ import { Input } from '@/components/ui/input';
 import { tryCatch } from '@/hooks/try-catch';
 import { createChapter } from '../actions';
 import { toast } from 'sonner';
-import { useLocale, useTranslations } from 'next-intl'; 
+import { useLocale, useTranslations } from 'next-intl';
 
 export function NewChapterModal({ courseId }: { courseId: string }) {
   const t = useTranslations('NewChapterModal');
@@ -73,7 +73,7 @@ export function NewChapterModal({ courseId }: { courseId: string }) {
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button variant='outline' size='sm' className='gap-2'>
-          <Plus className='size-4' />  {t('buttonText')}
+          <Plus className='size-4' /> {t('buttonText')}
         </Button>
       </DialogTrigger>
       <DialogContent
@@ -81,10 +81,13 @@ export function NewChapterModal({ courseId }: { courseId: string }) {
         aria-describedby='new-chapter-desc'
       >
         <DialogHeader>
-        <DialogTitle className={isRTL ? 'text-right' : 'text-left'}>
+          <DialogTitle className={isRTL ? 'text-right' : 'text-left'}>
             {t('dialogTitle')}
           </DialogTitle>
-          <DialogDescription id='new-chapter-desc' className={isRTL ? 'text-right' : 'text-left'}>
+          <DialogDescription
+            id='new-chapter-desc'
+            className={isRTL ? 'text-right' : 'text-left'}
+          >
             {t('dialogDescription')}
           </DialogDescription>
         </DialogHeader>
@@ -95,9 +98,9 @@ export function NewChapterModal({ courseId }: { courseId: string }) {
               name='name'
               render={({ field }) => (
                 <FormItem>
-                 <FormLabel>{t('formLabel')}</FormLabel>
+                  <FormLabel>{t('formLabel')}</FormLabel>
                   <FormControl>
-                  <Input placeholder={t('formPlaceholder')} {...field} />
+                    <Input placeholder={t('formPlaceholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -106,7 +109,7 @@ export function NewChapterModal({ courseId }: { courseId: string }) {
 
             <DialogFooter>
               <Button disabled={pending} type='submit'>
-              {pending ? t('savingButton') : t('saveButton')}
+                {pending ? t('savingButton') : t('saveButton')}
               </Button>
             </DialogFooter>
           </form>

@@ -16,7 +16,6 @@ import {
 import { Question } from './TestBank/types';
 import { useLocale, useTranslations } from 'next-intl';
 
-
 interface SelectQuestionListViewProps {
   questions: Question[];
   selectedIds: string[];
@@ -45,9 +44,13 @@ export function SelectQuestionListView({
   const isRTL = locale === 'ar';
   return (
     <div className='space-y-4'>
-      <div className={`bg-background sticky top-0 z-10 flex gap-4 py-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+      <div
+        className={`bg-background sticky top-0 z-10 flex gap-4 py-2 ${isRTL ? 'flex-row-reverse' : ''}`}
+      >
         <div className='relative flex-1'>
-          <Search className={`text-muted-foreground absolute top-1/2 h-4 w-4 -translate-y-1/2 ${isRTL ? 'right-3' : 'left-3'}`} />
+          <Search
+            className={`text-muted-foreground absolute top-1/2 h-4 w-4 -translate-y-1/2 ${isRTL ? 'right-3' : 'left-3'}`}
+          />
           <Input
             placeholder={t('searchPlaceholder')}
             onChange={(e) => onSearchChange(e.target.value)}
@@ -69,9 +72,7 @@ export function SelectQuestionListView({
           <h3 className='text-foreground text-lg font-semibold'>
             {t('emptyState.title')}
           </h3>
-          <p className='mt-2 text-sm'>
-            {t('emptyState.description')}
-          </p>
+          <p className='mt-2 text-sm'>{t('emptyState.description')}</p>
         </div>
       ) : (
         <div className='space-y-3'>
@@ -86,7 +87,9 @@ export function SelectQuestionListView({
                     'border-green-300 bg-green-50 dark:border-green-800 dark:bg-green-950/30',
                 )}
               >
-                <CardContent className={`flex items-start justify-between gap-4 p-4 ${isRTL ? 'text-right flex-row-reverse' : 'text-left'}`}>
+                <CardContent
+                  className={`flex items-start justify-between gap-4 p-4 ${isRTL ? 'flex-row-reverse text-right' : 'text-left'}`}
+                >
                   <div className='flex-1 space-y-2'>
                     <p className='font-medium'>{q.text}</p>
                     <Badge variant='outline'>{q.type}</Badge>
@@ -124,7 +127,10 @@ export function SelectQuestionListView({
             </PaginationItem>
             <PaginationItem>
               <span className='px-4 text-sm font-medium'>
-                {t('pagination', { currentPage: currentPage, totalPages: totalPages })}
+                {t('pagination', {
+                  currentPage: currentPage,
+                  totalPages: totalPages,
+                })}
               </span>
             </PaginationItem>
             <PaginationItem>

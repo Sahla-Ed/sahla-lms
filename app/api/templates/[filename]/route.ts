@@ -7,17 +7,15 @@ export async function GET(
   request: NextRequest,
   context: { params: Promise<{ filename: string }> },
 ) {
-
   const { filename } = await context.params;
 
-
   const { searchParams } = new URL(request.url);
-  const locale = searchParams.get('locale') || 'ar'; 
+  const locale = searchParams.get('locale') || 'ar';
 
   const messages = locale === 'en' ? sahlaEnMessages : sahlaArMessages;
   const templates = messages.FileTemplates;
 
-  let content: any;
+  let content: string | Record<string, unknown>;
   let contentType: string;
 
   if (filename === 'questions_template.json') {

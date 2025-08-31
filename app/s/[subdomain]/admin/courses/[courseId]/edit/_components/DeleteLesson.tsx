@@ -54,19 +54,19 @@ export function DeleteLesson({
     });
   }
 
-
-  const CancelButton = <AlertDialogCancel>{t('cancelButton')}</AlertDialogCancel>;
+  const CancelButton = (
+    <AlertDialogCancel>{t('cancelButton')}</AlertDialogCancel>
+  );
   const DeleteButton = (
     <Button onClick={onSubmit} disabled={pending} variant='destructive'>
       {pending ? (
-          <>
-            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-            {t('deletingButton')}
-          </>
-        ) : (
-          t('deleteButton')
-        )
-      }
+        <>
+          <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+          {t('deletingButton')}
+        </>
+      ) : (
+        t('deleteButton')
+      )}
     </Button>
   );
 
@@ -82,7 +82,9 @@ export function DeleteLesson({
           <AlertDialogTitle className={isRTL ? 'text-right' : 'text-left'}>
             {t('dialogTitle')}
           </AlertDialogTitle>
-          <AlertDialogDescription className={isRTL ? 'text-right' : 'text-left'}>
+          <AlertDialogDescription
+            className={isRTL ? 'text-right' : 'text-left'}
+          >
             {t('dialogDescription')}
           </AlertDialogDescription>
         </AlertDialogHeader>

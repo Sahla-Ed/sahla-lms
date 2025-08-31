@@ -1,5 +1,5 @@
 {
-   "AdminDashboardMetadata": {
+  "AdminDashboardMetadata": {
     "title": "Dashboard | {tenantName}"
   },
   "AdminLayout": {
@@ -7,7 +7,7 @@
   },
   "AdminIndexPage": {
     "welcomeMessage": "Welcome back, {username}!",
-    "welcomeDescription": "Here's a quick overview of your platform's performance today.", 
+    "welcomeDescription": "Here's a quick overview of your platform's performance today.",
     "recentCoursesTitle": "Recent Courses",
     "viewAllCoursesButton": "View All Courses",
     "emptyState": {
@@ -65,152 +65,152 @@
     }
   },
   "CreateCourseMetadata": {
-  "title": "Create New Course | Admin"
-},
-"CreateCoursePage": {
-  "header": "Create a New Course",
-  "cardTitle": "Basic Information",
-  "cardDescription": "Provide basic information about the course below",
-  "form": {
-    "title": "Title",
-    "titlePlaceholder": "Course Title",
-    "slug": "Slug",
-    "slugPlaceholder": "unique-course-slug",
-    "generateSlug": "Generate Slug",
-    "smallDescription": "Small Description",
-    "smallDescriptionPlaceholder": "A short, catchy description for the course...",
-    "description": "Full Description",
-    "thumbnail": "Thumbnail Image",
-    "category": "Category",
-    "selectCategory": "Select a category",
-    "level": "Level",
-    "selectLevel": "Select a level",
-    "duration": "Duration (in hours)",
-    "durationPlaceholder": "Duration",
-    "price": "Price ($)",
-    "pricePlaceholder": "Price",
-    "status": "Status",
-    "selectStatus": "Select a status",
-    "createButton": "Create Course",
-    "creatingButton": "Creating..."
+    "title": "Create New Course | Admin"
   },
-  "notifications": {
-    "success": "Course created successfully!",
-    "error": "An unexpected error occurred. Please try again.",
-    "slugTaken": "This slug is already in use. Please choose another one.",
-    "planLimit": "You have reached your plan limit. Please upgrade to Pro to create more courses.",
-    "invalidData": "Invalid Form Data"
-  }
-},
-"RichTextEditor": {
-  "defaultContent": "<p>Write your course description here... 🚀</p>",
-  "menubar": {
-    "bold": "Bold",
-    "italic": "Italic",
-    "strike": "Strike",
-    "heading1": "Heading 1",
-    "heading2": "Heading 2",
-    "heading3": "Heading 3",
-    "bulletList": "Bullet List",
-    "orderedList": "Ordered List",
-    "alignLeft": "Align Left",
-    "alignCenter": "Align Center",
-    "alignRight": "Align Right",
-    "undo": "Undo",
-    "redo": "Redo"
-  }
-},
-"Uploader": {
-  "emptyState": {
-    "title": "Drop your files here or",
-    "cta": "click to upload",
-    "selectButton": "Select File"
+  "CreateCoursePage": {
+    "header": "Create a New Course",
+    "cardTitle": "Basic Information",
+    "cardDescription": "Provide basic information about the course below",
+    "form": {
+      "title": "Title",
+      "titlePlaceholder": "Course Title",
+      "slug": "Slug",
+      "slugPlaceholder": "unique-course-slug",
+      "generateSlug": "Generate Slug",
+      "smallDescription": "Small Description",
+      "smallDescriptionPlaceholder": "A short, catchy description for the course...",
+      "description": "Full Description",
+      "thumbnail": "Thumbnail Image",
+      "category": "Category",
+      "selectCategory": "Select a category",
+      "level": "Level",
+      "selectLevel": "Select a level",
+      "duration": "Duration (in hours)",
+      "durationPlaceholder": "Duration",
+      "price": "Price ($)",
+      "pricePlaceholder": "Price",
+      "status": "Status",
+      "selectStatus": "Select a status",
+      "createButton": "Create Course",
+      "creatingButton": "Creating..."
+    },
+    "notifications": {
+      "success": "Course created successfully!",
+      "error": "An unexpected error occurred. Please try again.",
+      "slugTaken": "This slug is already in use. Please choose another one.",
+      "planLimit": "You have reached your plan limit. Please upgrade to Pro to create more courses.",
+      "invalidData": "Invalid Form Data"
+    }
   },
-  "errorState": {
-    "title": "Upload Failed",
-    "description": "Something went wrong",
-    "retryButton": "Retry File Selection"
+  "RichTextEditor": {
+    "defaultContent": "<p>Write your course description here... 🚀</p>",
+    "menubar": {
+      "bold": "Bold",
+      "italic": "Italic",
+      "strike": "Strike",
+      "heading1": "Heading 1",
+      "heading2": "Heading 2",
+      "heading3": "Heading 3",
+      "bulletList": "Bullet List",
+      "orderedList": "Ordered List",
+      "alignLeft": "Align Left",
+      "alignCenter": "Align Center",
+      "alignRight": "Align Right",
+      "undo": "Undo",
+      "redo": "Redo"
+    }
   },
-  "uploadingState": {
-    "title": "Uploading..."
+  "Uploader": {
+    "emptyState": {
+      "title": "Drop your files here or",
+      "cta": "click to upload",
+      "selectButton": "Select File"
+    },
+    "errorState": {
+      "title": "Upload Failed",
+      "description": "Something went wrong",
+      "retryButton": "Retry File Selection"
+    },
+    "uploadingState": {
+      "title": "Uploading..."
+    },
+    "notifications": {
+      "presignedUrlError": "Failed to get presigned URL",
+      "uploadFailed": "Upload failed...",
+      "uploadSuccess": "File uploaded successfully",
+      "genericError": "Something went wrong",
+      "removeSuccess": "File removed successfully",
+      "removeError": "Error removing file. Please try again",
+      "fileTooLarge": "File size exceeds the limit",
+      "tooManyFiles": "Too many files selected, max is 1"
+    }
   },
-  "notifications": {
-    "presignedUrlError": "Failed to get presigned URL",
-    "uploadFailed": "Upload failed...",
-    "uploadSuccess": "File uploaded successfully",
-    "genericError": "Something went wrong",
-    "removeSuccess": "File removed successfully",
-    "removeError": "Error removing file. Please try again",
-    "fileTooLarge": "File size exceeds the limit",
-    "tooManyFiles": "Too many files selected, max is 1"
-  }
-},
-"CourseEnums": {
-  "levels": {
-    "Beginner": "Beginner",
-    "Intermediate": "Intermediate",
-    "Advanced": "Advanced"
+  "CourseEnums": {
+    "levels": {
+      "Beginner": "Beginner",
+      "Intermediate": "Intermediate",
+      "Advanced": "Advanced"
+    },
+    "statuses": {
+      "Draft": "Draft",
+      "Published": "Published",
+      "Archived": "Archived"
+    },
+    "categories": {
+      "Development": "Development",
+      "Business": "Business",
+      "Finance": "Finance",
+      "IT & Software": "IT & Software",
+      "Office Productivity": "Office Productivity",
+      "Personal Development": "Personal Development",
+      "Design": "Design",
+      "Marketing": "Marketing",
+      "Health & Fitness": "Health & Fitness",
+      "Music": "Music",
+      "Teaching & Academics": "Teaching & Academics"
+    }
   },
-  "statuses": {
-    "Draft": "Draft",
-    "Published": "Published",
-    "Archived": "Archived"
+  "ZodValidation": {
+    "course": {
+      "titleMin": "Title must be at least 3 characters long",
+      "titleMax": "Title must be at most 100 characters long",
+      "descriptionMin": "Description must be at least 3 characters long",
+      "priceMin": "Price must be a positive number",
+      "durationMin": "Duration must be at least 1 hour",
+      "durationMax": "Duration must be at most 500 hours",
+      "levelRequired": "Level is required",
+      "categoryRequired": "Category is required",
+      "smallDescriptionMin": "Small Description must be at least 3 characters long",
+      "smallDescriptionMax": "Small Description must be at most 200 characters long",
+      "slugMin": "Slug must be at least 3 characters long",
+      "statusRequired": "Status is required"
+    },
+    "chapter": {
+      "nameMin": "Name must be at least 3 characters long",
+      "courseIdInvalid": "Invalid course id"
+    }
   },
-  "categories": {
-    "Development": "Development",
-    "Business": "Business",
-    "Finance": "Finance",
-    "IT & Software": "IT & Software",
-    "Office Productivity": "Office Productivity",
-    "Personal Development": "Personal Development",
-    "Design": "Design",
-    "Marketing": "Marketing",
-    "Health & Fitness": "Health & Fitness",
-    "Music": "Music",
-    "Teaching & Academics": "Teaching & Academics"
-  }
-},
-"ZodValidation": {
-  "course": {
-    "titleMin": "Title must be at least 3 characters long",
-    "titleMax": "Title must be at most 100 characters long",
-    "descriptionMin": "Description must be at least 3 characters long",
-    "priceMin": "Price must be a positive number",
-    "durationMin": "Duration must be at least 1 hour",
-    "durationMax": "Duration must be at most 500 hours",
-    "levelRequired": "Level is required",
-    "categoryRequired": "Category is required",
-    "smallDescriptionMin": "Small Description must be at least 3 characters long",
-    "smallDescriptionMax": "Small Description must be at most 200 characters long",
-    "slugMin": "Slug must be at least 3 characters long",
-    "statusRequired": "Status is required"
+  "AdminCoursesPage": {
+    "title": "Your Courses",
+    "createCourse": "Create Course",
+    "upgradeTooltip": "Upgrade to create more courses",
+    "limitReached": "Free Plan Limit Reached",
+    "limitDescription": "You can only create 1 course on the Free plan. <upgradeLink>Upgrade to Pro</upgradeLink> to create unlimited courses.",
+    "emptyState": {
+      "title": "No courses found",
+      "description": "Create a new course to get started",
+      "button": "Create Course"
+    }
   },
-  "chapter": {
-    "nameMin": "Name must be at least 3 characters long",
-    "courseIdInvalid": "Invalid course id"
-  }
-},
-"AdminCoursesPage": {
-  "title": "Your Courses",
-  "createCourse": "Create Course",
-  "upgradeTooltip": "Upgrade to create more courses",
-  "limitReached": "Free Plan Limit Reached",
-  "limitDescription": "You can only create 1 course on the Free plan. <upgradeLink>Upgrade to Pro</upgradeLink> to create unlimited courses.",
-  "emptyState": {
-    "title": "No courses found",
-    "description": "Create a new course to get started",
-    "button": "Create Course"
-  }
-},
-"AdminCourseCard": {
-  "editCourse": "Edit Course",
-  "preview": "Preview",
-  "deleteCourse": "Delete Course",
-  "thumbnailAlt": "Course thumbnail",
-  "hoursAbr": "h"
-},
-"EditCoursePage": {
-    "header": "Edit Course: <title>{courseTitle}</title>", 
+  "AdminCourseCard": {
+    "editCourse": "Edit Course",
+    "preview": "Preview",
+    "deleteCourse": "Delete Course",
+    "thumbnailAlt": "Course thumbnail",
+    "hoursAbr": "h"
+  },
+  "EditCoursePage": {
+    "header": "Edit Course: <title>{courseTitle}</title>",
     "previewButton": "Preview & Moderate",
     "tabs": {
       "basicInfo": "Basic Info",
@@ -283,11 +283,11 @@
     "formPlaceholder": "Lesson Name",
     "lessonTypeLabel": "Lesson Type",
     "notifications": {
-  "successVideo": "Lesson created successfully",
-  "successQuiz": "Quiz created successfully",
-  "successCoding": "Coding playground created successfully",
-  "error": "Failed to create lesson"
-},
+      "successVideo": "Lesson created successfully",
+      "successQuiz": "Quiz created successfully",
+      "successCoding": "Coding playground created successfully",
+      "error": "Failed to create lesson"
+    },
     "types": {
       "video": "Video",
       "quiz": "Quiz",
@@ -324,203 +324,203 @@
     }
   },
   "LessonForm": {
-  "backButton": "Go Back",
-  "cardTitle": "Lesson Configuration",
-  "cardDescription": "Configure the video and description for this lesson.",
-  "labels": {
-    "lessonName": "Lesson Name",
-    "description": "Description",
-    "thumbnail": "Thumbnail Image",
-    "video": "Video File"
+    "backButton": "Go Back",
+    "cardTitle": "Lesson Configuration",
+    "cardDescription": "Configure the video and description for this lesson.",
+    "labels": {
+      "lessonName": "Lesson Name",
+      "description": "Description",
+      "thumbnail": "Thumbnail Image",
+      "video": "Video File"
+    },
+    "placeholders": {
+      "lessonName": "e.g., Introduction to React"
+    },
+    "buttons": {
+      "save": "Save Lesson",
+      "saving": "Saving..."
+    },
+    "notifications": {
+      "invalid": "Please fix the highlighted errors before saving.",
+      "updateSuccess": "Lesson updated successfully!",
+      "updateError": "Failed to update lesson.",
+      "genericError": "An unexpected error occurred. Please try again."
+    }
   },
-  "placeholders": {
-    "lessonName": "e.g., Introduction to React"
+  "QuizForm": {
+    "header": "Edit Quiz: {lessonTitle}",
+    "detailsTitle": "Quiz Details",
+    "labels": {
+      "title": "Quiz Title",
+      "description": "Description",
+      "timer": "Time limit (minutes)",
+      "timerOptional": "[optional]"
+    },
+    "placeholders": {
+      "title": "Enter quiz title...",
+      "description": "Enter quiz description...",
+      "timer": "e.g. 30"
+    },
+    "questionsTitle": "Quiz Questions",
+    "addQuestionButton": "Add Question from Bank",
+    "emptyState": {
+      "title": "No questions added yet",
+      "description": "Add questions from your course test bank"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "save": "Save Quiz",
+      "saving": "Saving..."
+    },
+    "notifications": {
+      "noQuestionsError": "You must add at least one question before saving the quiz.",
+      "updateSuccess": "Quiz updated successfully!",
+      "updateError": "Failed to update quiz"
+    },
+    "sortableQuestion": {
+      "questionLabel": "Question {index}",
+      "correctLabel": "Correct",
+      "explanationLabel": "Explanation:"
+    }
   },
-  "buttons": {
-    "save": "Save Lesson",
-    "saving": "Saving..."
+  "QuestionBankDialog": {
+    "selectTitle": "Add Question from Bank",
+    "selectDescription": "Select from existing questions or create a new one to add to your quiz.",
+    "createTitle": "Create New Question",
+    "createDescription": "Your new question will be available in the bank immediately after saving.",
+    "notifications": {
+      "loadError": "Failed to load questions from the test bank."
+    }
   },
-  "notifications": {
-    "invalid": "Please fix the highlighted errors before saving.",
-    "updateSuccess": "Lesson updated successfully!",
-    "updateError": "Failed to update lesson.",
-    "genericError": "An unexpected error occurred. Please try again."
-  }
-},
-"QuizForm": {
-  "header": "Edit Quiz: {lessonTitle}",
-  "detailsTitle": "Quiz Details",
-  "labels": {
-    "title": "Quiz Title",
-    "description": "Description",
-    "timer": "Time limit (minutes)",
-    "timerOptional": "[optional]"
+  "SelectQuestionListView": {
+    "searchPlaceholder": "Search questions in your test bank...",
+    "createNewButton": "Create New",
+    "emptyState": {
+      "title": "No Questions Found",
+      "description": "Try a different search term or create a new question."
+    },
+    "addButton": "Add",
+    "addedButton": "Added",
+    "pagination": "Page {currentPage} of {totalPages}"
   },
-  "placeholders": {
-    "title": "Enter quiz title...",
-    "description": "Enter quiz description...",
-    "timer": "e.g. 30"
+  "TestBank": {
+    "createCardTitle": "Create New Question",
+    "createCardDescription": "Choose your preferred method to create a new question for your test bank.",
+    "existingQuestionsTitle": "Existing Questions in Bank ({totalQuestions})",
+    "searchPlaceholder": "Search questions by text...",
+    "emptyState": {
+      "noMatch": "No questions found matching your search.",
+      "empty": "Your test bank is empty. Create a question above to get started!"
+    },
+    "notifications": {
+      "loadError": "Failed to load questions from the test bank.",
+      "deleteError": "Failed to delete question.",
+      "deleteSuccess": "Question deleted successfully!"
+    },
+    "pagination": "Page {currentPage} of {totalPages}"
   },
-  "questionsTitle": "Quiz Questions",
-  "addQuestionButton": "Add Question from Bank",
-  "emptyState": {
-    "title": "No questions added yet",
-    "description": "Add questions from your course test bank"
+  "CreateQuestionView": {
+    "tabs": {
+      "manual": "Manual",
+      "ai": "AI ✨",
+      "import": "Import"
+    },
+    "aiDisabledTooltip": "Upgrade to Pro to use AI",
+    "upgradeNotice": {
+      "title": "Upgrade to Pro to use AI",
+      "description": "Automate quiz creation with AI by upgrading your plan."
+    },
+    "upgradeDialog": {
+      "title": "Unlock AI Features with Pro",
+      "description": "Generate quiz questions instantly, get suggestions, and save hours of work by upgrading to our Pro plan.",
+      "cancelButton": "Maybe Later",
+      "upgradeButton": "Upgrade Now"
+    }
   },
-  "buttons": {
-    "cancel": "Cancel",
-    "save": "Save Quiz",
-    "saving": "Saving..."
+  "QuestionForm": {
+    "labels": {
+      "text": "Question Text",
+      "type": "Question Type",
+      "options": "Options",
+      "answer": "Correct Answer",
+      "explanation": "Explanation (Optional)"
+    },
+    "placeholders": {
+      "text": "e.g., What is the capital of France?",
+      "type": "Select a type",
+      "option": "Option {index}",
+      "answer": "Select the correct answer",
+      "explanation": "Explain why the answer is correct."
+    },
+    "buttons": {
+      "addOption": "Add Option",
+      "save": "Save Question",
+      "update": "Save Changes",
+      "saving": "Saving..."
+    },
+    "types": {
+      "mcq": "Multiple Choice",
+      "trueFalse": "True/False",
+      "true": "True",
+      "false": "False"
+    },
+    "notifications": {
+      "createSuccess": "Question created successfully!",
+      "createError": "Failed to create question.",
+      "updateSuccess": "Question updated successfully!",
+      "updateError": "Failed to update question."
+    }
   },
-  "notifications": {
-    "noQuestionsError": "You must add at least one question before saving the quiz.",
-    "updateSuccess": "Quiz updated successfully!",
-    "updateError": "Failed to update quiz"
+  "QuestionCard": {
+    "options": "{count} options",
+    "correct": "Correct",
+    "explanation": "Explanation:",
+    "editTooltip": "Edit Question",
+    "deleteTooltip": "Delete Question"
   },
-  "sortableQuestion": {
-    "questionLabel": "Question {index}",
-    "correctLabel": "Correct",
-    "explanationLabel": "Explanation:"
-  }
-},
-"QuestionBankDialog": {
-  "selectTitle": "Add Question from Bank",
-  "selectDescription": "Select from existing questions or create a new one to add to your quiz.",
-  "createTitle": "Create New Question",
-  "createDescription": "Your new question will be available in the bank immediately after saving.",
-  "notifications": {
-    "loadError": "Failed to load questions from the test bank."
-  }
-},
-"SelectQuestionListView": {
-  "searchPlaceholder": "Search questions in your test bank...",
-  "createNewButton": "Create New",
-  "emptyState": {
-    "title": "No Questions Found",
-    "description": "Try a different search term or create a new question."
+  "EditQuestionDialog": {
+    "title": "Edit Question",
+    "description": "Make changes to your question here. Click save when you're done."
   },
-  "addButton": "Add",
-  "addedButton": "Added",
-  "pagination": "Page {currentPage} of {totalPages}"
-},
-"TestBank": {
-  "createCardTitle": "Create New Question",
-  "createCardDescription": "Choose your preferred method to create a new question for your test bank.",
-  "existingQuestionsTitle": "Existing Questions in Bank ({totalQuestions})",
-  "searchPlaceholder": "Search questions by text...",
-  "emptyState": {
-    "noMatch": "No questions found matching your search.",
-    "empty": "Your test bank is empty. Create a question above to get started!"
+  "AiQuestionForm": {
+    "labels": {
+      "topic": "Topic",
+      "questionCount": "Number of Questions"
+    },
+    "placeholders": {
+      "topic": "e.g., JavaScript data types"
+    },
+    "buttons": {
+      "generate": "Generate Questions",
+      "generating": "Generating..."
+    },
+    "notifications": {
+      "generationFailed": "Failed to generate questions",
+      "noQuestionsGenerated": "AI did not generate any questions. Try a different topic.",
+      "success": "Generated and saved {count} new questions successfully!"
+    }
   },
-  "notifications": {
-    "loadError": "Failed to load questions from the test bank.",
-    "deleteError": "Failed to delete question.",
-    "deleteSuccess": "Question deleted successfully!"
+  "ImportQuestionForm": {
+    "title": "Import Questions from File",
+    "description": "Supported formats: JSON and CSV. Download a template to get started.",
+    "jsonTemplate": "JSON Template",
+    "csvTemplate": "CSV Template",
+    "importing": "Importing...",
+    "notifications": {
+      "unsupportedType": "Unsupported file type. Please upload a .json or .csv file.",
+      "readError": "Could not read file content.",
+      "jsonParseError": "Error parsing JSON file. Please check the format.",
+      "csvParseError": "Error parsing CSV file. Please check the format.",
+      "importFailed": "Failed to import questions.",
+      "success": "Imported {count} questions successfully!"
+    }
   },
-  "pagination": "Page {currentPage} of {totalPages}"
-},
-"CreateQuestionView": {
-  "tabs": {
-    "manual": "Manual",
-    "ai": "AI ✨",
-    "import": "Import"
+  "Pagination": {
+    "previous": "Previous",
+    "next": "Next"
   },
-  "aiDisabledTooltip": "Upgrade to Pro to use AI",
-  "upgradeNotice": {
-    "title": "Upgrade to Pro to use AI",
-    "description": "Automate quiz creation with AI by upgrading your plan."
-  },
-  "upgradeDialog": {
-    "title": "Unlock AI Features with Pro",
-    "description": "Generate quiz questions instantly, get suggestions, and save hours of work by upgrading to our Pro plan.",
-    "cancelButton": "Maybe Later",
-    "upgradeButton": "Upgrade Now"
-  }
-},
-"QuestionForm": {
-  "labels": {
-    "text": "Question Text",
-    "type": "Question Type",
-    "options": "Options",
-    "answer": "Correct Answer",
-    "explanation": "Explanation (Optional)"
-  },
-  "placeholders": {
-    "text": "e.g., What is the capital of France?",
-    "type": "Select a type",
-    "option": "Option {index}",
-    "answer": "Select the correct answer",
-    "explanation": "Explain why the answer is correct."
-  },
-  "buttons": {
-    "addOption": "Add Option",
-    "save": "Save Question",
-    "update": "Save Changes",
-    "saving": "Saving..."
-  },
-  "types": {
-    "mcq": "Multiple Choice",
-    "trueFalse": "True/False",
-    "true": "True",
-    "false": "False"
-  },
-  "notifications": {
-    "createSuccess": "Question created successfully!",
-    "createError": "Failed to create question.",
-    "updateSuccess": "Question updated successfully!",
-    "updateError": "Failed to update question."
-  }
-},
-"QuestionCard": {
-  "options": "{count} options",
-"correct": "Correct",
-"explanation": "Explanation:",
-  "editTooltip": "Edit Question",
-  "deleteTooltip": "Delete Question"
-},
-"EditQuestionDialog": {
-"title": "Edit Question",
-"description": "Make changes to your question here. Click save when you're done."
-},
-"AiQuestionForm": {
-  "labels": {
-    "topic": "Topic",
-    "questionCount": "Number of Questions"
-  },
-  "placeholders": {
-    "topic": "e.g., JavaScript data types"
-  },
-  "buttons": {
-    "generate": "Generate Questions",
-    "generating": "Generating..."
-  },
-  "notifications": {
-    "generationFailed": "Failed to generate questions",
-    "noQuestionsGenerated": "AI did not generate any questions. Try a different topic.",
-    "success": "Generated and saved {count} new questions successfully!"
-  }
-},
-"ImportQuestionForm": {
-  "title": "Import Questions from File",
-  "description": "Supported formats: JSON and CSV. Download a template to get started.",
-  "jsonTemplate": "JSON Template",
-  "csvTemplate": "CSV Template",
-  "importing": "Importing...",
-  "notifications": {
-    "unsupportedType": "Unsupported file type. Please upload a .json or .csv file.",
-    "readError": "Could not read file content.",
-    "jsonParseError": "Error parsing JSON file. Please check the format.",
-    "csvParseError": "Error parsing CSV file. Please check the format.",
-    "importFailed": "Failed to import questions.",
-    "success": "Imported {count} questions successfully!"
-  }
-},
-"Pagination": {
-  "previous": "Previous",
-  "next": "Next"
-},
 
-"CodingForm": {
+  "CodingForm": {
     "header": "Edit Coding Exercise: {lessonTitle}",
     "loading": "Loading coding exercise...",
     "showPreview": "Show Preview",

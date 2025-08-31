@@ -5,14 +5,20 @@ import { prisma } from '@/lib/db';
 import { stripe } from '@/lib/stripe';
 import { checkPlanStatus } from '@/lib/subscription';
 import { ApiResponse } from '@/lib/types';
-import { getCourseSchema, CourseSchemaType, ZodValidationKeys } from '@/lib/zodSchemas';
+import {
+  getCourseSchema,
+  CourseSchemaType,
+  ZodValidationKeys,
+} from '@/lib/zodSchemas';
 import { Prisma } from '@/lib/generated/prisma';
 import { getTranslations, getLocale } from 'next-intl/server';
 
 export async function CreateCourse(
   values: CourseSchemaType,
 ): Promise<ApiResponse> {
-  const tNotifications = await getTranslations('CreateCoursePage.notifications');
+  const tNotifications = await getTranslations(
+    'CreateCoursePage.notifications',
+  );
   const tValidation = await getTranslations('ZodValidation');
   const { user } = await requireAdmin();
 
@@ -32,10 +38,15 @@ export async function CreateCourse(
   const courseSchema = getCourseSchema((key) => t(key as ZodValidationKeys));
 
   try {
-    const validation = courseSchema.safeParse(values); 
+    const validation = courseSchema.safeParse(values);
     if (!validation.success) {
-      const firstError = Object.values(validation.error.flatten().fieldErrors)[0]?.[0];
-      return { status: 'error', message: firstError || tNotifications('invalidData') };
+      const firstError = Object.values(
+        validation.error.flatten().fieldErrors,
+      )[0]?.[0];
+      return {
+        status: 'error',
+        message: firstError || tNotifications('invalidData'),
+      };
     }
 
     const existingCourse = await prisma.course.findUnique({
@@ -71,7 +82,7 @@ export async function CreateCourse(
       },
     });
 
-    return { status: 'success',  message: tNotifications('success') };
+    return { status: 'success', message: tNotifications('success') };
   } catch (e) {
     console.error('Error creating course:', e);
 
@@ -98,4 +109,3 @@ export async function CreateCourse(
     };
   }
 }
-

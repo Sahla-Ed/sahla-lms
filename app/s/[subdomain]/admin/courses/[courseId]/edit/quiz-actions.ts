@@ -125,7 +125,7 @@ export async function updateQuizQuestions(
   data: QuizQuestionSchemaType,
 ): Promise<ApiResponse> {
   await requireAdmin();
-   const t = await getTranslations('QuizForm.notifications');
+  const t = await getTranslations('QuizForm.notifications');
   try {
     const result = quizQuestionSchema.safeParse(data);
 

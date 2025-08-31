@@ -30,7 +30,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { useRouter } from 'next/navigation';
 import { QuestionBankDialog } from '../../../../edit/_components/QuestionBankDialog';
 import { useLocale, useTranslations } from 'next-intl';
-import { cn } from '@/lib/utils'; 
+import { cn } from '@/lib/utils';
 interface Question {
   id: string;
   text: string;
@@ -88,12 +88,14 @@ function SortableQuestion({
             </Button>
             <div className='flex-1'>
               <div className='mb-2 flex items-center gap-2'>
-              <Badge variant='secondary'>{t('questionLabel', { index: index + 1 })}</Badge>
+                <Badge variant='secondary'>
+                  {t('questionLabel', { index: index + 1 })}
+                </Badge>
                 <Badge variant='outline'>{question.type}</Badge>
               </div>
               <p className='mb-2 font-medium'>{question.text}</p>
               <div className='space-y-1'>
-              {question.options.map((option, optionIndex) => (
+                {question.options.map((option, optionIndex) => (
                   <div
                     key={optionIndex}
                     className={`rounded p-2 text-sm ${
@@ -102,7 +104,7 @@ function SortableQuestion({
                         : 'border border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-950'
                     }`}
                   >
-                     {option}
+                    {option}
                     {option === question.answer && (
                       <Badge variant='secondary' className='ml-2 text-xs'>
                         {t('correctLabel')}
@@ -185,12 +187,11 @@ export function QuizForm({
     if (error) {
       toast.error(t('notifications.updateError'));
     } else {
-      (t('notifications.updateSuccess'))
+      t('notifications.updateSuccess');
       router.push(`/admin/courses/${courseId}/edit`);
     }
     setIsLoading(false);
   };
-
 
   const addQuestionToQuiz = (question: Question) => {
     if (!selectedQuestions.find((q) => q.id === question.id)) {
@@ -219,15 +220,24 @@ export function QuizForm({
     <div className='space-y-6'>
       <div className='mb-6 flex items-center gap-2'>
         <HelpCircle className='h-6 w-6 text-blue-500' />
-        <h1 className='text-2xl font-bold'>{t('header', { lessonTitle: lesson.title })}</h1>
+        <h1 className='text-2xl font-bold'>
+          {t('header', { lessonTitle: lesson.title })}
+        </h1>
       </div>
       <Card>
         <CardHeader>
-          <CardTitle className={isRTL ? 'text-right' : 'text-left'}>{t('detailsTitle')}</CardTitle>
+          <CardTitle className={isRTL ? 'text-right' : 'text-left'}>
+            {t('detailsTitle')}
+          </CardTitle>
         </CardHeader>
         <CardContent className='space-y-4'>
           <div className='space-y-2'>
-            <Label htmlFor='title' className={isRTL ? 'text-right w-full block' : ''}>{t('labels.title')}</Label>
+            <Label
+              htmlFor='title'
+              className={isRTL ? 'block w-full text-right' : ''}
+            >
+              {t('labels.title')}
+            </Label>
             <Input
               id='title'
               value={title}
@@ -236,7 +246,12 @@ export function QuizForm({
             />
           </div>
           <div className='space-y-2'>
-            <Label htmlFor='description' className={isRTL ? 'text-right w-full block' : ''}>{t('labels.description')}</Label>
+            <Label
+              htmlFor='description'
+              className={isRTL ? 'block w-full text-right' : ''}
+            >
+              {t('labels.description')}
+            </Label>
             <Textarea
               id='description'
               value={description}
@@ -245,9 +260,14 @@ export function QuizForm({
             />
           </div>
           <div className='space-y-2'>
-            <Label htmlFor='timer' className={isRTL ? 'text-right w-full block' : ''}>
+            <Label
+              htmlFor='timer'
+              className={isRTL ? 'block w-full text-right' : ''}
+            >
               {t('labels.timer')}{' '}
-              <span className='text-muted-foreground'>{t('labels.timerOptional')}</span>
+              <span className='text-muted-foreground'>
+                {t('labels.timerOptional')}
+              </span>
             </Label>
             <Input
               id='timer'
@@ -264,7 +284,9 @@ export function QuizForm({
       <Card>
         <CardHeader>
           <div className='flex items-center justify-between'>
-            <CardTitle className={isRTL ? 'text-right' : 'text-left'}>{t('questionsTitle')}</CardTitle>
+            <CardTitle className={isRTL ? 'text-right' : 'text-left'}>
+              {t('questionsTitle')}
+            </CardTitle>
             <Button onClick={() => setIsQuestionBankOpen(true)}>
               <Plus className='mr-2 h-4 w-4' />
               {t('addQuestionButton')}
@@ -288,7 +310,7 @@ export function QuizForm({
                 items={selectedQuestions.map((q) => q.id)}
                 strategy={verticalListSortingStrategy}
               >
-               <div className='space-y-4'>
+                <div className='space-y-4'>
                   {selectedQuestions.map((question, index) => (
                     <SortableQuestion
                       key={question.id}
@@ -313,7 +335,9 @@ export function QuizForm({
         planName={planName}
       />
 
-      <div className={`flex gap-2 ${isRTL ? 'justify-start flex-row-reverse' : 'justify-end'}`}>
+      <div
+        className={`flex gap-2 ${isRTL ? 'flex-row-reverse justify-start' : 'justify-end'}`}
+      >
         <Button variant='outline' onClick={handleCancel}>
           {t('buttons.cancel')}
         </Button>

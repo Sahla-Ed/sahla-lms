@@ -4,17 +4,23 @@ import { Button } from '../ui/button';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
-
 export function RenderEmptyState({ isDragActive }: { isDragActive: boolean }) {
   const t = useTranslations('Uploader.emptyState');
   return (
     <div className='text-center'>
       <div className='bg-muted mx-auto mb-4 flex size-12 items-center justify-center rounded-full'>
-        <CloudUploadIcon className={cn('text-muted-foreground size-6', isDragActive && 'text-primary')} />
+        <CloudUploadIcon
+          className={cn(
+            'text-muted-foreground size-6',
+            isDragActive && 'text-primary',
+          )}
+        />
       </div>
       <p className='text-foreground text-base font-semibold'>
         {t('title')}{' '}
-        <span className='text-primary cursor-pointer font-bold'>{t('cta')}</span>
+        <span className='text-primary cursor-pointer font-bold'>
+          {t('cta')}
+        </span>
       </p>
       <Button type='button' className='mt-4'>
         {t('selectButton')}
@@ -78,13 +84,21 @@ export function RenderUploadedState({
     </div>
   );
 }
-export function RenderUploadingState({ progress, file }: { progress: number; file: File }) {
+export function RenderUploadingState({
+  progress,
+  file,
+}: {
+  progress: number;
+  file: File;
+}) {
   const t = useTranslations('Uploader.uploadingState');
   return (
     <div className='flex flex-col items-center justify-center text-center'>
-      <p className="text-2xl font-bold">{progress}%</p>
+      <p className='text-2xl font-bold'>{progress}%</p>
       <p className='text-foreground mt-2 text-sm font-medium'>{t('title')}</p>
-      <p className='text-muted-foreground mt-1 max-w-xs truncate text-xs'>{file.name}</p>
+      <p className='text-muted-foreground mt-1 max-w-xs truncate text-xs'>
+        {file.name}
+      </p>
     </div>
   );
 }

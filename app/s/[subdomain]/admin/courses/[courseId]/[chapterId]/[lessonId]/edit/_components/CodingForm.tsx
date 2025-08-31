@@ -7,7 +7,15 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { Code, Loader2, Save, ArrowLeft, ArrowRight, Eye, EyeOff } from 'lucide-react';
+import {
+  Code,
+  Loader2,
+  Save,
+  ArrowLeft,
+  ArrowRight,
+  Eye,
+  EyeOff,
+} from 'lucide-react';
 import { AdminLessonType } from '@/app/s/[subdomain]/data/admin/admin-get-lesson';
 import { toast } from 'sonner';
 import { tryCatch } from '@/hooks/try-catch';
@@ -21,7 +29,6 @@ import {
 import { useRouter } from 'next/navigation';
 import { updateCodingExercise } from '../../../../edit/actions';
 import { useLocale, useTranslations } from 'next-intl';
-
 
 interface CodingFormProps {
   lesson: AdminLessonType;
@@ -440,37 +447,67 @@ export default function CodingForm({
               <SelectContent>
                 <SelectItem value='web'>
                   <div className='flex items-center gap-2'>
-                    <Badge variant='secondary' className='bg-orange-100 text-orange-800'>Web</Badge>
+                    <Badge
+                      variant='secondary'
+                      className='bg-orange-100 text-orange-800'
+                    >
+                      Web
+                    </Badge>
                     {t('languages.web')}
                   </div>
                 </SelectItem>
                 <SelectItem value='python'>
                   <div className='flex items-center gap-2'>
-                    <Badge variant='secondary' className='bg-blue-100 text-blue-800'>Python</Badge>
+                    <Badge
+                      variant='secondary'
+                      className='bg-blue-100 text-blue-800'
+                    >
+                      Python
+                    </Badge>
                     {t('languages.python')}
                   </div>
                 </SelectItem>
                 <SelectItem value='javascript'>
                   <div className='flex items-center gap-2'>
-                    <Badge variant='secondary' className='bg-yellow-100 text-yellow-800'>JS</Badge>
+                    <Badge
+                      variant='secondary'
+                      className='bg-yellow-100 text-yellow-800'
+                    >
+                      JS
+                    </Badge>
                     {t('languages.javascript')}
                   </div>
                 </SelectItem>
                 <SelectItem value='typescript'>
                   <div className='flex items-center gap-2'>
-                    <Badge variant='secondary' className='bg-blue-100 text-blue-800'>TS</Badge>
+                    <Badge
+                      variant='secondary'
+                      className='bg-blue-100 text-blue-800'
+                    >
+                      TS
+                    </Badge>
                     {t('languages.typescript')}
                   </div>
                 </SelectItem>
                 <SelectItem value='cpp'>
                   <div className='flex items-center gap-2'>
-                    <Badge variant='secondary' className='bg-purple-100 text-purple-800'>C++</Badge>
+                    <Badge
+                      variant='secondary'
+                      className='bg-purple-100 text-purple-800'
+                    >
+                      C++
+                    </Badge>
                     {t('languages.cpp')}
                   </div>
                 </SelectItem>
                 <SelectItem value='c'>
                   <div className='flex items-center gap-2'>
-                    <Badge variant='secondary' className='bg-gray-100 text-gray-800'>C</Badge>
+                    <Badge
+                      variant='secondary'
+                      className='bg-gray-100 text-gray-800'
+                    >
+                      C
+                    </Badge>
                     {t('languages.c')}
                   </div>
                 </SelectItem>
@@ -487,7 +524,9 @@ export default function CodingForm({
           <div className='flex items-center justify-between'>
             <CardTitle>{t('starterCodeTitle')}</CardTitle>
             <Badge variant='outline' className='text-xs'>
-              {language === 'web' ? 'HTML/CSS/JavaScript' : language.toUpperCase()}
+              {language === 'web'
+                ? 'HTML/CSS/JavaScript'
+                : language.toUpperCase()}
             </Badge>
           </div>
         </CardHeader>
@@ -497,37 +536,75 @@ export default function CodingForm({
               <div>
                 <div className='mb-2 flex items-center gap-2'>
                   <Label htmlFor='html-code'>{t('labels.starterCode')}</Label>
-                  <Badge variant='outline' className='bg-orange-50 text-orange-700'>HTML</Badge>
+                  <Badge
+                    variant='outline'
+                    className='bg-orange-50 text-orange-700'
+                  >
+                    HTML
+                  </Badge>
                 </div>
-                <Textarea id='html-code' value={htmlCode} onChange={(e) => setHtmlCode(e.target.value)} placeholder={t('placeholders.htmlCode')} className='min-h-[150px] font-mono text-sm' />
+                <Textarea
+                  id='html-code'
+                  value={htmlCode}
+                  onChange={(e) => setHtmlCode(e.target.value)}
+                  placeholder={t('placeholders.htmlCode')}
+                  className='min-h-[150px] font-mono text-sm'
+                />
               </div>
               <div>
                 <div className='mb-2 flex items-center gap-2'>
                   <Label htmlFor='css-code'>{t('labels.starterCode')}</Label>
-                  <Badge variant='outline' className='bg-blue-50 text-blue-700'>CSS</Badge>
+                  <Badge variant='outline' className='bg-blue-50 text-blue-700'>
+                    CSS
+                  </Badge>
                 </div>
-                <Textarea id='css-code' value={cssCode} onChange={(e) => setCssCode(e.target.value)} placeholder={t('placeholders.cssCode')} className='min-h-[150px] font-mono text-sm' />
+                <Textarea
+                  id='css-code'
+                  value={cssCode}
+                  onChange={(e) => setCssCode(e.target.value)}
+                  placeholder={t('placeholders.cssCode')}
+                  className='min-h-[150px] font-mono text-sm'
+                />
               </div>
               <div>
                 <div className='mb-2 flex items-center gap-2'>
                   <Label htmlFor='js-code'>{t('labels.starterCode')}</Label>
-                  <Badge variant='outline' className='bg-yellow-50 text-yellow-700'>JavaScript</Badge>
+                  <Badge
+                    variant='outline'
+                    className='bg-yellow-50 text-yellow-700'
+                  >
+                    JavaScript
+                  </Badge>
                 </div>
-                <Textarea id='js-code' value={jsCode} onChange={(e) => setJsCode(e.target.value)} placeholder={t('placeholders.jsCode')} className='min-h-[150px] font-mono text-sm' />
+                <Textarea
+                  id='js-code'
+                  value={jsCode}
+                  onChange={(e) => setJsCode(e.target.value)}
+                  placeholder={t('placeholders.jsCode')}
+                  className='min-h-[150px] font-mono text-sm'
+                />
               </div>
             </div>
           ) : (
             <div>
               <div className='mb-2 flex items-center gap-2'>
                 <Label htmlFor='server-code'>{t('labels.starterCode')}</Label>
-                <Badge variant='outline' className='bg-green-50 text-green-700'>{language.charAt(0).toUpperCase() + language.slice(1)}</Badge>
+                <Badge variant='outline' className='bg-green-50 text-green-700'>
+                  {language.charAt(0).toUpperCase() + language.slice(1)}
+                </Badge>
               </div>
-              <Textarea id='server-code' value={serverCode} onChange={(e) => setServerCode(e.target.value)} placeholder={t('placeholders.serverCode')} className='min-h-[300px] font-mono text-sm' />
+              <Textarea
+                id='server-code'
+                value={serverCode}
+                onChange={(e) => setServerCode(e.target.value)}
+                placeholder={t('placeholders.serverCode')}
+                className='min-h-[300px] font-mono text-sm'
+              />
             </div>
           )}
         </CardContent>
       </Card>
-      
+
       <div className={`flex gap-2 ${isRTL ? 'justify-start' : 'justify-end'}`}>
         <Button variant='outline' onClick={handleCancel}>
           {isRTL ? null : <ArrowLeft className='mr-2 h-4 w-4' />}

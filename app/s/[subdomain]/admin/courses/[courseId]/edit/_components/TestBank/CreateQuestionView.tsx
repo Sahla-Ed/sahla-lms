@@ -65,7 +65,7 @@ export const CreateQuestionView: FC<CreateQuestionViewProps> = ({
             onClick={handleAiTabClick}
             className={cn(
               isRTL ? 'flex-1' : '',
-              !canUseAi && 'cursor-pointer opacity-70' 
+              !canUseAi && 'cursor-pointer opacity-70',
             )}
           >
             {t('tabs.ai')}
@@ -77,10 +77,10 @@ export const CreateQuestionView: FC<CreateQuestionViewProps> = ({
 
         <TabsContent value='manual' className='pt-6'>
           <QuestionForm
-           courseId={courseId}
-           onSave={createQuestion}
-           onSuccess={onSuccess}
-           mode="create"
+            courseId={courseId}
+            onSave={createQuestion}
+            onSuccess={onSuccess}
+            mode='create'
           />
         </TabsContent>
 
@@ -89,11 +89,11 @@ export const CreateQuestionView: FC<CreateQuestionViewProps> = ({
             <AiQuestionForm courseId={courseId} onSuccess={onSuccess} />
           ) : (
             <div className='rounded-lg border p-8 text-center'>
-            <h3 className='font-bold'>{t('upgradeNotice.title')}</h3>
-            <p className='text-muted-foreground text-sm'>
-              {t('upgradeNotice.description')}
-            </p>
-          </div>
+              <h3 className='font-bold'>{t('upgradeNotice.title')}</h3>
+              <p className='text-muted-foreground text-sm'>
+                {t('upgradeNotice.description')}
+              </p>
+            </div>
           )}
         </TabsContent>
 

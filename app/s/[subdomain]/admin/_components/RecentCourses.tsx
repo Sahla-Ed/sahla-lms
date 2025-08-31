@@ -2,7 +2,10 @@ import { getTranslations } from 'next-intl/server';
 import { adminGetRecentCourses } from '../../data/admin/admin-get-recent-courses';
 import { AdminCourseType } from '../../data/admin/admin-get-courses';
 import { EmptyState } from '@/components/general/EmptyState';
-import { AdminCourseCard, AdminCourseCardSkeleton } from '../courses/_components/AdminCourseCard';
+import {
+  AdminCourseCard,
+  AdminCourseCardSkeleton,
+} from '../courses/_components/AdminCourseCard';
 
 export async function RecentCourses() {
   const t = await getTranslations('AdminIndexPage');

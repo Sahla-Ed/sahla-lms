@@ -30,12 +30,11 @@ export const EditQuestionDialog: FC<EditQuestionDialogProps> = ({
   return (
     <Dialog open onOpenChange={onOpenChange}>
       <DialogContent className='max-w-2xl'>
-       
         <div className='space-y-4'>
-        <DialogHeader className={isRTL ? 'text-right' : 'text-left'}>
-  <DialogTitle>{t('title')}</DialogTitle>
-  <DialogDescription>{t('description')}</DialogDescription>
-</DialogHeader>
+          <DialogHeader className={isRTL ? 'text-right' : 'text-left'}>
+            <DialogTitle>{t('title')}</DialogTitle>
+            <DialogDescription>{t('description')}</DialogDescription>
+          </DialogHeader>
 
           <div className='pt-4' dir={isRTL ? 'rtl' : 'ltr'}>
             <QuestionForm
@@ -43,7 +42,7 @@ export const EditQuestionDialog: FC<EditQuestionDialogProps> = ({
               initialData={question}
               onSave={(data) => updateQuestion(question.id, data)}
               onSuccess={onSuccess}
-              mode="edit"
+              mode='edit'
             />
           </div>
         </div>

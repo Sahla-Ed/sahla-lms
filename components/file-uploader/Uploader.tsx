@@ -71,7 +71,7 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
         });
 
         if (!presignedResponse.ok) {
-          toast.error(t('presignedUrlError')); 
+          toast.error(t('presignedUrlError'));
           setFileState((prev) => ({
             ...prev,
             uploading: false,
@@ -112,7 +112,7 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
 
               resolve();
             } else {
-              reject(new Error(t('uploadFailed'))); 
+              reject(new Error(t('uploadFailed')));
             }
           };
 
@@ -136,7 +136,7 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
         }));
       }
     },
-    [fileTypeAccepted, onChange, t], 
+    [fileTypeAccepted, onChange, t],
   );
 
   const onDrop = useCallback(
@@ -212,7 +212,7 @@ export function Uploader({ onChange, value, fileTypeAccepted }: iAppProps) {
 
       toast.success(t('removeSuccess'));
     } catch {
-      toast.error(t('removeError')); 
+      toast.error(t('removeError'));
 
       setFileState((prev) => ({
         ...prev,

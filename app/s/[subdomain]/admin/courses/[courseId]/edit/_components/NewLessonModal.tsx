@@ -35,7 +35,7 @@ import { tryCatch } from '@/hooks/try-catch';
 import { createLesson } from '../actions';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-import { useLocale, useTranslations } from 'next-intl'; 
+import { useLocale, useTranslations } from 'next-intl';
 
 const DEFAULT_WEB_CODE = {
   html: `<!DOCTYPE html>
@@ -224,9 +224,9 @@ export function NewLessonModal({
   const [isOpen, setIsOpen] = useState(false);
   const [pending, startTransition] = useTransition();
   const router = useRouter();
-  const t = useTranslations('NewLessonModal'); 
+  const t = useTranslations('NewLessonModal');
   const locale = useLocale();
-  const isRTL = locale === 'ar'
+  const isRTL = locale === 'ar';
 
   const form = useForm<LessonSchemaType>({
     resolver: zodResolver(lessonSchema),
@@ -257,7 +257,7 @@ export function NewLessonModal({
       }
 
       if (result.status === 'success') {
-         toast.success(result.message);
+        toast.success(result.message);
         // const isQuiz = values.type === 'QUIZ';
         // const isCoding = values.type === 'CODING';
         // toast.success(
@@ -332,7 +332,7 @@ export function NewLessonModal({
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button variant='outline' className='w-full justify-center gap-1'>
-          <Plus className='size-4' />  {t('buttonText')}
+          <Plus className='size-4' /> {t('buttonText')}
         </Button>
       </DialogTrigger>
       <DialogContent
@@ -345,10 +345,13 @@ export function NewLessonModal({
         aria-describedby='new-lesson-desc'
       >
         <DialogHeader>
-        <DialogTitle className={isRTL ? 'text-right' : 'text-left'}>
+          <DialogTitle className={isRTL ? 'text-right' : 'text-left'}>
             {t('dialogTitle')}
           </DialogTitle>
-          <DialogDescription id='new-lesson-desc' className={isRTL ? 'text-right' : 'text-left'}>
+          <DialogDescription
+            id='new-lesson-desc'
+            className={isRTL ? 'text-right' : 'text-left'}
+          >
             {t('dialogDescription')}
           </DialogDescription>
         </DialogHeader>
@@ -359,7 +362,7 @@ export function NewLessonModal({
               name='name'
               render={({ field }) => (
                 <FormItem>
-                   <FormLabel>{t('formLabel')}</FormLabel>
+                  <FormLabel>{t('formLabel')}</FormLabel>
                   <FormControl>
                     <Input placeholder={t('formPlaceholder')} {...field} />
                   </FormControl>
@@ -367,12 +370,14 @@ export function NewLessonModal({
                 </FormItem>
               )}
             />
-             <FormField
+            <FormField
               control={form.control}
               name='type'
               render={({ field }) => (
                 <FormItem className='space-y-3'>
-                  <FormLabel className={isRTL ? 'text-right w-full block' : ''}>{t('lessonTypeLabel')}</FormLabel>
+                  <FormLabel className={isRTL ? 'block w-full text-right' : ''}>
+                    {t('lessonTypeLabel')}
+                  </FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
@@ -383,19 +388,25 @@ export function NewLessonModal({
                         <FormControl>
                           <RadioGroupItem value='VIDEO' />
                         </FormControl>
-                        <FormLabel className='font-normal'>{t('types.video')}</FormLabel>
+                        <FormLabel className='font-normal'>
+                          {t('types.video')}
+                        </FormLabel>
                       </FormItem>
                       <FormItem className='flex items-center space-y-0 space-x-2 rtl:space-x-reverse'>
                         <FormControl>
                           <RadioGroupItem value='QUIZ' />
                         </FormControl>
-                        <FormLabel className='font-normal'>{t('types.quiz')}</FormLabel>
+                        <FormLabel className='font-normal'>
+                          {t('types.quiz')}
+                        </FormLabel>
                       </FormItem>
                       <FormItem className='flex items-center space-y-0 space-x-2 rtl:space-x-reverse'>
                         <FormControl>
                           <RadioGroupItem value='CODING' />
                         </FormControl>
-                        <FormLabel className='font-normal'>{t('types.coding')}</FormLabel>
+                        <FormLabel className='font-normal'>
+                          {t('types.coding')}
+                        </FormLabel>
                       </FormItem>
                     </RadioGroup>
                   </FormControl>
@@ -535,7 +546,7 @@ export function NewLessonModal({
 
             <DialogFooter>
               <Button disabled={pending} type='submit'>
-              {pending ? t('savingButton') : t('saveButton')}
+                {pending ? t('savingButton') : t('saveButton')}
               </Button>
             </DialogFooter>
           </form>

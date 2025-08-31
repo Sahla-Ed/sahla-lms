@@ -38,7 +38,7 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
       color: 'var(--chart-1)',
     },
   } satisfies ChartConfig;
-  
+
   const formatDate = (value: string) => {
     const date = new Date(value);
     return date.toLocaleDateString(locale === 'ar' ? 'ar-EG' : 'en-US', {
@@ -47,11 +47,13 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
     });
   };
 
-
   const chartData = isRTL ? [...data].reverse() : data;
 
   return (
-    <Card className='@container/card' style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
+    <Card
+      className='@container/card'
+      style={{ direction: isRTL ? 'rtl' : 'ltr' }}
+    >
       <CardHeader>
         <CardTitle style={{ textAlign: isRTL ? 'right' : 'left' }}>
           {t('title')}
@@ -77,7 +79,7 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              interval="preserveStart"
+              interval='preserveStart'
               tickFormatter={formatDate}
             />
             <ChartTooltip
@@ -89,7 +91,11 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
                 />
               }
             />
-            <Bar dataKey={'enrollments'} fill='var(--color-enrollments)' radius={4} />
+            <Bar
+              dataKey={'enrollments'}
+              fill='var(--color-enrollments)'
+              radius={4}
+            />
           </BarChart>
         </ChartContainer>
       </CardContent>

@@ -21,13 +21,19 @@ export const QuestionCard: FC<{
   return (
     <Card dir={isRTL ? 'rtl' : 'ltr'}>
       <CardHeader>
-        <div className={`flex items-start justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div
+          className={`flex items-start justify-between ${isRTL ? 'flex-row-reverse' : ''}`}
+        >
           <div className={`flex-1 ${isRTL ? 'ml-4' : 'mr-4'}`}>
-            <CardTitle className={`text-base ${isRTL ? 'text-right' : 'text-left'}`}>
+            <CardTitle
+              className={`text-base ${isRTL ? 'text-right' : 'text-left'}`}
+            >
               {question.text}
             </CardTitle>
-            <div className={`mt-2 flex flex-wrap gap-2 ${isRTL ? 'justify-end' : 'justify-start'}`}>
-            <Badge variant='secondary'>{tForm(`types.${typeKey}`)}</Badge>
+            <div
+              className={`mt-2 flex flex-wrap gap-2 ${isRTL ? 'justify-end' : 'justify-start'}`}
+            >
+              <Badge variant='secondary'>{tForm(`types.${typeKey}`)}</Badge>
               <Badge variant='outline'>
                 {t('options', { count: question.options.length })}
               </Badge>
@@ -53,10 +59,14 @@ export const QuestionCard: FC<{
                 option === question.answer
                   ? 'border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950'
                   : 'border-border bg-muted/50',
-                isRTL ? 'text-right' : 'text-left'
+                isRTL ? 'text-right' : 'text-left',
               )}
             >
-              {option === 'True' ? tForm('types.true') : option === 'False' ? tForm('types.false') : option}
+              {option === 'True'
+                ? tForm('types.true')
+                : option === 'False'
+                  ? tForm('types.false')
+                  : option}
               {option === question.answer && (
                 <Badge variant='secondary' className={isRTL ? 'mr-2' : 'ml-2'}>
                   {t('correct')}
@@ -65,7 +75,9 @@ export const QuestionCard: FC<{
             </div>
           ))}
           {question.explanation && (
-            <div className={`mt-3 rounded bg-blue-50 p-3 dark:bg-blue-950 ${isRTL ? 'text-right' : 'text-left'}`}>
+            <div
+              className={`mt-3 rounded bg-blue-50 p-3 dark:bg-blue-950 ${isRTL ? 'text-right' : 'text-left'}`}
+            >
               <p className='text-sm font-medium text-blue-900 dark:text-blue-100'>
                 {t('explanation')}
               </p>

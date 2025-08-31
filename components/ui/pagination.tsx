@@ -1,11 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import {
-  ChevronLeft,
-  ChevronRight,
-  MoreHorizontal,
-} from 'lucide-react';
+import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 
 import { cn } from '@/lib/utils';
@@ -72,11 +68,9 @@ function PaginationPrevious({
   className,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) {
-
   const t = useTranslations('Pagination');
   const locale = useLocale();
   const isRTL = locale === 'ar';
-
 
   return (
     <PaginationLink
@@ -95,7 +89,6 @@ function PaginationNext({
   className,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) {
-
   const t = useTranslations('Pagination');
   const locale = useLocale();
   const isRTL = locale === 'ar';

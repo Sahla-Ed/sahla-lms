@@ -41,10 +41,12 @@ export default async function EditRoute({ params }: EditRouteProps) {
   return (
     <div>
       <div className='mb-8 flex items-center justify-between'>
-      <h1 className='text-3xl font-bold'>
+        <h1 className='text-3xl font-bold'>
           {t.rich('header', {
             courseTitle: data.title,
-            title: (chunks) => <span className='text-primary underline'>{chunks}</span>
+            title: (chunks) => (
+              <span className='text-primary underline'>{chunks}</span>
+            ),
           })}
         </h1>
         <Link
@@ -56,18 +58,24 @@ export default async function EditRoute({ params }: EditRouteProps) {
         </Link>
       </div>
 
-      <Tabs defaultValue='basic-info' className='w-full' dir={isRTL ? 'rtl' : 'ltr'}>
+      <Tabs
+        defaultValue='basic-info'
+        className='w-full'
+        dir={isRTL ? 'rtl' : 'ltr'}
+      >
         <TabsList className='grid w-full grid-cols-3'>
-        <TabsTrigger value='basic-info'>{t('tabs.basicInfo')}</TabsTrigger>
-          <TabsTrigger value='course-structure'>{t('tabs.courseStructure')}</TabsTrigger>
+          <TabsTrigger value='basic-info'>{t('tabs.basicInfo')}</TabsTrigger>
+          <TabsTrigger value='course-structure'>
+            {t('tabs.courseStructure')}
+          </TabsTrigger>
           <TabsTrigger value='test-bank'>{t('tabs.testBank')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value='basic-info'>
           <Card>
             <CardHeader>
-            <CardTitle>{t('basicInfo.title')}</CardTitle>
-            <CardDescription>{t('basicInfo.description')}</CardDescription>
+              <CardTitle>{t('basicInfo.title')}</CardTitle>
+              <CardDescription>{t('basicInfo.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               <EditCourseForm data={data} />
@@ -78,8 +86,10 @@ export default async function EditRoute({ params }: EditRouteProps) {
         <TabsContent value='course-structure'>
           <Card>
             <CardHeader>
-            <CardTitle>{t('courseStructure.title')}</CardTitle>
-            <CardDescription>{t('courseStructure.description')}</CardDescription>
+              <CardTitle>{t('courseStructure.title')}</CardTitle>
+              <CardDescription>
+                {t('courseStructure.description')}
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <CourseStructure data={data} />
@@ -90,8 +100,8 @@ export default async function EditRoute({ params }: EditRouteProps) {
         <TabsContent value='test-bank'>
           <Card>
             <CardHeader>
-            <CardTitle>{t('testBank.title')}</CardTitle>
-            <CardDescription>{t('testBank.description')}</CardDescription>
+              <CardTitle>{t('testBank.title')}</CardTitle>
+              <CardDescription>{t('testBank.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               <TestBank courseId={courseId} planName={planStatus.planName} />

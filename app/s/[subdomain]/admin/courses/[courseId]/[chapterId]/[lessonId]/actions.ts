@@ -42,7 +42,7 @@ export async function updateLesson(
   } catch {
     return {
       status: 'error',
-      message: t('updateError'), 
+      message: t('updateError'),
     };
   }
 }

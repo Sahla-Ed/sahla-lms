@@ -50,7 +50,9 @@ export const AiQuestionForm: FC<SubComponentProps> = ({
           createQuestion({ ...q, courseId }),
         ),
       );
-      toast.success(t('notifications.success', { count: generatedQuestions.length }));
+      toast.success(
+        t('notifications.success', { count: generatedQuestions.length }),
+      );
       onSuccess();
     } catch (e) {
       toast.error((e as Error).message);
@@ -60,7 +62,6 @@ export const AiQuestionForm: FC<SubComponentProps> = ({
   };
 
   return (
-
     <div className='space-y-4' dir={isRTL ? 'rtl' : 'ltr'}>
       <div className='space-y-2'>
         <Label htmlFor='ai-topic' className={isRTL ? 'text-right' : ''}>

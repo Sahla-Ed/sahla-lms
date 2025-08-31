@@ -20,38 +20,34 @@ export const courseCategories = [
 
 export const lessonTypes = ['VIDEO', 'QUIZ', 'CODING'] as const;
 
-export const getCourseSchema = (t: (key: string) => string) => z.object({
-  title: z
-    .string()
-    .min(3, { message: t('course.titleMin') })
-    .max(100, { message: t('course.titleMax') }),
-  description: z
-    .string()
-    .min(3, { message: t('course.descriptionMin') }),
-  fileKey: z.string().optional(),
-  price: z.number().min(1, { message: t('course.priceMin') }),
-  duration: z
-    .number()
-    .min(1, { message: t('course.durationMin') })
-    .max(500, { message: t('course.durationMax') }),
-  level: z.enum(courseLevels, {
-    message: t('course.levelRequired'),
-  }),
-  category: z.enum(courseCategories, {
-    message: t('course.categoryRequired'),
-  }),
-  smallDescription: z
-    .string()
-    .min(3, { message: t('course.smallDescriptionMin') })
-    .max(200, { message: t('course.smallDescriptionMax') }),
-  slug: z
-    .string()
-    .min(3, { message: t('course.slugMin') }),
-  status: z.enum(courseStatus, {
-    message: t('course.statusRequired'),
-  }),
-});
-
+export const getCourseSchema = (t: (key: string) => string) =>
+  z.object({
+    title: z
+      .string()
+      .min(3, { message: t('course.titleMin') })
+      .max(100, { message: t('course.titleMax') }),
+    description: z.string().min(3, { message: t('course.descriptionMin') }),
+    fileKey: z.string().optional(),
+    price: z.number().min(1, { message: t('course.priceMin') }),
+    duration: z
+      .number()
+      .min(1, { message: t('course.durationMin') })
+      .max(500, { message: t('course.durationMax') }),
+    level: z.enum(courseLevels, {
+      message: t('course.levelRequired'),
+    }),
+    category: z.enum(courseCategories, {
+      message: t('course.categoryRequired'),
+    }),
+    smallDescription: z
+      .string()
+      .min(3, { message: t('course.smallDescriptionMin') })
+      .max(200, { message: t('course.smallDescriptionMax') }),
+    slug: z.string().min(3, { message: t('course.slugMin') }),
+    status: z.enum(courseStatus, {
+      message: t('course.statusRequired'),
+    }),
+  });
 
 export const chapterSchema = z.object({
   name: z
@@ -182,9 +178,6 @@ export const aiQuizGenerationSchema = z.object({
   questions: z.array(aiQuestionSchema),
 });
 
-
-
-
-export type ZodValidationKeys = 
+export type ZodValidationKeys =
   | `course.${keyof (typeof import('../messages/tenant-en.json'))['ZodValidation']['course']}`
   | `chapter.${keyof (typeof import('../messages/tenant-en.json'))['ZodValidation']['chapter']}`;

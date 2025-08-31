@@ -87,7 +87,7 @@ export const ImportQuestionForm: FC<SubComponentProps> = ({
       toast.error(t('notifications.unsupportedType'));
     }
   };
-  
+
   const processQuestions = (questions: ImportedQuestion[]) => {
     startTransition(async () => {
       const { data, error } = await tryCatch(
@@ -104,7 +104,10 @@ export const ImportQuestionForm: FC<SubComponentProps> = ({
 
   return (
     <Card className='border-dashed'>
-      <CardContent className='space-y-4 p-6 text-center' dir={isRTL ? 'rtl' : 'ltr'}>
+      <CardContent
+        className='space-y-4 p-6 text-center'
+        dir={isRTL ? 'rtl' : 'ltr'}
+      >
         <FileUp className='text-muted-foreground mx-auto h-12 w-12' />
         <h3 className='text-lg font-semibold'>{t('title')}</h3>
         <p className='text-muted-foreground text-sm'>{t('description')}</p>
@@ -125,7 +128,6 @@ export const ImportQuestionForm: FC<SubComponentProps> = ({
             <Download className={isRTL ? 'ml-2' : 'mr-2'} />
             {t('csvTemplate')}
           </a>
-
         </div>
         <Input
           type='file'

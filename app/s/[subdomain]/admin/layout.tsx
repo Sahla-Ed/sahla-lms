@@ -23,8 +23,6 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-
-
 export default async function AdminLayout({
   children,
 }: {

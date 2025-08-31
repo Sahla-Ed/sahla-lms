@@ -21,7 +21,6 @@ export function RichTextEditor<
       TextAlign.configure({
         types: ['heading', 'paragraph'],
       }),
-      
     ],
 
     editorProps: {

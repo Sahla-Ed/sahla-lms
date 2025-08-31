@@ -2,23 +2,18 @@ import { Suspense } from 'react';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 
-
 import { buttonVariants } from '@/components/ui/button';
 import { ChartAreaInteractive } from '@/components/sidebar/chart-area-interactive';
 import { TrialBanner } from './_components/TrialBanner';
 import { AdminWelcomeToast } from './_components/AdminWelcomeToast';
 import { DashboardStats, StatsSkeleton } from './_components/DashboardStats';
-import { RecentCourses, RecentCoursesSkeleton } from './_components/RecentCourses';
-
+import {
+  RecentCourses,
+  RecentCoursesSkeleton,
+} from './_components/RecentCourses';
 
 import { adminGetEnrollmentStats } from '../data/admin/admin-get-enrollment-stats';
 import { requireAdmin } from '../data/admin/require-admin';
-
-
-
-
-
-
 
 export default async function AdminIndexPage() {
   const { user } = await requireAdmin();
@@ -28,22 +23,20 @@ export default async function AdminIndexPage() {
   const tDashboard = await getTranslations('AdminDashboard');
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <AdminWelcomeToast />
-      
-      <div className="mb-2">
-        <h1 className="text-3xl font-bold tracking-tight">
+
+      <div className='mb-2'>
+        <h1 className='text-3xl font-bold tracking-tight'>
           {t('welcomeMessage', { username: displayName })}
         </h1>
-        <p className="text-muted-foreground">
-          {t('welcomeDescription')}
-        </p>
+        <p className='text-muted-foreground'>{t('welcomeDescription')}</p>
       </div>
 
       <TrialBanner />
-      
+
       <Suspense fallback={<StatsSkeleton />}>
-        <DashboardStats t={tDashboard} /> 
+        <DashboardStats t={tDashboard} />
       </Suspense>
 
       <ChartAreaInteractive data={enrollmentData} />
