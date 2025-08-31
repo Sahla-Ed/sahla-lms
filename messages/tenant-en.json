@@ -595,6 +595,63 @@
       "description": "Gain deeper insights into course performance, student engagement, and revenue trends by upgrading to a Pro plan.",
       "button": "Upgrade to Pro"
     }
+  }, 
+
+  "SettingsPage": {
+    "header": {
+      "title": "Your Settings"
+    },
+    "loadingMessage": "Loading settings..."
+  },
+
+  "BetterAuth": {
+    "SETTINGS": "Your Settings",
+    "ACCOUNT": "Account",
+    "SECURITY": "Security",
+    "SETTINGS_DESCRIPTION": "Update your profile information and security settings.",
+    
+    "NAME": "Full Name",
+    "NAME_DESCRIPTION": "This is the name that will be displayed to others.",
+    "NAME_INSTRUCTIONS": "Please use 32 characters at maximum.",
+    
+    "EMAIL": "Email Address",
+    "EMAIL_DESCRIPTION": "The email address cannot be changed.",
+    "EMAIL_INSTRUCTIONS": "Please enter a valid email address.",
+    
+    "SAVE": "Save Changes",
+    "UPDATED_SUCCESSFULLY": "Updated successfully!",
+    
+    "CHANGE_PASSWORD": "Change Password",
+    "CHANGE_PASSWORD_DESCRIPTION": "Enter your current password and a new password.",
+    "CHANGE_PASSWORD_INSTRUCTIONS": "Please use 8 characters at minimum.",
+    "CURRENT_PASSWORD": "Current Password",
+    "CURRENT_PASSWORD_PLACEHOLDER": "Current Password",
+    "NEW_PASSWORD": "New Password",
+    "NEW_PASSWORD_PLACEHOLDER": "New Password",
+    "CONFIRM_PASSWORD": "Confirm Password",
+    "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm Password",
+    "UPDATE_PASSWORD": "Update Password",
+    "CHANGE_PASSWORD_SUCCESS": "Password updated successfully!",
+    
+    "TWO_FACTOR": "Two-Factor Authentication",
+    "TWO_FACTOR_CARD_DESCRIPTION": "Add an extra layer of security to your account.",
+    "TWO_FACTOR_ENABLE_INSTRUCTIONS": "Enter your password to enable Two-Factor Authentication.",
+    "TWO_FACTOR_DISABLE_INSTRUCTIONS": "Enter your password to disable Two-Factor Authentication.",
+    "ENABLE_TWO_FACTOR": "Enable Two-Factor",
+    "DISABLE_TWO_FACTOR": "Disable Two-Factor",
+    "TWO_FACTOR_ENABLED": "Two-Factor Authentication has been enabled!",
+    "TWO_FACTOR_DISABLED": "Two-Factor Authentication has been disabled!",
+
+    "PROVIDERS": "Providers",
+    "PROVIDERS_DESCRIPTION": "Connect your account with a third-party service.",
+    "LINK": "Link",
+    "UNLINK": "Unlink",
+
+    "SESSIONS": "Sessions",
+    "SESSIONS_DESCRIPTION": "Manage your active sessions and revoke access.",
+    "REVOKE": "Revoke",
+    "CURRENT_SESSION": "Current Session",
+    "SIGN_OUT": "Sign Out"
   },
   "TenantPlatform": {
     "common": {

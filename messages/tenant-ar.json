@@ -593,6 +593,61 @@
       "button": "الترقية إلى Pro"
     }
   },
+  "SettingsPage": {
+    "header": {
+      "title": "إعداداتك"
+    },
+    "loadingMessage": "جاري تحميل الإعدادات..." 
+  },
+  "BetterAuth": {
+    "SETTINGS": "إعداداتك",
+    "ACCOUNT": "الحساب",
+    "SECURITY": "الأمان",
+    "SETTINGS_DESCRIPTION": "قم بتحديث معلومات ملفك الشخصي وإعدادات الأمان.",
+    
+    "NAME": "الاسم الكامل",
+    "NAME_DESCRIPTION": "هذا هو اسمك الذي سيظهر للآخرين.",
+    "NAME_INSTRUCTIONS": "الرجاء استخدام 32 حرفًا كحد أقصى.",
+    
+    "EMAIL": "البريد الإلكتروني",
+    "EMAIL_DESCRIPTION": "لا يمكن تغيير البريد الإلكتروني.",
+    "EMAIL_INSTRUCTIONS": "الرجاء إدخال عنوان بريد إلكتروني صالح.",
+    
+    "SAVE": "حفظ التغييرات",
+    "UPDATED_SUCCESSFULLY": "تم التحديث بنجاح!",
+    
+    "CHANGE_PASSWORD": "تغيير كلمة المرور",
+    "CHANGE_PASSWORD_DESCRIPTION": "أدخل كلمة المرور الحالية وكلمة مرور جديدة.",
+    "CHANGE_PASSWORD_INSTRUCTIONS": "الرجاء استخدام 8 أحرف كحد أدنى.",
+    "CURRENT_PASSWORD": "كلمة المرور الحالية",
+    "CURRENT_PASSWORD_PLACEHOLDER": "كلمة المرور الحالية",
+    "NEW_PASSWORD": "كلمة المرور الجديدة",
+    "NEW_PASSWORD_PLACEHOLDER": "كلمة المرور الجديدة",
+    "CONFIRM_PASSWORD": "تأكيد كلمة المرور الجديدة",
+    "CONFIRM_PASSWORD_PLACEHOLDER": "تأكيد كلمة المرور",
+    "UPDATE_PASSWORD": "تحديث كلمة المرور",
+    "CHANGE_PASSWORD_SUCCESS": "تم تحديث كلمة المرور بنجاح!",
+    
+    "TWO_FACTOR": "المصادقة الثنائية",
+    "TWO_FACTOR_CARD_DESCRIPTION": "أضف طبقة أمان إضافية إلى حسابك.",
+    "TWO_FACTOR_ENABLE_INSTRUCTIONS": "أدخل كلمة المرور لتفعيل المصادقة الثنائية.",
+    "TWO_FACTOR_DISABLE_INSTRUCTIONS": "أدخل كلمة المرور لتعطيل المصادقة الثنائية.",
+    "ENABLE_TWO_FACTOR": "تفعيل المصادقة الثنائية",
+    "DISABLE_TWO_FACTOR": "تعطيل المصادقة الثنائية",
+    "TWO_FACTOR_ENABLED": "تم تفعيل المصادقة الثنائية بنجاح!",
+    "TWO_FACTOR_DISABLED": "تم تعطيل المصادقة الثنائية بنجاح!",
+
+    "PROVIDERS": "الربط بحسابات أخرى",
+    "PROVIDERS_DESCRIPTION": "اربط حسابك بخدمات خارجية.",
+    "LINK": "ربط",
+    "UNLINK": "إلغاء الربط",
+
+    "SESSIONS": "الجلسات النشطة",
+    "SESSIONS_DESCRIPTION": "إدارة جلساتك النشطة وإلغاء الوصول.",
+    "REVOKE": "إلغاء",
+    "CURRENT_SESSION": "الجلسة الحالية",
+    "SIGN_OUT": "تسجيل الخروج"
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {
