@@ -648,6 +648,35 @@
     "CURRENT_SESSION": "الجلسة الحالية",
     "SIGN_OUT": "تسجيل الخروج"
   },
+
+  "TenantSettingsPage": {
+    "header": {
+      "title": "إعدادات المنصة",
+      "description": "إدارة العلامة التجارية وتفاصيل منصتك."
+    },
+    "form": {
+      "cardTitle": "إعدادات المنصة",
+      "cardDescription": "قم بإدارة اسم منصتك ورابطها وعلامتها التجارية.",
+      "nameLabel": "اسم المنصة",
+      "namePlaceholder": "اسم منصتك",
+      "urlLabel": "رابط المنصة",
+      "urlPlaceholder": "منصتك-الفريدة",
+      "logoLightLabel": "الشعار (الوضع الفاتح)",
+      "logoDarkLabel": "الشعار (الوضع الداكن)",
+      "saveButton": "حفظ التغييرات",
+      "savingButton": "جاري الحفظ...",
+      "validation": {
+        "nameRequired": "اسم المنصة مطلوب",
+        "slugRequired": "رابط URL مطلوب"
+      },
+      "notifications": {
+        "updateSuccess": "تم تحديث الإعدادات بنجاح!",
+        "updateSuccessRedirect": "تم تحديث الإعدادات بنجاح! جاري إعادة التوجيه...",
+        "slugTaken": "رابط هذه المنصة مستخدم بالفعل.",
+        "unexpectedError": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى."
+      }
+    }
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {

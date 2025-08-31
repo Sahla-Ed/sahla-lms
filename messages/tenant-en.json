@@ -653,6 +653,35 @@
     "CURRENT_SESSION": "Current Session",
     "SIGN_OUT": "Sign Out"
   },
+
+  "TenantSettingsPage": {
+    "header": {
+      "title": "Platform Settings",
+      "description": "Manage your platform's branding and details."
+    },
+    "form": {
+      "cardTitle": "Platform Settings",
+      "cardDescription": "Manage your platform's name, URL, and branding.",
+      "nameLabel": "Platform Name",
+      "namePlaceholder": "Your Platform Name",
+      "urlLabel": "Platform URL",
+      "urlPlaceholder": "your-unique-platform",
+      "logoLightLabel": "Logo (Light Mode)",
+      "logoDarkLabel": "Logo (Dark Mode)",
+      "saveButton": "Save Changes",
+      "savingButton": "Saving...",
+      "validation": {
+        "nameRequired": "Platform name is required",
+        "slugRequired": "URL slug is required"
+      },
+      "notifications": {
+        "updateSuccess": "Settings updated successfully!",
+        "updateSuccessRedirect": "Settings updated successfully! Redirecting...",
+        "slugTaken": "This platform URL is already taken.",
+        "unexpectedError": "An unexpected error occurred. Please try again."
+      }
+    }
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {
