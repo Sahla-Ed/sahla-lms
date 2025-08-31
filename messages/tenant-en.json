@@ -572,6 +572,30 @@
       "updateError": "An unexpected error occurred. Please try again."
     }
   },
+  "AnalyticsPage": {
+    "header": {
+      "title": "Analytics"
+    },
+    "topCourses": {
+      "title": "Top Performing Courses",
+      "description": "Based on number of enrollments.",
+      "emptyState": "No course enrollment data to display yet."
+    },
+    "recentEnrollments": {
+      "title": "Recent Enrollments",
+      "emptyState": "No enrollments in the last 30 days.",
+      "table": {
+        "student": "Student",
+        "course": "Course",
+        "date": "Date"
+      }
+    },
+    "upgradeNotice": {
+      "title": "Unlock Advanced Analytics",
+      "description": "Gain deeper insights into course performance, student engagement, and revenue trends by upgrading to a Pro plan.",
+      "button": "Upgrade to Pro"
+    }
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {
