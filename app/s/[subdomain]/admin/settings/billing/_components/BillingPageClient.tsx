@@ -43,21 +43,17 @@ export function BillingPageClient({ subscription }: BillingPageClientProps) {
       }
     });
   };
-  
 
   const getStatusTranslation = (status: string | null): string => {
     if (!status) return '';
     try {
-
       return t(`statuses.${status}`);
     } catch (error) {
-
       return status;
     }
   };
 
   const statusText = getStatusTranslation(subscription.status);
-
 
   return (
     <Card>
@@ -75,7 +71,11 @@ export function BillingPageClient({ subscription }: BillingPageClientProps) {
           <div className='bg-muted/30 space-y-2 rounded-lg border p-4'>
             <div className='flex items-center justify-between'>
               <p className='text-lg font-semibold'>{t('proMember')}</p>
-              <Badge variant={subscription.status === 'active' ? 'default' : 'secondary'}>
+              <Badge
+                variant={
+                  subscription.status === 'active' ? 'default' : 'secondary'
+                }
+              >
                 {t('statusLabel', { status: statusText })}
               </Badge>
             </div>
@@ -83,7 +83,7 @@ export function BillingPageClient({ subscription }: BillingPageClientProps) {
               <p className='text-muted-foreground text-sm'>
                 {t('renewsOn', {
                   date: new Date(subscription.periodEnd).toLocaleDateString(
-                    locale === 'ar' ? 'ar-EG' : 'en-US'
+                    locale === 'ar' ? 'ar-EG' : 'en-US',
                   ),
                 })}
               </p>

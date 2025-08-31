@@ -69,7 +69,9 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
 
       if (result.status === 'success') {
         toast.success(
-          result.newSlug ? t('notifications.updateSuccessRedirect') : t('notifications.updateSuccess')
+          result.newSlug
+            ? t('notifications.updateSuccessRedirect')
+            : t('notifications.updateSuccess'),
         );
         if (result.newSlug && result.transferToken) {
           const newUrl = `${protocol}://${result.newSlug}.${rootDomain}/api/auth/session-transfer?token=${result.transferToken}`;
@@ -164,7 +166,7 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
                 )}
               />
             </div>
-            <div className="flex justify-end">
+            <div className='flex justify-end'>
               <Button type='submit' disabled={isPending}>
                 {isPending ? (
                   <Loader2 className='ml-2 size-4 animate-spin' />

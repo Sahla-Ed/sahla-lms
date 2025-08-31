@@ -27,7 +27,6 @@ export async function editCourse(
   const locale = await getLocale();
   const t = await getTranslations({ locale, namespace: 'ZodValidation' });
 
-
   const tNotifications = await getTranslations('EditCourseForm.notifications');
   const courseSchema = getCourseSchema((key) => t(key as ZodValidationKeys));
 
@@ -83,7 +82,7 @@ export async function editCourse(
 
     return {
       status: 'success',
-      message: tNotifications('success'), 
+      message: tNotifications('success'),
     };
   } catch (error) {
     console.error('Failed to update course:', error);

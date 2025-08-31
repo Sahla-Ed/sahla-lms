@@ -22,14 +22,17 @@ import {
 
 import { tryCatch } from '@/hooks/try-catch';
 import { Question } from './TestBank/types';
-import { getCourseQuestions, deleteQuestion, deleteMultipleQuestions} from '../quiz-actions';
+import {
+  getCourseQuestions,
+  deleteQuestion,
+  deleteMultipleQuestions,
+} from '../quiz-actions';
 import { CreateQuestionView } from './TestBank/CreateQuestionView';
 import { QuestionCard } from './TestBank/QuestionCard';
 import { EditQuestionDialog } from './TestBank/EditQuestionDialog';
 import { useLocale, useTranslations } from 'next-intl';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
-
 
 interface TestBankProps {
   courseId: string;
@@ -92,21 +95,21 @@ export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
     setSelectedQuestions((prev) =>
       prev.includes(questionId)
         ? prev.filter((id) => id !== questionId)
-        : [...prev, questionId]
+        : [...prev, questionId],
     );
   };
-  
+
   const handleSelectPage = (isChecked: boolean) => {
     const idsOnPage = questions.map((q) => q.id);
     if (isChecked) {
       setSelectedQuestions((prev) => [...new Set([...prev, ...idsOnPage])]);
     } else {
-      setSelectedQuestions((prev) => prev.filter((id) => !idsOnPage.includes(id)));
+      setSelectedQuestions((prev) =>
+        prev.filter((id) => !idsOnPage.includes(id)),
+      );
     }
   };
 
-
- 
   const handleDeleteSelected = () => {
     startDeleteTransition(async () => {
       const result = await deleteMultipleQuestions(selectedQuestions, courseId);
@@ -119,9 +122,6 @@ export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
       }
     });
   };
-
-
-
 
   const handleDeleteQuestion = async (questionId: string) => {
     const { error } = await tryCatch(deleteQuestion(questionId, courseId));
@@ -141,10 +141,10 @@ export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
     onSuccess?.();
   };
 
-  
-  const idsOnPage = questions.map(q => q.id);
-  const areAllOnPageSelected = idsOnPage.length > 0 && idsOnPage.every(id => selectedQuestions.includes(id));
-
+  const idsOnPage = questions.map((q) => q.id);
+  const areAllOnPageSelected =
+    idsOnPage.length > 0 &&
+    idsOnPage.every((id) => selectedQuestions.includes(id));
 
   return (
     <div className='space-y-8' dir={isRTL ? 'rtl' : 'ltr'}>
@@ -169,12 +169,20 @@ export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
           {t('existingQuestionsTitle', { totalQuestions })}
         </h3>
         {selectedQuestions.length > 0 && (
-          <div className="flex items-center justify-between rounded-md border bg-muted p-3">
-            <p className="text-sm font-medium">
+          <div className='bg-muted flex items-center justify-between rounded-md border p-3'>
+            <p className='text-sm font-medium'>
               {t('questionsSelected', { count: selectedQuestions.length })}
             </p>
-            <Button variant="destructive" onClick={handleDeleteSelected} disabled={isDeleting}>
-              {isDeleting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Trash2 className="mr-2 h-4 w-4" />}
+            <Button
+              variant='destructive'
+              onClick={handleDeleteSelected}
+              disabled={isDeleting}
+            >
+              {isDeleting ? (
+                <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+              ) : (
+                <Trash2 className='mr-2 h-4 w-4' />
+              )}
               {t('deleteSelected')}
             </Button>
           </div>
@@ -192,13 +200,13 @@ export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
         </div>
 
         {!isFetching && questions.length > 0 && (
-          <div className="flex items-center border-b pb-2">
+          <div className='flex items-center border-b pb-2'>
             <Checkbox
-              id="select-all-page"
+              id='select-all-page'
               onCheckedChange={(checked) => handleSelectPage(Boolean(checked))}
               checked={areAllOnPageSelected}
             />
-            <label htmlFor="select-all-page" className="mx-2 text-sm">
+            <label htmlFor='select-all-page' className='mx-2 text-sm'>
               {t('selectAllOnPage')}
             </label>
           </div>
@@ -219,12 +227,12 @@ export function TestBank({ courseId, planName, onSuccess }: TestBankProps) {
           <div className='space-y-4'>
             {questions.map((question) => (
               <QuestionCard
-              key={question.id}
-              question={question}
-              onEdit={() => setEditingQuestion(question)}
-              onDelete={() => handleDeleteQuestion(question.id)}
-              isSelected={selectedQuestions.includes(question.id)}
-              onSelect={handleSelectQuestion}
+                key={question.id}
+                question={question}
+                onEdit={() => setEditingQuestion(question)}
+                onDelete={() => handleDeleteQuestion(question.id)}
+                isSelected={selectedQuestions.includes(question.id)}
+                onSelect={handleSelectQuestion}
               />
             ))}
           </div>

@@ -403,27 +403,27 @@
     "addedButton": "Added",
     "pagination": "Page {currentPage} of {totalPages}"
   },
-"TestBank": {
-  "createCardTitle": "Create New Question",
-  "createCardDescription": "Choose your preferred method to create a new question for your test bank.",
-  "existingQuestionsTitle": "Existing Questions in Bank ({totalQuestions})",
-  "searchPlaceholder": "Search questions by text...",
-  "emptyState": {
-    "noMatch": "No questions found matching your search.",
-    "empty": "Your test bank is empty. Create a question above to get started!"
+  "TestBank": {
+    "createCardTitle": "Create New Question",
+    "createCardDescription": "Choose your preferred method to create a new question for your test bank.",
+    "existingQuestionsTitle": "Existing Questions in Bank ({totalQuestions})",
+    "searchPlaceholder": "Search questions by text...",
+    "emptyState": {
+      "noMatch": "No questions found matching your search.",
+      "empty": "Your test bank is empty. Create a question above to get started!"
+    },
+    "notifications": {
+      "loadError": "Failed to load questions from the test bank.",
+      "deleteError": "Failed to delete question.",
+      "deleteSuccess": "Question deleted successfully!",
+      "deleteMultipleSuccess": "Selected questions deleted successfully!",
+      "deleteMultipleError": "Failed to delete selected questions."
+    },
+    "pagination": "Page {currentPage} of {totalPages}",
+    "questionsSelected": "{count, plural, one {# question selected} other {# questions selected}}",
+    "deleteSelected": "Delete Selected",
+    "selectAllOnPage": "Select all on this page"
   },
-  "notifications": {
-    "loadError": "Failed to load questions from the test bank.",
-    "deleteError": "Failed to delete question.",
-    "deleteSuccess": "Question deleted successfully!",
-    "deleteMultipleSuccess": "Selected questions deleted successfully!",
-    "deleteMultipleError": "Failed to delete selected questions."
-  },
-  "pagination": "Page {currentPage} of {totalPages}",
-  "questionsSelected": "{count, plural, one {# question selected} other {# questions selected}}",
-  "deleteSelected": "Delete Selected",
-  "selectAllOnPage": "Select all on this page"
-},
   "CreateQuestionView": {
     "tabs": {
       "manual": "Manual",
@@ -595,7 +595,7 @@
       "description": "Gain deeper insights into course performance, student engagement, and revenue trends by upgrading to a Pro plan.",
       "button": "Upgrade to Pro"
     }
-  }, 
+  },
 
   "SettingsPage": {
     "header": {
@@ -609,18 +609,18 @@
     "ACCOUNT": "Account",
     "SECURITY": "Security",
     "SETTINGS_DESCRIPTION": "Update your profile information and security settings.",
-    
+
     "NAME": "Full Name",
     "NAME_DESCRIPTION": "This is the name that will be displayed to others.",
     "NAME_INSTRUCTIONS": "Please use 32 characters at maximum.",
-    
+
     "EMAIL": "Email Address",
     "EMAIL_DESCRIPTION": "The email address cannot be changed.",
     "EMAIL_INSTRUCTIONS": "Please enter a valid email address.",
-    
+
     "SAVE": "Save Changes",
     "UPDATED_SUCCESSFULLY": "Updated successfully!",
-    
+
     "CHANGE_PASSWORD": "Change Password",
     "CHANGE_PASSWORD_DESCRIPTION": "Enter your current password and a new password.",
     "CHANGE_PASSWORD_INSTRUCTIONS": "Please use 8 characters at minimum.",
@@ -632,7 +632,7 @@
     "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm Password",
     "UPDATE_PASSWORD": "Update Password",
     "CHANGE_PASSWORD_SUCCESS": "Password updated successfully!",
-    
+
     "TWO_FACTOR": "Two-Factor Authentication",
     "TWO_FACTOR_CARD_DESCRIPTION": "Add an extra layer of security to your account.",
     "TWO_FACTOR_ENABLE_INSTRUCTIONS": "Enter your password to enable Two-Factor Authentication.",
@@ -727,7 +727,7 @@
     "title": "Global Search",
     "description": "This feature is under development. We're building a powerful search experience that will allow you to instantly find courses, users, enrollments, and more across the entire platform.",
     "badgeText": "Coming Soon",
-     "returnButton": "Return to Homepage"
+    "returnButton": "Return to Homepage"
   },
   "TenantPlatform": {
     "common": {

@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { ReactNode } from 'react';
-import { getTranslations , getLocale } from 'next-intl/server'; 
+import { getTranslations, getLocale } from 'next-intl/server';
 import { cn } from '@/lib/utils';
 interface PlaceholderPageProps {
   title: string;
@@ -18,7 +18,7 @@ export async function PlaceholderPage({
   icon,
   badgeText,
 }: PlaceholderPageProps) {
-   const locale = await getLocale();
+  const locale = await getLocale();
   const isRTL = locale === 'ar';
   const t = await getTranslations('SearchPage');
   return (
@@ -38,10 +38,7 @@ export async function PlaceholderPage({
         <Button asChild size='lg'>
           <Link href='/'>
             <ArrowLeft
-              className={cn(
-                'h-5 w-5',
-                isRTL ? 'ml-2 rotate-180' : 'mr-2'
-              )}
+              className={cn('h-5 w-5', isRTL ? 'ml-2 rotate-180' : 'mr-2')}
             />
             {t('returnButton')}
           </Link>

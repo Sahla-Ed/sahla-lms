@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { authClient } from '@/lib/auth-client';
 
-
 import { useTranslations } from 'next-intl';
 
 export function Providers({ children }: { children: ReactNode }) {
@@ -66,7 +65,7 @@ export function Providers({ children }: { children: ReactNode }) {
       Link={Link}
       social={{ providers: ['github'] }}
       redirectTo='/random'
-      localization={localization} 
+      localization={localization}
     >
       <ThemeProvider
         attribute='class'

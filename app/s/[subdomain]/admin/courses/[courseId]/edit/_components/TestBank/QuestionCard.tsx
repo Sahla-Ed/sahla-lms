@@ -14,7 +14,7 @@ export const QuestionCard: FC<{
   onEdit: () => void;
   onDelete: () => void;
   isSelected: boolean;
-  onSelect: (id: string) => void; 
+  onSelect: (id: string) => void;
 }> = ({ question, onEdit, onDelete, isSelected, onSelect }) => {
   const t = useTranslations('QuestionCard');
   const tForm = useTranslations('QuestionForm');
@@ -28,7 +28,7 @@ export const QuestionCard: FC<{
       className={cn(
         'transition-colors',
         isSelected &&
-          'bg-blue-50 border-blue-200 dark:bg-blue-950 dark:border-blue-800',
+          'border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950',
       )}
     >
       <div className='flex items-start gap-4 p-4'>
@@ -41,19 +41,27 @@ export const QuestionCard: FC<{
 
         <div className='flex-1 space-y-4'>
           <CardHeader className='p-0'>
-            <div className={`flex items-start justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <div
+              className={`flex items-start justify-between ${isRTL ? 'flex-row-reverse' : ''}`}
+            >
               <div className={`flex-1 ${isRTL ? 'ml-4' : 'mr-4'}`}>
-                <CardTitle className={`text-base font-medium ${isRTL ? 'text-right' : 'text-left'}`}>
+                <CardTitle
+                  className={`text-base font-medium ${isRTL ? 'text-right' : 'text-left'}`}
+                >
                   {question.text}
                 </CardTitle>
-                <div className={`mt-2 flex flex-wrap gap-2 ${isRTL ? 'justify-end' : 'justify-start'}`}>
+                <div
+                  className={`mt-2 flex flex-wrap gap-2 ${isRTL ? 'justify-end' : 'justify-start'}`}
+                >
                   <Badge variant='secondary'>{tForm(`types.${typeKey}`)}</Badge>
                   <Badge variant='outline'>
                     {t('options', { count: question.options.length })}
                   </Badge>
                 </div>
               </div>
-              <div className={`flex shrink-0 gap-2 ${isRTL ? 'order-first' : ''}`}>
+              <div
+                className={`flex shrink-0 gap-2 ${isRTL ? 'order-first' : ''}`}
+              >
                 <Button variant='outline' size='sm' onClick={onEdit}>
                   <Edit className='h-4 w-4' />
                 </Button>
@@ -63,7 +71,7 @@ export const QuestionCard: FC<{
               </div>
             </div>
           </CardHeader>
-          
+
           <CardContent className='p-0'>
             <div className='space-y-2'>
               {question.options.map((option, index) => (
@@ -77,16 +85,25 @@ export const QuestionCard: FC<{
                     isRTL ? 'text-right' : 'text-left',
                   )}
                 >
-                  {option === 'True' ? tForm('types.true') : option === 'False' ? tForm('types.false') : option}
+                  {option === 'True'
+                    ? tForm('types.true')
+                    : option === 'False'
+                      ? tForm('types.false')
+                      : option}
                   {option === question.answer && (
-                    <Badge variant='secondary' className={isRTL ? 'mr-2' : 'ml-2'}>
+                    <Badge
+                      variant='secondary'
+                      className={isRTL ? 'mr-2' : 'ml-2'}
+                    >
                       {t('correct')}
                     </Badge>
                   )}
                 </div>
               ))}
               {question.explanation && (
-                <div className={`mt-3 rounded bg-blue-50 p-3 dark:bg-blue-950 ${isRTL ? 'text-right' : 'text-left'}`}>
+                <div
+                  className={`mt-3 rounded bg-blue-50 p-3 dark:bg-blue-950 ${isRTL ? 'text-right' : 'text-left'}`}
+                >
                   <p className='text-sm font-medium text-blue-900 dark:text-blue-100'>
                     {t('explanation')}
                   </p>

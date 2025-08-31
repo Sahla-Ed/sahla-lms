@@ -241,14 +241,12 @@ export async function createMultipleQuestions(
   }
 }
 
-
-
 export async function deleteMultipleQuestions(
   questionIds: string[],
   courseId: string,
 ): Promise<ApiResponse> {
   const { user } = await requireAdmin();
-  const t = await getTranslations('TestBank.notifications'); 
+  const t = await getTranslations('TestBank.notifications');
 
   if (!questionIds || questionIds.length === 0) {
     return { status: 'error', message: 'No questions selected.' };
@@ -272,13 +270,13 @@ export async function deleteMultipleQuestions(
 
     return {
       status: 'success',
-      message: t('deleteMultipleSuccess'), 
+      message: t('deleteMultipleSuccess'),
     };
   } catch (error) {
     console.error('Failed to delete questions:', error);
     return {
       status: 'error',
-      message: t('deleteMultipleError'), 
+      message: t('deleteMultipleError'),
     };
   }
 }

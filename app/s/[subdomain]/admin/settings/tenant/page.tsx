@@ -54,8 +54,8 @@ function SettingsSkeleton() {
             <Skeleton className='h-64 w-full' />
           </div>
         </div>
-        <div className="flex justify-end">
-        <Skeleton className='h-10 w-32' />
+        <div className='flex justify-end'>
+          <Skeleton className='h-10 w-32' />
         </div>
       </CardContent>
     </Card>

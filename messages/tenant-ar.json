@@ -403,27 +403,27 @@
     "addedButton": "تمت الإضافة",
     "pagination": "صفحة {currentPage} من {totalPages}"
   },
- "TestBank": {
-  "createCardTitle": "إنشاء سؤال جديد",
-  "createCardDescription": "اختر طريقتك المفضلة لإنشاء سؤال جديد لبنك الأسئلة الخاص بك.",
-  "existingQuestionsTitle": "الأسئلة الموجودة في البنك ({totalQuestions})",
-  "searchPlaceholder": "ابحث عن الأسئلة بالنص...",
-  "emptyState": {
-    "noMatch": "لم يتم العثور على أسئلة تطابق بحثك.",
-    "empty": "بنك الأسئلة فارغ. أنشئ سؤالاً أعلاه للبدء!"
+  "TestBank": {
+    "createCardTitle": "إنشاء سؤال جديد",
+    "createCardDescription": "اختر طريقتك المفضلة لإنشاء سؤال جديد لبنك الأسئلة الخاص بك.",
+    "existingQuestionsTitle": "الأسئلة الموجودة في البنك ({totalQuestions})",
+    "searchPlaceholder": "ابحث عن الأسئلة بالنص...",
+    "emptyState": {
+      "noMatch": "لم يتم العثور على أسئلة تطابق بحثك.",
+      "empty": "بنك الأسئلة فارغ. أنشئ سؤالاً أعلاه للبدء!"
+    },
+    "notifications": {
+      "loadError": "فشل تحميل الأسئلة من بنك الأسئلة.",
+      "deleteError": "فشل حذف السؤال.",
+      "deleteSuccess": "تم حذف السؤال بنجاح!",
+      "deleteMultipleSuccess": "تم حذف الأسئلة المحددة بنجاح!",
+      "deleteMultipleError": "فشل حذف الأسئلة المحددة."
+    },
+    "pagination": "صفحة {currentPage} من {totalPages}",
+    "questionsSelected": "{count, plural, one {# سؤال محدد} two {# سؤالان محددان} few {# أسئلة محددة} other {# سؤالاً محددًا}}",
+    "deleteSelected": "حذف المحدد",
+    "selectAllOnPage": "تحديد الكل في هذه الصفحة"
   },
-  "notifications": {
-    "loadError": "فشل تحميل الأسئلة من بنك الأسئلة.",
-    "deleteError": "فشل حذف السؤال.",
-    "deleteSuccess": "تم حذف السؤال بنجاح!",
-    "deleteMultipleSuccess": "تم حذف الأسئلة المحددة بنجاح!",
-    "deleteMultipleError": "فشل حذف الأسئلة المحددة."
-  },
-  "pagination": "صفحة {currentPage} من {totalPages}",
-  "questionsSelected": "{count, plural, one {# سؤال محدد} two {# سؤالان محددان} few {# أسئلة محددة} other {# سؤالاً محددًا}}",
-  "deleteSelected": "حذف المحدد",
-  "selectAllOnPage": "تحديد الكل في هذه الصفحة"
-},
   "CreateQuestionView": {
     "tabs": {
       "manual": "يدوي",
@@ -597,25 +597,25 @@
     "header": {
       "title": "إعداداتك"
     },
-    "loadingMessage": "جاري تحميل الإعدادات..." 
+    "loadingMessage": "جاري تحميل الإعدادات..."
   },
   "BetterAuth": {
     "SETTINGS": "إعداداتك",
     "ACCOUNT": "الحساب",
     "SECURITY": "الأمان",
     "SETTINGS_DESCRIPTION": "قم بتحديث معلومات ملفك الشخصي وإعدادات الأمان.",
-    
+
     "NAME": "الاسم الكامل",
     "NAME_DESCRIPTION": "هذا هو اسمك الذي سيظهر للآخرين.",
     "NAME_INSTRUCTIONS": "الرجاء استخدام 32 حرفًا كحد أقصى.",
-    
+
     "EMAIL": "البريد الإلكتروني",
     "EMAIL_DESCRIPTION": "لا يمكن تغيير البريد الإلكتروني.",
     "EMAIL_INSTRUCTIONS": "الرجاء إدخال عنوان بريد إلكتروني صالح.",
-    
+
     "SAVE": "حفظ التغييرات",
     "UPDATED_SUCCESSFULLY": "تم التحديث بنجاح!",
-    
+
     "CHANGE_PASSWORD": "تغيير كلمة المرور",
     "CHANGE_PASSWORD_DESCRIPTION": "أدخل كلمة المرور الحالية وكلمة مرور جديدة.",
     "CHANGE_PASSWORD_INSTRUCTIONS": "الرجاء استخدام 8 أحرف كحد أدنى.",
@@ -627,7 +627,7 @@
     "CONFIRM_PASSWORD_PLACEHOLDER": "تأكيد كلمة المرور",
     "UPDATE_PASSWORD": "تحديث كلمة المرور",
     "CHANGE_PASSWORD_SUCCESS": "تم تحديث كلمة المرور بنجاح!",
-    
+
     "TWO_FACTOR": "المصادقة الثنائية",
     "TWO_FACTOR_CARD_DESCRIPTION": "أضف طبقة أمان إضافية إلى حسابك.",
     "TWO_FACTOR_ENABLE_INSTRUCTIONS": "أدخل كلمة المرور لتفعيل المصادقة الثنائية.",

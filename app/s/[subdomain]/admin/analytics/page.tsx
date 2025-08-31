@@ -10,13 +10,12 @@ import { Button } from '@/components/ui/button';
 import { checkPlanStatus } from '@/lib/subscription';
 import { getTranslations } from 'next-intl/server';
 
-
 type TFunction = Awaited<ReturnType<typeof getTranslations<'AnalyticsPage'>>>;
 
 export default async function AnalyticsPage() {
   const plan = await checkPlanStatus();
   const isProOrEnterprise = plan.planName === 'PRO';
-  
+
   const t = await getTranslations('AnalyticsPage');
   const tDashboard = await getTranslations('AdminDashboard');
 
@@ -27,8 +26,7 @@ export default async function AnalyticsPage() {
       </div>
 
       <Suspense fallback={<StatsSkeleton />}>
-
-        <DashboardStats t={tDashboard} /> 
+        <DashboardStats t={tDashboard} />
       </Suspense>
 
       {isProOrEnterprise ? (
@@ -50,7 +48,6 @@ export default async function AnalyticsPage() {
           </Suspense>
         </>
       ) : (
-
         <UpgradeNotice t={t} />
       )}
     </div>
@@ -65,7 +62,6 @@ const SkeletonCard = ({ height = '400px' }: { height?: string }) => (
     />
   </Card>
 );
-
 
 const UpgradeNotice = ({ t }: { t: TFunction }) => (
   <Card className='flex flex-col items-center justify-center p-8 text-center'>

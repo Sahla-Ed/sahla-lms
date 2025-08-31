@@ -11,9 +11,7 @@ import {
 import { format } from 'date-fns';
 import { getTranslations } from 'next-intl/server';
 
-
 type TFunction = Awaited<ReturnType<typeof getTranslations<'AnalyticsPage'>>>;
-
 
 export async function RecentEnrollments({ t }: { t: TFunction }) {
   const enrollments = await getRecentEnrollments();

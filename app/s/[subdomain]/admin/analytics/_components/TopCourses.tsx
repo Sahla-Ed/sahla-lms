@@ -7,11 +7,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { TopCoursesChart } from './TopCoursesChart';
-import { getTranslations } from 'next-intl/server'; 
-
+import { getTranslations } from 'next-intl/server';
 
 type TFunction = Awaited<ReturnType<typeof getTranslations<'AnalyticsPage'>>>;
-
 
 export async function TopCourses({ t }: { t: TFunction }) {
   const topCourses = await getTopPerformingCourses();
@@ -23,7 +21,6 @@ export async function TopCourses({ t }: { t: TFunction }) {
   return (
     <Card>
       <CardHeader>
-  
         <CardTitle>{t('topCourses.title')}</CardTitle>
         <CardDescription>{t('topCourses.description')}</CardDescription>
       </CardHeader>

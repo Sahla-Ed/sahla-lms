@@ -31,7 +31,6 @@ async function LoadSubscription() {
   return <BillingPageClient subscription={subscription} />;
 }
 
-
 function BillingSkeleton() {
   return (
     <Card>

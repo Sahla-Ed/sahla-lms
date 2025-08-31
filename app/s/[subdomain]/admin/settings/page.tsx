@@ -11,7 +11,7 @@ export default async function SettingsPage() {
   return (
     <>
       <div className='flex items-center justify-between'>
-      <h1 className='text-2xl font-bold'>{tPage('header.title')}</h1>
+        <h1 className='text-2xl font-bold'>{tPage('header.title')}</h1>
       </div>
 
       <Suspense fallback={tPage('loadingMessage')}>
