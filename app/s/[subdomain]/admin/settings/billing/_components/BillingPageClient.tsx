@@ -17,6 +17,7 @@ import {
   createProUpgradeCheckoutSession,
   createStripePortalSession,
 } from '../actions';
+import { useTranslations, useLocale } from 'next-intl';
 
 interface SubscriptionStatus {
   planName: 'FREE' | 'PRO';
@@ -30,51 +31,67 @@ interface BillingPageClientProps {
 
 export function BillingPageClient({ subscription }: BillingPageClientProps) {
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations('BillingPage.client');
+  const locale = useLocale();
 
   const handleAction = (action: () => Promise<void>) => {
     startTransition(async () => {
       try {
         await action();
       } catch (error) {
-        toast.error('An error occurred. Please try again.');
+        toast.error(t('genericError'));
       }
     });
   };
+  
+
+  const getStatusTranslation = (status: string | null): string => {
+    if (!status) return '';
+    try {
+
+      return t(`statuses.${status}`);
+    } catch (error) {
+
+      return status;
+    }
+  };
+
+  const statusText = getStatusTranslation(subscription.status);
+
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Your Current Plan</CardTitle>
+        <CardTitle>{t('cardTitle')}</CardTitle>
         <CardDescription>
-          You are currently on the <strong>{subscription.planName}</strong>{' '}
-          plan.
+          {t.rich('cardDescription', {
+            planName: t(`plans.${subscription.planName}`),
+            strong: (chunks) => <strong>{chunks}</strong>,
+          })}
         </CardDescription>
       </CardHeader>
       <CardContent>
         {subscription.planName === 'PRO' && subscription.status ? (
           <div className='bg-muted/30 space-y-2 rounded-lg border p-4'>
             <div className='flex items-center justify-between'>
-              <p className='text-lg font-semibold'>You are a Pro member!</p>
-              <Badge
-                variant={
-                  subscription.status === 'active' ? 'default' : 'secondary'
-                }
-              >
-                Status: {subscription.status}
+              <p className='text-lg font-semibold'>{t('proMember')}</p>
+              <Badge variant={subscription.status === 'active' ? 'default' : 'secondary'}>
+                {t('statusLabel', { status: statusText })}
               </Badge>
             </div>
             {subscription.periodEnd && (
               <p className='text-muted-foreground text-sm'>
-                Your plan renews on{' '}
-                {new Date(subscription.periodEnd).toLocaleDateString()}.
+                {t('renewsOn', {
+                  date: new Date(subscription.periodEnd).toLocaleDateString(
+                    locale === 'ar' ? 'ar-EG' : 'en-US'
+                  ),
+                })}
               </p>
             )}
           </div>
         ) : (
           <div className='bg-muted/30 rounded-lg border p-4 text-center'>
-            <p className='text-muted-foreground'>
-              You are on the Free plan. Upgrade to unlock more features.
-            </p>
+            <p className='text-muted-foreground'>{t('freePlanNotice')}</p>
           </div>
         )}
       </CardContent>
@@ -86,7 +103,7 @@ export function BillingPageClient({ subscription }: BillingPageClientProps) {
             disabled={isPending}
           >
             {isPending && <Loader2 className='mr-2 size-4 animate-spin' />}
-            Manage Billing
+            {t('manageButton')}
           </Button>
         ) : (
           <Button
@@ -95,7 +112,7 @@ export function BillingPageClient({ subscription }: BillingPageClientProps) {
             disabled={isPending}
           >
             {isPending && <Loader2 className='mr-2 size-4 animate-spin' />}
-            Upgrade to Pro
+            {t('upgradeButton')}
           </Button>
         )}
       </CardFooter>

@@ -677,6 +677,36 @@
       }
     }
   },
+  "BillingPage": {
+    "header": {
+      "title": "الفواتير والاشتراك",
+      "description": "إدارة خطتك وتفاصيل الدفع."
+    },
+    "client": {
+      "cardTitle": "خطتك الحالية",
+      "cardDescription": "أنت حاليًا على خطة <strong>{planName}</strong>.",
+      "proMember": "أنت عضو في الخطة الاحترافية!",
+      "statusLabel": "الحالة: {status}",
+      "renewsOn": "تتجدد خطتك في {date}.",
+      "freePlanNotice": "أنت على الخطة المجانية. قم بالترقية لفتح المزيد من الميزات.",
+      "manageButton": "إدارة الفواتير",
+      "upgradeButton": "الترقية إلى Pro",
+      "genericError": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+      "plans": {
+        "FREE": "المجانية",
+        "PRO": "الاحترافية"
+      },
+      "statuses": {
+        "trialing": "فترة تجريبية",
+        "active": "نشطة",
+        "canceled": "ملغاة",
+        "incomplete": "غير مكتملة",
+        "incomplete_expired": "منتهية الصلاحية",
+        "past_due": "متأخرة الدفع",
+        "unpaid": "غير مدفوعة"
+      }
+    }
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {

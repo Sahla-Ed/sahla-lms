@@ -682,6 +682,36 @@
       }
     }
   },
+  "BillingPage": {
+    "header": {
+      "title": "Billing & Subscription",
+      "description": "Manage your plan and payment details."
+    },
+    "client": {
+      "cardTitle": "Your Current Plan",
+      "cardDescription": "You are currently on the <strong>{planName}</strong> plan.",
+      "proMember": "You are a Pro member!",
+      "statusLabel": "Status: {status}",
+      "renewsOn": "Your plan renews on {date}.",
+      "freePlanNotice": "You are on the Free plan. Upgrade to unlock more features.",
+      "manageButton": "Manage Billing",
+      "upgradeButton": "Upgrade to Pro",
+      "genericError": "An error occurred. Please try again.",
+      "plans": {
+        "FREE": "Free",
+        "PRO": "Pro"
+      },
+      "statuses": {
+        "trialing": "Trialing",
+        "active": "Active",
+        "canceled": "Canceled",
+        "incomplete": "Incomplete",
+        "incomplete_expired": "Incomplete & Expired",
+        "past_due": "Past Due",
+        "unpaid": "Unpaid"
+      }
+    }
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {
