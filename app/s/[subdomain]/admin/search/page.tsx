@@ -1,20 +1,30 @@
 import { PlaceholderPage } from '@/components/general/PlaceholderPage';
 import { Search } from 'lucide-react';
 import { Metadata } from 'next';
+import { getLocale, getTranslations } from 'next-intl/server';
 
-export const metadata: Metadata = {
-  title: 'Search | Sahla Admin',
-  description:
-    'A powerful, global search feature is coming soon to the Sahla admin dashboard.',
-};
 
-export default function SearchPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const t = await getTranslations({ locale, namespace: 'SearchPage.metadata' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}
+
+export default async function SearchPage() {
+  const t = await getTranslations('SearchPage');
+  const locale = await getLocale();
+  const isRTL = locale === 'ar';
+
   return (
     <PlaceholderPage
-      title='Global Search'
-      description="This feature is under development. We're building a powerful search experience that will allow you to instantly find courses, users, enrollments, and more across the entire platform."
-      badgeText='Coming Soon'
-      icon={<Search className='mr-2 h-4 w-4' />}
+      title={t('title')}
+      description={t('description')}
+      badgeText={t('badgeText')}
+      icon={<Search className={isRTL ? 'ml-2 h-4 w-4' : 'mr-2 h-4 w-4'} />}
     />
   );
 }

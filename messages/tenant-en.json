@@ -718,6 +718,17 @@
     "courses": "Courses",
     "logout": "Log out"
   },
+
+  "SearchPage": {
+    "metadata": {
+      "title": "Search |Admin",
+      "description": "A powerful, global search feature is coming soon to the Sahla admin dashboard."
+    },
+    "title": "Global Search",
+    "description": "This feature is under development. We're building a powerful search experience that will allow you to instantly find courses, users, enrollments, and more across the entire platform.",
+    "badgeText": "Coming Soon",
+     "returnButton": "Return to Homepage"
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {
