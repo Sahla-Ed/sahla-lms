@@ -53,13 +53,13 @@ export function ContactForm() {
 
   return (
     <div className='mx-auto max-w-2xl'>
-      <Card className='from-card to-muted/5 border-0 bg-gradient-to-br shadow-2xl'>
+      <Card className='bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xl rounded-xl'>
         <CardHeader className='pb-8 text-center'>
           <CardTitle className='flex items-center justify-center gap-3 text-3xl font-bold'>
-            <MessageCircle className='text-primary h-8 w-8' />
+            <MessageCircle className='text-blue-600 dark:text-blue-400 h-8 w-8' />
             Contact Form
           </CardTitle>
-          <p className='text-muted-foreground'>
+          <p className='text-slate-600 dark:text-slate-400'>
             Tell us about yourself and how we can help you
           </p>
         </CardHeader>
@@ -72,7 +72,7 @@ export function ContactForm() {
                 name='name'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className='flex items-center gap-2'><User className='text-primary h-4 w-4' /> Full Name</FormLabel>
+                    <FormLabel className='flex items-center gap-2'><User className='text-blue-600 dark:text-blue-400 h-4 w-4' /> Full Name</FormLabel>
                     <FormControl>
                       <Input placeholder='Enter your full name' {...field} />
                     </FormControl>
@@ -80,13 +80,13 @@ export function ContactForm() {
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name='email'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className='flex items-center gap-2'><Mail className='text-primary h-4 w-4' /> Email Address</FormLabel>
+                    <FormLabel className='flex items-center gap-2'><Mail className='text-blue-600 dark:text-blue-400 h-4 w-4' /> Email Address</FormLabel>
                     <FormControl>
                       <Input type='email' placeholder='Enter your email address' {...field} />
                     </FormControl>
@@ -94,13 +94,13 @@ export function ContactForm() {
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name='phone'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className='flex items-center gap-2'><Phone className='text-primary h-4 w-4' /> Phone Number</FormLabel>
+                    <FormLabel className='flex items-center gap-2'><Phone className='text-blue-600 dark:text-blue-400 h-4 w-4' /> Phone Number</FormLabel>
                     <FormControl>
                       <Input type='tel' placeholder='Enter your phone number' {...field} />
                     </FormControl>
@@ -114,7 +114,7 @@ export function ContactForm() {
                 name='message'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className='flex items-center gap-2'><MessageCircle className='text-primary h-4 w-4' /> Your Message</FormLabel>
+                    <FormLabel className='flex items-center gap-2'><MessageCircle className='text-blue-600 dark:text-blue-400 h-4 w-4' /> Your Message</FormLabel>
                     <FormControl>
                       <Textarea placeholder='How can we help you?' className='min-h-[100px]' {...field} />
                     </FormControl>
@@ -135,11 +135,11 @@ export function ContactForm() {
                         defaultValue={field.value}
                         className='flex flex-col space-y-2'
                       >
-                        <FormItem className='flex items-center space-x-3 space-y-0 rounded-lg border p-4'>
+                        <FormItem className='flex items-center space-x-3 space-y-0 rounded-lg border border-slate-200 dark:border-slate-700 p-4 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors'>
                           <FormControl><RadioGroupItem value='student' /></FormControl>
                           <FormLabel className='font-normal'>Student</FormLabel>
                         </FormItem>
-                        <FormItem className='flex items-center space-x-3 space-y-0 rounded-lg border p-4'>
+                        <FormItem className='flex items-center space-x-3 space-y-0 rounded-lg border border-slate-200 dark:border-slate-700 p-4 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors'>
                           <FormControl><RadioGroupItem value='instructor' /></FormControl>
                           <FormLabel className='font-normal'>Instructor</FormLabel>
                         </FormItem>
@@ -150,7 +150,12 @@ export function ContactForm() {
                 )}
               />
 
-              <Button type='submit' size='lg' className='h-12 w-full text-lg font-semibold' disabled={isPending}>
+              <Button
+                type='submit'
+                size='lg'
+                className='h-12 w-full text-lg font-semibold bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-600/40 transform transition-all hover:scale-[1.02]'
+                disabled={isPending}
+              >
                 {isPending ? (<><Loader2 className='mr-2 h-4 w-4 animate-spin' /> Sending...</>) : 'Send Message'}
               </Button>
             </form>

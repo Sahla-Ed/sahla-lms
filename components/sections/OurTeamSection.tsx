@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Github, Linkedin } from 'lucide-react';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { cn } from '@/lib/utils';
 
 interface TeamMember {
   name: string;
@@ -22,53 +23,51 @@ export const OurTeamSection: React.FC<OurTeamSectionProps> = ({
   teamMembers,
 }) => {
   return (
-    <section className='bg-muted/30 px-4 py-20'>
-      <div className='container mx-auto max-w-7xl'>
-        <h2 className='mb-12 text-center text-4xl font-bold'>Meet Our Team</h2>
-        <p className='text-muted-foreground mx-auto mb-16 max-w-2xl text-center text-xl'>
-          The passionate individuals behind Sahla&apos;s success
-        </p>
-
-        <div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'>
+    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {teamMembers.map((member, index) => (
             <Card
               key={index}
-              className='from-card to-muted/5 border-0 bg-gradient-to-br text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl'
+              className={cn(
+                "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-md hover:shadow-xl",
+                "text-center transition-all duration-300 hover:-translate-y-2",
+                "animate-fade-in-up animate-delay-[calc(200ms*var(--index))]"
+              )}
+              style={{ '--index': index } as React.CSSProperties}
             >
-              <CardContent className='pt-6'>
-                <Avatar className='ring-primary/10 mx-auto mb-4 h-24 w-24 ring-4'>
+              <CardContent className="pt-6">
+                <Avatar className="mx-auto mb-4 h-24 w-24 ring-4 ring-blue-100 dark:ring-blue-900/30">
                   <AvatarImage src={member.image} alt={member.name} />
-                  <AvatarFallback className='bg-primary/10 text-primary text-xl font-bold'>
+                  <AvatarFallback className="bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xl font-bold">
                     {member.name
                       .split(' ')
                       .map((n) => n[0])
                       .join('')}
                   </AvatarFallback>
                 </Avatar>
-                <h3 className='mb-1 font-semibold'>{member.name}</h3>
-                <p className='text-muted-foreground text-sm'>{member.role}</p>
-                <p className='text-muted-foreground mt-2 mb-4 text-xs leading-relaxed'>
+                <h3 className="mb-1 font-semibold text-lg">{member.name}</h3>
+                <p className="text-blue-600 dark:text-blue-400 text-sm font-medium">{member.role}</p>
+                <p className="text-slate-600 dark:text-slate-400 mt-2 mb-4 text-sm leading-relaxed">
                   {member.bio}
                 </p>
-                <div className='flex justify-center space-x-3'>
+                <div className="flex justify-center space-x-3">
                   {member.github && (
                     <Link
                       href={member.github}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='text-muted-foreground hover:text-primary transition-colors'
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors"
                     >
-                      <Github className='h-5 w-5' />
+                      <Github className="h-5 w-5" />
                     </Link>
                   )}
                   {member.linkedin && (
                     <Link
                       href={member.linkedin}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='text-muted-foreground hover:text-primary transition-colors'
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors"
                     >
-                      <Linkedin className='h-5 w-5' />
+                      <Linkedin className="h-5 w-5" />
                     </Link>
                   )}
                 </div>
@@ -76,7 +75,5 @@ export const OurTeamSection: React.FC<OurTeamSectionProps> = ({
             </Card>
           ))}
         </div>
-      </div>
-    </section>
   );
 };
