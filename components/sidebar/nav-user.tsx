@@ -73,9 +73,12 @@ export function NavUser() {
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <SidebarMenuButton
+          <SidebarMenuButton
               size='lg'
-              className='data-[state=open]:bg-accent data-[state=open]:text-accent-foreground hover:bg-accent hover:text-accent-foreground transition-colors'
+              className={cn(
+                'data-[state=open]:bg-accent data-[state=open]:text-accent-foreground hover:bg-accent hover:text-accent-foreground transition-colors',
+                isRTL && 'flex-row-reverse' 
+              )}
             >
               <Avatar className='h-8 w-8 rounded-lg'>
                 <AvatarImage
@@ -89,7 +92,12 @@ export function NavUser() {
                   {userInitial}
                 </AvatarFallback>
               </Avatar>
-              <div className='grid flex-1 text-left text-sm leading-tight'>
+              <div
+                className={cn(
+                  'grid flex-1 text-sm leading-tight',
+                  isRTL ? 'text-right' : 'text-left' 
+                )}
+              >
                 <span className='text-foreground truncate font-medium'>
                   {displayName}
                 </span>
@@ -97,7 +105,12 @@ export function NavUser() {
                   {session?.user.email}
                 </span>
               </div>
-              <IconDotsVertical className='text-muted-foreground hover:text-foreground ml-auto size-4 transition-colors' />
+              <IconDotsVertical
+                className={cn(
+                  'text-muted-foreground hover:text-foreground size-4 transition-colors',
+                  isRTL ? 'mr-auto' : 'ml-auto'
+                )}
+              />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -107,7 +120,7 @@ export function NavUser() {
             sideOffset={4}
           >
             <DropdownMenuLabel className='p-0 font-normal'>
-              <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
+              <div className={cn('flex items-center gap-2 px-1 py-1.5 text-sm', isRTL && 'flex-row-reverse text-right')}>
                 <Avatar className='h-8 w-8 rounded-lg'>
                   <AvatarImage
                     src={
@@ -120,7 +133,7 @@ export function NavUser() {
                     {userInitial}
                   </AvatarFallback>
                 </Avatar>
-                <div className='grid flex-1 text-left text-sm leading-tight'>
+                <div className='grid flex-1 leading-tight'>
                   <span className='text-foreground truncate font-medium'>
                     {displayName}
                   </span>
