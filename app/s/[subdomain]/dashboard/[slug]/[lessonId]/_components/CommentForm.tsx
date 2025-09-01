@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { addComment } from '../comment-actions';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
-import { useLocale, useTranslations } from 'next-intl'; // <-- 1. استيراد
+import { useLocale, useTranslations } from 'next-intl';
 
 interface CommentFormProps {
   lessonId: string;
@@ -21,7 +21,7 @@ export function CommentForm({
 }: CommentFormProps) {
   const [text, setText] = useState('');
   const [isPending, startTransition] = useTransition();
-  const t = useTranslations('AdminLessonPreview.comments.form'); // <-- 2. استخدام الهوك
+  const t = useTranslations('AdminLessonPreview.comments.form');
   const locale = useLocale();
   const isRTL = locale === 'ar';
 
@@ -33,11 +33,9 @@ export function CommentForm({
       try {
         await addComment(lessonId, text, parentId || null);
         setText('');
-        // 3. استخدام الترجمة هنا
         toast.success(t('successMessage'));
         onCommentAdded?.();
       } catch {
-        // 3. استخدام الترجمة هنا
         toast.error(t('errorMessage'));
       }
     });
@@ -48,7 +46,6 @@ export function CommentForm({
       <Textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
-        // 3. استخدام الترجمة هنا
         placeholder={parentId ? t('replyPlaceholder') : t('commentPlaceholder')}
         rows={2}
         disabled={isPending}
@@ -57,7 +54,6 @@ export function CommentForm({
       <div className={`flex ${isRTL ? 'justify-start' : 'justify-end'}`}>
         <Button type='submit' disabled={isPending || !text.trim()}>
           {isPending && <Loader2 className={isRTL ? 'ml-2' : 'mr-2'} />}
-          {/* 3. استخدام الترجمة هنا */}
           {parentId ? t('postReplyButton') : t('postCommentButton')}
         </Button>
       </div>
