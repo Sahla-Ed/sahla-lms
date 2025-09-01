@@ -888,5 +888,50 @@
     "signUpTitle": "إنشاء حساب",
     "forgotPasswordTitle": "إعادة تعيين كلمة المرور",
     "defaultTitle": "المصادقة"
+  },
+  "CoursesPage": {
+    "metadata": {
+      "title": "استكشف الدورات | {tenantName}",
+      "description": "اكتشف دورات رائعة من {tenantName} وابدأ رحلة التعلم الخاصة بك اليوم."
+    },
+    "hero": {
+      "badge": "استكشف دوراتنا",
+      "title": "اكتشف مغامرة {span}التعلم{/span} التالية",
+      "description": "انغمس في مجموعتنا المختارة بعناية من الدورات المصممة من قبل خبراء الصناعة. حول مهاراتك وافتح فرصًا جديدة في العالم الرقمي اليوم."
+    },
+    "header": {
+      "title": "دورات {tenantName}",
+      "description": "ابدأ رحلة التعلم الخاصة بك مع دوراتنا الأكثر شعبية"
+    }
+  },
+  "PublicCourseCard": {
+    "alt": "صورة مصغرة للدورة",
+    "hours": "س",
+    "buttons": {
+      "startLearning": "ابدأ التعلم",
+      "manageCourse": "إدارة الدورة"
+    }
+  },
+  "CourseSearch": {
+    "placeholder": "ابحث في الدورات بالعنوان أو الفئة...",
+    "resultsCount": "عرض {count} دورة{count, plural, one {} other {ات}}",
+    "noResults": "لم نتمكن من العثور على أي دورات تطابق \"{query}\"."
+  },
+  "CourseEnums": {
+    "levels": {
+      "Beginner": "مبتدئ",
+      "Intermediate": "متوسط",
+      "Advanced": "متقدم"
+    },
+    "categories": {
+      "Programming": "البرمجة",
+      "Design": "التصميم",
+      "Business": "الأعمال",
+      "Marketing": "التسويق",
+      "Finance": "المالية",
+      "Health": "الصحة",
+      "Education": "التعليم",
+      "Other": "أخرى"
+    }
   }
 }

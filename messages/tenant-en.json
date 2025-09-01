@@ -893,5 +893,50 @@
     "signUpTitle": "Create Account",
     "forgotPasswordTitle": "Reset Password",
     "defaultTitle": "Authentication"
+  },
+  "CoursesPage": {
+    "metadata": {
+      "title": "Explore Courses | {tenantName}",
+      "description": "Discover amazing courses from {tenantName} and start your learning journey today."
+    },
+    "hero": {
+      "badge": "Explore Our Courses",
+      "title": "Discover Your Next {span}Learning Adventure{/span}",
+      "description": "Dive into our carefully curated collection of courses designed by industry experts. Transform your skills and unlock new opportunities in today's digital world."
+    },
+    "header": {
+      "title": "{tenantName} Courses",
+      "description": "Start your learning journey with our most popular courses"
+    }
+  },
+  "PublicCourseCard": {
+    "alt": "Course thumbnail",
+    "hours": "h",
+    "buttons": {
+      "startLearning": "Start Learning",
+      "manageCourse": "Manage Course"
+    }
+  },
+  "CourseSearch": {
+    "placeholder": "Search courses by title or category...",
+    "resultsCount": "Showing {count} course{count, plural, one {} other {s}}",
+    "noResults": "We couldn't find any courses matching \"{query}\"."
+  },
+  "CourseEnums": {
+    "levels": {
+      "Beginner": "Beginner",
+      "Intermediate": "Intermediate",
+      "Advanced": "Advanced"
+    },
+    "categories": {
+      "Programming": "Programming",
+      "Design": "Design",
+      "Business": "Business",
+      "Marketing": "Marketing",
+      "Finance": "Finance",
+      "Health": "Health",
+      "Education": "Education",
+      "Other": "Other"
+    }
   }
 }

@@ -8,7 +8,15 @@ function isAbsoluteUrl(url: string): boolean {
 }
 
 export function constructUrl(key: string | null | undefined): string {
-  return useConstructUrl(key);
+  if (!key) {
+    return PLACEHOLDER_IMAGE;
+  }
+
+  if (isAbsoluteUrl(key)) {
+    return key;
+  }
+
+  return `${env.NEXT_PUBLIC_AWS_ENDPOINT_URL_S3}/${key}`;
 }
 
 export function useConstructUrl(key: string | null | undefined): string {

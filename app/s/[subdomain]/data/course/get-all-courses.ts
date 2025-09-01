@@ -12,9 +12,16 @@ export interface CourseFilters {
 
 export async function getAllCourses(filters: CourseFilters = {}) {
   const host = Object.fromEntries(await headers()).host;
-  const subdomain = await getSubdomain(undefined, host);
+  const subdomain = getSubdomain(undefined, host);
   const tenantId = await getTenantIdFromSlug(subdomain);
   const { q, category } = filters;
+
+  // --- START DEBUGGING ---
+  console.log('--- [getAllCourses] Debugging ---');
+  console.log(`Tenant ID: ${tenantId}`);
+  console.log(`Search Query (q): "${q}"`);
+  console.log(`Category Filter: "${category}"`);
+  // --- END DEBUGGING ---
 
   const whereClause: Prisma.CourseWhereInput = {
     status: 'Published',
@@ -26,6 +33,7 @@ export async function getAllCourses(filters: CourseFilters = {}) {
     whereClause.OR = [
       { title: { contains: q, mode: 'insensitive' } },
       { category: { contains: q, mode: 'insensitive' } },
+      { smallDescription: { contains: q, mode: 'insensitive' } } // تحسين للبحث
     ];
   }
 
@@ -34,6 +42,10 @@ export async function getAllCourses(filters: CourseFilters = {}) {
     whereClause.category = category;
   }
 
+  // --- START DEBUGGING ---
+  console.log('Prisma WHERE clause:', JSON.stringify(whereClause, null, 2));
+  // --- END DEBUGGING ---
+  
   const data = await prisma.course.findMany({
     where: whereClause,
     orderBy: {
@@ -51,6 +63,11 @@ export async function getAllCourses(filters: CourseFilters = {}) {
       category: true,
     },
   });
+
+  // --- START DEBUGGING ---
+  console.log(`Found ${data.length} courses.`);
+  console.log('---------------------------------');
+  // --- END DEBUGGING ---
 
   return data;
 }
