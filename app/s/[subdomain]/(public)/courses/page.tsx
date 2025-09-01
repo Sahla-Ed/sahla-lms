@@ -15,9 +15,15 @@ export const dynamic = 'force-dynamic';
 export default async function PublicCoursesroute({
   searchParams,
 }: {
-  searchParams?: Promise<{ q?: string; category?: string }>;
+  searchParams?: Promise<URLSearchParams>;
 }) {
-  const resolvedSearchParams = await searchParams;
+  const params = await searchParams;
+
+  // Extract filters from URLSearchParams (handling undefined values gracefully)
+  const filters = {
+    q: params?.get('q') || undefined,
+    category: params?.get('category') || undefined,
+  } as const;
 
   return (
     <div className='from-background via-secondary/10 to-background min-h-screen bg-gradient-to-b'>
@@ -66,7 +72,7 @@ export default async function PublicCoursesroute({
           </div>
 
           <Suspense fallback={<LoadingSkeletonLayout />}>
-            <RenderCourses searchParams={resolvedSearchParams} />
+            <RenderCourses filters={filters} />
           </Suspense>
         </div>
       </section>
@@ -75,14 +81,11 @@ export default async function PublicCoursesroute({
 }
 
 async function RenderCourses({
-  searchParams,
+  filters,
 }: {
-  searchParams?: { q?: string; category?: string };
+  filters: { q?: string; category?: string };
 }) {
-  const courses = await getAllCourses({
-    q: searchParams?.q,
-    category: searchParams?.category,
-  });
+  const courses = await getAllCourses(filters);
 
   return <CourseSearchWrapper courses={courses} />;
 }
