@@ -12,7 +12,7 @@ export interface CourseFilters {
 
 export async function getAllCourses(filters: CourseFilters = {}) {
   const host = Object.fromEntries(await headers()).host;
-  const subdomain = await getSubdomain(undefined, host);
+  const subdomain = getSubdomain(undefined, host);
   const tenantId = await getTenantIdFromSlug(subdomain);
   const { q, category } = filters;
 

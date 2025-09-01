@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 import { Search } from 'lucide-react';
@@ -15,6 +16,14 @@ export function CourseSearchWrapper({ courses }: CourseSearchWrapperProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
+
+  const [term, setTerm] = useState<string>(
+    searchParams.get('q')?.toString() ?? '',
+  );
+
+  useEffect(() => {
+    setTerm(searchParams.get('q')?.toString() ?? '');
+  }, [searchParams]);
 
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
@@ -35,9 +44,11 @@ export function CourseSearchWrapper({ courses }: CourseSearchWrapperProps) {
           <Input
             placeholder='Search courses by title or category...'
             className='rounded-full py-6 pr-4 pl-12 ...'
-            defaultValue={searchParams.get('q')?.toString()}
+            value={term}
             onChange={(e) => {
-              handleSearch(e.target.value);
+              const value = e.target.value;
+              setTerm(value);
+              handleSearch(value);
             }}
           />
         </div>

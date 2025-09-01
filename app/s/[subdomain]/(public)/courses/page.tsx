@@ -66,7 +66,10 @@ export default async function PublicCoursesroute({
           </div>
 
           <Suspense fallback={<LoadingSkeletonLayout />}>
-            <RenderCourses searchParams={resolvedSearchParams} />
+            <RenderCourses
+              key={JSON.stringify(resolvedSearchParams ?? {})}
+              searchParams={resolvedSearchParams}
+            />
           </Suspense>
         </div>
       </section>
