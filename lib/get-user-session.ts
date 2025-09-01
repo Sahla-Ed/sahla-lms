@@ -11,7 +11,7 @@ import { getTenantIdFromSlug } from '@/lib/get-tenant-id';
 export const getUserSession = cache(async () => {
   try {
     const host = Object.fromEntries(await headers()).host;
-    const subdomain = await getSubdomain(undefined, host);
+    const subdomain = getSubdomain(undefined, host);
     const tenantId = await getTenantIdFromSlug(subdomain);
 
     const session = await auth(tenantId ?? '').api.getSession({

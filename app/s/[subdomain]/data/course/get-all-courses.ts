@@ -12,28 +12,40 @@ export interface CourseFilters {
 
 export async function getAllCourses(filters: CourseFilters = {}) {
   const host = Object.fromEntries(await headers()).host;
-  const subdomain = await getSubdomain(undefined, host);
+  const subdomain = getSubdomain(undefined, host);
   const tenantId = await getTenantIdFromSlug(subdomain);
   const { q, category } = filters;
+
+  // --- START DEBUGGING ---
+  console.log('--- [getAllCourses] Debugging ---');
+  console.log(`Tenant ID: ${tenantId}`);
+  console.log(`Search Query (q): "${q}"`);
+  console.log(`Category Filter: "${category}"`);
+  // --- END DEBUGGING ---
 
   const whereClause: Prisma.CourseWhereInput = {
     status: 'Published',
     tenantId: tenantId,
   };
 
-  // 1. Filter by search query (q)
-  if (q) {
+  // Only add search conditions if q is not undefined and not empty
+  if (q && q.trim() !== '') {
     whereClause.OR = [
-      { title: { contains: q, mode: 'insensitive' } },
-      { category: { contains: q, mode: 'insensitive' } },
+      { title: { contains: q.trim(), mode: 'insensitive' } },
+      { category: { contains: q.trim(), mode: 'insensitive' } },
+      { smallDescription: { contains: q.trim(), mode: 'insensitive' } } // تحسين للبحث
     ];
   }
 
-  // 2. Filter by specific category
-  if (category) {
-    whereClause.category = category;
+  // Only add category filter if category is not undefined and not empty
+  if (category && category.trim() !== '') {
+    whereClause.category = category.trim();
   }
 
+  // --- START DEBUGGING ---
+  console.log('Prisma WHERE clause:', JSON.stringify(whereClause, null, 2));
+  // --- END DEBUGGING ---
+  
   const data = await prisma.course.findMany({
     where: whereClause,
     orderBy: {
@@ -51,6 +63,11 @@ export async function getAllCourses(filters: CourseFilters = {}) {
       category: true,
     },
   });
+
+  // --- START DEBUGGING ---
+  console.log(`Found ${data.length} courses.`);
+  console.log('---------------------------------');
+  // --- END DEBUGGING ---
 
   return data;
 }

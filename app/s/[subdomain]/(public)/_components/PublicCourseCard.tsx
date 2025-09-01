@@ -7,27 +7,42 @@ import { Clock, BookOpen, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useConstructUrl } from '@/hooks/use-construct-url';
+import { useLocale } from 'next-intl';
+import { cn } from '@/lib/utils';
 
 interface iAppProps {
   data: PublicCourseType;
+  translations: {
+    alt: string;
+    hours: string;
+    level: string;
+    category: string;
+    buttonText: string;
+    buttonHref: string;
+  };
 }
 
-export function PublicCourseCard({ data }: iAppProps) {
+// قمنا بحذف `isAdmin` من الـ props لأن `translations` تحتوي بالفعل على الزر الصحيح
+export function PublicCourseCard({ data, translations }: iAppProps) {
   const thumbnailUrl = useConstructUrl(data.fileKey!);
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
+
   return (
-    <Card className='group relative overflow-hidden border-0 bg-white/50 shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10'>
-      {/* Image Container */}
+    <Card 
+      dir={isRTL ? 'rtl' : 'ltr'}
+      className='group relative overflow-hidden border-0 bg-white/50 shadow-lg backdrop-blur-sm transition-all duration-700 hover:-translate-y-2 hover:bg-white/80 hover:shadow-2xl dark:bg-white/5 dark:hover:bg-white/10'
+    >
       <div className='relative overflow-hidden'>
         <Image
           width={600}
           height={300}
           className='h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105'
           src={thumbnailUrl}
-          alt={data.title}
+          alt={translations.alt}
         />
-
-        <Badge className='bg-background text-primary absolute top-3 right-3 border-0 shadow-lg backdrop-blur-sm'>
-          {data.level}
+        <Badge className={cn('bg-background text-primary absolute top-3 border-0 shadow-lg backdrop-blur-sm', isRTL ? 'left-3' : 'right-3')}>
+          {translations.level}
         </Badge>
       </div>
 
@@ -38,33 +53,32 @@ export function PublicCourseCard({ data }: iAppProps) {
         >
           {data.title}
         </Link>
-
         <p className='text-muted-foreground line-clamp-3 text-sm leading-relaxed'>
           {data.smallDescription}
         </p>
-
         <div className='text-muted-foreground flex items-center justify-between text-sm'>
           <div className='flex items-center gap-1'>
             <Clock className='h-4 w-4' />
-            <span className='font-medium'>{data.duration}h</span>
+            <span className='font-medium'>{data.duration}{translations.hours}</span>
           </div>
-
           <div className='flex items-center gap-1'>
             <BookOpen className='h-4 w-4' />
-            <span className='font-medium'>{data.category}</span>
+            <span className='font-medium'>{translations.category}</span>
           </div>
         </div>
-
         <Link
-          href={`/courses/${data.slug}`}
+          href={translations.buttonHref}
           className={buttonVariants({
             className:
               'group/btn from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 relative w-full overflow-hidden rounded-xl border-0 bg-gradient-to-r py-3 shadow-lg transition-all duration-500 hover:shadow-xl',
           })}
         >
           <span className='relative z-10 flex items-center justify-center gap-2 font-medium'>
-            Start Learning
-            <ArrowRight className='h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1' />
+            {translations.buttonText}
+            <ArrowRight className={cn(
+              'h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1', 
+              isRTL && 'rotate-180 group-hover/btn:-translate-x-1'
+            )} />
           </span>
           <div className='absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 transition-opacity duration-300 group-hover/btn:opacity-100' />
         </Link>
