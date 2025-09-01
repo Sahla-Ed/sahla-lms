@@ -729,6 +729,45 @@
     "badgeText": "Coming Soon",
     "returnButton": "Return to Homepage"
   },
+   "AdminLessonPreview": {
+    "sidebar": {
+      "backButton": "Back to Course Editor",
+      "header": "Moderation & Preview"
+    },
+    "preview": {
+      "noVideo": "This lesson is not a video or the video is missing."
+    },
+    "comments": {
+      "title": "Comments ({count})",
+      "formPlaceholder": "Add a comment...",
+      "formButton": "Post Comment",
+      "form": {
+        "replyPlaceholder": "Write a reply...",
+        "commentPlaceholder": "Add a comment...",
+        "postReplyButton": "Post Reply",
+        "postCommentButton": "Post Comment",
+        "successMessage": "Comment added successfully!",
+        "errorMessage": "Failed to add comment."
+      },
+      "item": {
+        "instructorBadge": "Instructor",
+        "replyButton": "Reply",
+        "editButton": "Edit",
+        "deleteButton": "Delete",
+        "saveButton": "Save",
+        "cancelButton": "Cancel",
+        "updateSuccess": "Comment updated!",
+        "updateError": "Failed to update comment.",
+        "deleteSuccess": "Comment deleted!",
+        "deleteError": "Failed to delete comment.",
+        "deleteDialog": {
+          "title": "Are you sure?",
+          "description": "This action cannot be undone. This will permanently delete your comment.",
+          "confirmButton": "Delete"
+        }
+      }
+    }
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {

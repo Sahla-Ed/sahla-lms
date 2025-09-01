@@ -724,6 +724,45 @@
     "badgeText": "قريبًا",
     "returnButton": "العودة للصفحة الرئيسية"
   },
+  "AdminLessonPreview": {
+    "sidebar": {
+      "backButton": "العودة لمحرر الدورة",
+      "header": "معاينة وإشراف"
+    },
+    "preview": {
+      "noVideo": "هذا الدرس ليس فيديو أو أن الفيديو مفقود."
+    },
+    "comments": {
+      "title": "التعليقات ({count})",
+      "formPlaceholder": "أضف تعليقًا...",
+      "formButton": "نشر التعليق",
+       "form": {
+        "replyPlaceholder": "اكتب رداً...",
+        "commentPlaceholder": "أضف تعليقاً...",
+        "postReplyButton": "نشر الرد",
+        "postCommentButton": "نشر التعليق",
+        "successMessage": "تمت إضافة التعليق بنجاح!",
+        "errorMessage": "فشل إضافة التعليق."
+      },
+      "item": {
+        "instructorBadge": "محاضر",
+        "replyButton": "رد",
+        "editButton": "تعديل",
+        "deleteButton": "حذف",
+        "saveButton": "حفظ",
+        "cancelButton": "إلغاء",
+        "updateSuccess": "تم تحديث التعليق!",
+        "updateError": "فشل تحديث التعليق.",
+        "deleteSuccess": "تم حذف التعليق!",
+        "deleteError": "فشل حذف التعليق.",
+        "deleteDialog": {
+          "title": "هل أنت متأكد؟",
+          "description": "لا يمكن التراجع عن هذا الإجراء. سيؤدي هذا إلى حذف تعليقك بشكل دائم.",
+          "confirmButton": "حذف"
+        }
+      }
+    }
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {
