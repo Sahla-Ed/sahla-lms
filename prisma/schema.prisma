@@ -223,6 +223,8 @@ model Enrollment {
   userId    String
   tenantId  String?
 
+  lastAccessedLessonId String? 
+
   @@unique([userId, courseId])
 }
 

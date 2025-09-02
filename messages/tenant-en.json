@@ -852,6 +852,13 @@
   "button": "Confirm Payment & Upgrade"
 },
 "UserDashboardPage": {
+  "newUser": {
+    "welcomeDescription": "You're about to start an exciting learning journey. Choose your first course and get going.",
+    "ctaTitle": "The Course Library Awaits",
+    "ctaDescription": "Explore our diverse collection of courses designed by experts to help you achieve your goals.",
+    "ctaButton": "Browse All Courses",
+    "sampleCoursesTitle": "Or start with one of these popular courses"
+  },
   "metadataTitle": "Dashboard | {tenantName}",
   "welcome": {
     "badge": "Dashboard",
@@ -861,7 +868,10 @@
   "stats": {
     "enrolled": "Enrolled Courses",
     "lessons": "Total Lessons",
-    "chapters": "Total Chapters"
+    "chapters": "Total Chapters",
+      "completed": "Completed Courses",
+    "certificates": "Certificates Earned",
+    "inProgress": "Courses in Progress"
   },
   "learning": {
     "continue": "Continue Learning",
@@ -902,7 +912,7 @@
     },
     "Sidebar": {
       "dashboard": "Dashboard",
-      "myCourses": "My Courses"
+      "myCourses": "Courses"
     },
     "Dashboard": {
       "welcomeMessage": "Welcome back, {username}!",

@@ -261,3 +261,29 @@ export async function getLatestUserSubmission(
     return null;
   }
 }
+
+
+export async function updateLastAccessedLesson(
+  courseId: string,
+  lessonId: string,
+): Promise<void> {
+  const user = await requireUser();
+  if (!user) return; 
+
+  try {
+    await prisma.enrollment.update({
+      where: {
+        userId_courseId: {
+          userId: user.id,
+          courseId: courseId,
+        },
+      },
+      data: {
+        lastAccessedLessonId: lessonId,
+        updatedAt: new Date(), 
+      },
+    });
+  } catch (error) {
+    console.error("Failed to update last accessed lesson:", error);
+  }
+}
