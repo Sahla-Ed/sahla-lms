@@ -797,6 +797,33 @@
     "resultsCount": "Showing {count, plural, one {# course} other {# courses}}",
     "noResults": "We couldn't find any courses matching \"{query}\"."
   },
+  "CourseSlugPage": {
+  "coursePrice": "Course Price",
+  "includes": "This course includes:",
+  "lifetimeAccess": "Full lifetime access",
+  "downloadableResources": "Downloadable resources",
+  "certificate": "Certificate of completion",
+  "hours": "Hours",
+  "lessons": "Lessons",
+  "level": "Level",
+  "duration": "Duration",
+  "category": "Category",
+  "whatYouWillLearn": "What You'll Learn",
+  "courseContent": "Course Content",
+  "chapters": "chapters",
+  "lesson": "lesson",
+  "lessonsPlural": "lessons",
+  "featuredCourse": "Featured Course"
+},
+"EnrollmentButton": {
+  "enrollNow": "Enroll Now!",
+  "processing": "Processing...",
+  "error": "An unexpected error occurred. Please try again.",
+  "success": "Success!"
+},
+"LessonItemForPublic": {
+  "locked": "Locked"
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {

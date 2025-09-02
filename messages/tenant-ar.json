@@ -792,6 +792,33 @@
     "resultsCount": "عرض {count, plural, zero {لا توجد دورات} one {دورة واحدة} two {دورتان} few {{count} دورات} other {{count} دورة}}",
     "noResults": "لم نتمكن من العثور على أي دورات تطابق \"{query}\"."
   },
+  "CourseSlugPage": {
+  "coursePrice": "سعر الدورة",
+  "includes": "هذه الدورة تشمل:",
+  "lifetimeAccess": "وصول مدى الحياة",
+  "downloadableResources": "موارد قابلة للتنزيل",
+  "certificate": "شهادة إتمام",
+  "hours": "ساعات",
+  "lessons": "دروس",
+  "level": "المستوى",
+  "duration": "المدة",
+  "category": "الفئة",
+  "whatYouWillLearn": "ماذا ستتعلم",
+  "courseContent": "محتوى الدورة",
+  "chapters": "وحدات",
+  "lesson": "درس",
+  "lessonsPlural": "دروس",
+  "featuredCourse": "دورة مميزة"
+},
+"EnrollmentButton": {
+  "enrollNow": "سجل الآن!",
+  "processing": "جاري المعالجة...",
+  "error": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
+  "success": "تم بنجاح!"
+},
+"LessonItemForPublic": {
+  "locked": "مغلق"
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {
