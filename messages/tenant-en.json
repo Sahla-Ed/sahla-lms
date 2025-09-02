@@ -851,6 +851,46 @@
   "stripeNotice": "This is where the Stripe payment form would be embedded. Clicking the button below would initiate the payment process.",
   "button": "Confirm Payment & Upgrade"
 },
+"UserDashboardPage": {
+  "metadataTitle": "Dashboard | {tenantName}",
+  "welcome": {
+    "badge": "Dashboard",
+    "title": "Welcome back learner, {username}!", 
+    "description": "Here's what's happening with your learning journey today."
+  },
+  "stats": {
+    "enrolled": "Enrolled Courses",
+    "lessons": "Total Lessons",
+    "chapters": "Total Chapters"
+  },
+  "learning": {
+    "continue": "Continue Learning",
+    "lessonsAvailable": "{count} lessons available",
+    "chapters": "{count} chapters",
+    "readyToStart": "Ready to start",
+    "emptyTitle": "No courses enrolled",
+    "emptyDescription": "Start your learning journey by enrolling in a course.",
+    "emptyButton": "Browse Courses"
+  },
+  "statsCard": {
+    "title": "Learning Stats",
+    "enrolled": "Enrolled Courses",
+    "available": "Available Courses",
+    "totalLessons": "Total Lessons",
+    "totalChapters": "Total Chapters"
+  },
+  "myCourses": {
+    "title": "My Courses",
+    "enrolledBadge": "{count} enrolled"
+  },
+  "availableCourses": {
+    "title": "Available Courses",
+    "availableBadge": "{count} available",
+    "emptyTitle": "🎉 Congratulations!",
+    "emptyDescription": "You've enrolled in all available courses! You're truly dedicated to learning.",
+    "emptyButton": "Browse All Courses"
+  }
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {
