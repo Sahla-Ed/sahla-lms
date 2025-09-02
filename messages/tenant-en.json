@@ -824,6 +824,33 @@
 "LessonItemForPublic": {
   "locked": "Locked"
 },
+"PaymentPages": {
+  "success": {
+    "title": "Payment Successful",
+    "description": "Congrats, your payment was successful. You should now have access to the course!",
+    "button": "Go to Dashboard"
+  },
+  "cancel": {
+    "title": "Payment Cancelled",
+    "description": "No worries, you won't be charged. Please try again!",
+    "button": "Go back to Homepage"
+  }
+},
+"UpgradePage": {
+  "title": "Upgrade to Pro",
+  "description": "Unlock all features and grow your online platform.",
+  "price": "$49",
+  "perMonth": "/ month",
+  "features": [
+    "Unlimited courses and students",
+    "Advanced analytics and reporting",
+    "Custom branding and domain",
+    "Priority support",
+    "AI-powered creator tools"
+  ],
+  "stripeNotice": "This is where the Stripe payment form would be embedded. Clicking the button below would initiate the payment process.",
+  "button": "Confirm Payment & Upgrade"
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {
