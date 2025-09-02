@@ -763,6 +763,35 @@
       }
     }
   },
+
+  "CoursesPage": {
+    "metadata": {
+      "title": "الدورات",
+      "description": "تصفح جميع الدورات المتاحة على {tenantName} وابدأ رحلتك التعليمية اليوم."
+    },
+    "hero": {
+      "badge": "اكتشف دوراتنا",
+      "title": "اكتشف مغامرتك التعليمية التالية",
+      "description": "انغمس في مجموعتنا المنسقة بعناية من الدورات المصممة من قبل خبراء الصناعة. حوّل مهاراتك وافتح فرصًا جديدة."
+    },
+    "header": {
+      "title": "دورات {tenantName}",
+      "description": "ابدأ رحلتك التعليمية مع دوراتنا الأكثر شيوعًا"
+    }
+  },
+  "PublicCourseCard": {
+    "alt": "غلاف الدورة",
+    "hours": "س",
+    "buttons": {
+      "startLearning": "ابدأ التعلم",
+      "manageCourse": "إدارة الدورة"
+    }
+  },
+  "CourseSearch": {
+    "placeholder": "ابحث عن الدورات بالعنوان أو الفئة...",
+    "resultsCount": "عرض {count, plural, zero {لا توجد دورات} one {دورة واحدة} two {دورتان} few {{count} دورات} other {{count} دورة}}",
+    "noResults": "لم نتمكن من العثور على أي دورات تطابق \"{query}\"."
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {

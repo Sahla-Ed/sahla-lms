@@ -36,7 +36,7 @@ async function fetchTenantLanguage(
 
 export async function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
-  const { pathname } = request.nextUrl;
+  const { pathname, search } = request.nextUrl;
   const subdomain = getSubdomain(request);
 
   let locale: string = defaultLocale;
@@ -73,10 +73,12 @@ export async function middleware(request: NextRequest) {
     const normalizedPathname =
       pathname === '/' ? '' : pathname.replace(/\/$/, '');
 
-    return NextResponse.rewrite(
-      new URL(`/s/${subdomain}${normalizedPathname}`, request.url),
-      { request: { headers: requestHeaders } },
-    );
+      const newUrl = new URL(`/s/${subdomain}${normalizedPathname}${search}`, request.url);
+
+      return NextResponse.rewrite(
+        newUrl,
+        { request: { headers: requestHeaders } },
+      );
   }
 
   return NextResponse.next({ request: { headers: requestHeaders } });

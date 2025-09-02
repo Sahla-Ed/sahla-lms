@@ -768,6 +768,35 @@
       }
     }
   },
+
+  "CoursesPage": {
+    "metadata": {
+      "title": "Courses",
+      "description": "Browse all available courses on {tenantName} and start your learning journey today."
+    },
+    "hero": {
+      "badge": "Explore Our Courses",
+      "title": "Discover Your Next Learning Adventure",
+      "description": "Dive into our carefully curated collection of courses designed by industry experts. Transform your skills and unlock new opportunities."
+    },
+    "header": {
+      "title": "{tenantName} Courses",
+      "description": "Start your learning journey with our most popular courses"
+    }
+  },
+  "PublicCourseCard": {
+    "alt": "Course cover",
+    "hours": "h",
+    "buttons": {
+      "startLearning": "Start Learning",
+      "manageCourse": "Manage Course"
+    }
+  },
+  "CourseSearch": {
+    "placeholder": "Search courses by title or category...",
+    "resultsCount": "Showing {count, plural, one {# course} other {# courses}}",
+    "noResults": "We couldn't find any courses matching \"{query}\"."
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {
