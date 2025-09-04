@@ -894,6 +894,12 @@
     "emptyTitle": "🎉 تهانينا!",
     "emptyDescription": "لقد سجلت في جميع الدورات المتاحة! أنت حقاً ملتزم بالتعلم.",
     "emptyButton": "تصفح كل الدورات"
+  },
+  "courseProgressCard": {
+    "thumbnailAlt": "صورة مصغرة للدورة",
+    "progressLabel": "التقدم:",
+    "lessonsCompleted": "{completedLessons} من {totalLessons} درس مكتمل",
+    "learnMoreButton": "اعرف المزيد"
   }
 },
 "CourseContent": {

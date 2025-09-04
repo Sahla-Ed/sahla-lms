@@ -899,6 +899,12 @@
     "emptyTitle": "🎉 Congratulations!",
     "emptyDescription": "You've enrolled in all available courses! You're truly dedicated to learning.",
     "emptyButton": "Browse All Courses"
+  },
+  "courseProgressCard": {
+    "thumbnailAlt": "Course Thumbnail Image",
+    "progressLabel": "Progress:",
+    "lessonsCompleted": "{completedLessons} of {totalLessons} lessons completed",
+    "learnMoreButton": "Learn More"
   }
 },
 "CourseContent": {
