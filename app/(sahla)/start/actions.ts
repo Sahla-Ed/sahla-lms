@@ -71,7 +71,22 @@ export async function createTenantAndAdmin(
   const { platformName, slug, name, email, password, language } =
     validation.data;
 
+  let newAdminId: string | null = null;
+
   try {
+    const { user: newAdmin } = await auth().api.signUpEmail({
+      body: {
+        name,
+        email,
+        password,
+      },
+    });
+
+    if (!newAdmin) {
+      throw new Error('Failed to create the admin user account.');
+    }
+    newAdminId = newAdmin.id;
+
     const newTenantId = uuidv4();
 
     await prisma.$transaction(
@@ -79,18 +94,6 @@ export async function createTenantAndAdmin(
         const existingTenant = await tx.tenants.findUnique({ where: { slug } });
         if (existingTenant) {
           throw new Error(t('serverMessages.slugTaken'));
-        }
-
-        const { user: newAdmin } = await auth().api.signUpEmail({
-          body: {
-            name,
-            email,
-            password,
-          },
-        });
-
-        if (!newAdmin) {
-          throw new Error('Failed to create the admin user account.');
         }
 
         await tx.tenants.create({
@@ -119,7 +122,7 @@ export async function createTenantAndAdmin(
         });
       },
       {
-        timeout: 15000,
+        timeout: 20000,
       },
     );
 
@@ -129,6 +132,18 @@ export async function createTenantAndAdmin(
       slug: slug,
     };
   } catch (error) {
+    if (newAdminId) {
+      try {
+        await prisma.user.delete({
+          where: { id: newAdminId },
+        });
+        console.log(`Cleaned up orphaned user: ${newAdminId}`);
+      } catch (cleanupError) {
+       
+        console.error(`CRITICAL: Failed to clean up orphaned user ${newAdminId}:`, cleanupError);
+      }
+    }
+    
     let errorMessage = t('serverMessages.creationError');
     if (error instanceof Error) {
       if (error.message.includes('taken')) {

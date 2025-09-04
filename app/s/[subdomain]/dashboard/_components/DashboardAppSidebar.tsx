@@ -7,6 +7,7 @@ import {
   IconSearch,
   IconSettings,
   IconBook,
+  IconTrophy,
 } from '@tabler/icons-react';
 import LogoLight from '@/public/logoLight.png';
 import LogoDark from '@/public/logoDark.png';
@@ -30,11 +31,14 @@ import { useTranslations } from 'next-intl';
 
 
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  side: 'left' | 'right';
+}
+
+export function AppSidebar({ side, ...props }: AppSidebarProps) {
   const { theme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   
-
   const t = useTranslations('TenantPlatform.Sidebar');
   const tAdmin = useTranslations('AdminSidebar');
 
@@ -55,6 +59,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       title: t('myCourses'),
       url: '/courses',
       icon: IconBook,
+    },
+    {
+      title: t('leaderboard'),
+      url: '/dashboard/leaderboard',
+      icon: IconTrophy,
     },
   ];
 
@@ -80,6 +89,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar
       collapsible='offcanvas'
       className='bg-background border-r'
+      side={side}
       {...props}
     >
       <SidebarHeader className='bg-background border-b'>

@@ -901,6 +901,29 @@
     "emptyButton": "Browse All Courses"
   }
 },
+"CourseContent": {
+  "buttons": {
+    "completed": "Lesson Completed",
+    "markComplete": "Mark as Complete"
+  },
+  "notifications": {
+    "error": "An unexpected error occurred. Please try again.",
+    "success": "Progress updated successfully"
+  },
+  "comments": {
+    "title": "Comments ({count})"
+  }
+},
+"LeaderboardPage": {
+  "title": "Leaderboard",
+  "description": "See who's at the top of their learning game!",
+  "xp": "XP",
+  "empty": {
+    "title": "The Leaderboard is Empty!",
+    "description": "No students have earned points yet. Be the first to appear here by completing lessons and quizzes.",
+    "button": "Go to My Courses"
+  }
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {
@@ -912,7 +935,8 @@
     },
     "Sidebar": {
       "dashboard": "Dashboard",
-      "myCourses": "Courses"
+      "myCourses": "Courses",
+      "leaderboard": "Leaderboard"
     },
     "Dashboard": {
       "welcomeMessage": "Welcome back, {username}!",

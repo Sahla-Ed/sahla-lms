@@ -18,11 +18,14 @@ import { requireAdmin } from '../../data/admin/require-admin';
 import { prisma } from '@/lib/db';
 import { getTranslations } from 'next-intl/server';
 
+export const dynamic = 'force-dynamic';
+
 export default async function CoursesPage() {
   const t = await getTranslations('AdminCoursesPage');
   const { user } = await requireAdmin();
   const plan = await checkPlanStatus();
   const courseCount = await prisma.course.count({ where: { userId: user.id } });
+
 
   const canCreateCourse = plan.planName === 'PRO' || courseCount < 1;
 

@@ -31,29 +31,30 @@ export async function markLessonComplete(
   const session = await requireUser();
 
   try {
-    await prisma.lessonProgress.upsert({
-      where: {
-        userId_lessonId: {
-          userId: session?.id as string,
-          lessonId: lessonId,
-        },
-      },
-      update: {
-        completed: true,
-      },
-      create: {
-        lessonId: lessonId,
-        userId: session?.id as string,
-        completed: true,
-      },
+
+    const lessonProgress = await prisma.lessonProgress.findUnique({
+        where: { userId_lessonId: { userId: session?.id as string, lessonId } },
+        select: { completed: true }
     });
 
-    revalidatePath(`/dashboard/${slug}`);
+  
+    if (!lessonProgress?.completed) {
+        await prisma.$transaction([
+            prisma.lessonProgress.upsert({
+                where: { userId_lessonId: { userId: session?.id as string, lessonId } },
+                update: { completed: true },
+                create: { lessonId: lessonId, userId: session?.id as string, completed: true },
+            }),
+            prisma.user.update({
+                where: { id: session?.id as string },
+                data: { xp: { increment: 10 } }
+            })
+        ]);
+    }
 
-    return {
-      status: 'success',
-      message: 'Progress updated',
-    };
+
+    revalidatePath(`/dashboard/${slug}`);
+    return { status: 'success', message: 'Progress updated' };
   } catch {
     return {
       status: 'error',

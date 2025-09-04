@@ -5,6 +5,9 @@ import { env } from './env';
 import { emailOTP } from 'better-auth/plugins';
 import { resend } from './resend';
 import { admin } from 'better-auth/plugins';
+interface SignUpUser {
+  id: string;
+}
 
 export const auth = (tenantId?: string | null) =>
   betterAuth({
@@ -12,6 +15,8 @@ export const auth = (tenantId?: string | null) =>
     database: prismaAdapter(prisma, {
       // debugLogs: true,
       provider: 'postgresql',
+
+      tenantId: tenantId ?? undefined, 
     }),
 
     //FIX:this shouldnot be hardcoded or allowing all but doing this for testing
@@ -26,6 +31,23 @@ export const auth = (tenantId?: string | null) =>
       github: {
         clientId: env.AUTH_GITHUB_CLIENT_ID,
         clientSecret: env.AUTH_GITHUB_SECRET,
+      },
+    },
+    events: {
+      onSignUp: async ({ user }: { user: SignUpUser }) => {
+        
+        if (tenantId) {
+
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { tenantId: tenantId },
+          });
+
+          await prisma.account.updateMany({
+            where: { userId: user.id },
+            data: { tenantId: tenantId },
+          });
+        }
       },
     },
     emailAndPassword: {

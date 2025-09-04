@@ -5,9 +5,9 @@ import { RenderDescription } from '@/components/rich-text-editor/RenderDescripti
 import { Button } from '@/components/ui/button';
 import { tryCatch } from '@/hooks/try-catch';
 import { useConstructUrl } from '@/hooks/use-construct-url';
-import { BookIcon, CheckCircle } from 'lucide-react';
+import { BookIcon, CheckCircle, Loader2 } from 'lucide-react';
 import { useTransition } from 'react';
-import { markLessonComplete, markLessonIncomplete } from '../actions';
+import { markLessonComplete } from '../actions'; 
 import { toast } from 'sonner';
 import { useConfetti } from '@/hooks/use-confetti';
 import { useRouter } from 'next/navigation';
@@ -15,11 +15,46 @@ import { CommentWithUserAndReplies } from '../comment-actions';
 import { CommentForm } from './CommentForm';
 import { CommentList } from './CommentList';
 import { Player } from '@/components/player/player';
+import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
+
 interface iAppProps {
   data: LessonContentType;
   comments: CommentWithUserAndReplies[];
   isAdminView?: boolean;
 }
+
+
+function VideoPlayer({
+  thumbnailKey,
+  videoKey,
+  title
+}: {
+  thumbnailKey: string;
+  videoKey: string;
+  title: string;
+}) {
+  const videoUrl = useConstructUrl(videoKey);
+  const thumbnailUrl = useConstructUrl(thumbnailKey);
+
+  if (!videoKey) {
+    return (
+      <div className='bg-muted flex aspect-video flex-col items-center justify-center rounded-lg'>
+        <BookIcon className='text-primary mx-auto mb-4 size-16' />
+        <p className='text-muted-foreground'>
+          This lesson does not have a video yet
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className='relative aspect-video overflow-hidden rounded-lg bg-black'>
+      <Player src={videoUrl} coverSrc={thumbnailUrl} coverAlt={`${title} cover`} />
+    </div>
+  );
+}
+
 
 export function CourseContent({
   data,
@@ -29,111 +64,74 @@ export function CourseContent({
   const [pending, startTransition] = useTransition();
   const { triggerConfetti } = useConfetti();
   const router = useRouter();
+  const t = useTranslations('CourseContent'); 
 
-  function VideoPlayer({
-    thumbnailKey,
-    videoKey,
-  }: {
-    thumbnailKey: string;
-    videoKey: string;
-  }) {
-    const videoUrl = useConstructUrl(videoKey);
-    const thumbnailUrl = useConstructUrl(thumbnailKey);
+  
+  const isCompleted = data.lessonProgress.length > 0 && data.lessonProgress[0].completed;
 
-    if (!videoKey) {
-      return (
-        <div className='bg-muted flex aspect-video flex-col items-center justify-center rounded-lg'>
-          <BookIcon className='text-primary mx-auto mb-4 size-16' />
-          <p className='text-muted-foreground'>
-            This lesson does not have a video yet
-          </p>
-        </div>
-      );
-    }
+  const handleMarkComplete = () => {
+    if (isCompleted || pending) return;
 
-    return (
-      <div className='relative aspect-video overflow-hidden rounded-lg bg-black'>
-        {/* <video */}
-        {/*   className='h-full w-full object-cover' */}
-        {/*   controls */}
-        {/*   poster={thumbnailUrl} */}
-        {/* > */}
-        {/*   <source src={videoUrl} type='video/mp4' /> */}
-        {/*   <source src={videoUrl} type='video/webm' /> */}
-        {/*   <source src={videoUrl} type='video/ogg' /> */}
-        {/*   Your browser does not support the video tag. */}
-        {/* </video> */}
-        <Player src={videoUrl} coverSrc={thumbnailUrl} />
-      </div>
-    );
-  }
-
-  function onToggleCompletion(isCurrentlyComplete: boolean) {
     startTransition(async () => {
-      const action = isCurrentlyComplete
-        ? markLessonIncomplete
-        : markLessonComplete;
       const { data: result, error } = await tryCatch(
-        action(data.id, data.Chapter.Course.slug),
+        markLessonComplete(data.id, data.Chapter.Course.slug),
       );
 
       if (error) {
-        toast.error('An unexpected error occurred. Please try again.');
+        toast.error(t('notifications.error'));
         return;
       }
 
       if (result.status === 'success') {
         toast.success(result.message);
-        if (!isCurrentlyComplete) triggerConfetti();
+        triggerConfetti();
         router.refresh();
       } else if (result.status === 'error') {
         toast.error(result.message);
       }
     });
   }
+  
+
   return (
     <div className='bg-background flex h-full flex-col pl-6'>
       <VideoPlayer
         thumbnailKey={data.thumbnailKey ?? ''}
         videoKey={data.videoKey ?? ''}
+        title={data.title}
       />
+      
       {!isAdminView && (
         <div className='border-b py-4'>
-          {data.lessonProgress.length > 0 &&
-          data.lessonProgress[0].completed ? (
-            <Button
-              variant='outline'
-              className='bg-green-500/10 text-green-500 hover:text-green-600'
-              onClick={() => onToggleCompletion(true)}
-              disabled={pending}
-            >
-              <CheckCircle className='mr-2 size-4 text-green-500' />
-              Mark as Incomplete
-            </Button>
-          ) : (
-            <Button
-              variant='outline'
-              onClick={() => onToggleCompletion(false)}
-              disabled={pending}
-            >
-              <CheckCircle className='mr-2 size-4 text-green-500' />
-              Mark as Complete
-            </Button>
-          )}
+          <Button
+            onClick={handleMarkComplete}
+            disabled={isCompleted || pending}
+            className={cn(
+              'transition-all',
+              isCompleted && 'bg-green-600 hover:bg-green-600 cursor-not-allowed'
+            )}
+          >
+            {pending ? (
+              <Loader2 className="mr-2 size-4 animate-spin" />
+            ) : (
+              <CheckCircle className='mr-2 size-4' />
+            )}
+            {isCompleted ? t('buttons.completed') : t('buttons.markComplete')}
+          </Button>
         </div>
       )}
+
       <div className='space-y-3 pt-3'>
         <h1 className='text-foreground text-3xl font-bold tracking-tight'>
           {data.title}
         </h1>
-
         {data.description && (
           <RenderDescription json={JSON.parse(data.description)} />
         )}
       </div>
       <div className='mt-8 flex-grow overflow-y-auto border-t pt-6 pr-6 pb-6'>
         <h2 className='mb-4 text-2xl font-bold'>
-          Comments ({comments.length})
+          {t('comments.title', { count: comments.length })}
         </h2>
         <div className='space-y-6'>
           <CommentForm lessonId={data.id} />

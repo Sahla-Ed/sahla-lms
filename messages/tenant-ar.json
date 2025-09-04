@@ -896,6 +896,29 @@
     "emptyButton": "تصفح كل الدورات"
   }
 },
+"CourseContent": {
+  "buttons": {
+    "completed": "تم إكمال الدرس",
+    "markComplete": "تحديد كمكتمل"
+  },
+  "notifications": {
+    "error": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
+    "success": "تم تحديث التقدم بنجاح"
+  },
+  "comments": {
+    "title": "التعليقات ({count})"
+  }
+},
+"LeaderboardPage": {
+  "title": "لوحة الصدارة",
+  "description": "شاهد من هم في قمة رحلتهم التعليمية!",
+  "xp": "نقطة خبرة",
+  "empty": {
+    "title": "لوحة الصدارة فارغة بعد!",
+    "description": "لم يجمع أي طالب نقاطًا بعد. كن أول من يظهر هنا عن طريق إكمال الدروس والاختبارات.",
+    "button": "اذهب إلى دوراتي"
+  }
+},
   "TenantPlatform": {
     "common": {
       "themeToggle": {
@@ -907,7 +930,8 @@
     },
     "Sidebar": {
       "dashboard": "لوحة التحكم",
-      "myCourses": "دورات"
+      "myCourses": "دورات",
+      "leaderboard": "لوحة الصدارة"
     },
     "Dashboard": {
       "welcomeMessage": "مرحبًا بعودتك، {username}!",
