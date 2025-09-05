@@ -105,7 +105,6 @@
     "@types/papaparse": "^5.3.16",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "bidi-js": "^1.0.3",
     "eslint": "^9",
     "eslint-config-next": "15.4.2",
     "husky": "^9.1.7",
