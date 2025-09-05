@@ -6,6 +6,7 @@ import { ApiResponse } from '@/lib/types';
 import { revalidatePath } from 'next/cache';
 import { codeSubmissionSchema, CodeSubmissionType } from '@/lib/zodSchemas';
 import { CodingSubmissionStatus } from '@/lib/generated/prisma';
+import { getTranslations } from 'next-intl/server'; 
 // import { statusMap } from '@/app/s/[subdomain]/dashboard/[slug]/[lessonId]/_components/CodingPlayground';
 //map judge0 status id to description to match CodingSubmissionStatus enum
 const statusMap: Record<number, CodingSubmissionStatus> = {
@@ -29,6 +30,7 @@ export async function markLessonComplete(
   slug: string,
 ): Promise<ApiResponse> {
   const session = await requireUser();
+  const t = await getTranslations('CourseContent.notifications');
 
   try {
 
@@ -54,11 +56,11 @@ export async function markLessonComplete(
 
 
     revalidatePath(`/dashboard/${slug}`);
-    return { status: 'success', message: 'Progress updated' };
+    return { status: 'success', message: t('success') }; 
   } catch {
     return {
       status: 'error',
-      message: 'Failed to mark lesson as complete',
+      message: t('error'),
     };
   }
 }

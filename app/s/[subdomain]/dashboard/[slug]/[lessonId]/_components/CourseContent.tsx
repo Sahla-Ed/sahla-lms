@@ -28,11 +28,13 @@ interface iAppProps {
 function VideoPlayer({
   thumbnailKey,
   videoKey,
-  title
+  title,
+  noVideoText, 
 }: {
   thumbnailKey: string;
   videoKey: string;
   title: string;
+  noVideoText: string; 
 }) {
   const videoUrl = useConstructUrl(videoKey);
   const thumbnailUrl = useConstructUrl(thumbnailKey);
@@ -41,9 +43,7 @@ function VideoPlayer({
     return (
       <div className='bg-muted flex aspect-video flex-col items-center justify-center rounded-lg'>
         <BookIcon className='text-primary mx-auto mb-4 size-16' />
-        <p className='text-muted-foreground'>
-          This lesson does not have a video yet
-        </p>
+        <p className='text-muted-foreground'>{noVideoText}</p>
       </div>
     );
   }
@@ -99,6 +99,7 @@ export function CourseContent({
         thumbnailKey={data.thumbnailKey ?? ''}
         videoKey={data.videoKey ?? ''}
         title={data.title}
+        noVideoText={t('videoPlayer.noVideoMessage')}
       />
       
       {!isAdminView && (

@@ -808,7 +808,39 @@
   "chapters": "وحدات",
   "lesson": "درس",
   "lessonsPlural": "دروس",
-  "featuredCourse": "دورة مميزة"
+  "featuredCourse": "دورة مميزة",
+   "noLessonsTitle": "لا توجد دروس متاحة",
+    "noLessonsDescription": "هذه الدورة لا تحتوي على أي دروس بعد!"
+},
+"QuizPlayer": {
+  "start": {
+    "title": "اختبار: {quizTitle}",
+    "description": "اختبر معلوماتك مع هذا الاختبار",
+    "questionsCount": "{count, plural, zero {لا أسئلة} one {سؤال واحد} two {سؤالان} few {{count} أسئلة} many {{count} سؤال} other {{count} سؤال}}",
+    "timeLimit": "{count, plural, one {دقيقة واحدة} two {دقيقتان} few {{count} دقائق} many {{count} دقيقة} other {{count} دقيقة}}",
+    "noTimeLimit": "لا يوجد حد زمني",
+    "startButton": "ابدأ الاختبار"
+  },
+  "active": {
+      "title": "سؤال {current} من {total}",
+      "previousButton": "السابق",
+      "nextButton": "التالي",
+      "submitButton": "إرسال الاختبار",
+      "submittingButton": "جاري الإرسال..."
+    },
+  "results": {
+    "title": "اكتمل الاختبار!",
+    "scoreLabel": "النتيجة",
+    "timeLabel": "الوقت",
+    "retakeButton": "إعادة الاختبار",
+    "questionLabel": "سؤال {index}",
+    "correctLabel": "صحيح",
+    "explanationLabel": "الشرح:"
+  },
+  "noQuestions": {
+    "title": "لا توجد أسئلة",
+    "description": "هذا الاختبار لا يحتوي على أسئلة بعد. يرجى التواصل مع المحاضر."
+  }
 },
 "EnrollmentButton": {
   "enrollNow": "سجل الآن!",
@@ -909,10 +941,13 @@
   },
   "notifications": {
     "error": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
-    "success": "تم تحديث التقدم بنجاح"
+   "success": "رائع! تم إكمال الدرس بنجاح."
   },
   "comments": {
     "title": "التعليقات ({count})"
+  },
+  "videoPlayer": {
+    "noVideoMessage": "هذا الدرس لا يحتوي على فيديو بعد."
   }
 },
 "LeaderboardPage": {
@@ -924,6 +959,45 @@
     "description": "لم يجمع أي طالب نقاطًا بعد. كن أول من يظهر هنا عن طريق إكمال الدروس والاختبارات.",
     "button": "اذهب إلى دوراتي"
   }
+},
+"StudentDetailPage": {
+  "kpi": {
+    "totalSpent": "إجمالي الإنفاق",
+    "enrollments": "التسجيلات"
+  },
+  "courseProgress": {
+    "title": "تقدم الدورة",
+    "emptyState": "هذا الطالب غير مسجل في أي دورات.",
+    "progressText": "{completedLessons} من {totalLessons} درس مكتمل ({progressPercentage}%)"
+  }
+},
+"CourseSidebar": {
+  "progress": "التقدم",
+  "lessonsProgress": "{completedLessons}/{totalLessons} {count, plural, zero {درس} one {درس} two {درسان} few {دروس} many {درس} other {درس}}",
+  "percentComplete": "{progress}% مكتمل",
+  "lessonsCount": "{count, plural, zero {لا دروس} one {درس واحد} two {درسان} few {{count} دروس} many {{count} درس} other {{count} درس}}",
+  "lessonItem": {
+    "completed": "مكتمل",
+    "tryAgain": "حاول مرة أخرى؟",
+    "currentlyWatching": "تشاهد الآن"
+  },
+  "certificate": {
+    "preparing": "جاري التحضير...",
+    "generate": "إصدار الشهادة",
+    "generatingPdf": "جاري إنشاء PDF...",
+    "downloadNow": "تحميل الآن",
+    "readyMessage": "شهادتك جاهزة!",
+    "prepareError": "فشل تحضير الشهادة. يرجى المحاولة مرة أخرى."
+  }
+},
+"CertificateDocument": {
+  "header": "شهادة إتمام",
+  "presentedTo": "تُقدم هذه الشهادة بكل فخر إلى",
+  "completionText": "لإكماله بنجاح الدورة التدريبية عبر الإنترنت",
+  "issuedOn": "صدرت بتاريخ:",
+  "signature": "{tenantName}",
+  "verifyLink": "تحقق من هذه الشهادة عبر الإنترنت",
+  "certificateIdLabel": "معرف الشهادة"
 },
   "TenantPlatform": {
     "common": {

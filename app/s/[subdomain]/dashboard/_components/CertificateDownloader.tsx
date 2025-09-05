@@ -7,7 +7,7 @@ import { PDFDownloadLink } from '@react-pdf/renderer';
 import { Award, Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-
+import { useTranslations } from 'next-intl';
 interface CertificateDownloaderProps {
   courseId: string;
   courseTitle: string;
@@ -24,6 +24,8 @@ export function CertificateDownloader({
   const [isClient, setIsClient] = useState(false);
   const [certificateId, setCertificateId] = useState<string | null>(null);
   const [isPreparing, setIsPreparing] = useState(false);
+  const t = useTranslations('CourseSidebar.certificate');
+  const tCertDoc = useTranslations('CertificateDocument');
 
   useEffect(() => {
     setIsClient(true);
@@ -35,13 +37,13 @@ export function CertificateDownloader({
       const certificate = await issueCertificate(courseId);
       if (certificate && certificate.id) {
         setCertificateId(certificate.id);
-        toast.success('Your certificate is ready!');
+        toast.success(t('readyMessage')); 
       } else {
         throw new Error('Could not retrieve certificate ID.');
       }
     } catch (error) {
       console.log(error);
-      toast.error('Failed to prepare certificate. Please try again.');
+      toast.error(t('prepareError')); 
     } finally {
       setIsPreparing(false);
     }
@@ -62,12 +64,12 @@ export function CertificateDownloader({
         {isPreparing ? (
           <>
             <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-            Preparing...
+            {t('preparing')} 
           </>
         ) : (
           <>
             <Award className='mr-2 h-4 w-4' />
-            Generate Certificate
+            {t('generate')}
           </>
         )}
       </Button>
@@ -95,12 +97,12 @@ export function CertificateDownloader({
           {loading ? (
             <>
               <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-              Generating PDF...
+              {t('generatingPdf')}
             </>
           ) : (
             <>
               <Award className='mr-2 h-4 w-4' />
-              Download Now
+              {t('downloadNow')} 
             </>
           )}
         </Button>

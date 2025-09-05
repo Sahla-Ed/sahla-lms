@@ -813,7 +813,39 @@
   "chapters": "chapters",
   "lesson": "lesson",
   "lessonsPlural": "lessons",
-  "featuredCourse": "Featured Course"
+  "featuredCourse": "Featured Course",
+  "noLessonsTitle": "No lessons available",
+    "noLessonsDescription": "This course does not have any lessons yet!"
+},
+"QuizPlayer": {
+  "start": {
+    "title": "Quiz: {quizTitle}",
+    "description": "Test your knowledge with this quiz",
+    "questionsCount": "{count, plural, one {# Question} other {# Questions}}",
+    "timeLimit": "{count, plural, one {# minute} other {# minutes}}",
+    "noTimeLimit": "No time limit",
+    "startButton": "Start Quiz"
+  },
+  "active": {
+    "title": "Question {current} of {total}",
+    "previousButton": "Previous",
+    "nextButton": "Next",
+    "submitButton": "Submit Quiz",
+    "submittingButton": "Submitting..."
+  },
+  "results": {
+    "title": "Quiz Complete!",
+    "scoreLabel": "Score",
+    "timeLabel": "Time",
+    "retakeButton": "Retake Quiz",
+    "questionLabel": "Question {index}",
+    "correctLabel": "Correct",
+    "explanationLabel": "Explanation:"
+  },
+  "noQuestions": {
+    "title": "No Questions",
+    "description": "This quiz has no questions yet. Please contact the instructor."
+  }
 },
 "EnrollmentButton": {
   "enrollNow": "Enroll Now!",
@@ -914,11 +946,14 @@
   },
   "notifications": {
     "error": "An unexpected error occurred. Please try again.",
-    "success": "Progress updated successfully"
+  "success": "Great! Lesson completed successfully."
   },
   "comments": {
     "title": "Comments ({count})"
-  }
+  },
+  "videoPlayer": {
+      "noVideoMessage": "This lesson does not have a video yet."
+    }
 },
 "LeaderboardPage": {
   "title": "Leaderboard",
@@ -929,6 +964,46 @@
     "description": "No students have earned points yet. Be the first to appear here by completing lessons and quizzes.",
     "button": "Go to My Courses"
   }
+},
+"StudentDetailPage": {
+  "kpi": {
+    "totalSpent": "Total Spent",
+    "enrollments": "Enrollments"
+  },
+  "courseProgress": {
+    "title": "Course Progress",
+    "emptyState": "This student is not enrolled in any courses.",
+    "progressText": "{completedLessons} of {totalLessons} lessons completed ({progressPercentage}%)"
+  }
+},
+"CourseSidebar": {
+  "progress": "Progress",
+  "lessonsProgress": "{completedLessons}/{totalLessons} {count, plural, one {lesson} other {lessons}}",
+  "percentComplete": "{progress}% complete",
+  "lessonsCount": "{count, plural, one {# lesson} other {# lessons}}",
+  "lessonItem": {
+    "completed": "Completed",
+    "tryAgain": "Try again?",
+    "currentlyWatching": "Currently Watching"
+  },
+ 
+  "certificate": {
+    "preparing": "Preparing...",
+    "generate": "Generate Certificate",
+    "generatingPdf": "Generating PDF...",
+    "downloadNow": "Download Now",
+    "readyMessage": "Your certificate is ready!",
+    "prepareError": "Failed to prepare certificate. Please try again."
+  }
+},
+"CertificateDocument": {
+  "header": "Certificate of Completion",
+  "presentedTo": "This certificate is proudly presented to",
+  "completionText": "for successfully completing the online course",
+  "issuedOn": "Issued on:",
+  "signature": "{tenantName}", 
+  "verifyLink": "Verify this certificate online",
+  "certificateIdLabel": "Certificate ID"
 },
   "TenantPlatform": {
     "common": {
