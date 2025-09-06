@@ -107,7 +107,7 @@ export default function StartplatformPage() {
           </CardTitle>
           <CardDescription>
             {step === 1
-              ? 'First, let&apos;s get your platform&apos;s details.'
+              ? "First, let's get your platform's details."
               : 'Great! Now create your admin account.'}
           </CardDescription>
         </CardHeader>
