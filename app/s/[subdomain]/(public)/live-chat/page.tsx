@@ -29,7 +29,9 @@ export default async function LiveChatPage() {
       title={t('title')}
       description={t('description')}
       badgeText={t('badgeText')}
-      icon={<MessageSquare className={cn('h-4 w-4', isRTL ? 'ml-2' : 'mr-2')} />}
+      icon={
+        <MessageSquare className={cn('h-4 w-4', isRTL ? 'ml-2' : 'mr-2')} />
+      }
     />
   );
 }

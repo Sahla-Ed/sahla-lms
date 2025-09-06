@@ -1171,7 +1171,7 @@
     "forgotPasswordTitle": "Reset Password",
     "defaultTitle": "Authentication"
   },
- "ContactPage": {
+  "ContactPage": {
     "hero": {
       "badge": "Contact Us",
       "title": "Get in Touch",
@@ -1228,7 +1228,8 @@
       "description": "Please fill in all fields before submitting the form.",
       "button": "OK"
     }
-  },"HelpCenterPage": {
+  },
+  "HelpCenterPage": {
     "Metadata": {
       "title": "Help Center",
       "description": "Find answers to your questions and get support for the {tenantName} platform."
@@ -1304,7 +1305,8 @@
       "description": "Can't find the answer you're looking for? Our support team is here to help.",
       "button": "Contact Support"
     }
-  },  "TechnicalSupportPage": {
+  },
+  "TechnicalSupportPage": {
     "Metadata": {
       "title": "Technical Support",
       "description": "Get technical assistance with the {tenantName} platform. Our team is ready to help you with any issues you encounter."
@@ -1322,7 +1324,7 @@
     "description": "This feature is under construction. Soon, you'll be able to connect with our support team instantly via live chat for real-time assistance.",
     "badgeText": "Coming Soon"
   },
-   "FreeCoursesPage": {
+  "FreeCoursesPage": {
     "Metadata": {
       "title": "Free Courses ",
       "description": "Explore a selection of free courses on the {tenantName} platform to kickstart your learning journey in various fields without any cost."
@@ -1394,7 +1396,7 @@
     "description": "This feature is under construction. Soon you'll be able to form and join study groups to collaborate on courses, projects, and assignments with your peers.",
     "badgeText": "Coming Soon"
   },
-   "ForumsPage": {
+  "ForumsPage": {
     "Metadata": {
       "title": "Discussion Forums",
       "description": "Engage in conversations, ask questions, and share your knowledge in the {tenantName} discussion forums."
@@ -1414,14 +1416,38 @@
       "description": "Essential terms and guidelines for using the {tenantName} learning platform safely and effectively."
     },
     "sections": {
-      "introduction": { "title": "Introduction", "content": "Welcome to our platform. By using our platform, you agree to these terms and conditions." },
-      "accounts": { "title": "User Accounts", "content": "Create an account with accurate information. Keep your login details secure and notify us of any unauthorized access." },
-      "access": { "title": "Course Access", "content": "Enrolled courses are for personal use only. Lifetime access provided unless policy violations occur." },
-      "ip": { "title": "Intellectual Property", "content": "All content is protected by copyright. No reproduction or distribution without written permission." },
-      "payment": { "title": "Payment & Refunds", "content": "Payment required at enrollment. 30-day money-back guarantee if less than 30% completed." },
-      "conduct": { "title": "Code of Conduct", "content": "Maintain respectful behavior. No harassment, hacking, or commercial use without authorization." },
-      "disclaimers": { "title": "Disclaimers", "content": "Platform provided 'as is' without warranties. Our liability is limited to course fees paid." },
-      "updates": { "title": "Contact & Updates", "content": "Terms may be updated with notification. Contact support for questions or concerns." }
+      "introduction": {
+        "title": "Introduction",
+        "content": "Welcome to our platform. By using our platform, you agree to these terms and conditions."
+      },
+      "accounts": {
+        "title": "User Accounts",
+        "content": "Create an account with accurate information. Keep your login details secure and notify us of any unauthorized access."
+      },
+      "access": {
+        "title": "Course Access",
+        "content": "Enrolled courses are for personal use only. Lifetime access provided unless policy violations occur."
+      },
+      "ip": {
+        "title": "Intellectual Property",
+        "content": "All content is protected by copyright. No reproduction or distribution without written permission."
+      },
+      "payment": {
+        "title": "Payment & Refunds",
+        "content": "Payment required at enrollment. 30-day money-back guarantee if less than 30% completed."
+      },
+      "conduct": {
+        "title": "Code of Conduct",
+        "content": "Maintain respectful behavior. No harassment, hacking, or commercial use without authorization."
+      },
+      "disclaimers": {
+        "title": "Disclaimers",
+        "content": "Platform provided 'as is' without warranties. Our liability is limited to course fees paid."
+      },
+      "updates": {
+        "title": "Contact & Updates",
+        "content": "Terms may be updated with notification. Contact support for questions or concerns."
+      }
     },
     "cta": {
       "title": "Need Clarification?",
@@ -1523,19 +1549,43 @@
       "title": "Key Guidelines",
       "description": "Essential principles that ensure a positive learning experience for everyone",
       "sections": {
-        "conduct": { "title": "Code of Conduct", "content": "Maintain respectful behavior and academic integrity in all interactions with fellow students, instructors, and platform content." },
-        "learning": { "title": "Learning Responsibilities", "content": "Complete coursework actively and engage meaningfully with the learning materials and community discussions." },
-        "certification": { "title": "Certification Standards", "content": "Work independently and honestly for valid certificates. All assessments must reflect your own understanding and effort." },
-        "security": { "title": "Account Security", "content": "Keep your login credentials secure and report any unauthorized access immediately to our support team." }
+        "conduct": {
+          "title": "Code of Conduct",
+          "content": "Maintain respectful behavior and academic integrity in all interactions with fellow students, instructors, and platform content."
+        },
+        "learning": {
+          "title": "Learning Responsibilities",
+          "content": "Complete coursework actively and engage meaningfully with the learning materials and community discussions."
+        },
+        "certification": {
+          "title": "Certification Standards",
+          "content": "Work independently and honestly for valid certificates. All assessments must reflect your own understanding and effort."
+        },
+        "security": {
+          "title": "Account Security",
+          "content": "Keep your login credentials secure and report any unauthorized access immediately to our support team."
+        }
       }
     },
     "support": {
       "title": "Support & Resources",
       "description": "Access the help and resources you need for a successful learning journey",
       "cards": {
-        "team": { "title": "Support Team", "description": "Get help when you need it most", "button": "Contact Support" },
-        "guidelines": { "title": "Learning Guidelines", "description": "Best practices for success", "button": "View Guidelines" },
-        "certs": { "title": "Certifications", "description": "Learn about our certification process", "button": "Learn More" }
+        "team": {
+          "title": "Support Team",
+          "description": "Get help when you need it most",
+          "button": "Contact Support"
+        },
+        "guidelines": {
+          "title": "Learning Guidelines",
+          "description": "Best practices for success",
+          "button": "View Guidelines"
+        },
+        "certs": {
+          "title": "Certifications",
+          "description": "Learn about our certification process",
+          "button": "Learn More"
+        }
       }
     },
     "cta": {
@@ -1554,7 +1604,7 @@
     "description": "This feature is under construction. We are building a vibrant community space for you to connect with peers, join discussions, and enhance your learning experience.",
     "badgeText": "Coming Soon"
   },
- "AboutPage": {
+  "AboutPage": {
     "Metadata": {
       "title": "About Us",
       "description": "Learn more about {tenantName} – our mission, values, and vision."
@@ -1567,10 +1617,22 @@
     "features": {
       "title": "What Makes Our Platform Special",
       "description": "Discover the features and tools that make learning and teaching more effective and enjoyable.",
-      "library": { "title": "Comprehensive Course Library", "description": "Access thousands of courses across various disciplines, from beginner to advanced levels, designed by industry experts and academic professionals." },
-      "instructors": { "title": "Expert Instructors", "description": "Learn from experienced professionals and certified educators who bring real-world expertise and proven teaching methodologies to every course." },
-      "interactive": { "title": "Interactive Learning", "description": "Engage with dynamic content including video lectures, interactive quizzes, hands-on projects, and collaborative discussions with peers." },
-      "certification": { "title": "Certification & Recognition", "description": "Earn industry-recognized certificates upon course completion and showcase your achievements to potential employers and colleagues." }
+      "library": {
+        "title": "Comprehensive Course Library",
+        "description": "Access thousands of courses across various disciplines, from beginner to advanced levels, designed by industry experts and academic professionals."
+      },
+      "instructors": {
+        "title": "Expert Instructors",
+        "description": "Learn from experienced professionals and certified educators who bring real-world expertise and proven teaching methodologies to every course."
+      },
+      "interactive": {
+        "title": "Interactive Learning",
+        "description": "Engage with dynamic content including video lectures, interactive quizzes, hands-on projects, and collaborative discussions with peers."
+      },
+      "certification": {
+        "title": "Certification & Recognition",
+        "description": "Earn industry-recognized certificates upon course completion and showcase your achievements to potential employers and colleagues."
+      }
     },
     "benefits": {
       "title": "How Our Platform Benefits You",
@@ -1601,10 +1663,22 @@
     "values": {
       "title": "Our Core Values",
       "description": "The principles that guide everything we do and shape our approach to education.",
-      "mission": { "title": "Mission-Driven", "content": "We're committed to making quality education accessible to everyone, everywhere." },
-      "innovation": { "title": "Innovation First", "content": "Leveraging cutting-edge technology to create engaging learning experiences." },
-      "community": { "title": "Community Focus", "content": "Building a supportive learning community where students and instructors thrive together." },
-      "impact": { "title": "Global Impact", "content": "Empowering learners worldwide with skills that matter in today's digital economy." }
+      "mission": {
+        "title": "Mission-Driven",
+        "content": "We're committed to making quality education accessible to everyone, everywhere."
+      },
+      "innovation": {
+        "title": "Innovation First",
+        "content": "Leveraging cutting-edge technology to create engaging learning experiences."
+      },
+      "community": {
+        "title": "Community Focus",
+        "content": "Building a supportive learning community where students and instructors thrive together."
+      },
+      "impact": {
+        "title": "Global Impact",
+        "content": "Empowering learners worldwide with skills that matter in today's digital economy."
+      }
     },
     "cta": {
       "title": "Ready to Start Your Learning Journey?",

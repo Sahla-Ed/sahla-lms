@@ -57,25 +57,43 @@ export default async function ContactUsPage() {
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
               <CardContent className='pt-6'>
                 <Mail className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>{t('contactMethods.email.title')}</h3>
-                <p className='text-muted-foreground text-sm'>{t('contactMethods.email.description')}</p>
-                <p className='text-primary text-sm font-medium'>{t('contactMethods.email.address')}</p>
+                <h3 className='mb-2 font-semibold'>
+                  {t('contactMethods.email.title')}
+                </h3>
+                <p className='text-muted-foreground text-sm'>
+                  {t('contactMethods.email.description')}
+                </p>
+                <p className='text-primary text-sm font-medium'>
+                  {t('contactMethods.email.address')}
+                </p>
               </CardContent>
             </Card>
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
               <CardContent className='pt-6'>
                 <Phone className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>{t('contactMethods.phone.title')}</h3>
-                <p className='text-muted-foreground text-sm'>{t('contactMethods.phone.description')}</p>
-                <p className='text-primary text-sm font-medium'>{t('contactMethods.phone.number')}</p>
+                <h3 className='mb-2 font-semibold'>
+                  {t('contactMethods.phone.title')}
+                </h3>
+                <p className='text-muted-foreground text-sm'>
+                  {t('contactMethods.phone.description')}
+                </p>
+                <p className='text-primary text-sm font-medium'>
+                  {t('contactMethods.phone.number')}
+                </p>
               </CardContent>
             </Card>
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
               <CardContent className='pt-6'>
                 <MessageCircle className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>{t('contactMethods.chat.title')}</h3>
-                <p className='text-muted-foreground text-sm'>{t('contactMethods.chat.description')}</p>
-                <p className='text-primary text-sm font-medium'>{t('contactMethods.chat.availability')}</p>
+                <h3 className='mb-2 font-semibold'>
+                  {t('contactMethods.chat.title')}
+                </h3>
+                <p className='text-muted-foreground text-sm'>
+                  {t('contactMethods.chat.description')}
+                </p>
+                <p className='text-primary text-sm font-medium'>
+                  {t('contactMethods.chat.availability')}
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -83,7 +101,9 @@ export default async function ContactUsPage() {
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
               <CardContent className='pt-6 text-center'>
                 <MapPin className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>{t('location.office.title')}</h3>
+                <h3 className='mb-2 font-semibold'>
+                  {t('location.office.title')}
+                </h3>
                 <p className='text-muted-foreground text-sm'>
                   {t('location.office.addressLine1')}
                   <br />
@@ -94,7 +114,9 @@ export default async function ContactUsPage() {
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
               <CardContent className='pt-6 text-center'>
                 <Clock className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>{t('location.hours.title')}</h3>
+                <h3 className='mb-2 font-semibold'>
+                  {t('location.hours.title')}
+                </h3>
                 <p className='text-muted-foreground text-sm'>
                   {t('location.hours.weekdays')}
                   <br />

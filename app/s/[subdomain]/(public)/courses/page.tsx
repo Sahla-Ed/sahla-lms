@@ -22,7 +22,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export const dynamic = 'force-dynamic';
 
-
 interface PublicCoursesRouteProps {
   searchParams: Promise<{ q?: string; category?: string }>;
 }
@@ -30,7 +29,6 @@ interface PublicCoursesRouteProps {
 export default async function PublicCoursesroute({
   searchParams,
 }: PublicCoursesRouteProps) {
-
   const resolvedSearchParams = await searchParams;
 
   const tHero = await getTranslations('CoursesPage.hero');

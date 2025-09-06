@@ -37,12 +37,36 @@ export default async function PrivacyPolicyPage() {
   const isRTL = locale === 'ar';
 
   const sections = [
-    { icon: <Database className='text-primary h-6 w-6' />, title: t('sections.collect.title'), content: t('sections.collect.content') },
-    { icon: <Eye className='text-primary h-6 w-6' />, title: t('sections.use.title'), content: t('sections.use.content') },
-    { icon: <Share2 className='text-primary h-6 w-6' />, title: t('sections.sharing.title'), content: t('sections.sharing.content') },
-    { icon: <Shield className='text-primary h-6 w-6' />, title: t('sections.security.title'), content: t('sections.security.content') },
-    { icon: <Cookie className='text-primary h-6 w-6' />, title: t('sections.cookies.title'), content: t('sections.cookies.content') },
-    { icon: <Settings className='text-primary h-6 w-6' />, title: t('sections.rights.title'), content: t('sections.rights.content') },
+    {
+      icon: <Database className='text-primary h-6 w-6' />,
+      title: t('sections.collect.title'),
+      content: t('sections.collect.content'),
+    },
+    {
+      icon: <Eye className='text-primary h-6 w-6' />,
+      title: t('sections.use.title'),
+      content: t('sections.use.content'),
+    },
+    {
+      icon: <Share2 className='text-primary h-6 w-6' />,
+      title: t('sections.sharing.title'),
+      content: t('sections.sharing.content'),
+    },
+    {
+      icon: <Shield className='text-primary h-6 w-6' />,
+      title: t('sections.security.title'),
+      content: t('sections.security.content'),
+    },
+    {
+      icon: <Cookie className='text-primary h-6 w-6' />,
+      title: t('sections.cookies.title'),
+      content: t('sections.cookies.content'),
+    },
+    {
+      icon: <Settings className='text-primary h-6 w-6' />,
+      title: t('sections.rights.title'),
+      content: t('sections.rights.content'),
+    },
   ];
 
   return (
@@ -53,7 +77,10 @@ export default async function PrivacyPolicyPage() {
       <section className='relative px-4 py-20'>
         <div className='mx-auto max-w-4xl'>
           <div className='space-y-8 text-center'>
-            <Badge variant='outline' className='text-primary border-primary/20 bg-primary/5'>
+            <Badge
+              variant='outline'
+              className='text-primary border-primary/20 bg-primary/5'
+            >
               {t('hero.badge')}
             </Badge>
             <h1 className='from-primary to-primary/60 bg-gradient-to-r bg-clip-text text-5xl font-bold tracking-tight text-transparent md:text-6xl'>
@@ -69,9 +96,17 @@ export default async function PrivacyPolicyPage() {
       <section className='px-4 py-20'>
         <div className='mx-auto max-w-4xl space-y-8'>
           {sections.map((section, index) => (
-            <Card key={index} className='group from-card to-accent/5 border-0 bg-gradient-to-br transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl'>
+            <Card
+              key={index}
+              className='group from-card to-accent/5 border-0 bg-gradient-to-br transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl'
+            >
               <CardHeader className='pb-4'>
-                <div className={cn('flex items-center', isRTL ? 'space-x-4 flex-row-reverse' : 'space-x-4')}>
+                <div
+                  className={cn(
+                    'flex items-center',
+                    isRTL ? 'flex-row-reverse space-x-4' : 'space-x-4',
+                  )}
+                >
                   <div className='bg-primary/10 group-hover:bg-primary/20 rounded-full p-3 transition-colors duration-300'>
                     {section.icon}
                   </div>
@@ -81,7 +116,9 @@ export default async function PrivacyPolicyPage() {
                 </div>
               </CardHeader>
               <CardContent>
-                <p className='text-muted-foreground text-lg leading-relaxed'>{section.content}</p>
+                <p className='text-muted-foreground text-lg leading-relaxed'>
+                  {section.content}
+                </p>
               </CardContent>
             </Card>
           ))}
@@ -98,10 +135,17 @@ export default async function PrivacyPolicyPage() {
               <CardTitle className='text-2xl'>{t('contact.title')}</CardTitle>
             </CardHeader>
             <CardContent className='space-y-6 text-center'>
-              <p className='text-muted-foreground text-lg leading-relaxed'>{t('contact.description')}</p>
+              <p className='text-muted-foreground text-lg leading-relaxed'>
+                {t('contact.description')}
+              </p>
               <div className='text-muted-foreground'>
-                <p className='font-medium'>{t('contact.emailLabel')} {t('contact.emailAddress')}</p>
-                <p className='text-sm'>{t('contact.responseTimeLabel')} {t('contact.responseTimeValue')}</p>
+                <p className='font-medium'>
+                  {t('contact.emailLabel')} {t('contact.emailAddress')}
+                </p>
+                <p className='text-sm'>
+                  {t('contact.responseTimeLabel')}{' '}
+                  {t('contact.responseTimeValue')}
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -111,11 +155,17 @@ export default async function PrivacyPolicyPage() {
       <section className='from-primary/5 to-primary/10 bg-gradient-to-r px-4 py-20'>
         <div className='mx-auto max-w-4xl space-y-8 text-center'>
           <h2 className='mb-6 text-4xl font-bold'>{t('cta.title')}</h2>
-          <p className='text-muted-foreground mx-auto max-w-2xl text-xl'>{t('cta.description')}</p>
+          <p className='text-muted-foreground mx-auto max-w-2xl text-xl'>
+            {t('cta.description')}
+          </p>
           <div className='flex flex-col justify-center gap-4 sm:flex-row'>
             <PrivacySettingsButton />
             <Link href='/terms'>
-              <Button size='lg' variant='outline' className='bg-background/80 hover:bg-background'>
+              <Button
+                size='lg'
+                variant='outline'
+                className='bg-background/80 hover:bg-background'
+              >
                 {t('cta.termsButton')}
               </Button>
             </Link>

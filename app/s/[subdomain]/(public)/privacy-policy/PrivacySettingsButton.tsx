@@ -25,7 +25,10 @@ export function PrivacySettingsButton() {
       <Button size='lg' className='group' onClick={() => setOpen(true)}>
         {t('cta.settingsButton')}
         <Settings
-          className={cn('h-4 w-4 transition-transform group-hover:rotate-90', isRTL ? 'mr-2' : 'ml-2')}
+          className={cn(
+            'h-4 w-4 transition-transform group-hover:rotate-90',
+            isRTL ? 'mr-2' : 'ml-2',
+          )}
         />
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
@@ -34,7 +37,9 @@ export function PrivacySettingsButton() {
             <DialogTitle>{t('settingsDialog.title')}</DialogTitle>
           </DialogHeader>
           <div className='text-muted-foreground py-4 text-center'>
-            <p className='mb-2 text-lg font-semibold'>{t('settingsDialog.comingSoon')}</p>
+            <p className='mb-2 text-lg font-semibold'>
+              {t('settingsDialog.comingSoon')}
+            </p>
             <p>{t('settingsDialog.description')}</p>
           </div>
           <DialogFooter>

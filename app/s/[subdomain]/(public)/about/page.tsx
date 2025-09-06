@@ -38,17 +38,49 @@ export default async function AboutPage() {
   const isRTL = locale === 'ar';
 
   const values = [
-    { icon: <Target className='text-primary h-8 w-8' />, title: t('values.mission.title'), content: t('values.mission.content') },
-    { icon: <Zap className='text-primary h-8 w-8' />, title: t('values.innovation.title'), content: t('values.innovation.content') },
-    { icon: <Users className='text-primary h-8 w-8' />, title: t('values.community.title'), content: t('values.community.content') },
-    { icon: <Globe className='text-primary h-8 w-8' />, title: t('values.impact.title'), content: t('values.impact.content') },
+    {
+      icon: <Target className='text-primary h-8 w-8' />,
+      title: t('values.mission.title'),
+      content: t('values.mission.content'),
+    },
+    {
+      icon: <Zap className='text-primary h-8 w-8' />,
+      title: t('values.innovation.title'),
+      content: t('values.innovation.content'),
+    },
+    {
+      icon: <Users className='text-primary h-8 w-8' />,
+      title: t('values.community.title'),
+      content: t('values.community.content'),
+    },
+    {
+      icon: <Globe className='text-primary h-8 w-8' />,
+      title: t('values.impact.title'),
+      content: t('values.impact.content'),
+    },
   ];
 
   const features = [
-    { icon: <BookOpen className='text-primary h-12 w-12' />, title: t('features.library.title'), description: t('features.library.description') },
-    { icon: <GraduationCap className='text-primary h-12 w-12' />, title: t('features.instructors.title'), description: t('features.instructors.description') },
-    { icon: <MessageSquare className='text-primary h-12 w-12' />, title: t('features.interactive.title'), description: t('features.interactive.description') },
-    { icon: <Award className='text-primary h-12 w-12' />, title: t('features.certification.title'), description: t('features.certification.description') },
+    {
+      icon: <BookOpen className='text-primary h-12 w-12' />,
+      title: t('features.library.title'),
+      description: t('features.library.description'),
+    },
+    {
+      icon: <GraduationCap className='text-primary h-12 w-12' />,
+      title: t('features.instructors.title'),
+      description: t('features.instructors.description'),
+    },
+    {
+      icon: <MessageSquare className='text-primary h-12 w-12' />,
+      title: t('features.interactive.title'),
+      description: t('features.interactive.description'),
+    },
+    {
+      icon: <Award className='text-primary h-12 w-12' />,
+      title: t('features.certification.title'),
+      description: t('features.certification.description'),
+    },
   ];
 
   const benefits = {
@@ -65,7 +97,10 @@ export default async function AboutPage() {
       <section className='relative px-4 py-20'>
         <div className='mx-auto max-w-7xl'>
           <div className='space-y-8 text-center'>
-            <Badge variant='outline' className='text-primary border-primary/20 bg-primary/5'>
+            <Badge
+              variant='outline'
+              className='text-primary border-primary/20 bg-primary/5'
+            >
               {t('hero.badge')}
             </Badge>
             <h1 className='from-primary to-primary/60 bg-gradient-to-r bg-clip-text text-5xl font-bold tracking-tight text-transparent md:text-7xl'>
@@ -89,15 +124,22 @@ export default async function AboutPage() {
           </div>
           <div className='grid grid-cols-1 gap-8 md:grid-cols-2'>
             {features.map((feature, index) => (
-              <Card key={index} className='group from-card to-accent/5 border-0 bg-gradient-to-br transition-all duration-500 hover:scale-105 hover:shadow-2xl'>
+              <Card
+                key={index}
+                className='group from-card to-accent/5 border-0 bg-gradient-to-br transition-all duration-500 hover:scale-105 hover:shadow-2xl'
+              >
                 <CardHeader>
                   <div className='bg-primary/10 group-hover:bg-primary/20 mx-auto mb-4 w-fit rounded-full p-4 transition-colors duration-300'>
                     {feature.icon}
                   </div>
-                  <CardTitle className='text-center text-2xl'>{feature.title}</CardTitle>
+                  <CardTitle className='text-center text-2xl'>
+                    {feature.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className='text-muted-foreground text-center leading-relaxed'>{feature.description}</p>
+                  <p className='text-muted-foreground text-center leading-relaxed'>
+                    {feature.description}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -110,19 +152,31 @@ export default async function AboutPage() {
         <div className='mx-auto max-w-7xl'>
           <div className='mb-16 text-center'>
             <h2 className='mb-4 text-4xl font-bold'>{t('benefits.title')}</h2>
-            <p className='text-muted-foreground mx-auto max-w-2xl text-xl'>{t('benefits.description')}</p>
+            <p className='text-muted-foreground mx-auto max-w-2xl text-xl'>
+              {t('benefits.description')}
+            </p>
           </div>
           <div className='grid grid-cols-1 gap-12 lg:grid-cols-2'>
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-all duration-300 hover:shadow-xl'>
               <CardHeader>
-                <CardTitle className='text-primary text-center text-2xl'>{t('benefits.students.title')}</CardTitle>
+                <CardTitle className='text-primary text-center text-2xl'>
+                  {t('benefits.students.title')}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className='space-y-4'>
                   {benefits.students.map((benefit, index) => (
-                    <div key={index} className={cn('flex items-start', isRTL ? 'space-x-3 flex-row-reverse' : 'space-x-3')}>
+                    <div
+                      key={index}
+                      className={cn(
+                        'flex items-start',
+                        isRTL ? 'flex-row-reverse space-x-3' : 'space-x-3',
+                      )}
+                    >
                       <div className='bg-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
-                      <p className='text-muted-foreground leading-relaxed'>{benefit}</p>
+                      <p className='text-muted-foreground leading-relaxed'>
+                        {benefit}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -130,14 +184,24 @@ export default async function AboutPage() {
             </Card>
             <Card className='from-card to-secondary/5 border-0 bg-gradient-to-br transition-all duration-300 hover:shadow-xl'>
               <CardHeader>
-                <CardTitle className='text-primary text-center text-2xl'>{t('benefits.instructors.title')}</CardTitle>
+                <CardTitle className='text-primary text-center text-2xl'>
+                  {t('benefits.instructors.title')}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className='space-y-4'>
                   {benefits.instructors.map((benefit, index) => (
-                    <div key={index} className={cn('flex items-start', isRTL ? 'space-x-3 flex-row-reverse' : 'space-x-3')}>
+                    <div
+                      key={index}
+                      className={cn(
+                        'flex items-start',
+                        isRTL ? 'flex-row-reverse space-x-3' : 'space-x-3',
+                      )}
+                    >
                       <div className='bg-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
-                      <p className='text-muted-foreground leading-relaxed'>{benefit}</p>
+                      <p className='text-muted-foreground leading-relaxed'>
+                        {benefit}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -152,11 +216,16 @@ export default async function AboutPage() {
         <div className='mx-auto max-w-7xl'>
           <div className='mb-16 text-center'>
             <h2 className='mb-4 text-4xl font-bold'>{t('values.title')}</h2>
-            <p className='text-muted-foreground mx-auto max-w-2xl text-xl'>{t('values.description')}</p>
+            <p className='text-muted-foreground mx-auto max-w-2xl text-xl'>
+              {t('values.description')}
+            </p>
           </div>
           <div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4'>
             {values.map((value, index) => (
-              <Card key={index} className='group from-card to-accent/5 border-0 bg-gradient-to-br transition-all duration-500 hover:scale-105 hover:shadow-2xl'>
+              <Card
+                key={index}
+                className='group from-card to-accent/5 border-0 bg-gradient-to-br transition-all duration-500 hover:scale-105 hover:shadow-2xl'
+              >
                 <CardHeader className='text-center'>
                   <div className='bg-primary/10 group-hover:bg-primary/20 mx-auto w-fit rounded-full p-3 transition-colors duration-300'>
                     {value.icon}
@@ -164,7 +233,9 @@ export default async function AboutPage() {
                   <CardTitle className='text-xl'>{value.title}</CardTitle>
                 </CardHeader>
                 <CardContent className='text-center'>
-                  <p className='text-muted-foreground leading-relaxed'>{value.content}</p>
+                  <p className='text-muted-foreground leading-relaxed'>
+                    {value.content}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -176,16 +247,27 @@ export default async function AboutPage() {
       <section className='from-primary/5 to-primary/10 bg-gradient-to-r px-4 py-20'>
         <div className='mx-auto max-w-4xl text-center'>
           <h2 className='mb-6 text-4xl font-bold'>{t('cta.title')}</h2>
-          <p className='text-muted-foreground mx-auto mb-8 max-w-2xl text-xl'>{t('cta.description')}</p>
+          <p className='text-muted-foreground mx-auto mb-8 max-w-2xl text-xl'>
+            {t('cta.description')}
+          </p>
           <div className='flex flex-col justify-center gap-4 sm:flex-row'>
             <Link href='/courses'>
               <Button size='lg' className='group'>
                 {t('cta.exploreButton')}
-                <ChevronRight className={cn('h-4 w-4 transition-transform group-hover:translate-x-1', isRTL ? 'mr-2' : 'ml-2')} />
+                <ChevronRight
+                  className={cn(
+                    'h-4 w-4 transition-transform group-hover:translate-x-1',
+                    isRTL ? 'mr-2' : 'ml-2',
+                  )}
+                />
               </Button>
             </Link>
             <Link href='/contact'>
-              <Button size='lg' variant='outline' className='bg-background/80 hover:bg-background'>
+              <Button
+                size='lg'
+                variant='outline'
+                className='bg-background/80 hover:bg-background'
+              >
                 {t('cta.contactButton')}
               </Button>
             </Link>

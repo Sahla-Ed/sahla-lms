@@ -114,7 +114,7 @@ export default async function TermsAndConditionsPage() {
                 <div
                   className={cn(
                     'flex items-center',
-                    isRTL ? 'space-x-4 flex-row-reverse' : 'space-x-4',
+                    isRTL ? 'flex-row-reverse space-x-4' : 'space-x-4',
                   )}
                 >
                   <div className='bg-primary/10 group-hover:bg-primary/20 rounded-full p-3 transition-colors duration-300'>

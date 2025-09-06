@@ -148,10 +148,7 @@ export default async function HelpCenterPage() {
             {faqItems.map((item, index) => (
               <AccordionItem key={index} value={`item-${index}`}>
                 <AccordionTrigger
-                  className={cn(
-                    'text-lg',
-                    isRTL ? 'text-right' : 'text-left',
-                  )}
+                  className={cn('text-lg', isRTL ? 'text-right' : 'text-left')}
                 >
                   {item.question}
                 </AccordionTrigger>

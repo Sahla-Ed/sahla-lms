@@ -1,4 +1,3 @@
-
 import { EmptyState } from '@/components/general/EmptyState';
 import { getAllCourses } from '../data/course/get-all-courses';
 import {
@@ -26,7 +25,6 @@ import Image from 'next/image';
 import { useConstructUrl } from '@/hooks/use-construct-url';
 import { Progress } from '@/components/ui/progress';
 import { useLocale, useTranslations } from 'next-intl';
-
 
 type ContinueLearningCourseType = Awaited<
   ReturnType<typeof getContinueLearningCourse>
