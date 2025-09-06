@@ -7,7 +7,7 @@ import { tryCatch } from '@/hooks/try-catch';
 import { useConstructUrl } from '@/hooks/use-construct-url';
 import { BookIcon, CheckCircle, Loader2 } from 'lucide-react';
 import { useTransition } from 'react';
-import { markLessonComplete } from '../actions'; 
+import { markLessonComplete } from '../actions';
 import { toast } from 'sonner';
 import { useConfetti } from '@/hooks/use-confetti';
 import { useRouter } from 'next/navigation';
@@ -24,17 +24,16 @@ interface iAppProps {
   isAdminView?: boolean;
 }
 
-
 function VideoPlayer({
   thumbnailKey,
   videoKey,
   title,
-  noVideoText, 
+  noVideoText,
 }: {
   thumbnailKey: string;
   videoKey: string;
   title: string;
-  noVideoText: string; 
+  noVideoText: string;
 }) {
   const videoUrl = useConstructUrl(videoKey);
   const thumbnailUrl = useConstructUrl(thumbnailKey);
@@ -50,11 +49,14 @@ function VideoPlayer({
 
   return (
     <div className='relative aspect-video overflow-hidden rounded-lg bg-black'>
-      <Player src={videoUrl} coverSrc={thumbnailUrl} coverAlt={`${title} cover`} />
+      <Player
+        src={videoUrl}
+        coverSrc={thumbnailUrl}
+        coverAlt={`${title} cover`}
+      />
     </div>
   );
 }
-
 
 export function CourseContent({
   data,
@@ -64,10 +66,10 @@ export function CourseContent({
   const [pending, startTransition] = useTransition();
   const { triggerConfetti } = useConfetti();
   const router = useRouter();
-  const t = useTranslations('CourseContent'); 
+  const t = useTranslations('CourseContent');
 
-  
-  const isCompleted = data.lessonProgress.length > 0 && data.lessonProgress[0].completed;
+  const isCompleted =
+    data.lessonProgress.length > 0 && data.lessonProgress[0].completed;
 
   const handleMarkComplete = () => {
     if (isCompleted || pending) return;
@@ -90,8 +92,7 @@ export function CourseContent({
         toast.error(result.message);
       }
     });
-  }
-  
+  };
 
   return (
     <div className='bg-background flex h-full flex-col pl-6'>
@@ -101,7 +102,7 @@ export function CourseContent({
         title={data.title}
         noVideoText={t('videoPlayer.noVideoMessage')}
       />
-      
+
       {!isAdminView && (
         <div className='border-b py-4'>
           <Button
@@ -109,11 +110,12 @@ export function CourseContent({
             disabled={isCompleted || pending}
             className={cn(
               'transition-all',
-              isCompleted && 'bg-green-600 hover:bg-green-600 cursor-not-allowed'
+              isCompleted &&
+                'cursor-not-allowed bg-green-600 hover:bg-green-600',
             )}
           >
             {pending ? (
-              <Loader2 className="mr-2 size-4 animate-spin" />
+              <Loader2 className='mr-2 size-4 animate-spin' />
             ) : (
               <CheckCircle className='mr-2 size-4' />
             )}

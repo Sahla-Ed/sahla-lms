@@ -26,7 +26,6 @@ export default async function CoursesPage() {
   const plan = await checkPlanStatus();
   const courseCount = await prisma.course.count({ where: { userId: user.id } });
 
-
   const canCreateCourse = plan.planName === 'PRO' || courseCount < 1;
 
   return (

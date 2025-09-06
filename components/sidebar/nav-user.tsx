@@ -73,11 +73,11 @@ export function NavUser() {
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-          <SidebarMenuButton
+            <SidebarMenuButton
               size='lg'
               className={cn(
                 'data-[state=open]:bg-accent data-[state=open]:text-accent-foreground hover:bg-accent hover:text-accent-foreground transition-colors',
-                isRTL && 'flex-row-reverse' 
+                isRTL && 'flex-row-reverse',
               )}
             >
               <Avatar className='h-8 w-8 rounded-lg'>
@@ -95,7 +95,7 @@ export function NavUser() {
               <div
                 className={cn(
                   'grid flex-1 text-sm leading-tight',
-                  isRTL ? 'text-right' : 'text-left' 
+                  isRTL ? 'text-right' : 'text-left',
                 )}
               >
                 <span className='text-foreground truncate font-medium'>
@@ -108,7 +108,7 @@ export function NavUser() {
               <IconDotsVertical
                 className={cn(
                   'text-muted-foreground hover:text-foreground size-4 transition-colors',
-                  isRTL ? 'mr-auto' : 'ml-auto'
+                  isRTL ? 'mr-auto' : 'ml-auto',
                 )}
               />
             </SidebarMenuButton>
@@ -120,7 +120,12 @@ export function NavUser() {
             sideOffset={4}
           >
             <DropdownMenuLabel className='p-0 font-normal'>
-              <div className={cn('flex items-center gap-2 px-1 py-1.5 text-sm', isRTL && 'flex-row-reverse text-right')}>
+              <div
+                className={cn(
+                  'flex items-center gap-2 px-1 py-1.5 text-sm',
+                  isRTL && 'flex-row-reverse text-right',
+                )}
+              >
                 <Avatar className='h-8 w-8 rounded-lg'>
                   <AvatarImage
                     src={

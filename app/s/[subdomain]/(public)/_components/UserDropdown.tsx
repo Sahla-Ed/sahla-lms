@@ -34,7 +34,7 @@ export function UserDropdown({ email, name, image }: iAppProps) {
           variant='ghost'
           className={cn(
             'flex h-auto items-center gap-1 p-0 hover:bg-transparent',
-            isRTL && 'flex-row-reverse'
+            isRTL && 'flex-row-reverse',
           )}
         >
           <Avatar className='h-8 w-8'>
@@ -50,10 +50,7 @@ export function UserDropdown({ email, name, image }: iAppProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='min-w-48'>
         <DropdownMenuLabel
-          className={cn(
-            'flex min-w-0 flex-col',
-            isRTL && 'items-end'
-          )}
+          className={cn('flex min-w-0 flex-col', isRTL && 'items-end')}
         >
           <span className='text-foreground truncate text-sm font-medium'>
             {name}
@@ -67,7 +64,7 @@ export function UserDropdown({ email, name, image }: iAppProps) {
           onClick={handleSignOut}
           className={cn(
             'cursor-pointer gap-2 text-red-600 focus:bg-red-50 focus:text-red-600 dark:text-red-400 dark:focus:bg-red-950 dark:focus:text-red-400',
-            isRTL && 'flex-row-reverse'
+            isRTL && 'flex-row-reverse',
           )}
         >
           <LogOutIcon size={16} className='opacity-60' aria-hidden='true' />

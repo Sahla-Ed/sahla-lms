@@ -22,7 +22,6 @@ export function PublicCourseCard({ data }: iAppProps) {
   const tEnums = useTranslations('CourseEnums');
   const locale = useLocale();
   const isRTL = locale === 'ar';
-  
 
   const { data: session } = authClient.useSession();
   const isAdmin = session?.user?.role === 'admin';
@@ -34,7 +33,7 @@ export function PublicCourseCard({ data }: iAppProps) {
           height={300}
           className='h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105'
           src={thumbnailUrl}
-          alt={t('alt')} 
+          alt={t('alt')}
         />
         <Badge className='bg-background text-primary absolute top-3 right-3 border-0 shadow-lg backdrop-blur-sm'>
           {tEnums(`levels.${data.level}`)}
@@ -54,11 +53,16 @@ export function PublicCourseCard({ data }: iAppProps) {
         <div className='text-muted-foreground flex items-center justify-between text-sm'>
           <div className='flex items-center gap-1'>
             <Clock className='h-4 w-4' />
-            <span className='font-medium'>{data.duration}{t('hours')}</span>
+            <span className='font-medium'>
+              {data.duration}
+              {t('hours')}
+            </span>
           </div>
           <div className='flex items-center gap-1'>
             <BookOpen className='h-4 w-4' />
-            <span className='font-medium'>{tEnums(`categories.${data.category}`)}</span>
+            <span className='font-medium'>
+              {tEnums(`categories.${data.category}`)}
+            </span>
           </div>
         </div>
 
@@ -71,9 +75,14 @@ export function PublicCourseCard({ data }: iAppProps) {
         >
           <span className='relative z-10 flex items-center justify-center gap-2 font-medium'>
             {isAdmin ? t('buttons.manageCourse') : t('buttons.startLearning')}
-            <ArrowRight className={cn('h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1', {
-              'rotate-180 group-hover/btn:-translate-x-1': isRTL,
-            })} />
+            <ArrowRight
+              className={cn(
+                'h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1',
+                {
+                  'rotate-180 group-hover/btn:-translate-x-1': isRTL,
+                },
+              )}
+            />
           </span>
           <div className='absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 transition-opacity duration-300 group-hover/btn:opacity-100' />
         </Link>
@@ -81,7 +90,6 @@ export function PublicCourseCard({ data }: iAppProps) {
     </Card>
   );
 }
-
 
 export function PublicCourseCardSkeleton() {
   return (

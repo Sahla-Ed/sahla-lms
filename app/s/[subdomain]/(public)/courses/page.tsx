@@ -8,7 +8,10 @@ import { getTenantSettings } from '../../data/admin/get-tenant-settings';
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const t = await getTranslations({ locale, namespace: 'CoursesPage.metadata' });
+  const t = await getTranslations({
+    locale,
+    namespace: 'CoursesPage.metadata',
+  });
   const tenant = await getTenantSettings();
 
   return {
@@ -17,21 +20,25 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-
 export const dynamic = 'force-dynamic';
+
+
+interface PublicCoursesRouteProps {
+  searchParams: Promise<{ q?: string; category?: string }>;
+}
 
 export default async function PublicCoursesroute({
   searchParams,
-}: {
-  searchParams?: { q?: string; category?: string };
-}) {
+}: PublicCoursesRouteProps) {
+
+  const resolvedSearchParams = await searchParams;
+
   const tHero = await getTranslations('CoursesPage.hero');
   const tHeader = await getTranslations('CoursesPage.header');
   const tenant = await getTenantSettings();
 
   return (
     <div className='from-background via-secondary/10 to-background min-h-screen bg-gradient-to-b'>
-
       <section className='from-primary/5 via-primary/10 to-primary/5 relative overflow-hidden bg-gradient-to-r px-6 py-20 md:px-8'>
         <div className='absolute inset-0 overflow-hidden'>
           <div className='bg-primary/10 absolute top-10 left-10 h-20 w-20 animate-pulse rounded-full' />
@@ -55,7 +62,6 @@ export default async function PublicCoursesroute({
         </div>
       </section>
 
-
       <section className='px-6 py-16 md:px-8'>
         <div className='mx-auto max-w-7xl'>
           <div className='mb-12 flex flex-col items-center justify-center text-center'>
@@ -66,7 +72,7 @@ export default async function PublicCoursesroute({
           </div>
 
           <Suspense fallback={<LoadingSkeletonLayout />}>
-            <RenderCourses searchParams={searchParams} />
+            <RenderCourses searchParams={resolvedSearchParams} />
           </Suspense>
         </div>
       </section>
@@ -77,7 +83,7 @@ export default async function PublicCoursesroute({
 async function RenderCourses({
   searchParams,
 }: {
-  searchParams?: { q?: string; category?: string };
+  searchParams: { q?: string; category?: string };
 }) {
   const courses = await getAllCourses({
     q: searchParams?.q,

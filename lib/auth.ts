@@ -16,7 +16,7 @@ export const auth = (tenantId?: string | null) =>
       // debugLogs: true,
       provider: 'postgresql',
 
-      tenantId: tenantId ?? undefined, 
+      tenantId: tenantId ?? undefined,
     }),
 
     //FIX:this shouldnot be hardcoded or allowing all but doing this for testing
@@ -35,9 +35,7 @@ export const auth = (tenantId?: string | null) =>
     },
     events: {
       onSignUp: async ({ user }: { user: SignUpUser }) => {
-        
         if (tenantId) {
-
           await prisma.user.update({
             where: { id: user.id },
             data: { tenantId: tenantId },

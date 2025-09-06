@@ -136,17 +136,17 @@ export function LessonItem({
           </p>
           {completed && !quizFailed && (
             <p className='text-[10px] font-medium text-green-700 dark:text-green-300'>
-               {t('completed')} 
+              {t('completed')}
             </p>
           )}
           {quizFailed && (
             <p className='text-[10px] font-medium text-red-700 dark:text-red-300'>
-             {t('tryAgain')}
+              {t('tryAgain')}
             </p>
           )}
           {isActive && !completed && !quizFailed && (
             <p className='text-primary font-mediums text-[10px]'>
-              {t('currentlyWatching')} 
+              {t('currentlyWatching')}
             </p>
           )}
         </div>

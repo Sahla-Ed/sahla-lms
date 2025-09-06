@@ -34,7 +34,6 @@ export default async function DashboardLayout({
     return redirect('/admin');
   }
 
-
   const [t, tenant, locale] = await Promise.all([
     getTranslations('TenantPlatform.Sidebar'),
     getTenantSettings(),
@@ -42,7 +41,6 @@ export default async function DashboardLayout({
   ]);
   const sidebarSide = locale === 'ar' ? 'right' : 'left';
   const headerTitle = `${t('dashboard')} - ${tenant.name}`;
-
 
   return (
     <SidebarProvider
@@ -53,9 +51,9 @@ export default async function DashboardLayout({
         } as React.CSSProperties
       }
     >
-      <AppSidebar variant='inset' side={sidebarSide}/>
+      <AppSidebar variant='inset' side={sidebarSide} />
       <SidebarInset>
-      <SiteHeader title={headerTitle} />
+        <SiteHeader title={headerTitle} />
         <div className='flex flex-1 flex-col'>
           <div className='@container/main flex flex-1 flex-col gap-2'>
             <div className='flex flex-col gap-8 px-4 py-4 md:gap-6 md:py-6 lg:px-6'>

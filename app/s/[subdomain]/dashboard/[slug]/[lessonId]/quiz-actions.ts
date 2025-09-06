@@ -80,7 +80,6 @@ export async function submitQuizAttempt(data: {
       data: updatedUserAnswers,
     });
 
-
     const existingProgress = await prisma.lessonProgress.findUnique({
       where: {
         userId_lessonId: {
@@ -112,10 +111,10 @@ export async function submitQuizAttempt(data: {
     });
 
     if (isPassed && !wasAlreadyCompleted) {
-      const xpGained = 25 + Math.floor(data.score / 10); 
+      const xpGained = 25 + Math.floor(data.score / 10);
       await prisma.user.update({
-          where: { id: session?.id as string },
-          data: { xp: { increment: xpGained } }
+        where: { id: session?.id as string },
+        data: { xp: { increment: xpGained } },
       });
     }
 

@@ -8,7 +8,7 @@ interface iAppProps {
 export default async function CourseSlugRoute({ params }: iAppProps) {
   const { slug } = await params;
 
-  const t = await getTranslations('CourseSlugPage'); 
+  const t = await getTranslations('CourseSlugPage');
   const course = await getCourseSidebarData(slug);
 
   // Find the first incomplete lesson

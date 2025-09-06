@@ -6,7 +6,7 @@ import { ApiResponse } from '@/lib/types';
 import { revalidatePath } from 'next/cache';
 import { codeSubmissionSchema, CodeSubmissionType } from '@/lib/zodSchemas';
 import { CodingSubmissionStatus } from '@/lib/generated/prisma';
-import { getTranslations } from 'next-intl/server'; 
+import { getTranslations } from 'next-intl/server';
 // import { statusMap } from '@/app/s/[subdomain]/dashboard/[slug]/[lessonId]/_components/CodingPlayground';
 //map judge0 status id to description to match CodingSubmissionStatus enum
 const statusMap: Record<number, CodingSubmissionStatus> = {
@@ -33,30 +33,33 @@ export async function markLessonComplete(
   const t = await getTranslations('CourseContent.notifications');
 
   try {
-
     const lessonProgress = await prisma.lessonProgress.findUnique({
-        where: { userId_lessonId: { userId: session?.id as string, lessonId } },
-        select: { completed: true }
+      where: { userId_lessonId: { userId: session?.id as string, lessonId } },
+      select: { completed: true },
     });
 
-  
     if (!lessonProgress?.completed) {
-        await prisma.$transaction([
-            prisma.lessonProgress.upsert({
-                where: { userId_lessonId: { userId: session?.id as string, lessonId } },
-                update: { completed: true },
-                create: { lessonId: lessonId, userId: session?.id as string, completed: true },
-            }),
-            prisma.user.update({
-                where: { id: session?.id as string },
-                data: { xp: { increment: 10 } }
-            })
-        ]);
+      await prisma.$transaction([
+        prisma.lessonProgress.upsert({
+          where: {
+            userId_lessonId: { userId: session?.id as string, lessonId },
+          },
+          update: { completed: true },
+          create: {
+            lessonId: lessonId,
+            userId: session?.id as string,
+            completed: true,
+          },
+        }),
+        prisma.user.update({
+          where: { id: session?.id as string },
+          data: { xp: { increment: 10 } },
+        }),
+      ]);
     }
 
-
     revalidatePath(`/dashboard/${slug}`);
-    return { status: 'success', message: t('success') }; 
+    return { status: 'success', message: t('success') };
   } catch {
     return {
       status: 'error',
@@ -265,13 +268,12 @@ export async function getLatestUserSubmission(
   }
 }
 
-
 export async function updateLastAccessedLesson(
   courseId: string,
   lessonId: string,
 ): Promise<void> {
   const user = await requireUser();
-  if (!user) return; 
+  if (!user) return;
 
   try {
     await prisma.enrollment.update({
@@ -283,10 +285,10 @@ export async function updateLastAccessedLesson(
       },
       data: {
         lastAccessedLessonId: lessonId,
-        updatedAt: new Date(), 
+        updatedAt: new Date(),
       },
     });
   } catch (error) {
-    console.error("Failed to update last accessed lesson:", error);
+    console.error('Failed to update last accessed lesson:', error);
   }
 }

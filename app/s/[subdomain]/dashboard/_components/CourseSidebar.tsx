@@ -22,8 +22,8 @@ interface iAppProps {
 }
 
 export function CourseSidebar({ course }: iAppProps) {
-  const t = useTranslations('CourseSidebar'); 
-  const tEnums = useTranslations('CourseEnums'); 
+  const t = useTranslations('CourseSidebar');
+  const tEnums = useTranslations('CourseEnums');
   const { data: session } = authClient.useSession();
   const pathname = usePathname();
   const currentLessonId = pathname.split('/').pop();
@@ -43,16 +43,20 @@ export function CourseSidebar({ course }: iAppProps) {
               {course.title}
             </h1>
             <p className='text-muted-foreground mt-1 truncate text-xs'>
-            {tEnums(`categories.${course.category}`)}
+              {tEnums(`categories.${course.category}`)}
             </p>
           </div>
         </div>
 
         <div className='space-y-2'>
           <div className='flex justify-between text-xs'>
-          <span className='text-muted-foreground'>{t('progress')}</span>
+            <span className='text-muted-foreground'>{t('progress')}</span>
             <span className='font-medium'>
-              {t('lessonsProgress', { count: totalLessons, completedLessons, totalLessons })}
+              {t('lessonsProgress', {
+                count: totalLessons,
+                completedLessons,
+                totalLessons,
+              })}
             </span>
           </div>
           <Progress value={progressPercentage} className='h-1.5' />

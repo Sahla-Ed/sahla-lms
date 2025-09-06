@@ -42,7 +42,11 @@ export function CommentForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className='flex flex-col gap-2' dir={isRTL ? 'rtl' : 'ltr'}>
+    <form
+      onSubmit={handleSubmit}
+      className='flex flex-col gap-2'
+      dir={isRTL ? 'rtl' : 'ltr'}
+    >
       <Textarea
         value={text}
         onChange={(e) => setText(e.target.value)}

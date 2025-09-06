@@ -29,8 +29,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
-
-
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   side: 'left' | 'right';
 }
@@ -38,7 +36,7 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 export function AppSidebar({ side, ...props }: AppSidebarProps) {
   const { theme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  
+
   const t = useTranslations('TenantPlatform.Sidebar');
   const tAdmin = useTranslations('AdminSidebar');
 
@@ -47,7 +45,6 @@ export function AppSidebar({ side, ...props }: AppSidebarProps) {
   }, []);
 
   const currentTheme = theme === 'system' ? systemTheme : theme;
-
 
   const navMain = [
     {

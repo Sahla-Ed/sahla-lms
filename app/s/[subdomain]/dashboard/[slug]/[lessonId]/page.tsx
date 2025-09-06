@@ -11,8 +11,6 @@ import { updateLastAccessedLesson } from './actions';
 
 type Params = Promise<{ lessonId: string }>;
 
-
-
 async function LessonContentLoader({ lessonId }: { lessonId: string }) {
   const [data, comments, session] = await Promise.all([
     getLessonContent(lessonId),

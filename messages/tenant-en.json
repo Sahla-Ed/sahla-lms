@@ -729,7 +729,7 @@
     "badgeText": "Coming Soon",
     "returnButton": "Return to Homepage"
   },
-   "AdminLessonPreview": {
+  "AdminLessonPreview": {
     "sidebar": {
       "backButton": "Back to Course Editor",
       "header": "Moderation & Preview"
@@ -798,213 +798,213 @@
     "noResults": "We couldn't find any courses matching \"{query}\"."
   },
   "CourseSlugPage": {
-  "coursePrice": "Course Price",
-  "includes": "This course includes:",
-  "lifetimeAccess": "Full lifetime access",
-  "downloadableResources": "Downloadable resources",
-  "certificate": "Certificate of completion",
-  "hours": "Hours",
-  "lessons": "Lessons",
-  "level": "Level",
-  "duration": "Duration",
-  "category": "Category",
-  "whatYouWillLearn": "What You'll Learn",
-  "courseContent": "Course Content",
-  "chapters": "chapters",
-  "lesson": "lesson",
-  "lessonsPlural": "lessons",
-  "featuredCourse": "Featured Course",
-  "noLessonsTitle": "No lessons available",
+    "coursePrice": "Course Price",
+    "includes": "This course includes:",
+    "lifetimeAccess": "Full lifetime access",
+    "downloadableResources": "Downloadable resources",
+    "certificate": "Certificate of completion",
+    "hours": "Hours",
+    "lessons": "Lessons",
+    "level": "Level",
+    "duration": "Duration",
+    "category": "Category",
+    "whatYouWillLearn": "What You'll Learn",
+    "courseContent": "Course Content",
+    "chapters": "chapters",
+    "lesson": "lesson",
+    "lessonsPlural": "lessons",
+    "featuredCourse": "Featured Course",
+    "noLessonsTitle": "No lessons available",
     "noLessonsDescription": "This course does not have any lessons yet!"
-},
-"QuizPlayer": {
-  "start": {
-    "title": "Quiz: {quizTitle}",
-    "description": "Test your knowledge with this quiz",
-    "questionsCount": "{count, plural, one {# Question} other {# Questions}}",
-    "timeLimit": "{count, plural, one {# minute} other {# minutes}}",
-    "noTimeLimit": "No time limit",
-    "startButton": "Start Quiz"
   },
-  "active": {
-    "title": "Question {current} of {total}",
-    "previousButton": "Previous",
-    "nextButton": "Next",
-    "submitButton": "Submit Quiz",
-    "submittingButton": "Submitting..."
+  "QuizPlayer": {
+    "start": {
+      "title": "Quiz: {quizTitle}",
+      "description": "Test your knowledge with this quiz",
+      "questionsCount": "{count, plural, one {# Question} other {# Questions}}",
+      "timeLimit": "{count, plural, one {# minute} other {# minutes}}",
+      "noTimeLimit": "No time limit",
+      "startButton": "Start Quiz"
+    },
+    "active": {
+      "title": "Question {current} of {total}",
+      "previousButton": "Previous",
+      "nextButton": "Next",
+      "submitButton": "Submit Quiz",
+      "submittingButton": "Submitting..."
+    },
+    "results": {
+      "title": "Quiz Complete!",
+      "scoreLabel": "Score",
+      "timeLabel": "Time",
+      "retakeButton": "Retake Quiz",
+      "questionLabel": "Question {index}",
+      "correctLabel": "Correct",
+      "explanationLabel": "Explanation:"
+    },
+    "noQuestions": {
+      "title": "No Questions",
+      "description": "This quiz has no questions yet. Please contact the instructor."
+    }
   },
-  "results": {
-    "title": "Quiz Complete!",
-    "scoreLabel": "Score",
-    "timeLabel": "Time",
-    "retakeButton": "Retake Quiz",
-    "questionLabel": "Question {index}",
-    "correctLabel": "Correct",
-    "explanationLabel": "Explanation:"
-  },
-  "noQuestions": {
-    "title": "No Questions",
-    "description": "This quiz has no questions yet. Please contact the instructor."
-  }
-},
-"EnrollmentButton": {
-  "enrollNow": "Enroll Now!",
-  "processing": "Processing...",
-  "error": "An unexpected error occurred. Please try again.",
-  "success": "Success!"
-},
-"LessonItemForPublic": {
-  "locked": "Locked"
-},
-"PaymentPages": {
-  "success": {
-    "title": "Payment Successful",
-    "description": "Congrats, your payment was successful. You should now have access to the course!",
-    "button": "Go to Dashboard"
-  },
-  "cancel": {
-    "title": "Payment Cancelled",
-    "description": "No worries, you won't be charged. Please try again!",
-    "button": "Go back to Homepage"
-  }
-},
-"UpgradePage": {
-  "title": "Upgrade to Pro",
-  "description": "Unlock all features and grow your online platform.",
-  "price": "$49",
-  "perMonth": "/ month",
-  "features": [
-    "Unlimited courses and students",
-    "Advanced analytics and reporting",
-    "Custom branding and domain",
-    "Priority support",
-    "AI-powered creator tools"
-  ],
-  "stripeNotice": "This is where the Stripe payment form would be embedded. Clicking the button below would initiate the payment process.",
-  "button": "Confirm Payment & Upgrade"
-},
-"UserDashboardPage": {
-  "newUser": {
-    "welcomeDescription": "You're about to start an exciting learning journey. Choose your first course and get going.",
-    "ctaTitle": "The Course Library Awaits",
-    "ctaDescription": "Explore our diverse collection of courses designed by experts to help you achieve your goals.",
-    "ctaButton": "Browse All Courses",
-    "sampleCoursesTitle": "Or start with one of these popular courses"
-  },
-  "metadataTitle": "Dashboard | {tenantName}",
-  "welcome": {
-    "badge": "Dashboard",
-    "title": "Welcome back learner, {username}!", 
-    "description": "Here's what's happening with your learning journey today."
-  },
-  "stats": {
-    "enrolled": "Enrolled Courses",
-    "lessons": "Total Lessons",
-    "chapters": "Total Chapters",
-      "completed": "Completed Courses",
-    "certificates": "Certificates Earned",
-    "inProgress": "Courses in Progress"
-  },
-  "learning": {
-    "continue": "Continue Learning",
-    "lessonsAvailable": "{count} lessons available",
-    "chapters": "{count} chapters",
-    "readyToStart": "Ready to start",
-    "emptyTitle": "No courses enrolled",
-    "emptyDescription": "Start your learning journey by enrolling in a course.",
-    "emptyButton": "Browse Courses"
-  },
-  "statsCard": {
-    "title": "Learning Stats",
-    "enrolled": "Enrolled Courses",
-    "available": "Available Courses",
-    "totalLessons": "Total Lessons",
-    "totalChapters": "Total Chapters"
-  },
-  "myCourses": {
-    "title": "My Courses",
-    "enrolledBadge": "{count} enrolled"
-  },
-  "availableCourses": {
-    "title": "Available Courses",
-    "availableBadge": "{count} available",
-    "emptyTitle": "🎉 Congratulations!",
-    "emptyDescription": "You've enrolled in all available courses! You're truly dedicated to learning.",
-    "emptyButton": "Browse All Courses"
-  },
-  "courseProgressCard": {
-    "thumbnailAlt": "Course Thumbnail Image",
-    "progressLabel": "Progress:",
-    "lessonsCompleted": "{completedLessons} of {totalLessons} lessons completed",
-    "learnMoreButton": "Learn More"
-  }
-},
-"CourseContent": {
-  "buttons": {
-    "completed": "Lesson Completed",
-    "markComplete": "Mark as Complete"
-  },
-  "notifications": {
+  "EnrollmentButton": {
+    "enrollNow": "Enroll Now!",
+    "processing": "Processing...",
     "error": "An unexpected error occurred. Please try again.",
-  "success": "Great! Lesson completed successfully."
+    "success": "Success!"
   },
-  "comments": {
-    "title": "Comments ({count})"
+  "LessonItemForPublic": {
+    "locked": "Locked"
   },
-  "videoPlayer": {
+  "PaymentPages": {
+    "success": {
+      "title": "Payment Successful",
+      "description": "Congrats, your payment was successful. You should now have access to the course!",
+      "button": "Go to Dashboard"
+    },
+    "cancel": {
+      "title": "Payment Cancelled",
+      "description": "No worries, you won't be charged. Please try again!",
+      "button": "Go back to Homepage"
+    }
+  },
+  "UpgradePage": {
+    "title": "Upgrade to Pro",
+    "description": "Unlock all features and grow your online platform.",
+    "price": "$49",
+    "perMonth": "/ month",
+    "features": [
+      "Unlimited courses and students",
+      "Advanced analytics and reporting",
+      "Custom branding and domain",
+      "Priority support",
+      "AI-powered creator tools"
+    ],
+    "stripeNotice": "This is where the Stripe payment form would be embedded. Clicking the button below would initiate the payment process.",
+    "button": "Confirm Payment & Upgrade"
+  },
+  "UserDashboardPage": {
+    "newUser": {
+      "welcomeDescription": "You're about to start an exciting learning journey. Choose your first course and get going.",
+      "ctaTitle": "The Course Library Awaits",
+      "ctaDescription": "Explore our diverse collection of courses designed by experts to help you achieve your goals.",
+      "ctaButton": "Browse All Courses",
+      "sampleCoursesTitle": "Or start with one of these popular courses"
+    },
+    "metadataTitle": "Dashboard | {tenantName}",
+    "welcome": {
+      "badge": "Dashboard",
+      "title": "Welcome back learner, {username}!",
+      "description": "Here's what's happening with your learning journey today."
+    },
+    "stats": {
+      "enrolled": "Enrolled Courses",
+      "lessons": "Total Lessons",
+      "chapters": "Total Chapters",
+      "completed": "Completed Courses",
+      "certificates": "Certificates Earned",
+      "inProgress": "Courses in Progress"
+    },
+    "learning": {
+      "continue": "Continue Learning",
+      "lessonsAvailable": "{count} lessons available",
+      "chapters": "{count} chapters",
+      "readyToStart": "Ready to start",
+      "emptyTitle": "No courses enrolled",
+      "emptyDescription": "Start your learning journey by enrolling in a course.",
+      "emptyButton": "Browse Courses"
+    },
+    "statsCard": {
+      "title": "Learning Stats",
+      "enrolled": "Enrolled Courses",
+      "available": "Available Courses",
+      "totalLessons": "Total Lessons",
+      "totalChapters": "Total Chapters"
+    },
+    "myCourses": {
+      "title": "My Courses",
+      "enrolledBadge": "{count} enrolled"
+    },
+    "availableCourses": {
+      "title": "Available Courses",
+      "availableBadge": "{count} available",
+      "emptyTitle": "🎉 Congratulations!",
+      "emptyDescription": "You've enrolled in all available courses! You're truly dedicated to learning.",
+      "emptyButton": "Browse All Courses"
+    },
+    "courseProgressCard": {
+      "thumbnailAlt": "Course Thumbnail Image",
+      "progressLabel": "Progress:",
+      "lessonsCompleted": "{completedLessons} of {totalLessons} lessons completed",
+      "learnMoreButton": "Learn More"
+    }
+  },
+  "CourseContent": {
+    "buttons": {
+      "completed": "Lesson Completed",
+      "markComplete": "Mark as Complete"
+    },
+    "notifications": {
+      "error": "An unexpected error occurred. Please try again.",
+      "success": "Great! Lesson completed successfully."
+    },
+    "comments": {
+      "title": "Comments ({count})"
+    },
+    "videoPlayer": {
       "noVideoMessage": "This lesson does not have a video yet."
     }
-},
-"LeaderboardPage": {
-  "title": "Leaderboard",
-  "description": "See who's at the top of their learning game!",
-  "xp": "XP",
-  "empty": {
-    "title": "The Leaderboard is Empty!",
-    "description": "No students have earned points yet. Be the first to appear here by completing lessons and quizzes.",
-    "button": "Go to My Courses"
-  }
-},
-"StudentDetailPage": {
-  "kpi": {
-    "totalSpent": "Total Spent",
-    "enrollments": "Enrollments"
   },
-  "courseProgress": {
-    "title": "Course Progress",
-    "emptyState": "This student is not enrolled in any courses.",
-    "progressText": "{completedLessons} of {totalLessons} lessons completed ({progressPercentage}%)"
-  }
-},
-"CourseSidebar": {
-  "progress": "Progress",
-  "lessonsProgress": "{completedLessons}/{totalLessons} {count, plural, one {lesson} other {lessons}}",
-  "percentComplete": "{progress}% complete",
-  "lessonsCount": "{count, plural, one {# lesson} other {# lessons}}",
-  "lessonItem": {
-    "completed": "Completed",
-    "tryAgain": "Try again?",
-    "currentlyWatching": "Currently Watching"
+  "LeaderboardPage": {
+    "title": "Leaderboard",
+    "description": "See who's at the top of their learning game!",
+    "xp": "XP",
+    "empty": {
+      "title": "The Leaderboard is Empty!",
+      "description": "No students have earned points yet. Be the first to appear here by completing lessons and quizzes.",
+      "button": "Go to My Courses"
+    }
   },
- 
-  "certificate": {
-    "preparing": "Preparing...",
-    "generate": "Generate Certificate",
-    "generatingPdf": "Generating PDF...",
-    "downloadNow": "Download Now",
-    "readyMessage": "Your certificate is ready!",
-    "prepareError": "Failed to prepare certificate. Please try again."
-  }
-},
-"CertificateDocument": {
-  "header": "Certificate of Completion",
-  "presentedTo": "This certificate is proudly presented to",
-  "completionText": "for successfully completing the online course",
-  "issuedOn": "Issued on:",
-  "signature": "{tenantName}", 
-  "verifyLink": "Verify this certificate online",
-  "certificateIdLabel": "Certificate ID"
-},
+  "StudentDetailPage": {
+    "kpi": {
+      "totalSpent": "Total Spent",
+      "enrollments": "Enrollments"
+    },
+    "courseProgress": {
+      "title": "Course Progress",
+      "emptyState": "This student is not enrolled in any courses.",
+      "progressText": "{completedLessons} of {totalLessons} lessons completed ({progressPercentage}%)"
+    }
+  },
+  "CourseSidebar": {
+    "progress": "Progress",
+    "lessonsProgress": "{completedLessons}/{totalLessons} {count, plural, one {lesson} other {lessons}}",
+    "percentComplete": "{progress}% complete",
+    "lessonsCount": "{count, plural, one {# lesson} other {# lessons}}",
+    "lessonItem": {
+      "completed": "Completed",
+      "tryAgain": "Try again?",
+      "currentlyWatching": "Currently Watching"
+    },
+
+    "certificate": {
+      "preparing": "Preparing...",
+      "generate": "Generate Certificate",
+      "generatingPdf": "Generating PDF...",
+      "downloadNow": "Download Now",
+      "readyMessage": "Your certificate is ready!",
+      "prepareError": "Failed to prepare certificate. Please try again."
+    }
+  },
+  "CertificateDocument": {
+    "header": "Certificate of Completion",
+    "presentedTo": "This certificate is proudly presented to",
+    "completionText": "for successfully completing the online course",
+    "issuedOn": "Issued on:",
+    "signature": "{tenantName}",
+    "verifyLink": "Verify this certificate online",
+    "certificateIdLabel": "Certificate ID"
+  },
   "TenantPlatform": {
     "common": {
       "themeToggle": {

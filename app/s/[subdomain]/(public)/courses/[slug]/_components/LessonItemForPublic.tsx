@@ -31,21 +31,25 @@ export function LessonItemForPublic({
   const isRTL = locale === 'ar';
 
   const lessonNumber = `${chapterIndex + 1}.${lessonIndex + 1}`;
-  
+
   const content = (
     <div
       className={cn(
         'group/lesson flex items-center gap-4 rounded-lg p-4 transition-all duration-200',
         canAccess
-          ? 'cursor-pointer hover:bg-accent/50 hover:border-border/50'
+          ? 'hover:bg-accent/50 hover:border-border/50 cursor-pointer'
           : 'cursor-not-allowed opacity-70',
-        isRTL && 'flex-row-reverse'
+        isRTL && 'flex-row-reverse',
       )}
     >
-      <div className={cn(
-        'flex size-10 items-center justify-center rounded-full border-2 transition-all duration-200 shrink-0',
-        canAccess ? 'border-primary/20 bg-primary/10 group-hover/lesson:border-primary/40' : 'border-gray-300 bg-gray-100'
-      )}>
+      <div
+        className={cn(
+          'flex size-10 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-200',
+          canAccess
+            ? 'border-primary/20 bg-primary/10 group-hover/lesson:border-primary/40'
+            : 'border-gray-300 bg-gray-100',
+        )}
+      >
         {canAccess ? (
           <PlayCircle className='text-primary size-4' />
         ) : (
@@ -53,7 +57,12 @@ export function LessonItemForPublic({
         )}
       </div>
       <div className={cn('flex-1', isRTL ? 'text-right' : 'text-left')}>
-        <p className={cn('text-sm font-medium transition-colors', canAccess ? 'group-hover/lesson:text-primary' : '')}>
+        <p
+          className={cn(
+            'text-sm font-medium transition-colors',
+            canAccess ? 'group-hover/lesson:text-primary' : '',
+          )}
+        >
           {lessonNumber} - {lesson.title}
         </p>
       </div>
@@ -67,9 +76,7 @@ export function LessonItemForPublic({
 
   if (canAccess) {
     return (
-      <Link href={`/dashboard/${courseSlug}/${lesson.id}`}>
-        {content}
-      </Link>
+      <Link href={`/dashboard/${courseSlug}/${lesson.id}`}>{content}</Link>
     );
   }
 

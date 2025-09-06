@@ -28,7 +28,7 @@ export function NavMain({
   return (
     <SidebarGroup>
       <SidebarGroupContent className='flex flex-col gap-2'>
-      {pathname.startsWith('/admin') && quickCreateText && (
+        {pathname.startsWith('/admin') && quickCreateText && (
           <SidebarMenu>
             <SidebarMenuItem className='flex items-center gap-2'>
               <SidebarMenuButton

@@ -11,9 +11,9 @@ export async function getLeaderboard() {
 
   const users = await prisma.user.findMany({
     where: {
-      tenantId: session.tenantId, 
+      tenantId: session.tenantId,
       role: { not: 'admin' },
-  
+
       xp: {
         gt: 0,
       },

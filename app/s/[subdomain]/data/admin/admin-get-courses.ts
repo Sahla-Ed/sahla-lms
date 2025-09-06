@@ -23,7 +23,7 @@ export async function adminGetCourses() {
     },
     where: {
       // tenantId: session.tenantId,
-      tenantId: user.tenantId, 
+      tenantId: user.tenantId,
     },
   });
 

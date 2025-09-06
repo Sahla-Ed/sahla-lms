@@ -73,12 +73,14 @@ export async function middleware(request: NextRequest) {
     const normalizedPathname =
       pathname === '/' ? '' : pathname.replace(/\/$/, '');
 
-      const newUrl = new URL(`/s/${subdomain}${normalizedPathname}${search}`, request.url);
+    const newUrl = new URL(
+      `/s/${subdomain}${normalizedPathname}${search}`,
+      request.url,
+    );
 
-      return NextResponse.rewrite(
-        newUrl,
-        { request: { headers: requestHeaders } },
-      );
+    return NextResponse.rewrite(newUrl, {
+      request: { headers: requestHeaders },
+    });
   }
 
   return NextResponse.next({ request: { headers: requestHeaders } });

@@ -52,7 +52,11 @@ export function AdminCourseSidebar({ course }: AdminCourseSidebarProps) {
           href={`/admin/courses/${course.id}/edit`}
           className='text-muted-foreground hover:text-foreground mb-4 flex items-center gap-2 text-sm font-semibold'
         >
-          {isRTL ? <ArrowRight className='size-4' /> : <ArrowLeft className='size-4' />}
+          {isRTL ? (
+            <ArrowRight className='size-4' />
+          ) : (
+            <ArrowLeft className='size-4' />
+          )}
           {t('backButton')}
         </Link>
         <h1 className='truncate text-base leading-tight font-bold'>
@@ -63,7 +67,12 @@ export function AdminCourseSidebar({ course }: AdminCourseSidebarProps) {
         </p>
       </div>
 
-      <div className={cn('flex-1 space-y-3 overflow-y-auto py-4', isRTL ? 'pl-4' : 'pr-4')}>
+      <div
+        className={cn(
+          'flex-1 space-y-3 overflow-y-auto py-4',
+          isRTL ? 'pl-4' : 'pr-4',
+        )}
+      >
         {course.chapter.map((chapter) => (
           <Collapsible key={chapter.id} defaultOpen={true}>
             <CollapsibleTrigger asChild>
@@ -81,22 +90,34 @@ export function AdminCourseSidebar({ course }: AdminCourseSidebarProps) {
                 </div>
               </Button>
             </CollapsibleTrigger>
-            <CollapsibleContent className={cn('mt-1 space-y-1 border-r-2 pr-6', isRTL ? 'border-l-0 border-r-2 pr-6' : 'border-r-0 border-l-2 pl-6')}>
-              {chapter.lessons
-                .map((lesson) => (
-                  <Link
-                    key={lesson.id}
-                    href={`/admin/lessons/${lesson.id}`}
-                    className={`block rounded-md p-2 text-sm font-medium transition-colors ${currentLessonId === lesson.id ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/50'}`}
-                  >
-                    <div className='flex items-center gap-2'>
-                      {lesson.type === 'VIDEO' && <FileText className='size-4 shrink-0' />}
-                      {lesson.type === 'QUIZ' && <HelpCircle className='size-4 shrink-0' />}
-                      {lesson.type === 'CODING' && <Code className='size-4 shrink-0' />}
-                      <span className='truncate'>{lesson.title}</span>
-                    </div>
-                  </Link>
-                ))}
+            <CollapsibleContent
+              className={cn(
+                'mt-1 space-y-1 border-r-2 pr-6',
+                isRTL
+                  ? 'border-r-2 border-l-0 pr-6'
+                  : 'border-r-0 border-l-2 pl-6',
+              )}
+            >
+              {chapter.lessons.map((lesson) => (
+                <Link
+                  key={lesson.id}
+                  href={`/admin/lessons/${lesson.id}`}
+                  className={`block rounded-md p-2 text-sm font-medium transition-colors ${currentLessonId === lesson.id ? 'bg-accent text-accent-foreground' : 'hover:bg-accent/50'}`}
+                >
+                  <div className='flex items-center gap-2'>
+                    {lesson.type === 'VIDEO' && (
+                      <FileText className='size-4 shrink-0' />
+                    )}
+                    {lesson.type === 'QUIZ' && (
+                      <HelpCircle className='size-4 shrink-0' />
+                    )}
+                    {lesson.type === 'CODING' && (
+                      <Code className='size-4 shrink-0' />
+                    )}
+                    <span className='truncate'>{lesson.title}</span>
+                  </div>
+                </Link>
+              ))}
             </CollapsibleContent>
           </Collapsible>
         ))}

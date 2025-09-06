@@ -18,7 +18,6 @@ export function CourseSearchWrapper({ courses }: CourseSearchWrapperProps) {
   const pathname = usePathname();
   const { replace } = useRouter();
   const t = useTranslations('CourseSearch');
-  
 
   const locale = useLocale();
   const isRTL = locale === 'ar';
@@ -32,7 +31,7 @@ export function CourseSearchWrapper({ courses }: CourseSearchWrapperProps) {
     } else {
       params.delete('q');
     }
-    
+
     startTransition(() => {
       replace(`${pathname}?${params.toString()}`, { scroll: false });
     });
@@ -43,13 +42,13 @@ export function CourseSearchWrapper({ courses }: CourseSearchWrapperProps) {
       <div className='mx-auto max-w-2xl'>
         <div className='relative'>
           {isPending ? (
-            <Loader2 className='text-muted-foreground absolute top-1/2 start-4 h-5 w-5 -translate-y-1/2 transform animate-spin' />
+            <Loader2 className='text-muted-foreground absolute start-4 top-1/2 h-5 w-5 -translate-y-1/2 transform animate-spin' />
           ) : (
-            <Search className='text-muted-foreground absolute top-1/2 start-4 h-5 w-5 -translate-y-1/2 transform' />
+            <Search className='text-muted-foreground absolute start-4 top-1/2 h-5 w-5 -translate-y-1/2 transform' />
           )}
           <Input
             placeholder={t('placeholder')}
-            className='rounded-full py-6 pe-4 ps-12' 
+            className='rounded-full py-6 ps-12 pe-4'
             defaultValue={searchParams.get('q')?.toString()}
             onChange={(e) => {
               handleSearch(e.target.value);
@@ -67,7 +66,7 @@ export function CourseSearchWrapper({ courses }: CourseSearchWrapperProps) {
       {courses.length === 0 && searchParams.get('q') ? (
         <div className='py-16 text-center'>
           <p className='text-muted-foreground'>
-          {t('noResults', { query: searchParams.get('q') ?? '' })}
+            {t('noResults', { query: searchParams.get('q') ?? '' })}
           </p>
         </div>
       ) : (

@@ -37,13 +37,13 @@ export function CertificateDownloader({
       const certificate = await issueCertificate(courseId);
       if (certificate && certificate.id) {
         setCertificateId(certificate.id);
-        toast.success(t('readyMessage')); 
+        toast.success(t('readyMessage'));
       } else {
         throw new Error('Could not retrieve certificate ID.');
       }
     } catch (error) {
       console.log(error);
-      toast.error(t('prepareError')); 
+      toast.error(t('prepareError'));
     } finally {
       setIsPreparing(false);
     }
@@ -64,7 +64,7 @@ export function CertificateDownloader({
         {isPreparing ? (
           <>
             <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-            {t('preparing')} 
+            {t('preparing')}
           </>
         ) : (
           <>
@@ -102,7 +102,7 @@ export function CertificateDownloader({
           ) : (
             <>
               <Award className='mr-2 h-4 w-4' />
-              {t('downloadNow')} 
+              {t('downloadNow')}
             </>
           )}
         </Button>

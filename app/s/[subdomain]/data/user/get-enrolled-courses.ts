@@ -52,7 +52,6 @@ export type EnrolledCourseType = Awaited<
   ReturnType<typeof getEnrolledCourses>
 >[0];
 
-
 export async function getContinueLearningCourse() {
   const user = await requireUser();
   if (!user) return null;

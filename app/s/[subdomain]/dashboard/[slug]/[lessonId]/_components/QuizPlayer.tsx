@@ -17,7 +17,7 @@ import { LessonContentType } from '@/app/s/[subdomain]/data/course/get-lesson-co
 import { toast } from 'sonner';
 import { tryCatch } from '@/hooks/try-catch';
 import { submitQuizAttempt } from '../quiz-actions';
-import { useTranslations } from 'next-intl'; 
+import { useTranslations } from 'next-intl';
 
 interface QuizPlayerProps {
   data: LessonContentType;
@@ -42,7 +42,7 @@ interface QuizState {
 
 export function QuizPlayer({ data }: QuizPlayerProps) {
   // If a completed attempt exists, show result page with retake option
-  const t = useTranslations('QuizPlayer'); 
+  const t = useTranslations('QuizPlayer');
   const completedAttempt =
     data.latestQuizAttempt && data.latestQuizAttempt.completedAt;
   const [retakeMode, setRetakeMode] = useState(false);
@@ -152,7 +152,9 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
             <div className='mb-4 flex justify-center'>
               <HelpCircle className='h-16 w-16 text-blue-500' />
             </div>
-            <CardTitle className='text-2xl'>{t('start.title', { quizTitle: data.title })}</CardTitle>
+            <CardTitle className='text-2xl'>
+              {t('start.title', { quizTitle: data.title })}
+            </CardTitle>
             <p className='text-muted-foreground'>
               {data.description || t('start.description')}
             </p>
@@ -188,10 +190,11 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
             <CardTitle className='text-2xl'>{t('results.title')}</CardTitle>
             <div className='mt-4 flex justify-center gap-4'>
               <Badge variant='secondary' className='px-4 py-2 text-lg'>
-              {t('results.scoreLabel')}: {quizState.score}%
+                {t('results.scoreLabel')}: {quizState.score}%
               </Badge>
               <Badge variant='outline' className='px-4 py-2 text-lg'>
-              {t('results.timeLabel')}: {Math.floor(quizState.timeElapsed / 60)}:
+                {t('results.timeLabel')}:{' '}
+                {Math.floor(quizState.timeElapsed / 60)}:
                 {(quizState.timeElapsed % 60).toString().padStart(2, '0')}
               </Badge>
             </div>
@@ -216,7 +219,8 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
                         )}
                         <div className='flex-1'>
                           <p className='mb-2 font-medium'>
-                          {t('results.questionLabel', { index: index + 1 })}: {question.text}
+                            {t('results.questionLabel', { index: index + 1 })}:{' '}
+                            {question.text}
                           </p>
                           <div className='space-y-2'>
                             {question.options.map((option, optionIndex) => (
@@ -247,7 +251,7 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
                           {question.explanation && (
                             <div className='mt-3 rounded bg-blue-50 p-3 dark:bg-blue-950'>
                               <p className='text-sm font-medium text-blue-900 dark:text-blue-100'>
-                              {t('results.explanationLabel')}
+                                {t('results.explanationLabel')}
                               </p>
                               <p className='text-sm text-blue-700 dark:text-blue-300'>
                                 {question.explanation}
@@ -328,8 +332,10 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
             <div className='mb-4 flex justify-center'>
               <HelpCircle className='h-16 w-16 text-blue-500' />
             </div>
-           
-            <CardTitle className='text-2xl'>{t('start.title', { quizTitle: data.title })}</CardTitle>
+
+            <CardTitle className='text-2xl'>
+              {t('start.title', { quizTitle: data.title })}
+            </CardTitle>
             <p className='text-muted-foreground'>
               {data.description || t('start.description')}
             </p>
@@ -338,18 +344,18 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
             <div className='text-muted-foreground flex justify-center gap-4 text-sm'>
               <div className='flex items-center gap-1'>
                 <HelpCircle className='h-4 w-4' />
-               
+
                 {t('start.questionsCount', { count: questions.length })}
               </div>
               <div className='flex items-center gap-1'>
                 <Timer className='h-4 w-4' />
-               
+
                 {typeof data.timer === 'number' && data.timer > 0
                   ? t('start.timeLimit', { count: data.timer })
                   : t('start.noTimeLimit')}
               </div>
             </div>
-           
+
             <Button onClick={startQuiz} size='lg'>
               {t('start.startButton')}
             </Button>
@@ -373,7 +379,8 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
                 {t('results.scoreLabel')}: {quizState.score}%
               </Badge>
               <Badge variant='outline' className='px-4 py-2 text-lg'>
-                {t('results.timeLabel')}: {Math.floor(quizState.timeElapsed / 60)}:
+                {t('results.timeLabel')}:{' '}
+                {Math.floor(quizState.timeElapsed / 60)}:
                 {(quizState.timeElapsed % 60).toString().padStart(2, '0')}
               </Badge>
             </div>
@@ -395,7 +402,8 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
                         )}
                         <div className='flex-1'>
                           <p className='mb-2 font-medium'>
-                          {t('results.questionLabel', { index: index + 1 })}: {question.text}
+                            {t('results.questionLabel', { index: index + 1 })}:{' '}
+                            {question.text}
                           </p>
                           <div className='space-y-2'>
                             {question.options.map((option, optionIndex) => (
@@ -426,7 +434,7 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
                           {question.explanation && (
                             <div className='mt-3 rounded bg-blue-50 p-3 dark:bg-blue-950'>
                               <p className='text-sm font-medium text-blue-900 dark:text-blue-100'>
-                              {t('results.explanationLabel')}
+                                {t('results.explanationLabel')}
                               </p>
                               <p className='text-sm text-blue-700 dark:text-blue-300'>
                                 {question.explanation}
@@ -453,7 +461,10 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
           <div className='flex items-center justify-between'>
             <div>
               <CardTitle>
-              {t('active.title', { current: quizState.currentQuestion + 1, total: questions.length })}
+                {t('active.title', {
+                  current: quizState.currentQuestion + 1,
+                  total: questions.length,
+                })}
               </CardTitle>
               <p className='text-muted-foreground'>{currentQuestion.text}</p>
             </div>
@@ -482,7 +493,6 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
                   {String.fromCharCode(65 + index)}.
                 </span>
                 {option}
-                
               </Button>
             ))}
           </div>
@@ -504,7 +514,9 @@ export function QuizPlayer({ data }: QuizPlayerProps) {
                   Object.keys(quizState.answers).length < questions.length
                 }
               >
-                 {isLoading ? t('active.submittingButton') : t('active.submitButton')}
+                {isLoading
+                  ? t('active.submittingButton')
+                  : t('active.submitButton')}
               </Button>
             ) : (
               <Button

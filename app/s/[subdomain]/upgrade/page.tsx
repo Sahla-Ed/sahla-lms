@@ -12,16 +12,17 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import { cn } from '@/lib/utils';
 
 export default async function UpgradePage() {
-
   const t = await getTranslations('UpgradePage');
   const locale = await getLocale();
   const isRTL = locale === 'ar';
 
-
   const proFeatures = t.raw('features') as string[];
 
   return (
-    <div className='flex min-h-[calc(100vh-8rem)] items-center justify-center p-4' dir={isRTL ? 'rtl' : 'ltr'}>
+    <div
+      className='flex min-h-[calc(100vh-8rem)] items-center justify-center p-4'
+      dir={isRTL ? 'rtl' : 'ltr'}
+    >
       <Card className='w-full max-w-md'>
         <CardHeader className='text-center'>
           <CardTitle className='text-2xl'>{t('title')}</CardTitle>
@@ -36,7 +37,12 @@ export default async function UpgradePage() {
         <CardContent className='space-y-4'>
           <ul className='space-y-2'>
             {proFeatures.map((feature, index) => (
-              <li key={index} className={cn('flex items-center gap-2', { 'flex-row-reverse text-right': isRTL })}>
+              <li
+                key={index}
+                className={cn('flex items-center gap-2', {
+                  'flex-row-reverse text-right': isRTL,
+                })}
+              >
                 <CheckCircle className='size-5 shrink-0 text-green-500' />
                 <span className='text-muted-foreground'>{feature}</span>
               </li>

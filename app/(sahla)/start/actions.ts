@@ -139,11 +139,13 @@ export async function createTenantAndAdmin(
         });
         console.log(`Cleaned up orphaned user: ${newAdminId}`);
       } catch (cleanupError) {
-       
-        console.error(`CRITICAL: Failed to clean up orphaned user ${newAdminId}:`, cleanupError);
+        console.error(
+          `CRITICAL: Failed to clean up orphaned user ${newAdminId}:`,
+          cleanupError,
+        );
       }
     }
-    
+
     let errorMessage = t('serverMessages.creationError');
     if (error instanceof Error) {
       if (error.message.includes('taken')) {
