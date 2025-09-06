@@ -1,20 +1,35 @@
 import { PlaceholderPage } from '@/components/general/PlaceholderPage';
 import { Mic } from 'lucide-react';
 import { Metadata } from 'next';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { getTenantSettings } from '../../data/admin/get-tenant-settings';
+import { cn } from '@/lib/utils';
 
-export const metadata: Metadata = {
-  title: 'Become an Instructor | Sahla',
-  description:
-    'Share your knowledge with a global audience. Learn about the benefits and tools available to instructors on the Sahla platform.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const t = await getTranslations({
+    locale,
+    namespace: 'InstructorProgramPage.Metadata',
+  });
+  const tenant = await getTenantSettings();
 
-export default function InstructorProgramPage() {
+  return {
+    title: t('title'),
+    description: t('description', { tenantName: tenant.name }),
+  };
+}
+
+export default async function InstructorProgramPage() {
+  const t = await getTranslations('InstructorProgramPage');
+  const locale = await getLocale();
+  const isRTL = locale === 'ar';
+
   return (
     <PlaceholderPage
-      title='Become an Instructor'
-      description='This page is under construction. Our instructor portal will soon provide all the information and tools you need to create and sell your courses on Sahla.'
-      badgeText='Coming Soon'
-      icon={<Mic className='mr-2 h-4 w-4' />}
+      title={t('title')}
+      description={t('description')}
+      badgeText={t('badgeText')}
+      icon={<Mic className={cn('h-4 w-4', isRTL ? 'ml-2' : 'mr-2')} />}
     />
   );
 }

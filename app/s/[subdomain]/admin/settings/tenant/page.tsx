@@ -4,15 +4,16 @@ import { Suspense } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { requireAdmin } from '../../../data/admin/require-admin';
+import { getTranslations } from 'next-intl/server';
 
 export default async function TenantSettingsPage() {
+  const t = await getTranslations('TenantSettingsPage');
+
   return (
     <div className='space-y-6'>
       <div>
-        <h1 className='text-3xl font-bold'>platform Settings</h1>
-        <p className='text-muted-foreground'>
-          Manage your platform&apos;s branding and details.
-        </p>
+        <h1 className='text-3xl font-bold'>{t('header.title')}</h1>
+        <p className='text-muted-foreground'>{t('header.description')}</p>
       </div>
       <Suspense fallback={<SettingsSkeleton />}>
         <LoadTenantSettings />
@@ -53,7 +54,9 @@ function SettingsSkeleton() {
             <Skeleton className='h-64 w-full' />
           </div>
         </div>
-        <Skeleton className='h-10 w-32' />
+        <div className='flex justify-end'>
+          <Skeleton className='h-10 w-32' />
+        </div>
       </CardContent>
     </Card>
   );

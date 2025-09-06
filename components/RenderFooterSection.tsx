@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useLocale } from 'next-intl';
 
 interface RenderFooterSectionProps {
   title: string;
@@ -19,9 +20,18 @@ export default function RenderFooterSection({
   handleMouseEnter,
   handleMouseLeave,
 }: RenderFooterSectionProps) {
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
+
   return (
     <div className='space-y-4'>
-      <h3 className='text-foreground mb-6 text-lg font-semibold'>{title}</h3>
+      <h3
+        className={`text-foreground mb-6 text-lg font-semibold ${
+          isRTL ? 'text-right' : 'text-left'
+        }`}
+      >
+        {title}
+      </h3>
       <ul className='space-y-3'>
         {links.map((link, index) => (
           <li key={index}>
@@ -31,14 +41,18 @@ export default function RenderFooterSection({
                 hoveredSection === type && hoveredIndex === index
                   ? 'text-foreground'
                   : ''
-              }`}
+              } ${isRTL ? 'text-right' : 'text-left'}`}
               onMouseEnter={() => handleMouseEnter(type, index)}
               onMouseLeave={handleMouseLeave}
             >
               {link.name}
               {hoveredSection === type && hoveredIndex === index && (
-                <span className='text-primary absolute top-1/2 -left-2 -translate-y-1/2'>
-                  →
+                <span
+                  className={`text-primary absolute top-1/2 -translate-y-1/2 ${
+                    isRTL ? '-right-2' : '-left-2'
+                  }`}
+                >
+                  {isRTL ? '←' : '→'}
                 </span>
               )}
             </Link>

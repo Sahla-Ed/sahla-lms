@@ -80,6 +80,18 @@ export async function submitQuizAttempt(data: {
       data: updatedUserAnswers,
     });
 
+    const existingProgress = await prisma.lessonProgress.findUnique({
+      where: {
+        userId_lessonId: {
+          userId: session?.id as string,
+          lessonId: data.lessonId,
+        },
+      },
+      select: { completed: true },
+    });
+
+    const wasAlreadyCompleted = existingProgress?.completed === true;
+
     // Mark lesson as completed
     await prisma.lessonProgress.upsert({
       where: {
@@ -97,6 +109,14 @@ export async function submitQuizAttempt(data: {
         completed: isPassed,
       },
     });
+
+    if (isPassed && !wasAlreadyCompleted) {
+      const xpGained = 25 + Math.floor(data.score / 10);
+      await prisma.user.update({
+        where: { id: session?.id as string },
+        data: { xp: { increment: xpGained } },
+      });
+    }
 
     // Get course slug for revalidation
     const lesson = await prisma.lesson.findUnique({

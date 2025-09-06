@@ -1,39 +1,17 @@
 'use client';
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { authClient } from '@/lib/auth-client';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { BookOpen, Gamepad2, BarChart3 } from 'lucide-react';
-import { authClient } from '@/lib/auth-client';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
-interface featureProps {
-  title: string;
-  description: string;
-  icon: React.ComponentType<{ className?: string }>;
-}
-
-const features: featureProps[] = [
-  {
-    title: 'Empower Your Teaching',
-    description:
-      'Seamless tools for instructors to create, publish, and manage high-quality educational content with ease.',
-    icon: BookOpen,
-  },
-  {
-    title: 'Discover Your Learning Path',
-    description:
-      'Students easily find relevant courses and engage with modern, interactive content tailored to their needs.',
-    icon: Gamepad2,
-  },
-  {
-    title: 'Diverse & In-Demand Content',
-    description:
-      'Access a rich library of specialized courses, continuously updated to align with current industry demands.',
-    icon: BarChart3,
-  },
-];
 export function DefaultLandingPage() {
+  const t = useTranslations('DefaultLandingPage');
   const { data: session, isPending } = authClient.useSession();
   const [lineFullWidth, setLineFullWidth] = useState(false);
 
@@ -43,9 +21,27 @@ export function DefaultLandingPage() {
         setLineFullWidth(true);
       });
     }, 500);
-
     return () => clearTimeout(timeout);
   }, []);
+
+  const features = [
+    {
+      title: t('features.teaching.title'),
+      description: t('features.teaching.description'),
+      icon: BookOpen,
+    },
+    {
+      title: t('features.learningPath.title'),
+      description: t('features.learningPath.description'),
+      icon: Gamepad2,
+    },
+    {
+      title: t('features.content.title'),
+      description: t('features.content.description'),
+      icon: BarChart3,
+    },
+  ];
+
   return (
     <>
       <section className='relative flex h-screen items-center justify-center overflow-hidden'>
@@ -59,33 +55,26 @@ export function DefaultLandingPage() {
           <source src='/shlavv.mp4' type='video/mp4' />
           Your browser does not support the video tag.
         </video>
-
         <div className='absolute top-0 left-0 z-10 h-full w-full bg-black/50' />
-
         <div className='relative z-20 mx-auto w-full max-w-7xl px-8 text-white'>
           <div className='flex flex-col items-start'>
             <Badge
               variant='outline'
               className='mb-8 border-white/30 bg-white/10 text-white backdrop-blur-sm'
             >
-              The Future of Online Education
+              {t('hero.badge')}
             </Badge>
-
             <h1 className='mb-6 text-[60px] leading-none font-light tracking-tight md:text-[100px] lg:text-[120px]'>
-              Elevate Your Learning
+              {t('hero.title')}
             </h1>
-
             <div
               className={`h-px bg-white transition-all duration-[2000ms] ease-in-out ${
                 lineFullWidth ? 'w-full' : 'w-0'
               }`}
             />
-
             <div className='mt-6 flex w-full flex-wrap items-center justify-between gap-y-4'>
               <p className='max-w-2xl text-xl font-light opacity-90 md:text-2xl'>
-                Discover a new way to learn with our modern, interactive
-                learning management system. Access high-quality courses anytime,
-                anywhere.
+                {t('hero.description')}
               </p>
               <div className='flex flex-col gap-4 sm:flex-row'>
                 <Button
@@ -94,16 +83,16 @@ export function DefaultLandingPage() {
                 >
                   <Link href='/courses' className='relative z-10'>
                     <span className='inline-block transition-transform duration-500 group-hover:-translate-y-full group-hover:opacity-0'>
-                      Explore Courses
+                      {t('hero.exploreButton')}
                     </span>
-                    <span className='absolute inset-0 inline-block translate-y-full opacity-0 transition-transform duration-500 group-hover:translate-y-0 group-hover:opacity-100'>
-                      Explore Courses
+                    <span className='absolute inset-0 flex translate-y-full items-center justify-center opacity-0 transition-transform duration-500 group-hover:translate-y-0 group-hover:opacity-100'>
+                      {t('hero.exploreButton')}
                     </span>
                   </Link>
                 </Button>
-
-                {/* Show Sign In button only if not logged in */}
-                {!isPending && !session && (
+                {isPending ? (
+                  <LoadingSpinner />
+                ) : !session ? (
                   <Button
                     size='lg'
                     variant='outline'
@@ -111,17 +100,14 @@ export function DefaultLandingPage() {
                   >
                     <Link href='/auth/sign-in' className='relative z-10'>
                       <span className='inline-block transition-transform duration-500 group-hover:-translate-y-full group-hover:opacity-0'>
-                        Sign In
+                        {t('hero.signInButton')}
                       </span>
-                      <span className='absolute inset-0 inline-block translate-y-full opacity-0 transition-transform duration-500 group-hover:translate-y-0 group-hover:opacity-100'>
-                        Sign In
+                      <span className='absolute inset-0 flex translate-y-full items-center justify-center opacity-0 transition-transform duration-500 group-hover:translate-y-0 group-hover:opacity-100'>
+                        {t('hero.signInButton')}
                       </span>
                     </Link>
                   </Button>
-                )}
-
-                {/* Show Dashboard button if logged in */}
-                {!isPending && session && (
+                ) : (
                   <Button
                     size='lg'
                     variant='outline'
@@ -129,10 +115,10 @@ export function DefaultLandingPage() {
                   >
                     <Link href='/dashboard' className='relative z-10'>
                       <span className='inline-block transition-transform duration-500 group-hover:-translate-y-full group-hover:opacity-0'>
-                        Go to Dashboard
+                        {t('hero.dashboardButton')}
                       </span>
-                      <span className='absolute inset-0 inline-block translate-y-full opacity-0 transition-transform duration-500 group-hover:translate-y-0 group-hover:opacity-100'>
-                        Go to Dashboard
+                      <span className='absolute inset-0 flex translate-y-full items-center justify-center opacity-0 transition-transform duration-500 group-hover:translate-y-0 group-hover:opacity-100'>
+                        {t('hero.dashboardButton')}
                       </span>
                     </Link>
                   </Button>
@@ -143,18 +129,17 @@ export function DefaultLandingPage() {
         </div>
       </section>
 
+      {/* --- Features  --- */}
       <section className='from-background to-secondary/20 bg-gradient-to-b px-8 py-20'>
         <div className='mx-auto max-w-7xl'>
           <div className='mb-16 text-center'>
             <h2 className='mb-4 text-3xl font-bold tracking-tight md:text-5xl'>
-              Why Choose Our Platform?
+              {t('features.title')}
             </h2>
             <p className='text-muted-foreground mx-auto max-w-2xl md:text-xl'>
-              Experience the future of education with our comprehensive learning
-              ecosystem
+              {t('features.description')}
             </p>
           </div>
-
           <div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'>
             {features.map((feature, index) => (
               <Card
@@ -180,28 +165,26 @@ export function DefaultLandingPage() {
         </div>
       </section>
 
+      {/* --- CTA  --- */}
       <section className='bg-primary/5 px-8 py-20'>
         <div className='mx-auto max-w-4xl text-center'>
           <h2 className='mb-6 text-3xl font-bold tracking-tight md:text-5xl'>
-            Ready to Start Your Journey?
+            {t('cta.title')}
           </h2>
           <p className='text-muted-foreground mx-auto mb-8 max-w-2xl md:text-xl'>
-            Join thousands of learners who have already transformed their
-            careers with our platform
+            {t('cta.description')}
           </p>
-
-          {/* Show different CTA based on auth status */}
           {!isPending && !session ? (
             <Button
               size='lg'
               className='group relative overflow-hidden rounded-full px-12 py-6 text-lg font-medium transition-all duration-500 hover:scale-105'
             >
-              <Link href='/sign-in' className='relative z-10'>
+              <Link href='/auth/sign-in' className='relative z-10'>
                 <span className='inline-block transition-transform duration-500 group-hover:-translate-y-full group-hover:opacity-0'>
-                  Get Started Today
+                  {t('cta.getStartedButton')}
                 </span>
-                <span className='absolute inset-0 inline-block translate-y-full opacity-0 transition-transform duration-500 group-hover:translate-y-0 group-hover:opacity-100'>
-                  Get Started Today
+                <span className='absolute inset-0 flex translate-y-full items-center justify-center opacity-0 transition-transform duration-500 group-hover:translate-y-0 group-hover:opacity-100'>
+                  {t('cta.getStartedButton')}
                 </span>
               </Link>
             </Button>
@@ -212,10 +195,10 @@ export function DefaultLandingPage() {
             >
               <Link href='/courses' className='relative z-10'>
                 <span className='inline-block transition-transform duration-500 group-hover:-translate-y-full group-hover:opacity-0'>
-                  Explore More Courses
+                  {t('cta.exploreMoreButton')}
                 </span>
-                <span className='absolute inset-0 inline-block translate-y-full opacity-0 transition-transform duration-500 group-hover:translate-y-0 group-hover:opacity-100'>
-                  Explore More Courses
+                <span className='absolute inset-0 flex translate-y-full items-center justify-center opacity-0 transition-transform duration-500 group-hover:translate-y-0 group-hover:opacity-100'>
+                  {t('cta.exploreMoreButton')}
                 </span>
               </Link>
             </Button>

@@ -1,75 +1,60 @@
-import { ChartAreaInteractive } from '@/components/sidebar/chart-area-interactive';
-import { SectionCards } from '@/components/sidebar/section-cards';
-import Link from 'next/link';
-import { buttonVariants } from '@/components/ui/button';
-import { EmptyState } from '@/components/general/EmptyState';
-import {
-  AdminCourseCard,
-  AdminCourseCardSkeleton,
-} from './courses/_components/AdminCourseCard';
 import { Suspense } from 'react';
-import { adminGetRecentCourses } from '../data/admin/admin-get-recent-courses';
-import { adminGetEnrollmentStats } from '../data/admin/admin-get-enrollment-stats';
-import { AdminCourseType } from '../data/admin/admin-get-courses';
+import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
+
+import { buttonVariants } from '@/components/ui/button';
+import { ChartAreaInteractive } from '@/components/sidebar/chart-area-interactive';
 import { TrialBanner } from './_components/TrialBanner';
+import { AdminWelcomeToast } from './_components/AdminWelcomeToast';
+import { DashboardStats, StatsSkeleton } from './_components/DashboardStats';
+import {
+  RecentCourses,
+  RecentCoursesSkeleton,
+} from './_components/RecentCourses';
+
+import { adminGetEnrollmentStats } from '../data/admin/admin-get-enrollment-stats';
+import { requireAdmin } from '../data/admin/require-admin';
 
 export default async function AdminIndexPage() {
+  const { user } = await requireAdmin();
+  const displayName = user.name || user.email.split('@')[0];
   const enrollmentData = await adminGetEnrollmentStats();
+  const t = await getTranslations('AdminIndexPage');
+  const tDashboard = await getTranslations('AdminDashboard');
+
   return (
-    <>
+    <div className='space-y-6'>
+      <AdminWelcomeToast />
+
+      <div className='mb-2'>
+        <h1 className='text-3xl font-bold tracking-tight'>
+          {t('welcomeMessage', { username: displayName })}
+        </h1>
+        <p className='text-muted-foreground'>{t('welcomeDescription')}</p>
+      </div>
+
       <TrialBanner />
-      <SectionCards />
+
+      <Suspense fallback={<StatsSkeleton />}>
+        <DashboardStats t={tDashboard} />
+      </Suspense>
 
       <ChartAreaInteractive data={enrollmentData} />
 
       <div className='space-y-4'>
         <div className='flex items-center justify-between'>
-          <h2 className='text-xl font-semibold'>Recent Courses</h2>
+          <h2 className='text-xl font-semibold'>{t('recentCoursesTitle')}</h2>
           <Link
             className={buttonVariants({ variant: 'outline' })}
             href='/admin/courses'
           >
-            View All Courses
+            {t('viewAllCoursesButton')}
           </Link>
         </div>
-
-        <Suspense fallback={<RenderRecentCoursesSkeletonLayout />}>
-          <RenderRecentCourses />
+        <Suspense fallback={<RecentCoursesSkeleton />}>
+          <RecentCourses />
         </Suspense>
       </div>
-    </>
-  );
-}
-
-async function RenderRecentCourses() {
-  const data = await adminGetRecentCourses();
-
-  if (data.length === 0) {
-    return (
-      <EmptyState
-        buttonText='Create new Course'
-        description='you dont have any courses. create some to see them here'
-        title='You dont have any courses yet!'
-        href='/admin/courses/create'
-      />
-    );
-  }
-
-  return (
-    <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
-      {data.map((course: AdminCourseType) => (
-        <AdminCourseCard key={course.id} data={course} />
-      ))}
-    </div>
-  );
-}
-
-function RenderRecentCoursesSkeletonLayout() {
-  return (
-    <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
-      {Array.from({ length: 2 }).map((_, index) => (
-        <AdminCourseCardSkeleton key={index} />
-      ))}
     </div>
   );
 }

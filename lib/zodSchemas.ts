@@ -20,39 +20,34 @@ export const courseCategories = [
 
 export const lessonTypes = ['VIDEO', 'QUIZ', 'CODING'] as const;
 
-export const courseSchema = z.object({
-  title: z
-    .string()
-    .min(3, { message: 'Title must be at least 3 characters long' })
-    .max(100, { message: 'Title must be at most 100 characters long' }),
-  description: z
-    .string()
-    .min(3, { message: 'Description must be at least 3 characters long' }),
-  fileKey: z.string().optional(),
-  price: z.number().min(1, { message: 'Price must be a positive number' }),
-  duration: z
-    .number()
-    .min(1, { message: 'Duration must be at least 1 hour' })
-    .max(500, { message: 'Duration must be at most 500 hours' }),
-  level: z.enum(courseLevels, {
-    message: 'Level is required',
-  }),
-  category: z.enum(courseCategories, {
-    message: 'Category is required',
-  }),
-  smallDescription: z
-    .string()
-    .min(3, { message: 'Small Description must be at least 3 characters long' })
-    .max(200, {
-      message: 'Small Description must be at most 200 characters long',
+export const getCourseSchema = (t: (key: string) => string) =>
+  z.object({
+    title: z
+      .string()
+      .min(3, { message: t('course.titleMin') })
+      .max(100, { message: t('course.titleMax') }),
+    description: z.string().min(3, { message: t('course.descriptionMin') }),
+    fileKey: z.string().optional(),
+    price: z.number().min(1, { message: t('course.priceMin') }),
+    duration: z
+      .number()
+      .min(1, { message: t('course.durationMin') })
+      .max(500, { message: t('course.durationMax') }),
+    level: z.enum(courseLevels, {
+      message: t('course.levelRequired'),
     }),
-  slug: z
-    .string()
-    .min(3, { message: 'Slug must be at least 3 characters long' }),
-  status: z.enum(courseStatus, {
-    message: 'Status is required',
-  }),
-});
+    category: z.enum(courseCategories, {
+      message: t('course.categoryRequired'),
+    }),
+    smallDescription: z
+      .string()
+      .min(3, { message: t('course.smallDescriptionMin') })
+      .max(200, { message: t('course.smallDescriptionMax') }),
+    slug: z.string().min(3, { message: t('course.slugMin') }),
+    status: z.enum(courseStatus, {
+      message: t('course.statusRequired'),
+    }),
+  });
 
 export const chapterSchema = z.object({
   name: z
@@ -173,7 +168,8 @@ export const codeSubmissionSchema = z.object({
 
 export type CodeSubmissionType = z.infer<typeof codeSubmissionSchema>;
 export type CodingExerciseSchemaType = z.infer<typeof codingExerciseSchema>;
-export type CourseSchemaType = z.infer<typeof courseSchema>;
+// export type CourseSchemaType = z.infer<typeof courseSchema>;
+export type CourseSchemaType = z.infer<ReturnType<typeof getCourseSchema>>;
 export type QuestionSchemaType = z.infer<typeof questionSchema>;
 export type QuizQuestionSchemaType = z.infer<typeof quizQuestionSchema>;
 export type ChapterSchemaType = z.infer<typeof chapterSchema>;
@@ -181,3 +177,7 @@ export type LessonSchemaType = z.infer<typeof lessonSchema>;
 export const aiQuizGenerationSchema = z.object({
   questions: z.array(aiQuestionSchema),
 });
+
+export type ZodValidationKeys =
+  | `course.${keyof (typeof import('../messages/tenant-en.json'))['ZodValidation']['course']}`
+  | `chapter.${keyof (typeof import('../messages/tenant-en.json'))['ZodValidation']['chapter']}`;

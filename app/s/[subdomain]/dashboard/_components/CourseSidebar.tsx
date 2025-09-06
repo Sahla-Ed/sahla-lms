@@ -14,12 +14,16 @@ import { usePathname } from 'next/navigation';
 import { useCourseProgress } from '@/hooks/use-course-progress';
 import { authClient } from '@/lib/auth-client';
 import { CertificateDownloader } from './CertificateDownloader';
+import { useTranslations } from 'next-intl';
+// import { getTenantSettings } from '@/app/s/[subdomain]/data/admin/get-tenant-settings';
 
 interface iAppProps {
   course: CourseSidebarDataType['course'];
 }
 
 export function CourseSidebar({ course }: iAppProps) {
+  const t = useTranslations('CourseSidebar');
+  const tEnums = useTranslations('CourseEnums');
   const { data: session } = authClient.useSession();
   const pathname = usePathname();
   const currentLessonId = pathname.split('/').pop();
@@ -39,21 +43,25 @@ export function CourseSidebar({ course }: iAppProps) {
               {course.title}
             </h1>
             <p className='text-muted-foreground mt-1 truncate text-xs'>
-              {course.category}
+              {tEnums(`categories.${course.category}`)}
             </p>
           </div>
         </div>
 
         <div className='space-y-2'>
           <div className='flex justify-between text-xs'>
-            <span className='text-muted-foreground'>Progress</span>
+            <span className='text-muted-foreground'>{t('progress')}</span>
             <span className='font-medium'>
-              {completedLessons}/{totalLessons} lessons
+              {t('lessonsProgress', {
+                count: totalLessons,
+                completedLessons,
+                totalLessons,
+              })}
             </span>
           </div>
           <Progress value={progressPercentage} className='h-1.5' />
           <p className='text-muted-foreground text-xs'>
-            {progressPercentage}% complete
+            {t('percentComplete', { progress: progressPercentage })}
           </p>
         </div>
       </div>
@@ -84,7 +92,7 @@ export function CourseSidebar({ course }: iAppProps) {
                   </p>
 
                   <p className='text-muted-foreground truncate text-[10px] font-medium'>
-                    {chapter.lessons.length} lessons
+                    {t('lessonsCount', { count: chapter.lessons.length })}
                   </p>
                 </div>
               </Button>

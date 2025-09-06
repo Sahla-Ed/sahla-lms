@@ -7,8 +7,11 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { TopCoursesChart } from './TopCoursesChart';
+import { getTranslations } from 'next-intl/server';
 
-export async function TopCourses() {
+type TFunction = Awaited<ReturnType<typeof getTranslations<'AnalyticsPage'>>>;
+
+export async function TopCourses({ t }: { t: TFunction }) {
   const topCourses = await getTopPerformingCourses();
 
   const coursesWithEnrollments = topCourses.filter(
@@ -18,13 +21,13 @@ export async function TopCourses() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Top Performing Courses</CardTitle>
-        <CardDescription>Based on number of enrollments.</CardDescription>
+        <CardTitle>{t('topCourses.title')}</CardTitle>
+        <CardDescription>{t('topCourses.description')}</CardDescription>
       </CardHeader>
       <CardContent>
         {coursesWithEnrollments.length === 0 ? (
           <div className='text-muted-foreground flex h-[350px] items-center justify-center py-8 text-center'>
-            <p>No course enrollment data to display yet.</p>
+            <p>{t('topCourses.emptyState')}</p>
           </div>
         ) : (
           <TopCoursesChart data={coursesWithEnrollments} />

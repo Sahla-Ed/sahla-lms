@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { addComment } from '../comment-actions';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface CommentFormProps {
   lessonId: string;
@@ -20,6 +21,9 @@ export function CommentForm({
 }: CommentFormProps) {
   const [text, setText] = useState('');
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations('AdminLessonPreview.comments.form');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,27 +33,32 @@ export function CommentForm({
       try {
         await addComment(lessonId, text, parentId || null);
         setText('');
-        toast.success('Comment added!');
+        toast.success(t('successMessage'));
         onCommentAdded?.();
       } catch {
-        toast.error('Failed to add comment.');
+        toast.error(t('errorMessage'));
       }
     });
   };
 
   return (
-    <form onSubmit={handleSubmit} className='flex flex-col gap-2'>
+    <form
+      onSubmit={handleSubmit}
+      className='flex flex-col gap-2'
+      dir={isRTL ? 'rtl' : 'ltr'}
+    >
       <Textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder={parentId ? 'Write a reply...' : 'Add a comment...'}
+        placeholder={parentId ? t('replyPlaceholder') : t('commentPlaceholder')}
         rows={2}
         disabled={isPending}
+        className={isRTL ? 'text-right' : 'text-left'}
       />
-      <div className='flex justify-end'>
+      <div className={`flex ${isRTL ? 'justify-start' : 'justify-end'}`}>
         <Button type='submit' disabled={isPending || !text.trim()}>
-          {isPending && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
-          {parentId ? 'Post Reply' : 'Post Comment'}
+          {isPending && <Loader2 className={isRTL ? 'ml-2' : 'mr-2'} />}
+          {parentId ? t('postReplyButton') : t('postCommentButton')}
         </Button>
       </div>
     </form>

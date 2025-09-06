@@ -1,8 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-// import Image from 'next/image';
+import Link from 'next/link';
+import Marquee from 'react-fast-marquee';
+import { useLocale, useTranslations } from 'next-intl';
 import { Facebook, Instagram, Youtube, Twitter } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -14,68 +17,62 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import Marquee from 'react-fast-marquee';
-import Link from 'next/link';
 import RenderFooterSection from '@/components/RenderFooterSection';
-// import Footer1 from '@/public/footer/footer1.jpg';
-// import Footer2 from '@/public/footer/footer2.jpg';
 
-const footerLinks = {
-  support: [
-    { name: 'Contact us', href: '/contact' },
-    { name: 'Help Center', href: '/help-center' },
-    { name: 'FAQs', href: '/faqs' },
-    { name: 'Technical Support', href: '/technical-support' },
-    { name: 'Live Chat', href: '/live-chat' },
-  ],
+interface FooterProps {
+  tenantName: string;
+}
 
-  courses: [
-    { name: 'Browse Courses', href: '/courses' },
-    { name: 'Free Courses', href: '/courses/free' },
-    { name: 'Certificates', href: '/certificates' },
-    { name: 'Course Catalog', href: '/catalog' },
-    { name: 'Learning Paths', href: '/learning-paths' },
-  ],
+export default function Footer({ tenantName }: FooterProps) {
+  const t = useTranslations('Footer');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
 
-  about: [
-    { name: 'About us', href: '/about' },
-    { name: 'Our Mission', href: '/about#mission' },
-    { name: 'Careers', href: '/careers' },
-    { name: 'Instructor Program', href: '/instructor-program' },
-  ],
+  const currentYear = new Date().getFullYear();
 
-  community: [
-    { name: 'Student Community', href: '/community/students' },
-    { name: 'Discussion Forums', href: '/forums' },
-    { name: 'Study Groups', href: '/study-groups' },
-    { name: 'Success Stories', href: '/success-stories' },
-  ],
-};
-
-const benefits = [
-  '24/7 Learning Support',
-  'Expert Instructors',
-  'Certificate Programs',
-  'Interactive Learning',
-  'Lifetime Access',
-  'Student Community',
-];
-
-export default function Footer() {
   const [email, setEmail] = useState('');
   const [hoveredSection, setHoveredSection] = useState<string | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
 
+  const footerLinks = {
+    support: [
+      { name: t('supportLinks.contact'), href: '/contact' },
+      { name: t('supportLinks.help'), href: '/help-center' },
+      { name: t('supportLinks.faqs'), href: '/faqs' },
+      { name: t('supportLinks.techSupport'), href: '/technical-support' },
+      { name: t('supportLinks.chat'), href: '/live-chat' },
+    ],
+    courses: [
+      { name: t('coursesLinks.browse'), href: '/courses' },
+      { name: t('coursesLinks.free'), href: '/courses/free' },
+      { name: t('coursesLinks.certificates'), href: '/certificates' },
+      { name: t('coursesLinks.catalog'), href: '/catalog' },
+      { name: t('coursesLinks.paths'), href: '/learning-paths' },
+    ],
+    about: [
+      { name: t('aboutLinks.about'), href: '/about' },
+      { name: t('aboutLinks.mission'), href: '/about#mission' },
+      { name: t('aboutLinks.careers'), href: '/careers' },
+      { name: t('aboutLinks.instructorProgram'), href: '/instructor-program' },
+    ],
+    community: [
+      { name: t('communityLinks.students'), href: '/community/students' },
+      { name: t('communityLinks.forums'), href: '/forums' },
+      { name: t('communityLinks.groups'), href: '/study-groups' },
+      { name: t('communityLinks.stories'), href: '/success-stories' },
+    ],
+  };
+
+  const benefits = t.raw('benefitsMarquee') as string[];
+
   const handleSubmit = () => {
     if (!email || !email.includes('@')) {
       setShowErrorDialog(true);
       return;
     }
-
     setShowSuccessDialog(true);
-
     setEmail('');
   };
 
@@ -96,36 +93,53 @@ export default function Footer() {
         <div className='grid grid-cols-1 gap-16 lg:grid-cols-12'>
           {/* Left Side - Newsletter Text */}
           <div className='lg:col-span-8'>
-            <h2 className='mb-16 text-4xl leading-tight font-light lg:text-5xl'>
-              Join our learning community and unlock your potential.
+            <h2
+              className={`mb-16 text-4xl leading-tight font-light lg:text-5xl ${
+                isRTL ? 'text-right' : 'text-left'
+              }`}
+            >
+              {t('newsletterTitle')}
             </h2>
           </div>
 
           {/* Right Side - Form & Social */}
           <div className='lg:col-span-4'>
-            <div className='mb-8 flex flex-col gap-4 sm:flex-row'>
+            <div
+              className={`mb-8 flex flex-col gap-4 sm:flex-row ${
+                isRTL ? 'sm:flex-row-reverse' : ''
+              }`}
+            >
               <Input
                 type='email'
-                placeholder='Email Address*'
+                placeholder={t('emailPlaceholder')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className='border-muted-foreground/30 placeholder:text-muted-foreground focus:border-foreground flex-1 bg-transparent'
+                style={{ direction: isRTL ? 'rtl' : 'ltr' }}
                 onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
               />
               <Button
                 onClick={handleSubmit}
                 className='bg-foreground text-background hover:bg-foreground/90 px-8'
               >
-                Subscribe
+                {t('subscribeButton')}
               </Button>
             </div>
 
             {/* Social Media */}
             <div>
-              <p className='text-muted-foreground mb-4 font-medium'>
-                Connect with us
+              <p
+                className={`text-muted-foreground mb-4 font-medium ${
+                  isRTL ? 'text-right' : 'text-left'
+                }`}
+              >
+                {t('connectTitle')}
               </p>
-              <div className='flex space-x-4'>
+              <div
+                className={`flex ${
+                  isRTL ? 'space-x-4 space-x-reverse' : 'space-x-4'
+                }`}
+              >
                 <a
                   href='#'
                   className='text-muted-foreground hover:text-foreground hover:bg-foreground/10 transform rounded-full p-2 transition-all duration-300 ease-in-out hover:scale-110'
@@ -153,84 +167,77 @@ export default function Footer() {
               </div>
             </div>
           </div>
-
-          {/* Images - Educational themed */}
-          {/*   <div className='lg:col-span-3'> */}
-          {/*     <div className='grid grid-cols-2 gap-3'> */}
-          {/*       <div className='aspect-square h-40 w-full overflow-hidden rounded-lg sm:h-48 lg:h-56'> */}
-          {/*         <Image */}
-          {/*           src={Footer1} */}
-          {/*           alt='learning' */}
-          {/*           width={600} */}
-          {/*           height={600} */}
-          {/*           className='h-full w-full object-cover' */}
-          {/*         /> */}
-          {/*       </div> */}
-          {/*       <div className='aspect-square h-40 w-full overflow-hidden rounded-lg sm:h-48 lg:h-56'> */}
-          {/*         <Image */}
-          {/*           src={Footer2} */}
-          {/*           alt='learning' */}
-          {/*           width={600} */}
-          {/*           height={600} */}
-          {/*           className='h-full w-full object-cover' */}
-          {/*         /> */}
-          {/*       </div> */}
-          {/*     </div> */}
-          {/*   </div> */}
         </div>
 
-        {/* Thin divider line */}
         <div className='border-sidebar-foreground border-t'></div>
 
-        {/* Footer Links positioned next to images and Benefits Banner below */}
         <div className='mt-16 grid grid-cols-1 gap-8 lg:grid-cols-12'>
-          {/* Footer Links */}
           <div className='grid grid-cols-2 gap-8 md:grid-cols-4 lg:col-span-9'>
             <RenderFooterSection
-              title='Support'
+              title={t('supportTitle')}
               links={footerLinks.support}
               type='support'
-              hoveredSection={hoveredSection}
-              hoveredIndex={hoveredIndex}
-              handleMouseEnter={handleMouseEnter}
-              handleMouseLeave={handleMouseLeave}
+              {...{
+                hoveredSection,
+                hoveredIndex,
+                handleMouseEnter,
+                handleMouseLeave,
+              }}
             />
             <RenderFooterSection
-              title='Courses'
+              title={t('coursesTitle')}
               links={footerLinks.courses}
               type='courses'
-              hoveredSection={hoveredSection}
-              hoveredIndex={hoveredIndex}
-              handleMouseEnter={handleMouseEnter}
-              handleMouseLeave={handleMouseLeave}
+              {...{
+                hoveredSection,
+                hoveredIndex,
+                handleMouseEnter,
+                handleMouseLeave,
+              }}
             />
             <RenderFooterSection
-              title='About'
+              title={t('aboutTitle')}
               links={footerLinks.about}
               type='about'
-              hoveredSection={hoveredSection}
-              hoveredIndex={hoveredIndex}
-              handleMouseEnter={handleMouseEnter}
-              handleMouseLeave={handleMouseLeave}
+              {...{
+                hoveredSection,
+                hoveredIndex,
+                handleMouseEnter,
+                handleMouseLeave,
+              }}
             />
             <RenderFooterSection
-              title='Community'
+              title={t('communityTitle')}
               links={footerLinks.community}
               type='community'
-              hoveredSection={hoveredSection}
-              hoveredIndex={hoveredIndex}
-              handleMouseEnter={handleMouseEnter}
-              handleMouseLeave={handleMouseLeave}
+              {...{
+                hoveredSection,
+                hoveredIndex,
+                handleMouseEnter,
+                handleMouseLeave,
+              }}
             />
           </div>
 
-          {/* Benefits Banner positioned below images */}
+          {/* Marquee direction fix */}
           <div className='overflow-hidden lg:col-span-3'>
-            <Marquee speed={50} gradient={false}>
+            <Marquee
+              speed={50}
+              gradient={false}
+              direction='left'
+              pauseOnHover
+              style={{
+                direction: isRTL ? 'rtl' : 'ltr',
+                transform: isRTL ? 'scaleX(-1)' : 'none',
+              }}
+            >
               {benefits.map((benefit, index) => (
                 <div
                   key={index}
                   className='flex items-center whitespace-nowrap'
+                  style={{
+                    transform: isRTL ? 'scaleX(-1)' : 'none',
+                  }}
                 >
                   <span className='text-primary mx-8 text-sm'>{benefit}</span>
                   <span className='text-xs text-orange-500'>●</span>
@@ -241,48 +248,73 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Thin divider line */}
       <div className='border-sidebar-foreground border-t'></div>
 
-      {/* Bottom Footer */}
+      {/* Bottom section */}
       <div className='mx-auto max-w-7xl px-6 py-6'>
-        <div className='flex flex-col items-center justify-between text-sm md:flex-row'>
-          <div className='mb-4 flex flex-wrap gap-6 md:mb-0'>
+        <div
+          className={`flex flex-col items-center justify-between text-sm md:flex-row ${
+            isRTL ? 'md:flex-row-reverse' : ''
+          }`}
+        >
+          <div
+            className={`mb-4 flex flex-wrap gap-6 md:mb-0 ${
+              isRTL ? 'md:order-2' : 'md:order-1'
+            }`}
+          >
             <Link
               href='/terms-and-conditions'
               className='text-primary transition-colors'
             >
-              Terms & conditions
+              {t('bottomLinks.terms')}
             </Link>
             <Link
               href='/privacy-policy'
               className='text-primary transition-colors'
             >
-              Privacy Policy
+              {t('bottomLinks.privacy')}
             </Link>
             <Link
               href='/student-agreement'
               className='text-primary transition-colors'
             >
-              Student Agreement
+              {t('bottomLinks.agreement')}
             </Link>
           </div>
-          <p className='text-primary'>© Sahla Learning Platform 2025</p>
+
+          <p
+            className={`text-muted-foreground ${
+              isRTL ? 'text-right md:order-1' : 'text-left md:order-2'
+            }`}
+          >
+            <span className='text-primary font-medium'>
+              {t('copyrightTenant', {
+                year: currentYear,
+                tenantName: tenantName,
+              })}
+            </span>{' '}
+            <span>{t('copyrightBrand')}</span>
+          </p>
         </div>
       </div>
 
-      {/* Success Alert Dialog */}
+      {/* Dialogs remain the same */}
       <AlertDialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
         <AlertDialogContent className='max-w-md'>
           <AlertDialogHeader>
-            <AlertDialogTitle className='text-center text-2xl font-semibold'>
-              🎉 Thank You!
+            <AlertDialogTitle
+              className={`text-center text-2xl font-semibold ${
+                isRTL ? 'text-right' : 'text-left'
+              }`}
+            >
+              {t('dialogs.successTitle')}
             </AlertDialogTitle>
-            <AlertDialogDescription className='text-center text-base leading-relaxed'>
-              Your email has been successfully registered to our newsletter.
-              <br />
-              We&apos;ll be in touch soon with the latest courses and exclusive
-              offers from Sahla Learning Platform.
+            <AlertDialogDescription
+              className={`text-center text-base leading-relaxed ${
+                isRTL ? 'text-right' : 'text-left'
+              }`}
+            >
+              {t('dialogs.successDescription')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -290,23 +322,28 @@ export default function Footer() {
               onClick={() => setShowSuccessDialog(false)}
               className='bg-primary hover:bg-primary/90 w-full'
             >
-              Great!
+              {t('dialogs.successButton')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
 
-      {/* Error Alert Dialog */}
       <AlertDialog open={showErrorDialog} onOpenChange={setShowErrorDialog}>
         <AlertDialogContent className='max-w-md'>
           <AlertDialogHeader>
-            <AlertDialogTitle className='text-destructive text-center text-2xl font-semibold'>
-              ⚠️ Invalid Email
+            <AlertDialogTitle
+              className={`text-destructive text-center text-2xl font-semibold ${
+                isRTL ? 'text-right' : 'text-left'
+              }`}
+            >
+              {t('dialogs.errorTitle')}
             </AlertDialogTitle>
-            <AlertDialogDescription className='text-center text-base leading-relaxed'>
-              Please enter a valid email address to subscribe to our newsletter.
-              <br />
-              Make sure your email includes an &quot;@&quot; symbol and domain.
+            <AlertDialogDescription
+              className={`text-center text-base leading-relaxed ${
+                isRTL ? 'text-right' : 'text-left'
+              }`}
+            >
+              {t('dialogs.errorDescription')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -314,7 +351,7 @@ export default function Footer() {
               onClick={() => setShowErrorDialog(false)}
               className='bg-destructive hover:bg-destructive/90 w-full'
             >
-              Try Again
+              {t('dialogs.errorButton')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

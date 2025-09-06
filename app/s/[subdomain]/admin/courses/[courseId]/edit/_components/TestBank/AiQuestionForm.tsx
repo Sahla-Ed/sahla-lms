@@ -14,11 +14,15 @@ import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Question, SubComponentProps } from './types';
 import { createQuestion } from '../../quiz-actions';
+import { useLocale, useTranslations } from 'next-intl';
 
 export const AiQuestionForm: FC<SubComponentProps> = ({
   courseId,
   onSuccess,
 }) => {
+  const t = useTranslations('AiQuestionForm');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiTopic, setAiTopic] = useState('');
   const [aiCount, setAiCount] = useState(5);
@@ -33,14 +37,12 @@ export const AiQuestionForm: FC<SubComponentProps> = ({
       });
       if (!res.ok)
         throw new Error(
-          (await res.json()).error || 'Failed to generate questions',
+          (await res.json()).error || t('notifications.generationFailed'),
         );
 
       const { questions: generatedQuestions } = await res.json();
       if (!generatedQuestions || generatedQuestions.length === 0) {
-        toast.warning(
-          'AI did not generate any questions. Try a different topic.',
-        );
+        toast.warning(t('notifications.noQuestionsGenerated'));
         return;
       }
       await Promise.all(
@@ -49,7 +51,7 @@ export const AiQuestionForm: FC<SubComponentProps> = ({
         ),
       );
       toast.success(
-        `Generated and saved ${generatedQuestions.length} new questions!`,
+        t('notifications.success', { count: generatedQuestions.length }),
       );
       onSuccess();
     } catch (e) {
@@ -60,21 +62,27 @@ export const AiQuestionForm: FC<SubComponentProps> = ({
   };
 
   return (
-    <div className='space-y-4'>
-      <div>
-        <Label htmlFor='ai-topic'>Topic</Label>
+    <div className='space-y-4' dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className='space-y-2'>
+        <Label htmlFor='ai-topic' className={isRTL ? 'text-right' : ''}>
+          {t('labels.topic')}
+        </Label>
         <Input
           id='ai-topic'
-          placeholder='e.g., JavaScript data types'
+          placeholder={t('placeholders.topic')}
           value={aiTopic}
           onChange={(e) => setAiTopic(e.target.value)}
+          dir={isRTL ? 'rtl' : 'ltr'}
         />
       </div>
-      <div>
-        <Label htmlFor='ai-count'>Number of Questions</Label>
+      <div className='space-y-2'>
+        <Label htmlFor='ai-count' className={isRTL ? 'text-right' : ''}>
+          {t('labels.questionCount')}
+        </Label>
         <Select
           value={String(aiCount)}
           onValueChange={(v) => setAiCount(Number(v))}
+          dir={isRTL ? 'rtl' : 'ltr'}
         >
           <SelectTrigger>
             <SelectValue />
@@ -91,8 +99,14 @@ export const AiQuestionForm: FC<SubComponentProps> = ({
         disabled={isGenerating || !aiTopic}
         className='w-full'
       >
-        {isGenerating && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
-        Generate Questions
+        {isGenerating ? (
+          <>
+            <Loader2 className={isRTL ? 'ml-2' : 'mr-2'} />
+            {t('buttons.generating')}
+          </>
+        ) : (
+          t('buttons.generate')
+        )}
       </Button>
     </div>
   );

@@ -20,7 +20,9 @@ export default async function CourseLayout({ children, params }: iAppProps) {
       </div>
 
       {/* Main Content */}
-      <div className='min-w-0 flex-1 overflow-hidden'>{children}</div>
+      <div className='min-w-0 flex-1 overflow-hidden p-4 sm:p-6 lg:p-8'>
+        {children}
+      </div>
     </div>
   );
 }

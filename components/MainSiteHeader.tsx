@@ -10,6 +10,8 @@ import { buttonVariants } from '@/components/ui/button';
 import { useTheme } from 'next-themes';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export function MainSiteHeader() {
   const { theme, systemTheme } = useTheme();
@@ -17,27 +19,28 @@ export function MainSiteHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // Mount state for hydration
+  const t = useTranslations('SahlaPlatform.Header');
+  const tCommon = useTranslations('SahlaPlatform.common');
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
-
   const currentTheme = theme === 'system' ? systemTheme : theme;
 
   const navigationItems = [
-    { name: 'Home', href: '/' },
-    { name: 'Pricing', href: '/pricing' },
-    { name: 'Contact', href: '/contact' },
-    { name: 'About Us', href: '/about' },
-    { name: 'FAQs', href: '/faqs' },
+    { name: t('home'), href: '/' },
+    { name: t('pricing'), href: '/pricing' },
+    { name: t('contact'), href: '/contact' },
+    { name: t('aboutUs'), href: '/about' },
+    { name: t('faqs'), href: '/faqs' },
   ];
 
   return (
     <header className='bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur'>
       <div className='container mx-auto flex min-h-16 items-center px-4 md:px-6 lg:px-8'>
-        <Link href='/' className='mr-4 flex items-center space-x-2'>
+        <Link href='/' className='me-4 flex items-center'>
           {mounted ? (
             <Image
               src={currentTheme === 'dark' ? LogoDark : LogoLight}
@@ -52,14 +55,14 @@ export function MainSiteHeader() {
 
         {/* Desktop navigation */}
         <nav className='hidden md:flex md:flex-1 md:items-center md:justify-between'>
-          <div className='mx-auto flex items-center space-x-8'>
+          <div className='mx-auto flex items-center gap-8'>
             {navigationItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 className={`hover:text-primary relative pb-2 text-base font-medium transition-colors ${
                   pathname === item.href
-                    ? 'text-primary after:bg-primary after:absolute after:right-0 after:bottom-0 after:left-0 after:h-0.5 after:rounded-full'
+                    ? 'text-primary after:bg-primary after:absolute after:start-0 after:end-0 after:bottom-0 after:h-0.5 after:rounded-full'
                     : ''
                 }`}
               >
@@ -68,20 +71,22 @@ export function MainSiteHeader() {
             ))}
           </div>
 
-          <div className='flex items-center space-x-4'>
-            <ThemeToggle />
+          <div className='flex items-center gap-4'>
+            <ThemeToggle translationNamespace='SahlaPlatform.common.themeToggle' />
+            <LanguageSwitcher />
             <Link
               href='/start'
               className={buttonVariants({ variant: 'default' })}
             >
-              Get Started
+              {tCommon('getStarted')}
             </Link>
           </div>
         </nav>
 
         {/* Mobile menu button */}
-        <div className='ml-auto flex items-center space-x-4 md:hidden'>
-          <ThemeToggle />
+        <div className='ms-auto flex items-center gap-4 md:hidden'>
+          <ThemeToggle translationNamespace='SahlaPlatform.common.themeToggle' />
+          <LanguageSwitcher />
           <button
             onClick={toggleMobileMenu}
             className='text-foreground hover:text-primary hover:bg-accent focus:ring-primary inline-flex items-center justify-center rounded-md p-2 focus:ring-2 focus:outline-none focus:ring-inset'
@@ -105,7 +110,7 @@ export function MainSiteHeader() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`hover:text-primary hover:bg-accent block rounded-md px-3 py-2 text-base font-medium transition-colors ${
+                className={`hover:text-primary hover:bg-accent block rounded-md px-3 py-2 text-start text-base font-medium transition-colors ${
                   pathname === item.href
                     ? 'text-primary bg-accent'
                     : 'text-foreground'
@@ -124,7 +129,7 @@ export function MainSiteHeader() {
                   })}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Get Started
+                  {tCommon('getStarted')}
                 </Link>
               </div>
             </div>

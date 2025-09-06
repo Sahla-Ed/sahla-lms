@@ -1,3 +1,5 @@
+'use client';
+
 import { AdminCourseType } from '@/app/s/[subdomain]/data/admin/admin-get-courses';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -10,6 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useConstructUrl } from '@/hooks/use-construct-url';
+import { cn } from '@/lib/utils';
 import {
   ArrowRight,
   Eye,
@@ -19,6 +22,7 @@ import {
   TimerIcon,
   Trash2,
 } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -27,37 +31,68 @@ interface iAppProps {
 }
 
 export function AdminCourseCard({ data }: iAppProps) {
+  const t = useTranslations('AdminCourseCard');
+  const tEnums = useTranslations('CourseEnums');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
   const thumbnailUrl = useConstructUrl(data.fileKey);
-  console.log(thumbnailUrl);
+
   return (
     <Card className='group relative gap-0 py-0'>
-      {/* absolute dropdrown */}
-      <div className='absolute top-2 right-2 z-10'>
+      {/* absolute dropdown */}
+      <div className={`absolute top-2 z-10 ${isRTL ? 'left-2' : 'right-2'}`}>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant='secondary' size='icon'>
               <MoreVertical className='size-4' />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align='end' className='w-48'>
+
+          <DropdownMenuContent
+            align={isRTL ? 'start' : 'end'}
+            className='w-48'
+            style={{ direction: isRTL ? 'rtl' : 'ltr' }}
+          >
             <DropdownMenuItem asChild>
-              <Link href={`/admin/courses/${data.id}/edit`}>
-                <Pencil className='mr-2 size-4' />
-                Edit Course
+              <Link
+                href={`/admin/courses/${data.id}/edit`}
+                style={{
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  textAlign: isRTL ? 'right' : 'left',
+                }}
+              >
+                <Pencil className={`size-4 ${isRTL ? 'ml-2' : 'ms-2'}`} />
+                {t('editCourse')}
               </Link>
             </DropdownMenuItem>
+
             <DropdownMenuItem asChild>
-              <Link href={`/courses/${data.slug}`}>
-                <Eye className='mr-2 size-4' />
-                Preview
+              <Link
+                href={`/courses/${data.slug}`}
+                style={{
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  textAlign: isRTL ? 'right' : 'left',
+                }}
+              >
+                <Eye className={`size-4 ${isRTL ? 'ml-2' : 'ms-2'}`} />
+                {t('preview')}
               </Link>
             </DropdownMenuItem>
 
             <DropdownMenuSeparator />
+
             <DropdownMenuItem asChild>
-              <Link href={`/admin/courses/${data.id}/delete`}>
-                <Trash2 className='text-destructive mr-2 size-4' />
-                Delete Course
+              <Link
+                href={`/admin/courses/${data.id}/delete`}
+                style={{
+                  direction: isRTL ? 'rtl' : 'ltr',
+                  textAlign: isRTL ? 'right' : 'left',
+                }}
+              >
+                <Trash2
+                  className={`text-destructive size-4 ${isRTL ? 'ml-2' : 'ms-2'}`}
+                />
+                {t('deleteCourse')}
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -65,7 +100,7 @@ export function AdminCourseCard({ data }: iAppProps) {
       </div>
       <Image
         src={thumbnailUrl}
-        alt='Thumbnail Url'
+        alt={t('thumbnailAlt')}
         width={600}
         height={400}
         className='aspect-video h-full w-full rounded-t-lg object-cover'
@@ -86,11 +121,16 @@ export function AdminCourseCard({ data }: iAppProps) {
         <div className='mt-4 flex items-center gap-x-5'>
           <div className='flex items-center gap-x-2'>
             <TimerIcon className='text-primary bg-primary/10 size-6 rounded-md p-1' />
-            <p className='text-muted-foreground text-sm'>{data.duration}h</p>
+            <p className='text-muted-foreground text-sm'>
+              {data.duration}
+              {t('hoursAbr')}
+            </p>
           </div>
           <div className='flex items-center gap-x-2'>
             <School className='text-primary bg-primary/10 size-6 rounded-md p-1' />
-            <p className='text-muted-foreground text-sm'>{data.level}</p>
+            <p className='text-muted-foreground text-sm'>
+              {tEnums(`levels.${data.level}`)}
+            </p>
           </div>
         </div>
 
@@ -100,7 +140,8 @@ export function AdminCourseCard({ data }: iAppProps) {
           })}
           href={`/admin/courses/${data.id}/edit`}
         >
-          Edit Course <ArrowRight className='size-4' />
+          {t('editCourse')}{' '}
+          <ArrowRight className={cn('size-4', { 'rotate-180': isRTL })} />
         </Link>
       </CardContent>
     </Card>

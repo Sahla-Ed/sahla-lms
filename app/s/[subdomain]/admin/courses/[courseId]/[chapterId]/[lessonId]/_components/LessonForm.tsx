@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -29,6 +29,7 @@ import { toast } from 'sonner';
 import { AdminLessonType } from '@/app/s/[subdomain]/data/admin/admin-get-lesson';
 import { lessonSchema, LessonSchemaType } from '@/lib/zodSchemas';
 import { tryCatch } from '@/hooks/try-catch';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface iAppProps {
   data: AdminLessonType;
@@ -38,6 +39,9 @@ interface iAppProps {
 
 export function LessonForm({ chapterId, data, courseId }: iAppProps) {
   const [pending, startTransition] = useTransition();
+  const t = useTranslations('LessonForm');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
   const form = useForm<LessonSchemaType>({
     resolver: zodResolver(lessonSchema),
     defaultValues: {
@@ -59,7 +63,7 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
       );
 
       if (error) {
-        toast.error('An unexpected error occurred. Please try again.');
+        toast.error(t('notifications.genericError'));
         return;
       }
 
@@ -72,7 +76,7 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
   }
 
   function onInvalid() {
-    toast.error('Please fix the highlighted errors before saving.');
+    toast.error(t('notifications.invalid'));
   }
   return (
     <div>
@@ -80,16 +84,20 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
         className={buttonVariants({ variant: 'outline', className: 'mb-6' })}
         href={`/admin/courses/${courseId}/edit`}
       >
-        <ArrowLeft className='size-4' />
-
-        <span>Go Back</span>
+        {isRTL ? (
+          <ArrowRight className='size-4' />
+        ) : (
+          <ArrowLeft className='size-4' />
+        )}
+        <span>{t('backButton')}</span>
       </Link>
-
       <Card>
         <CardHeader>
-          <CardTitle>Lesson Configuration</CardTitle>
-          <CardDescription>
-            Configure the video and description for this lesson.
+          <CardTitle className={isRTL ? 'text-right' : 'text-left'}>
+            {t('cardTitle')}
+          </CardTitle>
+          <CardDescription className={isRTL ? 'text-right' : 'text-left'}>
+            {t('cardDescription')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -103,9 +111,16 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
                 name='name'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Lesson Name</FormLabel>
+                    <FormLabel
+                      className={isRTL ? 'block w-full text-right' : ''}
+                    >
+                      {t('labels.lessonName')}
+                    </FormLabel>
                     <FormControl>
-                      <Input placeholder='Chapter xyz' {...field} />
+                      <Input
+                        placeholder={t('placeholders.lessonName')}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -117,7 +132,11 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
                 name='description'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Description</FormLabel>
+                    <FormLabel
+                      className={isRTL ? 'block w-full text-right' : ''}
+                    >
+                      {t('labels.description')}
+                    </FormLabel>
                     <FormControl>
                       <RichTextEditor field={field} />
                     </FormControl>
@@ -130,7 +149,11 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
                 name='thumbnailKey'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Thumbnail image</FormLabel>
+                    <FormLabel
+                      className={isRTL ? 'block w-full text-right' : ''}
+                    >
+                      {t('labels.thumbnail')}
+                    </FormLabel>
                     <FormControl>
                       <Uploader
                         fileTypeAccepted='image'
@@ -147,7 +170,11 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
                 name='videoKey'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Video File</FormLabel>
+                    <FormLabel
+                      className={isRTL ? 'block w-full text-right' : ''}
+                    >
+                      {t('labels.video')}
+                    </FormLabel>
                     <FormControl>
                       <Uploader
                         onChange={field.onChange}
@@ -160,9 +187,11 @@ export function LessonForm({ chapterId, data, courseId }: iAppProps) {
                 )}
               />
 
-              <Button disabled={pending} type='submit'>
-                {pending ? 'Saving..' : 'Save Lesson'}
-              </Button>
+              <div className='flex justify-end'>
+                <Button disabled={pending} type='submit'>
+                  {pending ? t('buttons.saving') : t('buttons.save')}
+                </Button>
+              </div>
             </form>
           </Form>
         </CardContent>

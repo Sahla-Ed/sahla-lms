@@ -9,27 +9,29 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { format } from 'date-fns';
+import { getTranslations } from 'next-intl/server';
 
-export async function RecentEnrollments() {
+type TFunction = Awaited<ReturnType<typeof getTranslations<'AnalyticsPage'>>>;
+
+export async function RecentEnrollments({ t }: { t: TFunction }) {
   const enrollments = await getRecentEnrollments();
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Recent Enrollments</CardTitle>
+        <CardTitle>{t('recentEnrollments.title')}</CardTitle>
       </CardHeader>
       <CardContent>
-        {enrollments.length === 0 ? ( // <-- START: EMPTY STATE LOGIC
+        {enrollments.length === 0 ? (
           <div className='text-muted-foreground py-8 text-center'>
-            <p>No enrollments in the last 30 days.</p>
+            <p>{t('recentEnrollments.emptyState')}</p>
           </div>
         ) : (
-          // <-- END: EMPTY STATE LOGIC
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Student</TableHead>
-                <TableHead>Course</TableHead>
-                <TableHead>Date</TableHead>
+                <TableHead>{t('recentEnrollments.table.student')}</TableHead>
+                <TableHead>{t('recentEnrollments.table.course')}</TableHead>
+                <TableHead>{t('recentEnrollments.table.date')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

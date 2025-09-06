@@ -1,6 +1,6 @@
 import { getCourseSidebarData } from '@/app/s/[subdomain]/data/course/get-course-sidebar-data';
 import { redirect } from 'next/navigation';
-
+import { getTranslations } from 'next-intl/server';
 interface iAppProps {
   params: Promise<{ slug: string }>;
 }
@@ -8,6 +8,7 @@ interface iAppProps {
 export default async function CourseSlugRoute({ params }: iAppProps) {
   const { slug } = await params;
 
+  const t = await getTranslations('CourseSlugPage');
   const course = await getCourseSidebarData(slug);
 
   // Find the first incomplete lesson
@@ -33,10 +34,10 @@ export default async function CourseSlugRoute({ params }: iAppProps) {
   }
   return (
     <div className='flex h-full items-center justify-center text-center'>
-      <h2 className='mb-2 text-2xl font-bold'>No lessons available</h2>
-      <p className='text-muted-foreground'>
-        This course does not have any lessons yet!
-      </p>
+      <div>
+        <h2 className='mb-2 text-2xl font-bold'>{t('noLessonsTitle')}</h2>
+        <p className='text-muted-foreground'>{t('noLessonsDescription')}</p>
+      </div>
     </div>
   );
 }
