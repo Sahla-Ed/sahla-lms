@@ -1,11 +1,5 @@
 import { getContactMessages } from '../../data/admin/get-contact-messages';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { EmptyState } from '@/components/general/EmptyState';
 import { Mail } from 'lucide-react';
 import { MessagesClient } from './_components/MessagesClient';

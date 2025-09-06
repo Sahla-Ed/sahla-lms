@@ -188,8 +188,7 @@
 }
 
 @keyframes float {
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0);
   }
   50% {
@@ -203,9 +202,7 @@
 
 /* Custom styles for testimonial carousel */
 .testimonial-container {
-  transition:
-    opacity 0.5s ease,
-    transform 0.5s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 /* Testimonial blockquote style */
