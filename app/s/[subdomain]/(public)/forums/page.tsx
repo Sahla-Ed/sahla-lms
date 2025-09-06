@@ -1,20 +1,37 @@
 import { PlaceholderPage } from '@/components/general/PlaceholderPage';
 import { MessagesSquare } from 'lucide-react';
 import { Metadata } from 'next';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { getTenantSettings } from '../../data/admin/get-tenant-settings';
+import { cn } from '@/lib/utils';
 
-export const metadata: Metadata = {
-  title: 'Discussion Forums | Sahla',
-  description:
-    'Engage in conversations, ask questions, and share your knowledge in the Sahla discussion forums. Connect with instructors and peers.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const t = await getTranslations({
+    locale,
+    namespace: 'ForumsPage.Metadata',
+  });
+  const tenant = await getTenantSettings();
 
-export default function ForumsPage() {
+  return {
+    title: t('title'),
+    description: t('description', { tenantName: tenant.name }),
+  };
+}
+
+export default async function ForumsPage() {
+  const t = await getTranslations('ForumsPage');
+  const locale = await getLocale();
+  const isRTL = locale === 'ar';
+
   return (
     <PlaceholderPage
-      title='Discussion Forums'
-      description='This feature is under construction. Our community forums will soon be a place for lively discussions, Q&A with instructors, and peer-to-peer support.'
-      badgeText='Coming Soon'
-      icon={<MessagesSquare className='mr-2 h-4 w-4' />}
+      title={t('title')}
+      description={t('description')}
+      badgeText={t('badgeText')}
+      icon={
+        <MessagesSquare className={cn('h-4 w-4', isRTL ? 'ml-2' : 'mr-2')} />
+      }
     />
   );
 }

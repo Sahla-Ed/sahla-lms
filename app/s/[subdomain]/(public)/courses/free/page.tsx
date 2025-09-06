@@ -1,20 +1,35 @@
 import { PlaceholderPage } from '@/components/general/PlaceholderPage';
 import { Sparkles } from 'lucide-react';
 import { Metadata } from 'next';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { getTenantSettings } from '../../../data/admin/get-tenant-settings';
+import { cn } from '@/lib/utils';
 
-export const metadata: Metadata = {
-  title: 'Free Courses | Sahla',
-  description:
-    'Explore a selection of free courses on Sahla to kickstart your learning journey in various fields without any cost.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const t = await getTranslations({
+    locale,
+    namespace: 'FreeCoursesPage.Metadata',
+  });
+  const tenant = await getTenantSettings();
 
-export default function FreeCoursesPage() {
+  return {
+    title: t('title'),
+    description: t('description', { tenantName: tenant.name }),
+  };
+}
+
+export default async function FreeCoursesPage() {
+  const t = await getTranslations('FreeCoursesPage');
+  const locale = await getLocale();
+  const isRTL = locale === 'ar';
+
   return (
     <PlaceholderPage
-      title='Free Courses'
-      description='This page is under construction. We are curating a selection of high-quality introductory courses that will be available completely free of charge.'
-      badgeText='Coming Soon'
-      icon={<Sparkles className='mr-2 h-4 w-4' />}
+      title={t('title')}
+      description={t('description')}
+      badgeText={t('badgeText')}
+      icon={<Sparkles className={cn('h-4 w-4', isRTL ? 'ml-2' : 'mr-2')} />}
     />
   );
 }
