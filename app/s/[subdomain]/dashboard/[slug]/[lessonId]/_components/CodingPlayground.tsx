@@ -260,7 +260,7 @@ export function CodingPlayground({
   const codingExercise = data.codingExercise?.[0];
   const exerciseLanguage = codingExercise?.language || 'web';
 
-  // State for tracking if we've loaded user submission
+  // State for tracking if we&apos;ve loaded user submission
   const [isCodeInitialized, setIsCodeInitialized] = useState(false);
   const [hasUserSubmission, setHasUserSubmission] = useState(false);
   const [lastSubmissionDate, setLastSubmissionDate] = useState<Date | null>(
