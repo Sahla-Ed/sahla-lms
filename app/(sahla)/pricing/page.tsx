@@ -1,6 +1,3 @@
-'use client';
-
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -25,16 +22,15 @@ import {
   ShieldCheck,
   FolderKanban,
   Sparkles,
-  ChevronDown,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
-import { DarkVeil } from '@/components/ui/dark-veil';
-import { cn } from '@/lib/utils';
-
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'Pricing & Plans | Sahla LMS',
+  description: 'Find all you need to know about our plans',
+};
 export default function PricingPage() {
-  const [annualBilling, setAnnualBilling] = useState(true);
-
   const pricingFaqs = [
     {
       q: 'Can I change my plan later?',
@@ -48,316 +44,161 @@ export default function PricingPage() {
       q: 'Do you offer custom enterprise solutions?',
       a: 'Yes, for large organizations with specific needs, we offer custom enterprise plans. Please contact our sales team for more information.',
     },
-    {
-      q: 'What happens after the 14-day trial?',
-      a: 'After your trial period ends, you can choose to subscribe to one of our paid plans to continue using Sahla. Your data will be preserved for 30 days if you decide not to subscribe immediately.',
-    },
-    {
-      q: "Can I get a refund if I'm not satisfied?",
-      a: "Yes, we offer a 30-day money-back guarantee on all our paid plans. If you're not satisfied with our service, contact our support team for a full refund.",
-    },
   ];
 
   return (
-    <div className="font-[var(--font-inter)] text-slate-800 dark:text-slate-100 overflow-hidden">
-      {/* Hero Section */}
-      <section
-        className="relative min-h-[60vh] flex flex-col justify-center items-center overflow-hidden"
-        style={{ backgroundColor: '#0a0a29' }}
-      >
-        <div className="absolute inset-0 z-0 h-full w-full">
-          <DarkVeil
-            hueShift={35}
-            noiseIntensity={0.03}
-            scanlineIntensity={0.08}
-            speed={0.3}
-            warpAmount={5}
-          />
-        </div>
+    <div className='container mx-auto py-12'>
+      <div className='mb-12 text-center'>
+        <h1 className='mb-4 text-4xl font-bold'>Simple, Transparent Pricing</h1>
+        <p className='text-muted-foreground text-xl'>
+          Choose the plan that&apos;s right for your learning platform.
+        </p>
+      </div>
 
-        <div className="relative z-10 max-w-4xl px-6 text-center text-white py-10 animate-fade-in-up">
-          <div className="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full px-6 py-2 mb-8 text-sm font-medium">
-            Simple, Transparent Pricing
-          </div>
+      <div className='bg-muted/20 grid grid-cols-1 gap-8 rounded-lg p-8 shadow-inner md:grid-cols-3'>
+        {/* Starter Plan */}
+        <Card className='flex flex-col'>
+          <CardHeader>
+            <CardTitle className='text-2xl'>Starter</CardTitle>
+            <CardDescription>Perfect for new creators.</CardDescription>
+          </CardHeader>
+          <CardContent className='flex-grow'>
+            <div className='mb-4 text-4xl font-bold'>Free</div>
+            <ul className='text-muted-foreground space-y-2'>
+              <li className='flex items-center'>
+                <CheckCircle className='mr-2 h-5 w-5 text-green-500' /> 1 Course
+              </li>
+              <li className='flex items-center'>
+                <Users className='mr-2 h-5 w-5 text-green-500' /> 1 Admin User
+              </li>
+              <li className='flex items-center'>
+                <BarChart className='mr-2 h-5 w-5 text-green-500' /> Basic
+                Analytics
+              </li>
+            </ul>
+          </CardContent>
+          <CardFooter>
+            <Button className='w-full' asChild>
+              <Link href='/start'>It&apos;s completely free!</Link>
+            </Button>
+          </CardFooter>
+        </Card>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-indigo-200">
-            Choose the Perfect Plan
-          </h1>
-
-          <p className="text-lg sm:text-xl text-blue-100 mb-10 max-w-3xl mx-auto">
-            Start with our 14-day free trial, then pick the plan that works best for your growing learning platform.
-          </p>
-
-          {/* Billing Toggle */}
-          <div className="flex items-center justify-center mb-10 space-x-4">
-            <span className={cn("text-sm font-medium", !annualBilling && "text-blue-300")}>
-              Monthly
-            </span>
-            <button
-              onClick={() => setAnnualBilling(!annualBilling)}
-              className={cn(
-                "relative inline-flex h-6 w-12 items-center rounded-full transition-colors focus:outline-none",
-                annualBilling ? "bg-blue-500" : "bg-white/20"
-              )}
-            >
-              <span
-                className={cn(
-                  "inline-block h-4 w-4 transform rounded-full bg-white transition-transform",
-                  annualBilling ? "translate-x-6" : "translate-x-1"
-                )}
-              />
-            </button>
-            <span className={cn("text-sm font-medium flex items-center", annualBilling && "text-blue-300")}>
-              Annually <span className="ml-1 px-1.5 py-0.5 bg-blue-500 text-white text-xs rounded">Save 20%</span>
-            </span>
-          </div>
-        </div>
-
-        <div className="absolute bottom-8 left-0 right-0 flex justify-center">
-          <div
-            className="text-white/60 cursor-pointer animate-bounce animate-infinite animate-duration-[2000ms]"
-            onClick={() => {
-              document.getElementById('pricing-plans')?.scrollIntoView({ behavior: 'smooth' });
-            }}
+        {/* Pro Plan */}
+        <Card className='border-primary relative flex flex-col shadow-lg'>
+          <Badge
+            variant='default'
+            className='absolute -top-3 left-1/2 -translate-x-1/2 rotate-3'
           >
-            <ChevronDown size={24} />
-          </div>
-        </div>
-      </section>
+            Most Popular
+          </Badge>
+          <CardHeader>
+            <CardTitle className='text-2xl'>Pro</CardTitle>
+            <CardDescription>For growing academies.</CardDescription>
+          </CardHeader>
+          <CardContent className='flex-grow'>
+            <div className='mb-4 text-4xl font-bold'>
+              $29<span className='text-muted-foreground text-lg'>/month</span>
+            </div>
+            <ul className='text-muted-foreground space-y-2'>
+              <li className='flex items-center'>
+                <CheckCircle className='mr-2 h-5 w-5 text-green-500' />{' '}
+                Unlimited Courses
+              </li>
+              <li className='flex items-center'>
+                <Globe className='mr-2 h-5 w-5 text-green-500' /> Custom
+                Subdomain
+              </li>
+              <li className='flex items-center'>
+                <BarChart className='mr-2 h-5 w-5 text-green-500' /> Advanced
+                Analytics
+              </li>
+              <li className='flex items-center'>
+                <Sparkles className='mr-2 h-5 w-5 text-green-500' /> Create with
+                AI
+              </li>
+              <li className='flex items-center'>
+                <ShieldCheck className='mr-2 h-5 w-5 text-green-500' /> Priority
+                Support
+              </li>
+            </ul>
+          </CardContent>
+          <CardFooter>
+            <Button className='w-full' asChild>
+              <Link href='/start'>Start now upgrade later!</Link>
+            </Button>
+          </CardFooter>
+        </Card>
 
-      {/* Pricing Plans Section */}
-      <section id="pricing-plans" className="py-16 sm:py-20 md:py-24 bg-gradient-to-br from-white to-blue-50 dark:from-slate-950 dark:to-slate-900">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {/* Starter Plan */}
-            <Card className="flex flex-col border-slate-200 dark:border-slate-700 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.01] bg-white dark:bg-slate-800 animate-fade-in-up animate-delay-200">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold">Starter</CardTitle>
-                <CardDescription className="text-slate-600 dark:text-slate-400">Perfect for new creators.</CardDescription>
-              </CardHeader>
-              <CardContent className="flex-grow">
-                <div className="mb-6">
-                  <div className="text-4xl font-bold">Free</div>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm">Get started right away</p>
-                </div>
-                <ul className="space-y-3 text-slate-700 dark:text-slate-300">
-                  <li className="flex items-center">
-                    <CheckCircle className="mr-2 h-5 w-5 text-blue-500" /> 1 Course
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="mr-2 h-5 w-5 text-blue-500" /> 1 Admin User
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="mr-2 h-5 w-5 text-blue-500" /> Basic Analytics
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="mr-2 h-5 w-5 text-blue-500" /> Community Support
-                  </li>
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full bg-gradient-to-r from-slate-600 to-slate-700 hover:from-slate-700 hover:to-slate-800 text-white" asChild>
-                  <Link href="/start">Start For Free</Link>
-                </Button>
-              </CardFooter>
-            </Card>
-
-            {/* Pro Plan */}
-            <Card className="relative flex flex-col border-blue-200 dark:border-blue-800 shadow-xl bg-white dark:bg-slate-800 z-10 transform md:scale-[1.05] animate-fade-in-up">
-              <div className="absolute -top-5 left-0 right-0 flex justify-center">
-                <Badge variant="default" className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-3 py-1">
-                  Most Popular
-                </Badge>
-              </div>
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-blue-600 dark:text-blue-400">Pro</CardTitle>
-                <CardDescription>For growing academies.</CardDescription>
-              </CardHeader>
-              <CardContent className="flex-grow">
-                <div className="mb-6">
-                  <div className="text-4xl font-bold">
-                    {annualBilling ? '$23' : '$29'}
-                    <span className="text-slate-500 dark:text-slate-400 text-lg">/month</span>
-                  </div>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm">
-                    {annualBilling ? 'Billed annually ($276/year)' : 'Billed monthly'}
-                  </p>
-                </div>
-                <ul className="space-y-3 text-slate-700 dark:text-slate-300">
-                  <li className="flex items-center">
-                    <CheckCircle className="mr-2 h-5 w-5 text-blue-500" /> Unlimited Courses
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="mr-2 h-5 w-5 text-blue-500" /> Custom Subdomain
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="mr-2 h-5 w-5 text-blue-500" /> Advanced Analytics
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="mr-2 h-5 w-5 text-blue-500" /> AI Content Creation
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="mr-2 h-5 w-5 text-blue-500" /> Priority Support
-                  </li>
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-600/40 transform transition-all hover:scale-[1.02]" asChild>
-                  <Link href="/start">Start Your Free Trial</Link>
-                </Button>
-              </CardFooter>
-            </Card>
-
-            {/* Enterprise Plan */}
-            <Card className="flex flex-col border-slate-200 dark:border-slate-700 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.01] bg-white dark:bg-slate-800 animate-fade-in-up animate-delay-400">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold">Enterprise</CardTitle>
-                <CardDescription className="text-slate-600 dark:text-slate-400">Tailored for large organizations.</CardDescription>
-              </CardHeader>
-              <CardContent className="flex-grow">
-                <div className="mb-6">
-                  <div className="text-4xl font-bold">Custom</div>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm">Contact for pricing</p>
-                </div>
-                <ul className="space-y-3 text-slate-700 dark:text-slate-300">
-                  <li className="flex items-center">
-                    <CheckCircle className="mr-2 h-5 w-5 text-blue-500" /> All Pro features, plus:
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="mr-2 h-5 w-5 text-blue-500" /> Unlimited Admin Users
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="mr-2 h-5 w-5 text-blue-500" /> Teams & Projects
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="mr-2 h-5 w-5 text-blue-500" /> Dedicated Support
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="mr-2 h-5 w-5 text-blue-500" /> Custom Domain
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="mr-2 h-5 w-5 text-blue-500" /> On-premise Option
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="mr-2 h-5 w-5 text-blue-500" /> API Access
-                  </li>
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white" asChild>
-                  <Link href="/contact">Contact Sales</Link>
-                </Button>
-              </CardFooter>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Compare Features Section */}
-      <section className="py-16 bg-white dark:bg-slate-950">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Compare Plans</h2>
-            <p className="text-lg text-slate-600 dark:text-slate-400">
-              Find the perfect plan for your needs and scale as you grow
-            </p>
-          </div>
-
-          <div className="max-w-5xl mx-auto overflow-x-auto">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="border-b border-slate-200 dark:border-slate-800">
-                  <th className="p-4 text-left font-medium text-slate-500">Feature</th>
-                  <th className="p-4 text-center font-medium text-slate-500">Starter</th>
-                  <th className="p-4 text-center font-medium text-blue-600 dark:text-blue-400">Pro</th>
-                  <th className="p-4 text-center font-medium text-slate-500">Enterprise</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b border-slate-200 dark:border-slate-800">
-                  <td className="p-4 font-medium">Courses</td>
-                  <td className="p-4 text-center">1</td>
-                  <td className="p-4 text-center">Unlimited</td>
-                  <td className="p-4 text-center">Unlimited</td>
-                </tr>
-                <tr className="border-b border-slate-200 dark:border-slate-800">
-                  <td className="p-4 font-medium">Admin Users</td>
-                  <td className="p-4 text-center">1</td>
-                  <td className="p-4 text-center">5</td>
-                  <td className="p-4 text-center">Unlimited</td>
-                </tr>
-                <tr className="border-b border-slate-200 dark:border-slate-800">
-                  <td className="p-4 font-medium">Custom Domain</td>
-                  <td className="p-4 text-center">—</td>
-                  <td className="p-4 text-center">Subdomain</td>
-                  <td className="p-4 text-center">Full Domain</td>
-                </tr>
-                <tr className="border-b border-slate-200 dark:border-slate-800">
-                  <td className="p-4 font-medium">AI Content Creation</td>
-                  <td className="p-4 text-center">—</td>
-                  <td className="p-4 text-center">
-                    <CheckCircle className="h-5 w-5 text-blue-500 mx-auto" />
-                  </td>
-                  <td className="p-4 text-center">
-                    <CheckCircle className="h-5 w-5 text-blue-500 mx-auto" />
-                  </td>
-                </tr>
-                <tr className="border-b border-slate-200 dark:border-slate-800">
-                  <td className="p-4 font-medium">API Access</td>
-                  <td className="p-4 text-center">—</td>
-                  <td className="p-4 text-center">—</td>
-                  <td className="p-4 text-center">
-                    <CheckCircle className="h-5 w-5 text-blue-500 mx-auto" />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-16 sm:py-20 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-slate-900 dark:to-indigo-950">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-            <p className="text-lg text-slate-600 dark:text-slate-400">
-              Find answers to common questions about our pricing and plans
-            </p>
-          </div>
-
-          <div className="max-w-3xl mx-auto">
-            <Accordion type="single" collapsible className="w-full space-y-4">
-              {pricingFaqs.map((faq, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`item-${index}`}
-                  className="bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <AccordionTrigger className="p-6 text-left text-lg font-medium hover:no-underline">
-                    {faq.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 dark:text-slate-400 px-6 pb-6 text-base">
-                    {faq.a}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
-        <div className="container mx-auto px-6">
-          <h2 className="mb-4 text-2xl sm:text-3xl font-bold">Ready to Get Started?</h2>
-          <p className="mb-8 text-lg max-w-2xl mx-auto">
-            Join thousands of educators already using Sahla to build their learning platforms.
-            No credit card required for your 14-day trial.
-          </p>
-          <Button size="lg" variant="secondary" asChild className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-8 py-4 text-lg transition-all transform hover:scale-105 shadow-lg">
-            <Link href="/start">Start Your Free Trial</Link>
-          </Button>
+        {/* Enterprise Plan */}
+        <Card className='flex flex-col'>
+          <CardHeader>
+            <CardTitle className='text-2xl'>Enterprise</CardTitle>
+            <CardDescription>Tailored for large organizations.</CardDescription>
+          </CardHeader>
+          <CardContent className='flex-grow'>
+            <div className='mb-4 text-4xl font-bold'>
+              Custom
+              <span className='text-muted-foreground text-lg'>/month</span>
+            </div>
+            <ul className='text-muted-foreground space-y-2'>
+              <li className='flex items-center'>
+                <CheckCircle className='mr-2 h-5 w-5 text-green-500' /> All Pro
+                features, plus:
+              </li>
+              <li className='flex items-center'>
+                <Users className='mr-2 h-5 w-5 text-green-500' /> Unlimited
+                Admin Users
+              </li>
+              <li className='flex items-center'>
+                <FolderKanban className='mr-2 h-5 w-5 text-green-500' /> Teams &
+                Projects
+              </li>
+              <li className='flex items-center'>
+                <ShieldCheck className='mr-2 h-5 w-5 text-green-500' />{' '}
+                Dedicated Support
+              </li>
+              <li className='flex items-center'>
+                <Globe className='mr-2 h-5 w-5 text-green-500' /> Custom Domain
+              </li>
+              <li className='flex items-center'>
+                <CheckCircle className='mr-2 h-5 w-5 text-green-500' />{' '}
+                On-premise Option
+              </li>
+              <li className='flex items-center'>
+                <Code className='mr-2 h-5 w-5 text-green-500' /> API Access
+              </li>
+            </ul>
+          </CardContent>
+          <CardFooter>
+            <Button className='w-full' asChild>
+              <Link href='/contact'>Contact Sales</Link>
+            </Button>
+          </CardFooter>
+        </Card>
+      </div>
+      {/* Pricing FAQs */}
+      <section className='px-4 py-20'>
+        <div className='mx-auto max-w-4xl space-y-12'>
+          <h2 className='mb-12 text-center text-4xl font-bold'>
+            Frequently Asked Questions
+          </h2>
+          <Accordion type='single' collapsible className='w-full space-y-4'>
+            {pricingFaqs.map((faq, index) => (
+              <AccordionItem
+                key={index}
+                value={`item-${index}`}
+                className='bg-card/50 rounded-lg border'
+              >
+                <AccordionTrigger className='p-6 text-left text-lg hover:no-underline'>
+                  {faq.q}
+                </AccordionTrigger>
+                <AccordionContent className='text-muted-foreground px-6 pb-6 text-base'>
+                  {faq.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
     </div>
