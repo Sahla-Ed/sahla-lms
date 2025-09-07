@@ -83,7 +83,7 @@ export default async function Home() {
       </section>
 
       {/* Trusted By Section */}
-      <section className='bg-background px-4 py-8 sm:py-12'>
+      <section className='bg-muted/30 px-4 py-8 sm:py-12'>
         <div className='container mx-auto text-center'>
           <h3 className='text-muted-foreground mb-6 text-lg font-semibold sm:mb-8 sm:text-xl'>
             {t('trustedBy.title')}
