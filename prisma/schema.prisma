@@ -6,6 +6,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL")
 }
 
 model SessionTransferToken {
@@ -38,7 +39,7 @@ model User {
   SessionTransferToken SessionTransferToken[]
   CodingSubmission     CodingSubmission[]
   comments             Comment[]
-
+  xp Int @default(0)
   stripeCustomerId String? @unique
 
   role       String?
@@ -63,6 +64,7 @@ model tenants {
   data            Json
   landingPageData Json?
   plan            String? @default("FREE")
+  defaultLanguage String? @default("ar")
 }
 
 model Session {
@@ -220,6 +222,8 @@ model Enrollment {
   User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   tenantId  String?
+
+  lastAccessedLessonId String? 
 
   @@unique([userId, courseId])
 }

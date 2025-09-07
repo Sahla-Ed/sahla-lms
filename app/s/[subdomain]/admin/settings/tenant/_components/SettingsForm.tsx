@@ -28,26 +28,30 @@ import { getTenantSettings } from '@/app/s/[subdomain]/data/admin/get-tenant-set
 import { updateTenantSettings } from '../actions';
 import { protocol, rootDomain } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 type Awaited<T> = T extends PromiseLike<infer U> ? U : T;
-
-const settingsSchema = z.object({
-  name: z.string().min(3, 'platform name is required'),
-  slug: z.string().min(3, 'URL slug is required'),
-  logo: z.string().optional(),
-  logoDark: z.string().optional(),
-});
-
-type SettingsFormValues = z.infer<typeof settingsSchema>;
 type TenantSettings = Awaited<ReturnType<typeof getTenantSettings>>;
 
 interface SettingsFormProps {
   tenant: TenantSettings;
 }
 
+const getSettingsSchema = (t: ReturnType<typeof useTranslations>) =>
+  z.object({
+    name: z.string().min(3, t('validation.nameRequired')),
+    slug: z.string().min(3, t('validation.slugRequired')),
+    logo: z.string().optional(),
+    logoDark: z.string().optional(),
+  });
+
 export function SettingsForm({ tenant }: SettingsFormProps) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const t = useTranslations('TenantSettingsPage.form');
+
+  const settingsSchema = getSettingsSchema(t);
+  type SettingsFormValues = z.infer<typeof settingsSchema>;
 
   const form = useForm<SettingsFormValues>({
     resolver: zodResolver(settingsSchema),
@@ -64,10 +68,13 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
       const result = await updateTenantSettings(values);
 
       if (result.status === 'success') {
-        toast.success(result.message);
+        toast.success(
+          result.newSlug
+            ? t('notifications.updateSuccessRedirect')
+            : t('notifications.updateSuccess'),
+        );
         if (result.newSlug && result.transferToken) {
           const newUrl = `${protocol}://${result.newSlug}.${rootDomain}/api/auth/session-transfer?token=${result.transferToken}`;
-          // Use window.location for a full page reload to the new domain
           window.location.href = newUrl;
         } else {
           router.refresh();
@@ -81,10 +88,8 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>platform Settings</CardTitle>
-        <CardDescription>
-          Manage your platform&apos;s name, URL, and branding.
-        </CardDescription>
+        <CardTitle>{t('cardTitle')}</CardTitle>
+        <CardDescription>{t('cardDescription')}</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -94,9 +99,9 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
               name='name'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>platform Name</FormLabel>
+                  <FormLabel>{t('nameLabel')}</FormLabel>
                   <FormControl>
-                    <Input placeholder='Your platform Name' {...field} />
+                    <Input placeholder={t('namePlaceholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -107,15 +112,15 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
               name='slug'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>platform URL</FormLabel>
+                  <FormLabel>{t('urlLabel')}</FormLabel>
                   <FormControl>
                     <div className='flex items-center'>
                       <Input
-                        placeholder='your-platform'
+                        placeholder={t('urlPlaceholder')}
                         {...field}
-                        className='rounded-r-none focus-visible:ring-0'
+                        className='rounded-r-none focus-visible:ring-0 rtl:rounded-l-none rtl:rounded-r-md'
                       />
-                      <span className='border-input bg-muted text-muted-foreground inline-flex h-9 items-center rounded-r-md border border-l-0 px-3 text-sm'>
+                      <span className='border-input bg-muted text-muted-foreground inline-flex h-9 items-center rounded-r-md border border-l-0 px-3 text-sm rtl:rounded-l-md rtl:rounded-r-none rtl:border-r-0 rtl:border-l'>
                         .{rootDomain.split(':')[0]}
                       </span>
                     </div>
@@ -131,7 +136,7 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
                 name='logo'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Logo (Light Mode)</FormLabel>
+                    <FormLabel>{t('logoLightLabel')}</FormLabel>
                     <FormControl>
                       <Uploader
                         fileTypeAccepted='image'
@@ -148,7 +153,7 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
                 name='logoDark'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Logo (Dark Mode)</FormLabel>
+                    <FormLabel>{t('logoDarkLabel')}</FormLabel>
                     <FormControl>
                       <Uploader
                         fileTypeAccepted='image'
@@ -161,15 +166,16 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
                 )}
               />
             </div>
-
-            <Button type='submit' disabled={isPending}>
-              {isPending ? (
-                <Loader2 className='mr-2 size-4 animate-spin' />
-              ) : (
-                <Save className='mr-2 size-4' />
-              )}
-              Save Changes
-            </Button>
+            <div className='flex justify-end'>
+              <Button type='submit' disabled={isPending}>
+                {isPending ? (
+                  <Loader2 className='ml-2 size-4 animate-spin' />
+                ) : (
+                  <Save className='ml-2 size-4' />
+                )}
+                {isPending ? t('savingButton') : t('saveButton')}
+              </Button>
+            </div>
           </form>
         </Form>
       </CardContent>

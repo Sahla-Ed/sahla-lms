@@ -13,65 +13,67 @@ import {
   Mail,
 } from 'lucide-react';
 import Link from 'next/link';
+import { getLocale, getTranslations } from 'next-intl/server';
 
-export const metadata: Metadata = {
-  title: 'Terms and Conditions | Sahla',
-  description:
-    'Read the terms and conditions for using the Sahla learning platform.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const t = await getTranslations({
+    locale,
+    namespace: 'SahlaPlatform.TermsPage.Metadata',
+  });
 
-const sections = [
-  {
-    icon: <FileText className='text-primary h-6 w-6' />,
-    title: 'Introduction',
-    content:
-      'Welcome to Sahla. By using our platform, you agree to these terms and conditions.',
-  },
-  {
-    icon: <Users className='text-primary h-6 w-6' />,
-    title: 'User Accounts',
-    content:
-      'Create an account with accurate information. Keep your login details secure and notify us of any unauthorized access.',
-  },
-  {
-    icon: <BookOpen className='text-primary h-6 w-6' />,
-    title: 'Course Access',
-    content:
-      'Enrolled courses are for personal use only. Lifetime access provided unless policy violations occur.',
-  },
-  {
-    icon: <Shield className='text-primary h-6 w-6' />,
-    title: 'Intellectual Property',
-    content:
-      'All content is protected by copyright. No reproduction or distribution without written permission.',
-  },
-  {
-    icon: <CreditCard className='text-primary h-6 w-6' />,
-    title: 'Payment & Refunds',
-    content:
-      'Payment required at enrollment. 30-day money-back guarantee if less than 30% completed.',
-  },
-  {
-    icon: <Gavel className='text-primary h-6 w-6' />,
-    title: 'Code of Conduct',
-    content:
-      'Maintain respectful behavior. No harassment, hacking, or commercial use without authorization.',
-  },
-  {
-    icon: <AlertTriangle className='text-primary h-6 w-6' />,
-    title: 'Disclaimers',
-    content:
-      "Platform provided 'as is' without warranties. Our liability is limited to course fees paid.",
-  },
-  {
-    icon: <Mail className='text-primary h-6 w-6' />,
-    title: 'Contact & Updates',
-    content:
-      'Terms may be updated with notification. Contact support for questions or concerns.',
-  },
-];
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}
 
-export default function TermsAndConditionsPage() {
+export default async function TermsAndConditionsPage() {
+  const t = await getTranslations('SahlaPlatform.TermsPage');
+
+  const sections = [
+    {
+      icon: <FileText className='text-primary h-6 w-6' />,
+      title: t('sections.introduction.title'),
+      content: t('sections.introduction.content'),
+    },
+    {
+      icon: <Users className='text-primary h-6 w-6' />,
+      title: t('sections.accounts.title'),
+      content: t('sections.accounts.content'),
+    },
+    {
+      icon: <BookOpen className='text-primary h-6 w-6' />,
+      title: t('sections.access.title'),
+      content: t('sections.access.content'),
+    },
+    {
+      icon: <Shield className='text-primary h-6 w-6' />,
+      title: t('sections.ip.title'),
+      content: t('sections.ip.content'),
+    },
+    {
+      icon: <CreditCard className='text-primary h-6 w-6' />,
+      title: t('sections.payment.title'),
+      content: t('sections.payment.content'),
+    },
+    {
+      icon: <Gavel className='text-primary h-6 w-6' />,
+      title: t('sections.conduct.title'),
+      content: t('sections.conduct.content'),
+    },
+    {
+      icon: <AlertTriangle className='text-primary h-6 w-6' />,
+      title: t('sections.disclaimers.title'),
+      content: t('sections.disclaimers.content'),
+    },
+    {
+      icon: <Mail className='text-primary h-6 w-6' />,
+      title: t('sections.updates.title'),
+      content: t('sections.updates.content'),
+    },
+  ];
+
   return (
     <div className='from-background via-background to-muted/20 min-h-screen bg-gradient-to-br'>
       <section className='relative px-4 py-20'>
@@ -81,14 +83,13 @@ export default function TermsAndConditionsPage() {
               variant='outline'
               className='text-primary border-primary/20 bg-primary/5'
             >
-              Legal Document
+              {t('hero.badge')}
             </Badge>
             <h1 className='from-primary to-primary/60 bg-gradient-to-r bg-clip-text text-5xl font-bold tracking-tight text-transparent md:text-6xl'>
-              Terms & Conditions
+              {t('hero.title')}
             </h1>
             <p className='text-muted-foreground mx-auto max-w-2xl text-xl leading-relaxed'>
-              Essential terms and guidelines for using the Sahla learning
-              platform safely and effectively.
+              {t('hero.description')}
             </p>
           </div>
         </div>
@@ -102,7 +103,7 @@ export default function TermsAndConditionsPage() {
               className='group from-card to-accent/5 border-0 bg-gradient-to-br transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl'
             >
               <CardHeader className='pb-4'>
-                <div className='flex items-center space-x-4'>
+                <div className='flex items-center gap-4'>
                   <div className='bg-primary/10 group-hover:bg-primary/20 rounded-full p-3 transition-colors duration-300'>
                     {section.icon}
                   </div>
@@ -123,16 +124,15 @@ export default function TermsAndConditionsPage() {
 
       <section className='from-primary/5 to-primary/10 bg-gradient-to-r px-4 py-20'>
         <div className='mx-auto max-w-4xl space-y-8 text-center'>
-          <h2 className='mb-6 text-4xl font-bold'>Need Clarification?</h2>
+          <h2 className='mb-6 text-4xl font-bold'>{t('cta.title')}</h2>
           <p className='text-muted-foreground mx-auto max-w-2xl text-xl'>
-            Our support team is ready to help you understand these terms and
-            answer any questions you might have.
+            {t('cta.description')}
           </p>
           <div className='flex flex-col justify-center gap-4 sm:flex-row'>
             <Link href='/contact'>
               <Button size='lg' className='group'>
-                Contact Support
-                <Mail className='ml-2 h-4 w-4 transition-transform group-hover:translate-x-1' />
+                {t('cta.contactButton')}
+                <Mail className='ms-2 h-4 w-4 transition-transform group-hover:translate-x-1' />
               </Button>
             </Link>
             <Link href='/privacy'>
@@ -141,7 +141,7 @@ export default function TermsAndConditionsPage() {
                 variant='outline'
                 className='bg-background/80 hover:bg-background'
               >
-                Privacy Policy
+                {t('cta.privacyButton')}
               </Button>
             </Link>
           </div>

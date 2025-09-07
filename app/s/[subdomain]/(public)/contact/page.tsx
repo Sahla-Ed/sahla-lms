@@ -1,18 +1,33 @@
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { Mail, Phone, MessageCircle } from 'lucide-react';
-import { ContactForm } from '../_components/ContactForm';
+import { Mail, Phone, MessageCircle, MapPin, Clock } from 'lucide-react';
+import { ContactForm } from './_components/ContactForm';
 import { Metadata } from 'next';
+import { getLocale, getTranslations } from 'next-intl/server';
 
-export const metadata: Metadata = {
-  title: 'Contact Us | Get in Touch with Sahla',
-  description:
-    "Have questions or need support? Reach out to the Sahla team through our contact page. We're here to help with course inquiries, feedback, or collaboration opportunities.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const t = await getTranslations({
+    locale,
+    namespace: 'ContactPage',
+  });
 
-export default function ContactUsPage() {
+  return {
+    title: t('hero.badge'),
+    description: t('hero.description'),
+  };
+}
+
+export default async function ContactUsPage() {
+  const t = await getTranslations('ContactPage');
+  const locale = await getLocale();
+  const isRTL = locale === 'ar';
+
   return (
-    <div className='from-background via-background to-muted/20 min-h-screen bg-gradient-to-br'>
+    <div
+      className='from-background via-background to-muted/20 min-h-screen bg-gradient-to-br'
+      dir={isRTL ? 'rtl' : 'ltr'}
+    >
       <section className='relative px-4 py-20'>
         <div className='mx-auto max-w-4xl'>
           <div className='space-y-8 text-center'>
@@ -20,15 +35,13 @@ export default function ContactUsPage() {
               variant='outline'
               className='text-primary border-primary/20 bg-primary/5'
             >
-              Contact Us
+              {t('hero.badge')}
             </Badge>
             <h1 className='from-primary to-primary/60 bg-gradient-to-r bg-clip-text text-5xl font-bold tracking-tight text-transparent md:text-6xl'>
-              Get in Touch
+              {t('hero.title')}
             </h1>
             <p className='text-muted-foreground mx-auto max-w-2xl text-xl leading-relaxed'>
-              Ready to start your learning journey or share your expertise?
-              We&apos;d love to hear from you. Fill out the form below and
-              we&apos;ll get back to you soon.
+              {t('hero.description')}
             </p>
           </div>
         </div>
@@ -44,29 +57,70 @@ export default function ContactUsPage() {
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
               <CardContent className='pt-6'>
                 <Mail className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>Email Us</h3>
+                <h3 className='mb-2 font-semibold'>
+                  {t('contactMethods.email.title')}
+                </h3>
                 <p className='text-muted-foreground text-sm'>
-                  Get in touch via email and we&apos;ll respond within 24 hours
+                  {t('contactMethods.email.description')}
+                </p>
+                <p className='text-primary text-sm font-medium'>
+                  {t('contactMethods.email.address')}
                 </p>
               </CardContent>
             </Card>
-
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
               <CardContent className='pt-6'>
                 <Phone className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>Call Us</h3>
+                <h3 className='mb-2 font-semibold'>
+                  {t('contactMethods.phone.title')}
+                </h3>
                 <p className='text-muted-foreground text-sm'>
-                  Speak directly with our team for immediate assistance
+                  {t('contactMethods.phone.description')}
+                </p>
+                <p className='text-primary text-sm font-medium'>
+                  {t('contactMethods.phone.number')}
                 </p>
               </CardContent>
             </Card>
-
             <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
               <CardContent className='pt-6'>
                 <MessageCircle className='text-primary mx-auto mb-4 h-8 w-8' />
-                <h3 className='mb-2 font-semibold'>Live Chat</h3>
+                <h3 className='mb-2 font-semibold'>
+                  {t('contactMethods.chat.title')}
+                </h3>
                 <p className='text-muted-foreground text-sm'>
-                  Start a conversation with our support team right away
+                  {t('contactMethods.chat.description')}
+                </p>
+                <p className='text-primary text-sm font-medium'>
+                  {t('contactMethods.chat.availability')}
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+          <div className='mt-8 grid grid-cols-1 gap-8 md:grid-cols-2'>
+            <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
+              <CardContent className='pt-6 text-center'>
+                <MapPin className='text-primary mx-auto mb-4 h-8 w-8' />
+                <h3 className='mb-2 font-semibold'>
+                  {t('location.office.title')}
+                </h3>
+                <p className='text-muted-foreground text-sm'>
+                  {t('location.office.addressLine1')}
+                  <br />
+                  {t('location.office.addressLine2')}
+                </p>
+              </CardContent>
+            </Card>
+            <Card className='from-card to-primary/5 border-0 bg-gradient-to-br transition-shadow hover:shadow-lg'>
+              <CardContent className='pt-6 text-center'>
+                <Clock className='text-primary mx-auto mb-4 h-8 w-8' />
+                <h3 className='mb-2 font-semibold'>
+                  {t('location.hours.title')}
+                </h3>
+                <p className='text-muted-foreground text-sm'>
+                  {t('location.hours.weekdays')}
+                  <br />
+                  {t('location.hours.weekend')}
                 </p>
               </CardContent>
             </Card>

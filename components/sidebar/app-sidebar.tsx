@@ -14,7 +14,6 @@ import {
   IconCashBanknote,
   IconBuilding,
   IconLayout2,
-  IconMessage,
 } from '@tabler/icons-react';
 
 import { NavMain } from '@/components/sidebar/nav-main';
@@ -25,7 +24,6 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
@@ -34,29 +32,44 @@ import LogoLight from '@/public/logoLight.png';
 import LogoDark from '@/public/logoDark.png';
 import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   planName: 'FREE' | 'PRO';
+  side: 'left' | 'right';
 }
 
-export function AppSidebar({ className, planName, ...props }: AppSidebarProps) {
+export function AppSidebar({
+  className,
+  planName,
+  side,
+  ...props
+}: AppSidebarProps) {
   const { theme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const t = useTranslations('AdminSidebar');
   useEffect(() => {
     setMounted(true);
   }, []);
   const currentTheme = theme === 'system' ? systemTheme : theme;
 
   const navMain = [
-    { title: 'Dashboard', url: '/admin', icon: IconDashboard },
-    { title: 'Courses', url: '/admin/courses', icon: IconListDetails },
-    { title: 'Messages', url: '/admin/messages', icon: IconMessage },
-    { title: 'Analytics', url: '/admin/analytics', icon: IconChartBar },
+    { title: t('navMain.dashboard'), url: '/admin', icon: IconDashboard },
+    {
+      title: t('navMain.courses'),
+      url: '/admin/courses',
+      icon: IconListDetails,
+    },
+    {
+      title: t('navMain.analytics'),
+      url: '/admin/analytics',
+      icon: IconChartBar,
+    },
   ];
 
   if (planName === 'PRO') {
     navMain.push({
-      title: 'Students',
+      title: t('navMain.students'),
       url: '/admin/students',
       icon: IconUsers,
     });
@@ -64,29 +77,34 @@ export function AppSidebar({ className, planName, ...props }: AppSidebarProps) {
 
   const navSecondary = [
     {
-      title: 'Platform Settings',
+      title: t('navSecondary.platformSettings'),
       url: '/admin/settings/tenant',
       icon: IconBuilding,
     },
     {
-      title: 'Landing Page',
+      title: t('navSecondary.landingPage'),
       url: '/admin/settings/landing-page',
       icon: IconLayout2,
     },
     {
-      title: 'billing',
+      title: t('navSecondary.billing'),
       url: '/admin/settings/billing',
       icon: IconCashBanknote,
     },
-    { title: 'Settings', url: '/admin/settings', icon: IconSettings },
-    { title: 'Get Help', url: '/faqs', icon: IconHelp },
-    { title: 'Search', url: '/admin/search', icon: IconSearch },
+    {
+      title: t('navSecondary.settings'),
+      url: '/admin/settings',
+      icon: IconSettings,
+    },
+    { title: t('navSecondary.getHelp'), url: '/faqs', icon: IconHelp },
+    { title: t('navSecondary.search'), url: '/admin/search', icon: IconSearch },
   ];
 
   return (
     <Sidebar
       collapsible='offcanvas'
-      className={cn('border-r', className)}
+      side={side}
+      className={cn(className)}
       {...props}
     >
       <SidebarHeader>
@@ -108,7 +126,7 @@ export function AppSidebar({ className, planName, ...props }: AppSidebarProps) {
         </SidebarMenuItem>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={navMain} />
+        <NavMain items={navMain} quickCreateText={t('navMain.quickCreate')} />
         <NavSecondary items={navSecondary} className='mt-auto' />
       </SidebarContent>
       <SidebarFooter>

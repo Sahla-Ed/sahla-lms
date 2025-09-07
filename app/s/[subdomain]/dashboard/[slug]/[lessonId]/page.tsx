@@ -7,30 +7,22 @@ import { LessonSkeleton } from './_components/LessonSkeleton';
 import { getComments } from './comment-actions';
 import { requireUser } from '@/app/s/[subdomain]/data/user/require-user';
 
+import { updateLastAccessedLesson } from './actions';
+
 type Params = Promise<{ lessonId: string }>;
 
-export default async function LessonContentPage({
-  params,
-}: {
-  params: Params;
-}) {
-  const { lessonId } = await params;
-  const data = await getLessonContent(lessonId);
-  return (
-    <Suspense fallback={<LessonSkeleton />}>
-      <LessonContentLoader lessonId={lessonId} />
-    </Suspense>
-  );
-}
-
 async function LessonContentLoader({ lessonId }: { lessonId: string }) {
-  const [data, comments] = await Promise.all([
+  const [data, comments, session] = await Promise.all([
     getLessonContent(lessonId),
     getComments(lessonId),
+    requireUser(),
   ]);
 
-  const session = await requireUser();
   const userId = session?.id || '';
+
+  if (data.Chapter?.courseId) {
+    updateLastAccessedLesson(data.Chapter.courseId, lessonId);
+  }
 
   if (data.type === 'QUIZ') {
     return <QuizPlayer data={data} />;
@@ -40,4 +32,17 @@ async function LessonContentLoader({ lessonId }: { lessonId: string }) {
     return <CodingPlayground data={data} userId={userId} />;
   }
   return <CourseContent data={data} comments={comments} />;
+}
+
+export default async function LessonContentPage({
+  params,
+}: {
+  params: Params;
+}) {
+  const { lessonId } = await params;
+  return (
+    <Suspense fallback={<LessonSkeleton />}>
+      <LessonContentLoader lessonId={lessonId} />
+    </Suspense>
+  );
 }

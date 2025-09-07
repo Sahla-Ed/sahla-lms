@@ -3,48 +3,64 @@ import { prisma } from '@/lib/db';
 import { requireAdmin } from './require-admin';
 
 export async function adminGetDashboardStats() {
-  // Get the current admin user to access their tenantId
   const { user } = await requireAdmin();
+  const tenantId = user.tenantId;
 
-  const [totalSignups, totalCustomers, totalCourses, totalLessons] =
+  if (!tenantId) {
+    throw new Error('Tenant not found for the current admin.');
+  }
+
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  const startOfMonth = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    1,
+  );
+
+  const [totalCustomers, activeStudents, newEnrollments, revenueData] =
     await Promise.all([
-      // Total Signups - count of all non-admin users *in this tenant*
       prisma.user.count({
         where: {
-          tenantId: user.tenantId,
-          role: { not: 'admin' },
+          tenantId: tenantId,
+          role: 'user',
+          enrollment: { some: { status: 'Active' } },
         },
       }),
 
-      // Total Customers - count of distinct users *in this tenant* who have active enrollments
       prisma.user.count({
         where: {
-          tenantId: user.tenantId, // Filter users by tenant first
-          enrollment: {
-            some: { status: 'Active' }, // Then check if they have any enrollments
-          },
+          tenantId: tenantId,
+          role: 'user',
+          enrollment: { some: { status: 'Active' } },
+          // last_activity: { gte: thirtyDaysAgo }
         },
       }),
 
-      // Total Courses - count of all courses *in this tenant*
-      prisma.course.count({
+      prisma.enrollment.count({
         where: {
-          tenantId: user.tenantId,
+          tenantId: tenantId,
+          status: 'Active',
+          createdAt: { gte: thirtyDaysAgo },
         },
       }),
 
-      // Total Lessons - count of all lessons *in this tenant*
-      prisma.lesson.count({
+      prisma.enrollment.aggregate({
+        _sum: { amount: true },
         where: {
-          tenantId: user.tenantId,
+          tenantId: tenantId,
+          status: 'Active',
+          createdAt: { gte: startOfMonth },
         },
       }),
     ]);
 
+  const totalRevenue = (revenueData._sum.amount || 0) / 100;
+
   return {
-    totalSignups,
     totalCustomers,
-    totalCourses,
-    totalLessons,
+    activeStudents,
+    newEnrollments,
+    totalRevenue,
   };
 }

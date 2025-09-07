@@ -13,6 +13,7 @@ import { useTheme } from 'next-themes';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import { useTranslations } from 'next-intl';
 
 export function Navbar() {
   const { data: session, isPending } = authClient.useSession();
@@ -20,6 +21,7 @@ export function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const t = useTranslations('TenantPlatform.Navbar');
 
   // Mount state for hydration
   useEffect(() => {
@@ -30,13 +32,13 @@ export function Navbar() {
 
   const currentTheme = theme === 'system' ? systemTheme : theme;
 
-  // Dynamic navigation items based on session
+  // Dynamic navigation items based on session and translations
   const navigationItems = [
-    { name: 'Home', href: '/' },
-    { name: 'Courses', href: '/courses' },
+    { name: t('home'), href: '/' },
+    { name: t('courses'), href: '/courses' },
     session
-      ? { name: 'Dashboard', href: '/dashboard' }
-      : { name: 'Contact', href: '/contact' },
+      ? { name: t('dashboard'), href: '/dashboard' }
+      : { name: t('contact'), href: '/contact' },
   ];
 
   return (
@@ -74,7 +76,7 @@ export function Navbar() {
           </div>
 
           <div className='flex items-center space-x-4'>
-            <ThemeToggle />
+            <ThemeToggle translationNamespace='TenantPlatform.common.themeToggle' />
 
             {isPending ? (
               <LoadingSpinner />
@@ -97,10 +99,10 @@ export function Navbar() {
                   href='/auth/sign-in'
                   className={buttonVariants({ variant: 'ghost' })}
                 >
-                  Login
+                  {t('login')}
                 </Link>
                 <Link href='/about' className={buttonVariants()}>
-                  Discover More
+                  {t('discoverMore')}
                 </Link>
               </>
             )}
@@ -109,7 +111,7 @@ export function Navbar() {
 
         {/* Mobile menu button */}
         <div className='ml-auto flex items-center space-x-4 md:hidden'>
-          <ThemeToggle />
+          <ThemeToggle translationNamespace='TenantPlatform.common.themeToggle' />
 
           {isPending ? (
             <LoadingSpinner />
@@ -133,7 +135,7 @@ export function Navbar() {
             className='text-foreground hover:text-primary hover:bg-accent focus:ring-primary inline-flex items-center justify-center rounded-md p-2 focus:ring-2 focus:outline-none focus:ring-inset'
             aria-expanded='false'
           >
-            <span className='sr-only'>Open main menu</span>
+            <span className='sr-only'>{t('openMenu')}</span>
             {isMobileMenuOpen ? (
               <X className='block h-6 w-6' aria-hidden='true' />
             ) : (
@@ -174,7 +176,7 @@ export function Navbar() {
                     })}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    Login
+                    {t('login')}
                   </Link>
                   <Link
                     href='/about'
@@ -183,7 +185,7 @@ export function Navbar() {
                     })}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    Discover More
+                    {t('discoverMore')}
                   </Link>
                 </div>
               </div>

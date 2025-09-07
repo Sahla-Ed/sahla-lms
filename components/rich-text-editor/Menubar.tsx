@@ -1,3 +1,5 @@
+'use client';
+
 import { type Editor } from '@tiptap/react';
 import {
   Tooltip,
@@ -23,12 +25,15 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '../ui/button';
+import { useTranslations } from 'next-intl';
 
 interface iAppProps {
   editor: Editor | null;
 }
 
 export function Menubar({ editor }: iAppProps) {
+  const t = useTranslations('RichTextEditor.menubar');
+
   if (!editor) {
     return null;
   }
@@ -45,14 +50,11 @@ export function Menubar({ editor }: iAppProps) {
                 onPressedChange={() =>
                   editor.chain().focus().toggleBold().run()
                 }
-                className={cn(
-                  editor.isActive('bold') && 'bg-muted text-muted-foreground',
-                )}
               >
                 <Bold />
               </Toggle>
             </TooltipTrigger>
-            <TooltipContent>Bold</TooltipContent>
+            <TooltipContent>{t('bold')}</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -63,14 +65,11 @@ export function Menubar({ editor }: iAppProps) {
                 onPressedChange={() =>
                   editor.chain().focus().toggleItalic().run()
                 }
-                className={cn(
-                  editor.isActive('italic') && 'bg-muted text-muted-foreground',
-                )}
               >
                 <Italic />
               </Toggle>
             </TooltipTrigger>
-            <TooltipContent>Italic</TooltipContent>
+            <TooltipContent>{t('italic')}</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -81,14 +80,11 @@ export function Menubar({ editor }: iAppProps) {
                 onPressedChange={() =>
                   editor.chain().focus().toggleStrike().run()
                 }
-                className={cn(
-                  editor.isActive('strike') && 'bg-muted text-muted-foreground',
-                )}
               >
                 <Strikethrough />
               </Toggle>
             </TooltipTrigger>
-            <TooltipContent>Strike</TooltipContent>
+            <TooltipContent>{t('strike')}</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -99,15 +95,11 @@ export function Menubar({ editor }: iAppProps) {
                 onPressedChange={() =>
                   editor.chain().focus().toggleHeading({ level: 1 }).run()
                 }
-                className={cn(
-                  editor.isActive('heading', { level: 1 }) &&
-                    'bg-muted text-muted-foreground',
-                )}
               >
                 <Heading1Icon />
               </Toggle>
             </TooltipTrigger>
-            <TooltipContent>Heading 1</TooltipContent>
+            <TooltipContent>{t('heading1')}</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -118,15 +110,11 @@ export function Menubar({ editor }: iAppProps) {
                 onPressedChange={() =>
                   editor.chain().focus().toggleHeading({ level: 2 }).run()
                 }
-                className={cn(
-                  editor.isActive('heading', { level: 2 }) &&
-                    'bg-muted text-muted-foreground',
-                )}
               >
                 <Heading2Icon />
               </Toggle>
             </TooltipTrigger>
-            <TooltipContent>Heading 2</TooltipContent>
+            <TooltipContent>{t('heading2')}</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -137,15 +125,11 @@ export function Menubar({ editor }: iAppProps) {
                 onPressedChange={() =>
                   editor.chain().focus().toggleHeading({ level: 3 }).run()
                 }
-                className={cn(
-                  editor.isActive('heading', { level: 3 }) &&
-                    'bg-muted text-muted-foreground',
-                )}
               >
                 <Heading3Icon />
               </Toggle>
             </TooltipTrigger>
-            <TooltipContent>Heading 3</TooltipContent>
+            <TooltipContent>{t('heading3')}</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -156,15 +140,11 @@ export function Menubar({ editor }: iAppProps) {
                 onPressedChange={() =>
                   editor.chain().focus().toggleBulletList().run()
                 }
-                className={cn(
-                  editor.isActive('bulletList') &&
-                    'bg-muted text-muted-foreground',
-                )}
               >
                 <ListIcon />
               </Toggle>
             </TooltipTrigger>
-            <TooltipContent>Bullet List</TooltipContent>
+            <TooltipContent>{t('bulletList')}</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -175,19 +155,16 @@ export function Menubar({ editor }: iAppProps) {
                 onPressedChange={() =>
                   editor.chain().focus().toggleOrderedList().run()
                 }
-                className={cn(
-                  editor.isActive('orderedList') &&
-                    'bg-muted text-muted-foreground',
-                )}
               >
                 <ListOrdered />
               </Toggle>
             </TooltipTrigger>
-            <TooltipContent>Ordered List</TooltipContent>
+            <TooltipContent>{t('orderedList')}</TooltipContent>
           </Tooltip>
         </div>
 
         <div className='bg-border mx-2 h-6 w-px'></div>
+
         <div className='flex flex-wrap gap-1'>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -197,15 +174,11 @@ export function Menubar({ editor }: iAppProps) {
                 onPressedChange={() =>
                   editor.chain().focus().setTextAlign('left').run()
                 }
-                className={cn(
-                  editor.isActive({ textAlign: 'left' }) &&
-                    'bg-muted text-muted-foreground',
-                )}
               >
                 <AlignLeft />
               </Toggle>
             </TooltipTrigger>
-            <TooltipContent>Align Left</TooltipContent>
+            <TooltipContent>{t('alignLeft')}</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -216,15 +189,11 @@ export function Menubar({ editor }: iAppProps) {
                 onPressedChange={() =>
                   editor.chain().focus().setTextAlign('center').run()
                 }
-                className={cn(
-                  editor.isActive({ textAlign: 'center' }) &&
-                    'bg-muted text-muted-foreground',
-                )}
               >
                 <AlignCenter />
               </Toggle>
             </TooltipTrigger>
-            <TooltipContent>Align Center</TooltipContent>
+            <TooltipContent>{t('alignCenter')}</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -235,15 +204,11 @@ export function Menubar({ editor }: iAppProps) {
                 onPressedChange={() =>
                   editor.chain().focus().setTextAlign('right').run()
                 }
-                className={cn(
-                  editor.isActive({ textAlign: 'right' }) &&
-                    'bg-muted text-muted-foreground',
-                )}
               >
                 <AlignRight />
               </Toggle>
             </TooltipTrigger>
-            <TooltipContent>Align Right</TooltipContent>
+            <TooltipContent>{t('alignRight')}</TooltipContent>
           </Tooltip>
         </div>
 
@@ -262,7 +227,7 @@ export function Menubar({ editor }: iAppProps) {
                 <Undo />
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Undo</TooltipContent>
+            <TooltipContent>{t('undo')}</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -277,7 +242,7 @@ export function Menubar({ editor }: iAppProps) {
                 <Redo />
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Redo</TooltipContent>
+            <TooltipContent>{t('redo')}</TooltipContent>
           </Tooltip>
         </div>
       </TooltipProvider>

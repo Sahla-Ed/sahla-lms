@@ -5,12 +5,21 @@ import { prisma } from '@/lib/db';
 import { stripe } from '@/lib/stripe';
 import { checkPlanStatus } from '@/lib/subscription';
 import { ApiResponse } from '@/lib/types';
-import { courseSchema, CourseSchemaType } from '@/lib/zodSchemas';
+import {
+  getCourseSchema,
+  CourseSchemaType,
+  ZodValidationKeys,
+} from '@/lib/zodSchemas';
 import { Prisma } from '@/lib/generated/prisma';
+import { getTranslations, getLocale } from 'next-intl/server';
 
 export async function CreateCourse(
   values: CourseSchemaType,
 ): Promise<ApiResponse> {
+  const tNotifications = await getTranslations(
+    'CreateCoursePage.notifications',
+  );
+  const tValidation = await getTranslations('ZodValidation');
   const { user } = await requireAdmin();
 
   const plan = await checkPlanStatus();
@@ -21,15 +30,23 @@ export async function CreateCourse(
   if (!canCreateCourse) {
     return {
       status: 'error',
-      message:
-        'You have reached your plan limit. Please upgrade to Pro to create more courses.',
+      message: tNotifications('planLimit'),
     };
   }
+  const locale = await getLocale();
+  const t = await getTranslations({ locale, namespace: 'ZodValidation' });
+  const courseSchema = getCourseSchema((key) => t(key as ZodValidationKeys));
 
   try {
     const validation = courseSchema.safeParse(values);
     if (!validation.success) {
-      return { status: 'error', message: 'Invalid Form Data' };
+      const firstError = Object.values(
+        validation.error.flatten().fieldErrors,
+      )[0]?.[0];
+      return {
+        status: 'error',
+        message: firstError || tNotifications('invalidData'),
+      };
     }
 
     const existingCourse = await prisma.course.findUnique({
@@ -39,8 +56,7 @@ export async function CreateCourse(
     if (existingCourse) {
       return {
         status: 'error',
-        message:
-          'A course with this slug already exists. Please choose a unique slug.',
+        message: tNotifications('slugTaken'),
       };
     }
 
@@ -66,7 +82,7 @@ export async function CreateCourse(
       },
     });
 
-    return { status: 'success', message: 'Course created successfully!' };
+    return { status: 'success', message: tNotifications('success') };
   } catch (e) {
     console.error('Error creating course:', e);
 
@@ -74,8 +90,7 @@ export async function CreateCourse(
       if (e.code === 'P2002') {
         return {
           status: 'error',
-          message:
-            'A course with this slug already exists. Please choose a different one.',
+          message: tNotifications('slugTaken'),
         };
       }
     }
@@ -90,7 +105,7 @@ export async function CreateCourse(
 
     return {
       status: 'error',
-      message: 'An unexpected error occurred on the server.',
+      message: tNotifications('error'),
     };
   }
 }

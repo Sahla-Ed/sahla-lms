@@ -1,0 +1,544 @@
+{
+  "SahlaPlatform": {
+    "common": {
+      "getStarted": "Get Started",
+      "explorePlans": "Explore Our Plans",
+      "startFreeTrial": "Start Your Free Trial",
+      "startFreeTrialToday": "Start Your Free Trial Today",
+      "discoverMore": "Discover More",
+      "themeToggle": {
+        "toggle": "Toggle theme",
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System"
+      }
+    },
+    "Header": {
+      "home": "Home",
+      "pricing": "Pricing",
+      "contact": "Contact",
+      "aboutUs": "About Us",
+      "faqs": "FAQs"
+    },
+    "Footer": {
+      "tagline": "Empowering educators and businesses to create, manage, and sell courses under their own brand.",
+      "support": "Support",
+      "platform": "Platform",
+      "contactUs": "Contact us",
+      "faqs": "FAQs",
+      "home": "Home",
+      "pricing": "Pricing",
+      "aboutUs": "About us",
+      "terms": "Terms & conditions",
+      "privacy": "Privacy Policy",
+      "copyright": "© Sahla Learning Platform 2025"
+    },
+    "HomePage": {
+      "Metadata": {
+        "title": "Sahla LMS | Your All-in-One Learning Platform",
+        "description": "Launch, manage, and scale your online learning business with Sahla, the powerful multi-tenant LMS."
+      },
+      "hero": {
+        "badge": "Your Learning Platform, Reimagined",
+        "title": "Transform Education. Empower Creators.",
+        "description": "Sahla provides a robust, multi-tenant platform for you to launch, manage, and scale your online learning business with unparalleled ease and power."
+      },
+      "trustedBy": {
+        "title": "Trusted by leading academies worldwide",
+        "logo1Alt": "Udemy Logo",
+        "logo2Alt": "Mesq Logo",
+        "logo3Alt": "Tech Stars Logo"
+      },
+      "keyFeatures": {
+        "title": "Key Features",
+        "multiTenancy": {
+          "title": "Multi-Tenancy",
+          "description": "Launch multiple branded learning platforms with unique subdomains, all from one powerful system."
+        },
+        "courseManagement": {
+          "title": "Comprehensive Course Management",
+          "description": "Create and manage courses with rich content, quizzes, and coding playgrounds."
+        },
+        "payments": {
+          "title": "Integrated Payments",
+          "description": "Seamlessly sell courses and manage subscriptions with built-in Stripe integration."
+        }
+      },
+      "howItWorks": {
+        "title": "How It Works",
+        "step1": {
+          "title": "1. Set Up Your Platform",
+          "description": "Quickly create your branded learning environment with our intuitive setup process."
+        },
+        "step2": {
+          "title": "2. Create & Manage Courses",
+          "description": "Populate your platform with engaging courses using our powerful content creation tools."
+        },
+        "step3": {
+          "title": "3. Grow Your Audience",
+          "description": "Attract students and scale your business with integrated marketing and analytics features."
+        }
+      },
+      "whyChooseUs": {
+        "title": "Why Choose Sahla?",
+        "support": {
+          "title": "Award-Winning Support",
+          "description": "Our dedicated support team is always ready to help you succeed."
+        },
+        "features": {
+          "title": "Innovative Features",
+          "description": "Stay ahead with AI-powered tools, interactive coding, and more."
+        },
+        "community": {
+          "title": "Community Driven",
+          "description": "Join a thriving community of educators and learners."
+        }
+      },
+      "testimonials": {
+        "title": "What Our Clients Say",
+        "testimonial1": {
+          "quote": "\"Sahla transformed our online course delivery. The multi-tenancy feature is a game-changer!\"",
+          "author": "- Jane Doe, CEO of EduCorp"
+        },
+        "testimonial2": {
+          "quote": "\"The ease of use and powerful features of Sahla allowed us to launch our academy in record time.\"",
+          "author": "- John Smith, Founder of Tech Academy"
+        }
+      },
+      "cta": {
+        "title": "Ready to Build Your Learning Empire?",
+        "description": "Join countless successful educators and businesses using Sahla to deliver world-class online education.",
+        "button": "Start Your Free Trial"
+      }
+    },
+
+    "PricingPage": {
+      "Metadata": {
+        "title": "Pricing & Plans | Sahla LMS",
+        "description": "Explore simple, transparent pricing plans designed for every stage of your online education business."
+      },
+      "title": "Simple, Transparent Pricing",
+      "description": "Choose the plan that's right for your learning platform.",
+      "starterPlan": {
+        "title": "Starter",
+        "description": "Perfect for new creators.",
+        "price": "Free",
+        "feature1": "1 Course",
+        "feature2": "1 Admin User",
+        "feature3": "Basic Analytics",
+        "button": "It's completely free!"
+      },
+      "proPlan": {
+        "badge": "Most Popular",
+        "title": "Pro",
+        "description": "For growing academies.",
+        "price": "$29",
+        "perMonth": "/month",
+        "feature1": "Unlimited Courses",
+        "feature2": "Custom Subdomain",
+        "feature3": "Advanced Analytics",
+        "feature4": "Create with AI",
+        "feature5": "Priority Support",
+        "button": "Start now upgrade later!"
+      },
+      "enterprisePlan": {
+        "title": "Enterprise",
+        "description": "Tailored for large organizations.",
+        "price": "Custom",
+        "feature1": "All Pro features, plus:",
+        "feature2": "Unlimited Admin Users",
+        "feature3": "Teams & Projects",
+        "feature4": "Dedicated Support",
+        "feature5": "Custom Domain",
+        "feature6": "On-premise Option",
+        "feature7": "API Access",
+        "button": "Contact Sales"
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": "Can I change my plan later?",
+        "a1": "Yes, you can upgrade from the trial to the Pro plan at any time from your administrative dashboard.",
+        "q2": "Are there any hidden fees?",
+        "a2": "No, our pricing is transparent. The Pro plan fee covers all features listed. Transaction fees from payment gateways (like Stripe) may apply to your course sales.",
+        "q3": "Do you offer custom enterprise solutions?",
+        "a3": "Yes, for large organizations with specific needs, we offer custom enterprise plans. Please contact our sales team for more information."
+      }
+    },
+    "AboutPage": {
+      "Metadata": {
+        "title": "About Us | Sahla LMS",
+        "description": "Learn more about Sahla Learning Platform, our mission, vision, and the team behind our innovative LMS solution."
+      },
+      "hero": {
+        "badge": "About Us",
+        "title": "Our Story",
+        "description": "At Sahla, we believe in empowering knowledge. Our mission is to provide a seamless and powerful platform for educators and organizations to share their expertise with the world."
+      },
+      "visionMission": {
+        "vision": {
+          "title": "Our Vision",
+          "description": "To be the leading platform for online education, fostering a global community of learners and instructors."
+        },
+        "team": {
+          "title": "Our Team",
+          "description": "A dedicated group of passionate individuals committed to innovation and excellence in e-learning."
+        },
+        "reach": {
+          "title": "Our Reach",
+          "description": "Connecting learners and educators across the globe with a platform that knows no boundaries."
+        }
+      },
+      "history": {
+        "title": "Our History",
+        "description": "Founded in 2023, Sahla began with a simple idea: to make online education accessible and powerful for everyone. We started as a small team with a big vision, and through dedication and innovation, we've grown into a leading multi-tenant LMS provider. Over the years, we've continuously evolved our platform, adding features like integrated payments, AI-powered tools, and robust analytics, all while maintaining our commitment to user-friendliness and scalability. Our journey is a testament to our belief in the transformative power of education."
+      },
+      "values": {
+        "title": "Our Values",
+        "integrity": {
+          "title": "Integrity",
+          "description": "We operate with honesty and transparency in all our dealings."
+        },
+        "innovation": {
+          "title": "Innovation",
+          "description": "We constantly strive to bring new and better solutions to our users."
+        },
+        "community": {
+          "title": "Community",
+          "description": "We foster a supportive and collaborative environment for all."
+        },
+        "excellence": {
+          "title": "Excellence",
+          "description": "We are committed to delivering high-quality products and services."
+        }
+      },
+      "teamSection": {
+        "title": "Meet Our Team",
+        "description": "The passionate individuals behind Sahla's success",
+        "members": {
+          "badran": {
+            "name": "Mohamed Badran",
+            "role": "Founder & CEO",
+            "bio": "Visionary leader passionate about accessible education."
+          },
+          "saleh": {
+            "name": "Mohammed Saleh",
+            "role": "Full-Stack Developer",
+            "bio": "Full-Stack Developer with MERN specialization"
+          },
+          "rizk": {
+            "name": "Eslam Rizk",
+            "role": "Full-Stack Developer",
+            "bio": "Full-Stack Developer with MERN specialization"
+          },
+          "ibrahim": {
+            "name": "Amr Ibrahim",
+            "role": "Full-Stack Developer",
+            "bio": "Full-Stack Developer with MERN specialization"
+          },
+          "elnagar": {
+            "name": "Mohamed Elnagar",
+            "role": "Full-Stack Developer",
+            "bio": "Full-Stack Developer with MERN specialization"
+          }
+        }
+      }
+    },
+    "ContactPage": {
+      "Metadata": {
+        "title": "Contact Us | Sahla LMS",
+        "description": "Have questions or need support? Reach out to the Sahla team through our contact page. We're here to help with inquiries, feedback, or collaboration opportunities."
+      },
+      "hero": {
+        "badge": "Contact Us",
+        "title": "Get in Touch",
+        "description": "Ready to elevate your learning platform? We'd love to hear from you. Fill out the form below and we'll get back to you soon."
+      },
+      "contactForm": {
+        "title": "Contact Form",
+        "description": "Tell us about yourself and how we can help you.",
+        "fullName": "Full Name",
+        "fullNamePlaceholder": "Enter your full name",
+        "email": "Email Address",
+        "emailPlaceholder": "Enter your email address",
+        "phone": "Phone Number",
+        "phonePlaceholder": "Enter your phone number",
+        "roleQuestion": "I am interested in joining as:",
+        "roleStudent": {
+          "title": "Student",
+          "description": "I want to learn new skills and advance my career"
+        },
+        "roleInstructor": {
+          "title": "Instructor",
+          "description": "I want to share my expertise and teach others"
+        },
+        "submitButton": "Send Message",
+        "submittingButton": "Sending..."
+      },
+      "contactMethods": {
+        "email": {
+          "title": "Email Us",
+          "description": "Get in touch via email and we'll respond within 24 hours",
+          "address": "info@sahla.com"
+        },
+        "phone": {
+          "title": "Call Us",
+          "description": "Speak directly with our team for immediate assistance",
+          "number": "+1 (555) 123-4567"
+        },
+        "chat": {
+          "title": "Live Chat",
+          "description": "Start a conversation with our support team right away",
+          "availability": "Available 9 AM - 5 PM EST"
+        }
+      },
+      "location": {
+        "office": {
+          "title": "Our Office",
+          "addressLine1": "123 Learning Lane, Suite 400",
+          "addressLine2": "Knowledge City, KC 90210",
+          "addressLine3": "Country"
+        },
+        "hours": {
+          "title": "Business Hours",
+          "weekdays": "Monday - Friday: 9:00 AM - 5:00 PM",
+          "weekend": "Saturday - Sunday: Closed"
+        }
+      },
+      "successDialog": {
+        "title": "🎉 Thank You!",
+        "description": "Thank you for contacting us! We've received your message and will get back to you within 24 hours.",
+        "button": "Great!"
+      },
+      "errorDialog": {
+        "title": "⚠️ Error",
+        "description": "Please fill in all fields before submitting the form.",
+        "button": "OK"
+      }
+    },
+    "FaqsPage": {
+      "Metadata": {
+        "title": "Frequently Asked Questions | Sahla LMS",
+        "description": "Find answers to the most common questions about Sahla. Learn about account management, platform features, and more."
+      },
+      "hero": {
+        "badge": "FAQs",
+        "title": "Frequently Asked Questions",
+        "description": "Have a question? We've probably answered it below.",
+        "searchPlaceholder": "Search questions..."
+      },
+      "categories": {
+        "platformFeatures": {
+          "title": "Platform Features",
+          "q1": "What is Sahla Learning Platform?",
+          "a1": "Sahla is a multi-tenant, web-based Learning Management System (LMS) that allows you to launch your own branded online learning platform with unique subdomains.",
+          "q2": "What features does Sahla offer?",
+          "a2": "Sahla offers comprehensive course management, integrated payment processing via Stripe, user authentication, an administrative dashboard with analytics, and a customizable landing page.",
+          "q3": "Can I customize my learning platform?",
+          "a3": "Yes, Sahla provides a visual, drag-and-drop landing page editor powered by Puck, allowing you to customize your public-facing landing page without writing code.",
+          "q4": "Does Sahla support interactive coding?",
+          "a4": "Yes, Sahla integrates with the Judge0 API for executing user-submitted code in various programming languages, enabling interactive coding challenges.",
+          "q5": "Can Sahla help with quiz generation?",
+          "a5": "Absolutely! Sahla leverages OpenRouter integration for AI-powered quiz question generation, making content creation easier and faster."
+        },
+        "pricing": {
+          "title": "Pricing & Subscription",
+          "q1": "What are the pricing plans for Sahla?",
+          "a1": "We offer various pricing plans tailored to different needs, including Basic, Pro, and Enterprise options. Please visit our pricing page for more details.",
+          "q2": "Do you offer a free trial?",
+          "a2": "Yes, we offer a free trial period for you to explore Sahla's features before committing to a subscription.",
+          "q3": "What payment methods do you accept?",
+          "a3": "We accept all major credit cards through our secure Stripe integration.",
+          "q4": "Is there a refund policy?",
+          "a4": "Yes, we offer a 30-day money-back guarantee on our subscription plans. Please refer to our Terms and Conditions for more details."
+        },
+        "support": {
+          "title": "Technical Support",
+          "q1": "How can I get support?",
+          "a1": "You can reach out to us via our contact page, or refer to our help center for common issues and guides.",
+          "q2": "Do you offer API access?",
+          "a2": "API access is available with our Enterprise plan, allowing for deeper integration and customization.",
+          "q3": "What kind of technical assistance can I expect?",
+          "a3": "Our technical support team is available to assist with platform setup, troubleshooting, and any technical queries you may have to ensure a smooth experience."
+        }
+      },
+      "cta": {
+        "title": "Still have questions?",
+        "description": "Can't find the answer you're looking for? Our support team is here to help.",
+        "button": "Contact Support"
+      }
+    },
+    "TermsPage": {
+      "Metadata": {
+        "title": "Terms and Conditions | Sahla",
+        "description": "Read the terms and conditions for using the Sahla learning platform."
+      },
+      "hero": {
+        "badge": "Legal Document",
+        "title": "Terms & Conditions",
+        "description": "Essential terms and guidelines for using the Sahla learning platform safely and effectively."
+      },
+      "sections": {
+        "introduction": {
+          "title": "Introduction",
+          "content": "Welcome to Sahla. By using our platform, you agree to these terms and conditions."
+        },
+        "accounts": {
+          "title": "User Accounts",
+          "content": "Create an account with accurate information. Keep your login details secure and notify us of any unauthorized access."
+        },
+        "access": {
+          "title": "Course Access",
+          "content": "Enrolled courses are for personal use only. Lifetime access provided unless policy violations occur."
+        },
+        "ip": {
+          "title": "Intellectual Property",
+          "content": "All content is protected by copyright. No reproduction or distribution without written permission."
+        },
+        "payment": {
+          "title": "Payment & Refunds",
+          "content": "Payment required at enrollment. 30-day money-back guarantee if less than 30% completed."
+        },
+        "conduct": {
+          "title": "Code of Conduct",
+          "content": "Maintain respectful behavior. No harassment, hacking, or commercial use without authorization."
+        },
+        "disclaimers": {
+          "title": "Disclaimers",
+          "content": "Platform provided 'as is' without warranties. Our liability is limited to course fees paid."
+        },
+        "updates": {
+          "title": "Contact & Updates",
+          "content": "Terms may be updated with notification. Contact support for questions or concerns."
+        }
+      },
+      "cta": {
+        "title": "Need Clarification?",
+        "description": "Our support team is ready to help you understand these terms and answer any questions you might have.",
+        "contactButton": "Contact Support",
+        "privacyButton": "Privacy Policy"
+      }
+    },
+    "PrivacyPage": {
+      "Metadata": {
+        "title": "Privacy Policy | Sahla",
+        "description": "Learn how Sahla collects, uses, and protects your personal data."
+      },
+      "hero": {
+        "badge": "Privacy & Security",
+        "title": "Privacy Policy",
+        "description": "Your privacy is important to us. This policy explains how we collect, use, and protect your personal information with complete transparency."
+      },
+      "sections": {
+        "collect": {
+          "title": "Information We Collect",
+          "content": "We collect information you provide (name, email, profile), payment details, learning progress, support communications, and technical data (IP address, browser, device info) to improve our services."
+        },
+        "use": {
+          "title": "How We Use Your Information",
+          "content": "We use your data to provide our services, process payments, personalize learning, send updates, provide support, analyze usage, and ensure security."
+        },
+        "sharing": {
+          "title": "Information Sharing",
+          "content": "We share data only with instructors (for course progress), service providers (under confidentiality), for legal compliance, with your consent, or during business transfers."
+        },
+        "security": {
+          "title": "Data Security",
+          "content": "We use encryption, secure authentication, regular audits, and access controls to protect your data. However, no system is 100% secure."
+        },
+        "cookies": {
+          "title": "Cookies & Tracking",
+          "content": "We use essential, performance, functional, and analytics cookies. You can control cookie settings through your browser."
+        },
+        "rights": {
+          "title": "Your Rights",
+          "content": "You can access, update, delete your data, opt out of marketing, request data portability, and withdraw consent through your account dashboard."
+        }
+      },
+      "contact": {
+        "title": "Contact Our Privacy Team",
+        "description": "Have questions about this Privacy Policy? Our dedicated privacy team is here to help you understand how we protect your data.",
+        "emailLabel": "Email:",
+        "emailAddress": "privacy@sahla.com",
+        "responseTimeLabel": "Response time:",
+        "responseTimeValue": "Within 48 hours"
+      },
+      "cta": {
+        "title": "Manage Your Privacy Settings",
+        "description": "Take control of your data and privacy preferences through your personalized account dashboard.",
+        "termsButton": "Terms & Conditions"
+      }
+    },
+    "StartPage": {
+      "Metadata": {
+        "title": "Get Started | Build Your Sahla Platform",
+        "description": "Create your own multi-tenant online learning platform in just a few simple steps. Name your platform and set up your admin account to begin."
+      },
+      "title": "Let's build your platform",
+      "step1": {
+        "description": "First, let's get your platform's details.",
+        "platformName": "Platform Name",
+        "platformNamePlaceholder": "e.g., The Design Academy",
+        "platformNameHint": "This is the name your students will see.",
+        "platformUrl": "Platform URL",
+        "platformUrlPlaceholder": "design-academy",
+        "platformUrlHint": "This will be the unique web address for your platform.",
+        "continueButton": "Continue",
+        "platformLanguage": {
+          "label": "Platform Default Language",
+          "english": "English",
+          "arabic": "Arabic"
+        }
+      },
+      "step2": {
+        "description": "Great! Now create your admin account.",
+        "yourName": "Your Name",
+        "yourNamePlaceholder": "a.t., amr tolba",
+        "email": "Email Address",
+        "emailPlaceholder": "a.t., amr@example.com",
+        "password": "Password",
+        "passwordPlaceholder": "••••••••",
+        "createButton": "Create My Platform",
+        "backButton": "Back"
+      },
+      "loading": {
+        "checking": "Checking...",
+        "creating": "Creating..."
+      },
+      "validation": {
+        "platformNameMin": "Platform name must be at least 3 characters long",
+        "slugMin": "URL must be at least 3 characters long",
+        "slugRegex": "URL can only contain lowercase letters, numbers, and hyphens",
+        "nameMin": "Your name is required",
+        "emailInvalid": "Invalid email address",
+        "passwordMin": "Password must be at least 8 characters long"
+      },
+      "serverMessages": {
+        "slugTaken": "This platform URL is already taken. Please choose another.",
+        "creationSuccess": "Your platform and admin account have been created!",
+        "creationError": "An unexpected error occurred. Please try again.",
+        "emailExists": "An account with this email already exists for this platform."
+      }
+    }
+  },
+  "FileTemplates": {
+    "jsonTemplate": {
+      "questions": [
+        {
+          "text": "What is the capital of France?",
+          "type": "MCQ",
+          "options": ["Paris", "London", "Berlin", "Madrid"],
+          "answer": "Paris",
+          "explanation": "Paris is the capital and largest city of France."
+        },
+        {
+          "text": "JavaScript is a programming language.",
+          "type": "TRUE_FALSE",
+          "options": ["True", "False"],
+          "answer": "True",
+          "explanation": "JavaScript is indeed a programming language."
+        }
+      ]
+    },
+    "csvTemplate": "text,type,options,answer,explanation\n\"What is the capital of France?\",MCQ,\"Paris|London|Berlin|Madrid\",Paris,\"Paris is the capital and largest city of France.\"\n\"JavaScript is a programming language.\",TRUE_FALSE,\"True|False\",True,\"JavaScript is indeed a programming language.\""
+  }
+}

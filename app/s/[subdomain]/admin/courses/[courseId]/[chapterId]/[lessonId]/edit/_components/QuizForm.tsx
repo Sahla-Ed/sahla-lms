@@ -29,7 +29,8 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import { useRouter } from 'next/navigation';
 import { QuestionBankDialog } from '../../../../edit/_components/QuestionBankDialog';
-
+import { useLocale, useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
 interface Question {
   id: string;
   text: string;
@@ -55,6 +56,7 @@ function SortableQuestion({
   index: number;
   onRemove: (id: string) => void;
 }) {
+  const t = useTranslations('QuizForm.sortableQuestion');
   const {
     attributes,
     listeners,
@@ -86,7 +88,9 @@ function SortableQuestion({
             </Button>
             <div className='flex-1'>
               <div className='mb-2 flex items-center gap-2'>
-                <Badge variant='secondary'>Question {index + 1}</Badge>
+                <Badge variant='secondary'>
+                  {t('questionLabel', { index: index + 1 })}
+                </Badge>
                 <Badge variant='outline'>{question.type}</Badge>
               </div>
               <p className='mb-2 font-medium'>{question.text}</p>
@@ -103,7 +107,7 @@ function SortableQuestion({
                     {option}
                     {option === question.answer && (
                       <Badge variant='secondary' className='ml-2 text-xs'>
-                        Correct
+                        {t('correctLabel')}
                       </Badge>
                     )}
                   </div>
@@ -112,7 +116,7 @@ function SortableQuestion({
               {question.explanation && (
                 <div className='mt-3 rounded bg-blue-50 p-3 dark:bg-blue-950'>
                   <p className='text-sm font-medium text-blue-900 dark:text-blue-100'>
-                    Explanation:
+                    {t('explanationLabel')}
                   </p>
                   <p className='text-sm text-blue-700 dark:text-blue-300'>
                     {question.explanation}
@@ -148,6 +152,9 @@ export function QuizForm({
   const [isLoading, setIsLoading] = useState(false);
   const [isQuestionBankOpen, setIsQuestionBankOpen] = useState(false);
   const sensors = useSensors(useSensor(PointerSensor));
+  const t = useTranslations('QuizForm');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
 
   useEffect(() => {
     if (lesson.questions && lesson.questions.length > 0) {
@@ -165,7 +172,7 @@ export function QuizForm({
 
   const handleSave = async () => {
     if (selectedQuestions.length === 0) {
-      toast.error('You must add at least one question before saving the quiz.');
+      toast.error(t('notifications.noQuestionsError'));
       return;
     }
     setIsLoading(true);
@@ -178,9 +185,9 @@ export function QuizForm({
     );
 
     if (error) {
-      toast.error('Failed to update quiz');
+      toast.error(t('notifications.updateError'));
     } else {
-      toast.success('Quiz updated successfully!');
+      t('notifications.updateSuccess');
       router.push(`/admin/courses/${courseId}/edit`);
     }
     setIsLoading(false);
@@ -213,35 +220,54 @@ export function QuizForm({
     <div className='space-y-6'>
       <div className='mb-6 flex items-center gap-2'>
         <HelpCircle className='h-6 w-6 text-blue-500' />
-        <h1 className='text-2xl font-bold'>Edit Quiz: {lesson.title}</h1>
+        <h1 className='text-2xl font-bold'>
+          {t('header', { lessonTitle: lesson.title })}
+        </h1>
       </div>
       <Card>
         <CardHeader>
-          <CardTitle>Quiz Details</CardTitle>
+          <CardTitle className={isRTL ? 'text-right' : 'text-left'}>
+            {t('detailsTitle')}
+          </CardTitle>
         </CardHeader>
         <CardContent className='space-y-4'>
-          <div>
-            <Label htmlFor='title'>Quiz Title</Label>
+          <div className='space-y-2'>
+            <Label
+              htmlFor='title'
+              className={isRTL ? 'block w-full text-right' : ''}
+            >
+              {t('labels.title')}
+            </Label>
             <Input
               id='title'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder='Enter quiz title...'
+              placeholder={t('placeholders.title')}
             />
           </div>
-          <div>
-            <Label htmlFor='description'>Description</Label>
+          <div className='space-y-2'>
+            <Label
+              htmlFor='description'
+              className={isRTL ? 'block w-full text-right' : ''}
+            >
+              {t('labels.description')}
+            </Label>
             <Textarea
               id='description'
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder='Enter quiz description...'
+              placeholder={t('placeholders.description')}
             />
           </div>
-          <div>
-            <Label htmlFor='timer'>
-              Time limit (minutes){' '}
-              <span className='text-muted-foreground'>[optional]</span>
+          <div className='space-y-2'>
+            <Label
+              htmlFor='timer'
+              className={isRTL ? 'block w-full text-right' : ''}
+            >
+              {t('labels.timer')}{' '}
+              <span className='text-muted-foreground'>
+                {t('labels.timerOptional')}
+              </span>
             </Label>
             <Input
               id='timer'
@@ -249,7 +275,7 @@ export function QuizForm({
               min={1}
               value={timer}
               onChange={(e) => setTimer(e.target.value)}
-              placeholder='e.g. 30'
+              placeholder={t('placeholders.timer')}
             />
           </div>
         </CardContent>
@@ -258,10 +284,12 @@ export function QuizForm({
       <Card>
         <CardHeader>
           <div className='flex items-center justify-between'>
-            <CardTitle>Quiz Questions</CardTitle>
+            <CardTitle className={isRTL ? 'text-right' : 'text-left'}>
+              {t('questionsTitle')}
+            </CardTitle>
             <Button onClick={() => setIsQuestionBankOpen(true)}>
               <Plus className='mr-2 h-4 w-4' />
-              Add Question from Bank
+              {t('addQuestionButton')}
             </Button>
           </div>
         </CardHeader>
@@ -269,10 +297,8 @@ export function QuizForm({
           {selectedQuestions.length === 0 ? (
             <div className='text-muted-foreground py-8 text-center'>
               <HelpCircle className='mx-auto mb-4 h-12 w-12 opacity-50' />
-              <p>No questions added yet</p>
-              <p className='text-sm'>
-                Add questions from your course test bank
-              </p>
+              <p>{t('emptyState.title')}</p>
+              <p className='text-sm'>{t('emptyState.description')}</p>
             </div>
           ) : (
             <DndContext
@@ -309,18 +335,20 @@ export function QuizForm({
         planName={planName}
       />
 
-      <div className='flex justify-end gap-2'>
+      <div
+        className={`flex gap-2 ${isRTL ? 'flex-row-reverse justify-start' : 'justify-end'}`}
+      >
         <Button variant='outline' onClick={handleCancel}>
-          Cancel
+          {t('buttons.cancel')}
         </Button>
         <Button onClick={handleSave} disabled={isLoading}>
           {isLoading ? (
             <div className='flex items-center'>
               <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-              Saving...
+              {t('buttons.saving')}
             </div>
           ) : (
-            'Save Quiz'
+            t('buttons.save')
           )}
         </Button>
       </div>

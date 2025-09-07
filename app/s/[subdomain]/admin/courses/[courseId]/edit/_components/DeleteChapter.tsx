@@ -15,6 +15,7 @@ import { Trash2 } from 'lucide-react';
 import { useState, useTransition } from 'react';
 import { deleteChapter } from '../actions';
 import { toast } from 'sonner';
+import { useLocale, useTranslations } from 'next-intl';
 
 export function DeleteChapter({
   chapterId,
@@ -25,6 +26,9 @@ export function DeleteChapter({
 }) {
   const [open, setOpen] = useState(false);
   const [pending, startTransition] = useTransition();
+  const t = useTranslations('DeleteChapter');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
 
   async function onSubmit() {
     startTransition(async () => {
@@ -45,6 +49,14 @@ export function DeleteChapter({
       }
     });
   }
+  const CancelButton = (
+    <AlertDialogCancel>{t('cancelButton')}</AlertDialogCancel>
+  );
+  const DeleteButton = (
+    <Button onClick={onSubmit} disabled={pending}>
+      {pending ? t('deletingButton') : t('deleteButton')}
+    </Button>
+  );
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
@@ -54,17 +66,27 @@ export function DeleteChapter({
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete this
-            Chapter.
+          <AlertDialogTitle className={isRTL ? 'text-right' : 'text-left'}>
+            {t('dialogTitle')}
+          </AlertDialogTitle>
+          <AlertDialogDescription
+            className={isRTL ? 'text-right' : 'text-left'}
+          >
+            {t('dialogDescription')}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <Button onClick={onSubmit} disabled={pending}>
-            {pending ? 'Deleting...' : 'Delete'}
-          </Button>
+          {isRTL ? (
+            <>
+              {DeleteButton}
+              {CancelButton}
+            </>
+          ) : (
+            <>
+              {CancelButton}
+              {DeleteButton}
+            </>
+          )}
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
