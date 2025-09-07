@@ -1,5 +1,4 @@
 'use client';
-
 import { useState, useEffect, useCallback } from 'react';
 import {
   Dialog,
@@ -9,15 +8,14 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-
 import { toast } from 'sonner';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useDebouncedCallback } from 'use-debounce';
 import { SelectQuestionListView } from './SelectQuestionListView';
-
 import { Question } from './TestBank/types';
 import { TestBank } from './TestBank';
 import { getCourseQuestions } from '../quiz-actions';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface QuestionBankDialogProps {
   open: boolean;
@@ -36,13 +34,16 @@ export function QuestionBankDialog({
   onQuestionSelect,
   planName,
 }: QuestionBankDialogProps) {
+  const t = useTranslations('QuestionBankDialog');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
   const [view, setView] = useState<'select' | 'create'>('select');
   const [availableQuestions, setAvailableQuestions] = useState<Question[]>([]);
   const [isFetching, setIsFetching] = useState(true);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [totalQuestions, setTotalQuestions] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
+
   const QUESTIONS_PER_PAGE = 5;
 
   const fetchQuestions = useCallback(
@@ -55,9 +56,7 @@ export function QuestionBankDialog({
           QUESTIONS_PER_PAGE,
           term,
         );
-        // setAvailableQuestions(
-        //   fetched.map((q: any) => ({ ...q, options: q.options as string[] })),
-        // );
+
         setAvailableQuestions(
           fetched.map((q) => ({
             ...q,
@@ -67,12 +66,12 @@ export function QuestionBankDialog({
         );
         setTotalQuestions(totalCount);
       } catch {
-        toast.error('Failed to load questions from the test bank.');
+        toast.error(t('notifications.loadError'));
       } finally {
         setIsFetching(false);
       }
     },
-    [courseId],
+    [courseId, t],
   );
 
   const debouncedSearch = useDebouncedCallback((term: string) => {
@@ -109,30 +108,43 @@ export function QuestionBankDialog({
     <Dialog open={open} onOpenChange={handleDialogChange}>
       <DialogContent className='flex max-h-[90vh] max-w-4xl flex-col'>
         <DialogHeader>
-          <div className='flex items-center gap-4'>
-            {view === 'create' && (
+          <div className='relative'>
+            {view === 'create' && isRTL && (
               <Button
                 variant='ghost'
                 size='icon'
                 onClick={() => setView('select')}
+                className='absolute top-0 right-0 z-10'
+              >
+                <ArrowRight className='h-4 w-4' />
+              </Button>
+            )}
+            {view === 'create' && !isRTL && (
+              <Button
+                variant='ghost'
+                size='icon'
+                onClick={() => setView('select')}
+                className='absolute top-0 left-0 z-10'
               >
                 <ArrowLeft className='h-4 w-4' />
               </Button>
             )}
-            <div>
+
+            <div
+              className={`${view === 'create' ? 'mx-12' : ''} ${isRTL ? 'text-right' : 'text-left'}`}
+            >
               <DialogTitle>
-                {view === 'select'
-                  ? 'Add Question from Bank'
-                  : 'Create New Question'}
+                {view === 'select' ? t('selectTitle') : t('createTitle')}
               </DialogTitle>
               <DialogDescription>
                 {view === 'select'
-                  ? 'Select from existing questions or create a new one to add to your quiz.'
-                  : 'Your new question will be available in the bank immediately after saving.'}
+                  ? t('selectDescription')
+                  : t('createDescription')}
               </DialogDescription>
             </div>
           </div>
         </DialogHeader>
+
         <div className='-mr-2 flex-1 overflow-y-auto pr-2'>
           {view === 'select' ? (
             <SelectQuestionListView
@@ -152,7 +164,7 @@ export function QuestionBankDialog({
                 courseId={courseId}
                 onSuccess={handleQuestionCreated}
                 planName={planName}
-              />{' '}
+              />
             </div>
           )}
         </div>

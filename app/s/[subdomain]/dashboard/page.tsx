@@ -1,40 +1,102 @@
 import { EmptyState } from '@/components/general/EmptyState';
 import { getAllCourses } from '../data/course/get-all-courses';
-import { getEnrolledCourses } from '../data/user/get-enrolled-courses';
+import {
+  getEnrolledCourses,
+  getContinueLearningCourse,
+} from '../data/user/get-enrolled-courses';
 import { PublicCourseCard } from '../(public)/_components/PublicCourseCard';
 import { CourseProgressCard } from './_components/CourseProgressCard';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
+import { requireUser } from '../data/user/require-user';
 import {
   IconBook,
   IconPlayerPlay,
   IconStar,
   IconTrophy,
-  IconChartBar,
 } from '@tabler/icons-react';
-import { BookOpen, PlayCircle, TrendingUp } from 'lucide-react';
+import { Award, CheckCircle, BookCopy, Rocket } from 'lucide-react';
 import Link from 'next/link';
+import { WelcomeToast } from './_components/WelcomeToast';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { cn } from '@/lib/utils';
+import { buttonVariants } from '@/components/ui/button';
+import Image from 'next/image';
+import { useConstructUrl } from '@/hooks/use-construct-url';
+import { Progress } from '@/components/ui/progress';
+import { useLocale, useTranslations } from 'next-intl';
+
+type ContinueLearningCourseType = Awaited<
+  ReturnType<typeof getContinueLearningCourse>
+>;
+
+interface ContinueLearningCardProps {
+  course: NonNullable<ContinueLearningCourseType>;
+  nextLessonUrl: string;
+  progress: number;
+}
+
+function ContinueLearningCard({
+  course,
+  nextLessonUrl,
+  progress,
+}: ContinueLearningCardProps) {
+  const t = useTranslations('UserDashboardPage.learning');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
+  const imageUrl = useConstructUrl(course.Course.fileKey);
+
+  return (
+    <Card className='from-primary/10 to-accent/10 border-primary/20 bg-gradient-to-tr'>
+      <div className='grid md:grid-cols-2'>
+        <CardContent className='flex flex-col justify-between p-6'>
+          <div>
+            <Badge variant='secondary' className='mb-4'>
+              {t('continue')}
+            </Badge>
+            <h2 className='text-2xl font-bold'>{course.Course.title}</h2>
+            <div className='mt-4 space-y-2'>
+              <p className='text-sm font-medium'>{progress}% Complete</p>
+              <Progress value={progress} className='h-2' />
+            </div>
+          </div>
+          <Link
+            href={nextLessonUrl}
+            className={buttonVariants({
+              size: 'lg',
+              className: 'mt-6 w-full md:w-auto',
+            })}
+          >
+            <IconPlayerPlay className={cn('size-5', isRTL ? 'ml-2' : 'mr-2')} />
+            {t('continue')}
+          </Link>
+        </CardContent>
+        <div className='relative hidden md:block'>
+          <Image
+            src={imageUrl}
+            alt={course.Course.title}
+            fill
+            className='rounded-r-xl object-cover'
+          />
+        </div>
+      </div>
+    </Card>
+  );
+}
 
 export default async function DashboardPage() {
-  const [courses, enrolledCourses] = await Promise.all([
-    getAllCourses(),
-    getEnrolledCourses(),
-  ]);
+  const [courses, enrolledCourses, continueLearningCourse, t, locale, user] =
+    await Promise.all([
+      getAllCourses(),
+      getEnrolledCourses(),
+      getContinueLearningCourse(),
+      getTranslations('UserDashboardPage'),
+      getLocale(),
+      requireUser(),
+    ]);
 
-  const totalLessons = enrolledCourses.reduce(
-    (total, enrollment) =>
-      total +
-      enrollment.Course.chapter.reduce(
-        (chapterTotal, chapter) => chapterTotal + chapter.lessons.length,
-        0,
-      ),
-    0,
-  );
-
-  const totalChapters = enrolledCourses.reduce(
-    (total, enrollment) => total + enrollment.Course.chapter.length,
-    0,
-  );
+  const displayName = user?.name || user?.email.split('@')[0] || '';
+  const isRTL = locale === 'ar';
 
   const availableCourses = courses.filter(
     (course) =>
@@ -43,248 +105,218 @@ export default async function DashboardPage() {
       ),
   );
 
+  if (enrolledCourses.length === 0) {
+    return (
+      <div
+        className='flex flex-1 flex-col gap-8 p-4 pt-0'
+        dir={isRTL ? 'rtl' : 'ltr'}
+      >
+        <div className='mb-2 flex flex-col gap-2'>
+          <h1 className='text-3xl font-bold tracking-tight'>
+            {t('welcome.title', { username: displayName })}
+          </h1>
+          <p className='text-muted-foreground'>
+            {t('newUser.welcomeDescription')}
+          </p>
+        </div>
+        <Card className='flex-grow'>
+          <CardContent className='flex h-full flex-col items-center justify-center p-8 text-center'>
+            <Rocket className='text-primary mb-4 size-16' />
+            <h2 className='mb-2 text-2xl font-bold'>{t('newUser.ctaTitle')}</h2>
+            <p className='text-muted-foreground mb-6 max-w-sm'>
+              {t('newUser.ctaDescription')}
+            </p>
+            <Link href='/courses' className={buttonVariants({ size: 'lg' })}>
+              {t('newUser.ctaButton')}
+            </Link>
+          </CardContent>
+        </Card>
+
+        {availableCourses.length > 0 && (
+          <div>
+            <h3 className='mb-4 text-2xl font-bold'>
+              {t('newUser.sampleCoursesTitle')}
+            </h3>
+            <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+              {availableCourses.slice(0, 3).map((course) => (
+                <PublicCourseCard key={course.id} data={course} />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  let completedCoursesCount = 0;
+  enrolledCourses.forEach((enrollment) => {
+    const totalLessons = enrollment.Course.chapter.reduce(
+      (acc, chap) => acc + chap.lessons.length,
+      0,
+    );
+    if (totalLessons === 0) return;
+    const completedLessons = enrollment.Course.chapter.reduce(
+      (acc, chap) =>
+        acc +
+        chap.lessons.filter((l) => l.lessonProgress.some((p) => p.completed))
+          .length,
+      0,
+    );
+    if (totalLessons === completedLessons) {
+      completedCoursesCount++;
+    }
+  });
+  const inProgressCoursesCount = enrolledCourses.length - completedCoursesCount;
+  const certificatesEarned = completedCoursesCount;
+
+  let nextLessonUrl = '#';
+  let continueLearningProgress = 0;
+  if (continueLearningCourse) {
+    const allLessons = continueLearningCourse.Course.chapter.flatMap(
+      (chap) => chap.lessons,
+    );
+    let nextLesson = allLessons[0];
+    for (let i = 0; i < allLessons.length; i++) {
+      const lesson = allLessons[i];
+      if (!lesson.lessonProgress.some((p) => p.completed)) {
+        nextLesson = lesson;
+        break;
+      }
+    }
+    nextLessonUrl = `/dashboard/${continueLearningCourse.Course.slug}/${nextLesson.id}`;
+    const completedLessons = allLessons.filter((l) =>
+      l.lessonProgress.some((p) => p.completed),
+    ).length;
+    continueLearningProgress =
+      allLessons.length > 0
+        ? Math.round((completedLessons / allLessons.length) * 100)
+        : 0;
+  }
+
   return (
-    <div className='flex flex-1 flex-col gap-4 p-4 pt-0'>
-      {/* Welcome Section */}
-      <div className='mb-6 flex flex-col gap-2'>
+    <div
+      className='flex flex-1 flex-col gap-8 p-4 pt-0'
+      dir={isRTL ? 'rtl' : 'ltr'}
+    >
+      <WelcomeToast />
+      <div className='mb-2 flex flex-col gap-2'>
         <div className='flex items-center gap-2'>
           <Badge
             variant='secondary'
             className='bg-primary/10 text-primary border-primary/20'
           >
-            <IconStar className='mr-1 size-3' />
-            Dashboard
+            <IconStar className={cn('size-3', isRTL ? 'ml-1' : 'mr-1')} />
+            {t('welcome.badge')}
           </Badge>
         </div>
-        <h1 className='text-3xl font-bold tracking-tight'>Welcome back!</h1>
-        <p className='text-muted-foreground'>
-          Here&apos;s what&apos;s happening with your learning journey today.
-        </p>
+        <h1 className='text-3xl font-bold tracking-tight'>
+          {t('welcome.title', { username: displayName })}
+        </h1>
+        <p className='text-muted-foreground'>{t('welcome.description')}</p>
       </div>
 
-      {/* Stats Overview */}
       <div className='mb-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
         <Card className='bg-card/50 border-border/50 backdrop-blur-sm'>
           <CardContent className='p-6'>
             <div className='flex items-center justify-between'>
               <div>
                 <p className='text-muted-foreground text-sm font-medium'>
-                  Enrolled Courses
+                  {t('stats.completed')}
                 </p>
-                <p className='text-2xl font-bold'>{enrolledCourses.length}</p>
-              </div>
-              <div className='bg-primary/10 rounded-lg p-2'>
-                <BookOpen className='text-primary size-4' />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className='bg-card/50 border-border/50 backdrop-blur-sm'>
-          <CardContent className='p-6'>
-            <div className='flex items-center justify-between'>
-              <div>
-                <p className='text-muted-foreground text-sm font-medium'>
-                  Total Lessons
-                </p>
-                <p className='text-2xl font-bold'>{totalLessons}</p>
+                <p className='text-2xl font-bold'>{completedCoursesCount}</p>
               </div>
               <div className='rounded-lg bg-green-500/10 p-2'>
-                <PlayCircle className='size-4 text-green-600' />
+                <CheckCircle className='size-4 text-green-500' />
               </div>
             </div>
           </CardContent>
         </Card>
-
         <Card className='bg-card/50 border-border/50 backdrop-blur-sm'>
           <CardContent className='p-6'>
             <div className='flex items-center justify-between'>
               <div>
                 <p className='text-muted-foreground text-sm font-medium'>
-                  Total Chapters
+                  {t('stats.certificates')}
                 </p>
-                <p className='text-2xl font-bold'>{totalChapters}</p>
+                <p className='text-2xl font-bold'>{certificatesEarned}</p>
+              </div>
+              <div className='rounded-lg bg-yellow-500/10 p-2'>
+                <Award className='size-4 text-yellow-500' />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card className='bg-card/50 border-border/50 backdrop-blur-sm'>
+          <CardContent className='p-6'>
+            <div className='flex items-center justify-between'>
+              <div>
+                <p className='text-muted-foreground text-sm font-medium'>
+                  {t('stats.inProgress')}
+                </p>
+                <p className='text-2xl font-bold'>{inProgressCoursesCount}</p>
               </div>
               <div className='rounded-lg bg-blue-500/10 p-2'>
-                <TrendingUp className='size-4 text-blue-600' />
+                <BookCopy className='size-4 text-blue-500' />
               </div>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Current Learning */}
-      <div className='mb-6 grid gap-4 md:grid-cols-2 lg:grid-cols-7'>
-        <Card className='bg-card/50 border-border/50 backdrop-blur-sm md:col-span-4'>
-          <CardContent className='p-6'>
-            <div className='mb-4 flex items-center gap-2'>
-              <IconPlayerPlay className='text-primary size-5' />
-              <h3 className='text-lg font-semibold'>Continue Learning</h3>
-            </div>
+      {continueLearningCourse && (
+        <ContinueLearningCard
+          course={continueLearningCourse}
+          nextLessonUrl={nextLessonUrl}
+          progress={continueLearningProgress}
+        />
+      )}
 
-            {enrolledCourses.length === 0 ? (
-              <div className='py-8 text-center'>
-                <EmptyState
-                  title='No courses enrolled'
-                  description='Start your learning journey by enrolling in a course'
-                  buttonText='Browse Courses'
-                  href='/courses'
-                />
-              </div>
-            ) : (
-              <div className='space-y-4'>
-                {enrolledCourses.slice(0, 3).map((course) => {
-                  const courseLessons = course.Course.chapter.reduce(
-                    (total, chapter) => total + chapter.lessons.length,
-                    0,
-                  );
-                  return (
-                    <div
-                      key={course.Course.id}
-                      className='hover:bg-accent/50 flex items-center gap-4 rounded-lg p-4 transition-colors'
-                    >
-                      <div className='bg-primary/10 flex h-12 w-12 items-center justify-center rounded-lg'>
-                        <IconBook className='text-primary size-5' />
-                      </div>
-                      <div className='flex-1'>
-                        <h4 className='font-medium'>{course.Course.title}</h4>
-                        <p className='text-muted-foreground text-sm'>
-                          {courseLessons} lessons available
-                        </p>
-                      </div>
-                      <div className='text-right'>
-                        <p className='text-sm font-medium'>
-                          {course.Course.chapter.length} chapters
-                        </p>
-                        <Link
-                          className='text-muted-foreground text-xs transition hover:text-amber-700'
-                          href={`/dashboard/${course.Course.slug}`}
-                        >
-                          Ready to start
-                        </Link>
-                        {/* <p className="text-xs text-muted-foreground">Ready to start</p> */}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        <Card className='bg-card/50 border-border/50 backdrop-blur-sm md:col-span-3'>
-          <CardContent className='p-6'>
-            <div className='mb-4 flex items-center gap-2'>
-              <IconChartBar className='text-primary size-5' />
-              <h3 className='text-lg font-semibold'>Learning Stats</h3>
-            </div>
-
-            <div className='space-y-4'>
-              <div className='flex items-center justify-between'>
-                <span className='text-muted-foreground text-sm'>
-                  Enrolled Courses
-                </span>
-                <span className='font-medium'>{enrolledCourses.length}</span>
-              </div>
-              <div className='flex items-center justify-between'>
-                <span className='text-muted-foreground text-sm'>
-                  Available Courses
-                </span>
-                <span className='font-medium'>{availableCourses.length}</span>
-              </div>
-
-              <div className='space-y-3 pt-4'>
-                <div className='flex items-center justify-between'>
-                  <div className='flex items-center gap-2'>
-                    <div className='bg-primary h-2 w-2 rounded-full' />
-                    <span className='text-sm'>Total Lessons</span>
-                  </div>
-                  <span className='text-sm font-medium'>{totalLessons}</span>
-                </div>
-                <div className='flex items-center justify-between'>
-                  <div className='flex items-center gap-2'>
-                    <div className='h-2 w-2 rounded-full bg-blue-500' />
-                    <span className='text-sm'>Total Chapters</span>
-                  </div>
-                  <span className='text-sm font-medium'>{totalChapters}</span>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* My Courses */}
       <Card className='bg-card/50 border-border/50 mb-6 backdrop-blur-sm'>
         <CardContent className='p-6'>
           <div className='mb-6 flex items-center justify-between'>
             <div className='flex items-center gap-2'>
               <IconBook className='text-primary size-5' />
-              <h3 className='text-lg font-semibold'>My Courses</h3>
+              <h3 className='text-lg font-semibold'>{t('myCourses.title')}</h3>
             </div>
             <Badge variant='secondary' className='bg-primary/10 text-primary'>
-              {enrolledCourses.length} enrolled
+              {t('myCourses.enrolledBadge', { count: enrolledCourses.length })}
             </Badge>
           </div>
-
-          {enrolledCourses.length === 0 ? (
-            <div className='py-8 text-center'>
-              <EmptyState
-                title='Start Your Learning Journey'
-                description="You haven't enrolled in any courses yet. Discover amazing courses to begin your learning adventure!"
-                buttonText='Browse Courses'
-                href='/courses'
-              />
-            </div>
-          ) : (
-            <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
-              {enrolledCourses.map((course) => (
-                <CourseProgressCard key={course.Course.id} data={course} />
-              ))}
-            </div>
-          )}
+          <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+            {enrolledCourses.map((course) => (
+              <CourseProgressCard key={course.Course.id} data={course} />
+            ))}
+          </div>
         </CardContent>
       </Card>
 
-      {/* Available Courses */}
-      <Card className='bg-card/50 border-border/50 backdrop-blur-sm'>
-        <CardContent className='p-6'>
-          <div className='mb-6 flex items-center justify-between'>
-            <div className='flex items-center gap-2'>
-              <IconTrophy className='text-primary size-5' />
-              <h3 className='text-lg font-semibold'>Available Courses</h3>
-            </div>
-            <Badge
-              variant='secondary'
-              className='bg-green-500/10 text-green-600'
-            >
-              {availableCourses.length} available
-            </Badge>
-          </div>
-
-          {availableCourses.length === 0 ? (
-            <div className='py-8 text-center'>
-              <div className='mb-4 flex justify-center'>
-                <div className='bg-primary/10 text-primary rounded-full p-4'>
-                  <IconTrophy className='size-8' />
-                </div>
+      {availableCourses.length > 0 && (
+        <Card className='bg-card/50 border-border/50 backdrop-blur-sm'>
+          <CardContent className='p-6'>
+            <div className='mb-6 flex items-center justify-between'>
+              <div className='flex items-center gap-2'>
+                <IconTrophy className='text-primary size-5' />
+                <h3 className='text-lg font-semibold'>
+                  {t('availableCourses.title')}
+                </h3>
               </div>
-              <EmptyState
-                title='🎉 Congratulations!'
-                description="You've enrolled in all available courses! You're truly dedicated to learning."
-                buttonText='Browse All Courses'
-                href='/courses'
-              />
+              <Badge
+                variant='secondary'
+                className='bg-green-500/10 text-green-600'
+              >
+                {t('availableCourses.availableBadge', {
+                  count: availableCourses.length,
+                })}
+              </Badge>
             </div>
-          ) : (
             <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
-              {availableCourses.slice(0, 6).map((course) => (
+              {availableCourses.slice(0, 3).map((course) => (
                 <PublicCourseCard key={course.id} data={course} />
               ))}
             </div>
-          )}
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

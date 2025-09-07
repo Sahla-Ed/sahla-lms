@@ -8,15 +8,16 @@ import {
 import { Skeleton } from '@/components/ui/skeleton';
 import { BillingPageClient } from './_components/BillingPageClient';
 import { checkPlanStatus } from '@/lib/subscription';
+import { getTranslations } from 'next-intl/server';
 
-export default function BillingPage() {
+export default async function BillingPage() {
+  const t = await getTranslations('BillingPage');
+
   return (
     <div className='space-y-6'>
       <div>
-        <h1 className='text-3xl font-bold'>Billing & Subscription</h1>
-        <p className='text-muted-foreground'>
-          Manage your plan and payment details.
-        </p>
+        <h1 className='text-3xl font-bold'>{t('header.title')}</h1>
+        <p className='text-muted-foreground'>{t('header.description')}</p>
       </div>
       <Suspense fallback={<BillingSkeleton />}>
         <LoadSubscription />

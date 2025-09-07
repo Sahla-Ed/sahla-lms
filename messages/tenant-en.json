@@ -1,0 +1,1690 @@
+{
+  "AdminDashboardMetadata": {
+    "title": "Dashboard | {tenantName}"
+  },
+  "AdminLayout": {
+    "headerTitle": "{tenantName} Admin"
+  },
+  "AdminIndexPage": {
+    "welcomeMessage": "Welcome back, {username}!",
+    "welcomeDescription": "Here's a quick overview of your platform's performance today.",
+    "recentCoursesTitle": "Recent Courses",
+    "viewAllCoursesButton": "View All Courses",
+    "emptyState": {
+      "title": "You don't have any courses yet!",
+      "description": "You don't have any courses. Create some to see them here.",
+      "buttonText": "Create new Course"
+    }
+  },
+  "AdminSidebar": {
+    "navMain": {
+      "quickCreate": "Quick Create",
+      "dashboard": "Dashboard",
+      "courses": "Courses",
+      "analytics": "Analytics",
+      "students": "Students"
+    },
+    "navSecondary": {
+      "platformSettings": "Platform Settings",
+      "landingPage": "Landing Page",
+      "billing": "Billing",
+      "settings": "Settings",
+      "getHelp": "Get Help",
+      "search": "Search"
+    }
+  },
+  "TrialBanner": {
+    "title": "You are on a 14-day free trial!",
+    "description": "You have <strong>{days} days</strong> left. Upgrade now to unlock all features and keep your platform running.",
+    "upgradeButton": "Upgrade Now"
+  },
+  "AdminDashboard": {
+    "kpi": {
+      "totalStudents": {
+        "title": "Total Students",
+        "description": "Users enrolled in courses"
+      },
+      "activeStudents": {
+        "title": "Active Students",
+        "description": "Last 30 days"
+      },
+      "newEnrollments": {
+        "title": "New Enrollments",
+        "description": "Last 30 days"
+      },
+      "revenueThisMonth": {
+        "title": "Revenue This Month",
+        "description": "Total sales this month"
+      }
+    },
+    "enrollmentChart": {
+      "title": "Total Enrollments",
+      "description": "Total Enrollments for the last 30 days: {total}",
+      "descriptionMobile": "Last 30 days: {total}",
+      "tooltipLabel": "Enrollments"
+    }
+  },
+  "CreateCourseMetadata": {
+    "title": "Create New Course | Admin"
+  },
+  "CreateCoursePage": {
+    "header": "Create a New Course",
+    "cardTitle": "Basic Information",
+    "cardDescription": "Provide basic information about the course below",
+    "form": {
+      "title": "Title",
+      "titlePlaceholder": "Course Title",
+      "slug": "Slug",
+      "slugPlaceholder": "unique-course-slug",
+      "generateSlug": "Generate Slug",
+      "smallDescription": "Small Description",
+      "smallDescriptionPlaceholder": "A short, catchy description for the course...",
+      "description": "Full Description",
+      "thumbnail": "Thumbnail Image",
+      "category": "Category",
+      "selectCategory": "Select a category",
+      "level": "Level",
+      "selectLevel": "Select a level",
+      "duration": "Duration (in hours)",
+      "durationPlaceholder": "Duration",
+      "price": "Price ($)",
+      "pricePlaceholder": "Price",
+      "status": "Status",
+      "selectStatus": "Select a status",
+      "createButton": "Create Course",
+      "creatingButton": "Creating..."
+    },
+    "notifications": {
+      "success": "Course created successfully!",
+      "error": "An unexpected error occurred. Please try again.",
+      "slugTaken": "This slug is already in use. Please choose another one.",
+      "planLimit": "You have reached your plan limit. Please upgrade to Pro to create more courses.",
+      "invalidData": "Invalid Form Data"
+    }
+  },
+  "RichTextEditor": {
+    "defaultContent": "<p>Write your course description here... 🚀</p>",
+    "menubar": {
+      "bold": "Bold",
+      "italic": "Italic",
+      "strike": "Strike",
+      "heading1": "Heading 1",
+      "heading2": "Heading 2",
+      "heading3": "Heading 3",
+      "bulletList": "Bullet List",
+      "orderedList": "Ordered List",
+      "alignLeft": "Align Left",
+      "alignCenter": "Align Center",
+      "alignRight": "Align Right",
+      "undo": "Undo",
+      "redo": "Redo"
+    }
+  },
+  "Uploader": {
+    "emptyState": {
+      "title": "Drop your files here or",
+      "cta": "click to upload",
+      "selectButton": "Select File"
+    },
+    "errorState": {
+      "title": "Upload Failed",
+      "description": "Something went wrong",
+      "retryButton": "Retry File Selection"
+    },
+    "uploadingState": {
+      "title": "Uploading..."
+    },
+    "notifications": {
+      "presignedUrlError": "Failed to get presigned URL",
+      "uploadFailed": "Upload failed...",
+      "uploadSuccess": "File uploaded successfully",
+      "genericError": "Something went wrong",
+      "removeSuccess": "File removed successfully",
+      "removeError": "Error removing file. Please try again",
+      "fileTooLarge": "File size exceeds the limit",
+      "tooManyFiles": "Too many files selected, max is 1"
+    }
+  },
+  "CourseEnums": {
+    "levels": {
+      "Beginner": "Beginner",
+      "Intermediate": "Intermediate",
+      "Advanced": "Advanced"
+    },
+    "statuses": {
+      "Draft": "Draft",
+      "Published": "Published",
+      "Archived": "Archived"
+    },
+    "categories": {
+      "Development": "Development",
+      "Business": "Business",
+      "Finance": "Finance",
+      "IT & Software": "IT & Software",
+      "Office Productivity": "Office Productivity",
+      "Personal Development": "Personal Development",
+      "Design": "Design",
+      "Marketing": "Marketing",
+      "Health & Fitness": "Health & Fitness",
+      "Music": "Music",
+      "Teaching & Academics": "Teaching & Academics"
+    }
+  },
+  "ZodValidation": {
+    "course": {
+      "titleMin": "Title must be at least 3 characters long",
+      "titleMax": "Title must be at most 100 characters long",
+      "descriptionMin": "Description must be at least 3 characters long",
+      "priceMin": "Price must be a positive number",
+      "durationMin": "Duration must be at least 1 hour",
+      "durationMax": "Duration must be at most 500 hours",
+      "levelRequired": "Level is required",
+      "categoryRequired": "Category is required",
+      "smallDescriptionMin": "Small Description must be at least 3 characters long",
+      "smallDescriptionMax": "Small Description must be at most 200 characters long",
+      "slugMin": "Slug must be at least 3 characters long",
+      "statusRequired": "Status is required"
+    },
+    "chapter": {
+      "nameMin": "Name must be at least 3 characters long",
+      "courseIdInvalid": "Invalid course id"
+    }
+  },
+  "AdminCoursesPage": {
+    "title": "Your Courses",
+    "createCourse": "Create Course",
+    "upgradeTooltip": "Upgrade to create more courses",
+    "limitReached": "Free Plan Limit Reached",
+    "limitDescription": "You can only create 1 course on the Free plan. <upgradeLink>Upgrade to Pro</upgradeLink> to create unlimited courses.",
+    "emptyState": {
+      "title": "No courses found",
+      "description": "Create a new course to get started",
+      "button": "Create Course"
+    }
+  },
+  "AdminCourseCard": {
+    "editCourse": "Edit Course",
+    "preview": "Preview",
+    "deleteCourse": "Delete Course",
+    "thumbnailAlt": "Course thumbnail",
+    "hoursAbr": "h"
+  },
+  "EditCoursePage": {
+    "header": "Edit Course: <title>{courseTitle}</title>",
+    "previewButton": "Preview & Moderate",
+    "tabs": {
+      "basicInfo": "Basic Info",
+      "courseStructure": "Course Structure",
+      "testBank": "Test Bank"
+    },
+    "basicInfo": {
+      "title": "Basic Info",
+      "description": "Provide basic information about the course"
+    },
+    "courseStructure": {
+      "title": "Course Structure",
+      "description": "Here you can update your Course Structure"
+    },
+    "testBank": {
+      "title": "Test Bank",
+      "description": "Manage the questions for this course."
+    }
+  },
+  "EditCourseForm": {
+    "backButton": "Back to Courses",
+    "header": "Edit Course",
+    "cardTitle": "Course Information",
+    "cardDescription": "Update the course information below",
+    "updateButton": "Update Course",
+    "updatingButton": "Updating...",
+    "notifications": {
+      "success": "Course updated successfully!",
+      "error": "An unexpected error occurred. Please try again.",
+      "publishError": "Cannot publish. The following quizzes have no questions: {quizTitles}"
+    }
+  },
+  "CourseStructure": {
+    "title": "Chapters",
+    "notifications": {
+      "reorderingChapters": "Reordering chapters...",
+      "reorderChaptersSuccess": "Chapters reordered successfully",
+      "reorderChaptersError": "Failed to reorder chapters.",
+      "reorderingLessons": "Reordering lessons...",
+      "reorderLessonsSuccess": "Lessons reordered successfully",
+      "reorderLessonsError": "Failed to reorder lessons."
+    },
+    "errors": {
+      "determineTargetChapter": "Could not determine target chapter for reordering.",
+      "findChapterIndex": "Could not find chapter old/new index for reordering.",
+      "moveBetweenChapters": "Lesson move between different chapters or invalid chapter ID is not allowed.",
+      "findChapterForLesson": "Could not find chapter for lesson reordering.",
+      "findLesson": "Could not find lesson for reordering."
+    }
+  },
+  "NewChapterModal": {
+    "buttonText": "New Chapter",
+    "dialogTitle": "Create new chapter",
+    "dialogDescription": "What would you like to name your chapter?",
+    "formLabel": "Name",
+    "formPlaceholder": "Chapter Name",
+    "saveButton": "Save Change",
+    "savingButton": "Saving...",
+    "notifications": {
+      "success": "Chapter created successfully",
+      "error": "Failed to create chapter",
+      "invalidData": "Invalid Data"
+    }
+  },
+  "NewLessonModal": {
+    "buttonText": "New Lesson",
+    "dialogTitle": "Create new lesson",
+    "dialogDescription": "What would you like to name your lesson?",
+    "formLabel": "Name",
+    "formPlaceholder": "Lesson Name",
+    "lessonTypeLabel": "Lesson Type",
+    "notifications": {
+      "successVideo": "Lesson created successfully",
+      "successQuiz": "Quiz created successfully",
+      "successCoding": "Coding playground created successfully",
+      "error": "Failed to create lesson"
+    },
+    "types": {
+      "video": "Video",
+      "quiz": "Quiz",
+      "coding": "Coding Playground"
+    },
+
+    "saveButton": "Save Change",
+    "savingButton": "Saving..."
+  },
+  "DeleteChapter": {
+    "dialogTitle": "Are you absolutely sure?",
+    "dialogDescription": "This action cannot be undone. This will permanently delete this Chapter.",
+    "cancelButton": "Cancel",
+    "deleteButton": "Delete",
+    "deletingButton": "Deleting...",
+    "notifications": {
+      "success": "Chapter deleted and positions reordered successfully",
+      "error": "Failed to delete chapter",
+      "courseNotFound": "Course not found",
+      "chapterNotFound": "Chapter not found in the course"
+    }
+  },
+  "DeleteLesson": {
+    "dialogTitle": "Are you absolutely sure?",
+    "dialogDescription": "This action cannot be undone. This will permanently delete this lesson.",
+    "cancelButton": "Cancel",
+    "deleteButton": "Delete",
+    "deletingButton": "Deleting...",
+    "notifications": {
+      "success": "Lesson deleted and positions reordered successfully",
+      "error": "Failed to delete lesson",
+      "chapterNotFound": "Chapter not found",
+      "lessonNotFound": "Lesson not found in the chapter"
+    }
+  },
+  "LessonForm": {
+    "backButton": "Go Back",
+    "cardTitle": "Lesson Configuration",
+    "cardDescription": "Configure the video and description for this lesson.",
+    "labels": {
+      "lessonName": "Lesson Name",
+      "description": "Description",
+      "thumbnail": "Thumbnail Image",
+      "video": "Video File"
+    },
+    "placeholders": {
+      "lessonName": "e.g., Introduction to React"
+    },
+    "buttons": {
+      "save": "Save Lesson",
+      "saving": "Saving..."
+    },
+    "notifications": {
+      "invalid": "Please fix the highlighted errors before saving.",
+      "updateSuccess": "Lesson updated successfully!",
+      "updateError": "Failed to update lesson.",
+      "genericError": "An unexpected error occurred. Please try again."
+    }
+  },
+  "QuizForm": {
+    "header": "Edit Quiz: {lessonTitle}",
+    "detailsTitle": "Quiz Details",
+    "labels": {
+      "title": "Quiz Title",
+      "description": "Description",
+      "timer": "Time limit (minutes)",
+      "timerOptional": "[optional]"
+    },
+    "placeholders": {
+      "title": "Enter quiz title...",
+      "description": "Enter quiz description...",
+      "timer": "e.g. 30"
+    },
+    "questionsTitle": "Quiz Questions",
+    "addQuestionButton": "Add Question from Bank",
+    "emptyState": {
+      "title": "No questions added yet",
+      "description": "Add questions from your course test bank"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "save": "Save Quiz",
+      "saving": "Saving..."
+    },
+    "notifications": {
+      "noQuestionsError": "You must add at least one question before saving the quiz.",
+      "updateSuccess": "Quiz updated successfully!",
+      "updateError": "Failed to update quiz"
+    },
+    "sortableQuestion": {
+      "questionLabel": "Question {index}",
+      "correctLabel": "Correct",
+      "explanationLabel": "Explanation:"
+    }
+  },
+  "QuestionBankDialog": {
+    "selectTitle": "Add Question from Bank",
+    "selectDescription": "Select from existing questions or create a new one to add to your quiz.",
+    "createTitle": "Create New Question",
+    "createDescription": "Your new question will be available in the bank immediately after saving.",
+    "notifications": {
+      "loadError": "Failed to load questions from the test bank."
+    }
+  },
+  "SelectQuestionListView": {
+    "searchPlaceholder": "Search questions in your test bank...",
+    "createNewButton": "Create New",
+    "emptyState": {
+      "title": "No Questions Found",
+      "description": "Try a different search term or create a new question."
+    },
+    "addButton": "Add",
+    "addedButton": "Added",
+    "pagination": "Page {currentPage} of {totalPages}"
+  },
+  "TestBank": {
+    "createCardTitle": "Create New Question",
+    "createCardDescription": "Choose your preferred method to create a new question for your test bank.",
+    "existingQuestionsTitle": "Existing Questions in Bank ({totalQuestions})",
+    "searchPlaceholder": "Search questions by text...",
+    "emptyState": {
+      "noMatch": "No questions found matching your search.",
+      "empty": "Your test bank is empty. Create a question above to get started!"
+    },
+    "notifications": {
+      "loadError": "Failed to load questions from the test bank.",
+      "deleteError": "Failed to delete question.",
+      "deleteSuccess": "Question deleted successfully!",
+      "deleteMultipleSuccess": "Selected questions deleted successfully!",
+      "deleteMultipleError": "Failed to delete selected questions."
+    },
+    "pagination": "Page {currentPage} of {totalPages}",
+    "questionsSelected": "{count, plural, one {# question selected} other {# questions selected}}",
+    "deleteSelected": "Delete Selected",
+    "selectAllOnPage": "Select all on this page"
+  },
+  "CreateQuestionView": {
+    "tabs": {
+      "manual": "Manual",
+      "ai": "AI ✨",
+      "import": "Import"
+    },
+    "aiDisabledTooltip": "Upgrade to Pro to use AI",
+    "upgradeNotice": {
+      "title": "Upgrade to Pro to use AI",
+      "description": "Automate quiz creation with AI by upgrading your plan."
+    },
+    "upgradeDialog": {
+      "title": "Unlock AI Features with Pro",
+      "description": "Generate quiz questions instantly, get suggestions, and save hours of work by upgrading to our Pro plan.",
+      "cancelButton": "Maybe Later",
+      "upgradeButton": "Upgrade Now"
+    }
+  },
+  "QuestionForm": {
+    "labels": {
+      "text": "Question Text",
+      "type": "Question Type",
+      "options": "Options",
+      "answer": "Correct Answer",
+      "explanation": "Explanation (Optional)"
+    },
+    "placeholders": {
+      "text": "e.g., What is the capital of France?",
+      "type": "Select a type",
+      "option": "Option {index}",
+      "answer": "Select the correct answer",
+      "explanation": "Explain why the answer is correct."
+    },
+    "buttons": {
+      "addOption": "Add Option",
+      "save": "Save Question",
+      "update": "Save Changes",
+      "saving": "Saving..."
+    },
+    "types": {
+      "mcq": "Multiple Choice",
+      "trueFalse": "True/False",
+      "true": "True",
+      "false": "False"
+    },
+    "notifications": {
+      "createSuccess": "Question created successfully!",
+      "createError": "Failed to create question.",
+      "updateSuccess": "Question updated successfully!",
+      "updateError": "Failed to update question."
+    }
+  },
+  "QuestionCard": {
+    "options": "{count} options",
+    "correct": "Correct",
+    "explanation": "Explanation:",
+    "editTooltip": "Edit Question",
+    "deleteTooltip": "Delete Question"
+  },
+  "EditQuestionDialog": {
+    "title": "Edit Question",
+    "description": "Make changes to your question here. Click save when you're done."
+  },
+  "AiQuestionForm": {
+    "labels": {
+      "topic": "Topic",
+      "questionCount": "Number of Questions"
+    },
+    "placeholders": {
+      "topic": "e.g., JavaScript data types"
+    },
+    "buttons": {
+      "generate": "Generate Questions",
+      "generating": "Generating..."
+    },
+    "notifications": {
+      "generationFailed": "Failed to generate questions",
+      "noQuestionsGenerated": "AI did not generate any questions. Try a different topic.",
+      "success": "Generated and saved {count} new questions successfully!"
+    }
+  },
+  "ImportQuestionForm": {
+    "title": "Import Questions from File",
+    "description": "Supported formats: JSON and CSV. Download a template to get started.",
+    "jsonTemplate": "JSON Template",
+    "csvTemplate": "CSV Template",
+    "importing": "Importing...",
+    "notifications": {
+      "unsupportedType": "Unsupported file type. Please upload a .json or .csv file.",
+      "readError": "Could not read file content.",
+      "jsonParseError": "Error parsing JSON file. Please check the format.",
+      "csvParseError": "Error parsing CSV file. Please check the format.",
+      "importFailed": "Failed to import questions.",
+      "success": "Imported {count} questions successfully!"
+    }
+  },
+  "Pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+
+  "CodingForm": {
+    "header": "Edit Coding Exercise: {lessonTitle}",
+    "loading": "Loading coding exercise...",
+    "showPreview": "Show Preview",
+    "hidePreview": "Hide Preview",
+    "detailsTitle": "Exercise Details",
+    "labels": {
+      "title": "Exercise Title",
+      "description": "Description",
+      "instructions": "Instructions",
+      "language": "Programming Language",
+      "starterCode": "Starter Code"
+    },
+    "placeholders": {
+      "title": "Enter exercise title...",
+      "description": "Enter exercise description...",
+      "instructions": "Provide instructions for the coding exercise...",
+      "htmlCode": "HTML code...",
+      "cssCode": "CSS code...",
+      "jsCode": "JavaScript code...",
+      "serverCode": "Write your starter code here..."
+    },
+    "languageConfigTitle": "Programming Language Configuration",
+    "languages": {
+      "web": "Web Development (HTML/CSS/JS)",
+      "python": "Python",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "cpp": "C++",
+      "c": "C"
+    },
+    "starterCodeTitle": "Starter Code",
+    "buttons": {
+      "cancel": "Cancel",
+      "save": "Save Exercise",
+      "saving": "Saving..."
+    },
+    "preview": {
+      "liveTitle": "Live Preview",
+      "codeTitle": "Code Preview"
+    },
+    "notifications": {
+      "loadError": "Failed to load coding exercise data",
+      "updateSuccess": "Coding exercise updated successfully!",
+      "updateError": "An unexpected error occurred. Please try again."
+    }
+  },
+  "AnalyticsPage": {
+    "header": {
+      "title": "Analytics"
+    },
+    "topCourses": {
+      "title": "Top Performing Courses",
+      "description": "Based on number of enrollments.",
+      "emptyState": "No course enrollment data to display yet."
+    },
+    "recentEnrollments": {
+      "title": "Recent Enrollments",
+      "emptyState": "No enrollments in the last 30 days.",
+      "table": {
+        "student": "Student",
+        "course": "Course",
+        "date": "Date"
+      }
+    },
+    "upgradeNotice": {
+      "title": "Unlock Advanced Analytics",
+      "description": "Gain deeper insights into course performance, student engagement, and revenue trends by upgrading to a Pro plan.",
+      "button": "Upgrade to Pro"
+    }
+  },
+
+  "SettingsPage": {
+    "header": {
+      "title": "Your Settings"
+    },
+    "loadingMessage": "Loading settings..."
+  },
+
+  "BetterAuth": {
+    "SETTINGS": "Your Settings",
+    "ACCOUNT": "Account",
+    "SECURITY": "Security",
+    "SETTINGS_DESCRIPTION": "Update your profile information and security settings.",
+
+    "NAME": "Full Name",
+    "NAME_DESCRIPTION": "This is the name that will be displayed to others.",
+    "NAME_INSTRUCTIONS": "Please use 32 characters at maximum.",
+
+    "EMAIL": "Email Address",
+    "EMAIL_DESCRIPTION": "The email address cannot be changed.",
+    "EMAIL_INSTRUCTIONS": "Please enter a valid email address.",
+
+    "SAVE": "Save Changes",
+    "UPDATED_SUCCESSFULLY": "Updated successfully!",
+
+    "CHANGE_PASSWORD": "Change Password",
+    "CHANGE_PASSWORD_DESCRIPTION": "Enter your current password and a new password.",
+    "CHANGE_PASSWORD_INSTRUCTIONS": "Please use 8 characters at minimum.",
+    "CURRENT_PASSWORD": "Current Password",
+    "CURRENT_PASSWORD_PLACEHOLDER": "Current Password",
+    "NEW_PASSWORD": "New Password",
+    "NEW_PASSWORD_PLACEHOLDER": "New Password",
+    "CONFIRM_PASSWORD": "Confirm Password",
+    "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm Password",
+    "UPDATE_PASSWORD": "Update Password",
+    "CHANGE_PASSWORD_SUCCESS": "Password updated successfully!",
+
+    "TWO_FACTOR": "Two-Factor Authentication",
+    "TWO_FACTOR_CARD_DESCRIPTION": "Add an extra layer of security to your account.",
+    "TWO_FACTOR_ENABLE_INSTRUCTIONS": "Enter your password to enable Two-Factor Authentication.",
+    "TWO_FACTOR_DISABLE_INSTRUCTIONS": "Enter your password to disable Two-Factor Authentication.",
+    "ENABLE_TWO_FACTOR": "Enable Two-Factor",
+    "DISABLE_TWO_FACTOR": "Disable Two-Factor",
+    "TWO_FACTOR_ENABLED": "Two-Factor Authentication has been enabled!",
+    "TWO_FACTOR_DISABLED": "Two-Factor Authentication has been disabled!",
+
+    "PROVIDERS": "Providers",
+    "PROVIDERS_DESCRIPTION": "Connect your account with a third-party service.",
+    "LINK": "Link",
+    "UNLINK": "Unlink",
+
+    "SESSIONS": "Sessions",
+    "SESSIONS_DESCRIPTION": "Manage your active sessions and revoke access.",
+    "REVOKE": "Revoke",
+    "CURRENT_SESSION": "Current Session",
+    "SIGN_OUT": "Sign Out"
+  },
+
+  "TenantSettingsPage": {
+    "header": {
+      "title": "Platform Settings",
+      "description": "Manage your platform's branding and details."
+    },
+    "form": {
+      "cardTitle": "Platform Settings",
+      "cardDescription": "Manage your platform's name, URL, and branding.",
+      "nameLabel": "Platform Name",
+      "namePlaceholder": "Your Platform Name",
+      "urlLabel": "Platform URL",
+      "urlPlaceholder": "your-unique-platform",
+      "logoLightLabel": "Logo (Light Mode)",
+      "logoDarkLabel": "Logo (Dark Mode)",
+      "saveButton": "Save Changes",
+      "savingButton": "Saving...",
+      "validation": {
+        "nameRequired": "Platform name is required",
+        "slugRequired": "URL slug is required"
+      },
+      "notifications": {
+        "updateSuccess": "Settings updated successfully!",
+        "updateSuccessRedirect": "Settings updated successfully! Redirecting...",
+        "slugTaken": "This platform URL is already taken.",
+        "unexpectedError": "An unexpected error occurred. Please try again."
+      }
+    }
+  },
+  "BillingPage": {
+    "header": {
+      "title": "Billing & Subscription",
+      "description": "Manage your plan and payment details."
+    },
+    "client": {
+      "cardTitle": "Your Current Plan",
+      "cardDescription": "You are currently on the <strong>{planName}</strong> plan.",
+      "proMember": "You are a Pro member!",
+      "statusLabel": "Status: {status}",
+      "renewsOn": "Your plan renews on {date}.",
+      "freePlanNotice": "You are on the Free plan. Upgrade to unlock more features.",
+      "manageButton": "Manage Billing",
+      "upgradeButton": "Upgrade to Pro",
+      "genericError": "An error occurred. Please try again.",
+      "plans": {
+        "FREE": "Free",
+        "PRO": "Pro"
+      },
+      "statuses": {
+        "trialing": "Trialing",
+        "active": "Active",
+        "canceled": "Canceled",
+        "incomplete": "Incomplete",
+        "incomplete_expired": "Incomplete & Expired",
+        "past_due": "Past Due",
+        "unpaid": "Unpaid"
+      }
+    }
+  },
+  "NavUser": {
+    "homepage": "Homepage",
+    "dashboard": "Dashboard",
+    "courses": "Courses",
+    "logout": "Log out"
+  },
+
+  "SearchPage": {
+    "metadata": {
+      "title": "Search |Admin",
+      "description": "A powerful, global search feature is coming soon to the Sahla admin dashboard."
+    },
+    "title": "Global Search",
+    "description": "This feature is under development. We're building a powerful search experience that will allow you to instantly find courses, users, enrollments, and more across the entire platform.",
+    "badgeText": "Coming Soon",
+    "returnButton": "Return to Homepage"
+  },
+  "AdminLessonPreview": {
+    "sidebar": {
+      "backButton": "Back to Course Editor",
+      "header": "Moderation & Preview"
+    },
+    "preview": {
+      "noVideo": "This lesson is not a video or the video is missing."
+    },
+    "comments": {
+      "title": "Comments ({count})",
+      "formPlaceholder": "Add a comment...",
+      "formButton": "Post Comment",
+      "form": {
+        "replyPlaceholder": "Write a reply...",
+        "commentPlaceholder": "Add a comment...",
+        "postReplyButton": "Post Reply",
+        "postCommentButton": "Post Comment",
+        "successMessage": "Comment added successfully!",
+        "errorMessage": "Failed to add comment."
+      },
+      "item": {
+        "instructorBadge": "Instructor",
+        "replyButton": "Reply",
+        "editButton": "Edit",
+        "deleteButton": "Delete",
+        "saveButton": "Save",
+        "cancelButton": "Cancel",
+        "updateSuccess": "Comment updated!",
+        "updateError": "Failed to update comment.",
+        "deleteSuccess": "Comment deleted!",
+        "deleteError": "Failed to delete comment.",
+        "deleteDialog": {
+          "title": "Are you sure?",
+          "description": "This action cannot be undone. This will permanently delete your comment.",
+          "confirmButton": "Delete"
+        }
+      }
+    }
+  },
+
+  "CoursesPage": {
+    "metadata": {
+      "title": "Courses",
+      "description": "Browse all available courses on {tenantName} and start your learning journey today."
+    },
+    "hero": {
+      "badge": "Explore Our Courses",
+      "title": "Discover Your Next Learning Adventure",
+      "description": "Dive into our carefully curated collection of courses designed by industry experts. Transform your skills and unlock new opportunities."
+    },
+    "header": {
+      "title": "{tenantName} Courses",
+      "description": "Start your learning journey with our most popular courses"
+    }
+  },
+  "PublicCourseCard": {
+    "alt": "Course cover",
+    "hours": "h",
+    "buttons": {
+      "startLearning": "Start Learning",
+      "manageCourse": "Manage Course"
+    }
+  },
+  "CourseSearch": {
+    "placeholder": "Search courses by title or category...",
+    "resultsCount": "Showing {count, plural, one {# course} other {# courses}}",
+    "noResults": "We couldn't find any courses matching \"{query}\"."
+  },
+  "CourseSlugPage": {
+    "coursePrice": "Course Price",
+    "includes": "This course includes:",
+    "lifetimeAccess": "Full lifetime access",
+    "downloadableResources": "Downloadable resources",
+    "certificate": "Certificate of completion",
+    "hours": "Hours",
+    "lessons": "Lessons",
+    "level": "Level",
+    "duration": "Duration",
+    "category": "Category",
+    "whatYouWillLearn": "What You'll Learn",
+    "courseContent": "Course Content",
+    "chapters": "chapters",
+    "lesson": "lesson",
+    "lessonsPlural": "lessons",
+    "featuredCourse": "Featured Course",
+    "noLessonsTitle": "No lessons available",
+    "noLessonsDescription": "This course does not have any lessons yet!"
+  },
+  "QuizPlayer": {
+    "start": {
+      "title": "Quiz: {quizTitle}",
+      "description": "Test your knowledge with this quiz",
+      "questionsCount": "{count, plural, one {# Question} other {# Questions}}",
+      "timeLimit": "{count, plural, one {# minute} other {# minutes}}",
+      "noTimeLimit": "No time limit",
+      "startButton": "Start Quiz"
+    },
+    "active": {
+      "title": "Question {current} of {total}",
+      "previousButton": "Previous",
+      "nextButton": "Next",
+      "submitButton": "Submit Quiz",
+      "submittingButton": "Submitting..."
+    },
+    "results": {
+      "title": "Quiz Complete!",
+      "scoreLabel": "Score",
+      "timeLabel": "Time",
+      "retakeButton": "Retake Quiz",
+      "questionLabel": "Question {index}",
+      "correctLabel": "Correct",
+      "explanationLabel": "Explanation:"
+    },
+    "noQuestions": {
+      "title": "No Questions",
+      "description": "This quiz has no questions yet. Please contact the instructor."
+    }
+  },
+  "EnrollmentButton": {
+    "enrollNow": "Enroll Now!",
+    "processing": "Processing...",
+    "error": "An unexpected error occurred. Please try again.",
+    "success": "Success!"
+  },
+  "LessonItemForPublic": {
+    "locked": "Locked"
+  },
+  "PaymentPages": {
+    "success": {
+      "title": "Payment Successful",
+      "description": "Congrats, your payment was successful. You should now have access to the course!",
+      "button": "Go to Dashboard"
+    },
+    "cancel": {
+      "title": "Payment Cancelled",
+      "description": "No worries, you won't be charged. Please try again!",
+      "button": "Go back to Homepage"
+    }
+  },
+  "UpgradePage": {
+    "title": "Upgrade to Pro",
+    "description": "Unlock all features and grow your online platform.",
+    "price": "$49",
+    "perMonth": "/ month",
+    "features": [
+      "Unlimited courses and students",
+      "Advanced analytics and reporting",
+      "Custom branding and domain",
+      "Priority support",
+      "AI-powered creator tools"
+    ],
+    "stripeNotice": "This is where the Stripe payment form would be embedded. Clicking the button below would initiate the payment process.",
+    "button": "Confirm Payment & Upgrade"
+  },
+  "UserDashboardPage": {
+    "newUser": {
+      "welcomeDescription": "You're about to start an exciting learning journey. Choose your first course and get going.",
+      "ctaTitle": "The Course Library Awaits",
+      "ctaDescription": "Explore our diverse collection of courses designed by experts to help you achieve your goals.",
+      "ctaButton": "Browse All Courses",
+      "sampleCoursesTitle": "Or start with one of these popular courses"
+    },
+    "metadataTitle": "Dashboard | {tenantName}",
+    "welcome": {
+      "badge": "Dashboard",
+      "title": "Welcome back learner, {username}!",
+      "description": "Here's what's happening with your learning journey today."
+    },
+    "stats": {
+      "enrolled": "Enrolled Courses",
+      "lessons": "Total Lessons",
+      "chapters": "Total Chapters",
+      "completed": "Completed Courses",
+      "certificates": "Certificates Earned",
+      "inProgress": "Courses in Progress"
+    },
+    "learning": {
+      "continue": "Continue Learning",
+      "lessonsAvailable": "{count} lessons available",
+      "chapters": "{count} chapters",
+      "readyToStart": "Ready to start",
+      "emptyTitle": "No courses enrolled",
+      "emptyDescription": "Start your learning journey by enrolling in a course.",
+      "emptyButton": "Browse Courses"
+    },
+    "statsCard": {
+      "title": "Learning Stats",
+      "enrolled": "Enrolled Courses",
+      "available": "Available Courses",
+      "totalLessons": "Total Lessons",
+      "totalChapters": "Total Chapters"
+    },
+    "myCourses": {
+      "title": "My Courses",
+      "enrolledBadge": "{count} enrolled"
+    },
+    "availableCourses": {
+      "title": "Available Courses",
+      "availableBadge": "{count} available",
+      "emptyTitle": "🎉 Congratulations!",
+      "emptyDescription": "You've enrolled in all available courses! You're truly dedicated to learning.",
+      "emptyButton": "Browse All Courses"
+    },
+    "courseProgressCard": {
+      "thumbnailAlt": "Course Thumbnail Image",
+      "progressLabel": "Progress:",
+      "lessonsCompleted": "{completedLessons} of {totalLessons} lessons completed",
+      "learnMoreButton": "Learn More"
+    }
+  },
+  "CourseContent": {
+    "buttons": {
+      "completed": "Lesson Completed",
+      "markComplete": "Mark as Complete"
+    },
+    "notifications": {
+      "error": "An unexpected error occurred. Please try again.",
+      "success": "Great! Lesson completed successfully."
+    },
+    "comments": {
+      "title": "Comments ({count})"
+    },
+    "videoPlayer": {
+      "noVideoMessage": "This lesson does not have a video yet."
+    }
+  },
+  "LeaderboardPage": {
+    "title": "Leaderboard",
+    "description": "See who's at the top of their learning game!",
+    "xp": "XP",
+    "empty": {
+      "title": "The Leaderboard is Empty!",
+      "description": "No students have earned points yet. Be the first to appear here by completing lessons and quizzes.",
+      "button": "Go to My Courses"
+    }
+  },
+  "StudentDetailPage": {
+    "kpi": {
+      "totalSpent": "Total Spent",
+      "enrollments": "Enrollments"
+    },
+    "courseProgress": {
+      "title": "Course Progress",
+      "emptyState": "This student is not enrolled in any courses.",
+      "progressText": "{completedLessons} of {totalLessons} lessons completed ({progressPercentage}%)"
+    }
+  },
+  "CourseSidebar": {
+    "progress": "Progress",
+    "lessonsProgress": "{completedLessons}/{totalLessons} {count, plural, one {lesson} other {lessons}}",
+    "percentComplete": "{progress}% complete",
+    "lessonsCount": "{count, plural, one {# lesson} other {# lessons}}",
+    "lessonItem": {
+      "completed": "Completed",
+      "tryAgain": "Try again?",
+      "currentlyWatching": "Currently Watching"
+    },
+
+    "certificate": {
+      "preparing": "Preparing...",
+      "generate": "Generate Certificate",
+      "generatingPdf": "Generating PDF...",
+      "downloadNow": "Download Now",
+      "readyMessage": "Your certificate is ready!",
+      "prepareError": "Failed to prepare certificate. Please try again."
+    }
+  },
+  "CertificateDocument": {
+    "header": "Certificate of Completion",
+    "presentedTo": "This certificate is proudly presented to",
+    "completionText": "for successfully completing the online course",
+    "issuedOn": "Issued on:",
+    "signature": "{tenantName}",
+    "verifyLink": "Verify this certificate online",
+    "certificateIdLabel": "Certificate ID"
+  },
+  "TenantPlatform": {
+    "common": {
+      "themeToggle": {
+        "toggle": "Toggle theme",
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System"
+      }
+    },
+    "Sidebar": {
+      "dashboard": "Dashboard",
+      "myCourses": "Courses",
+      "leaderboard": "Leaderboard"
+    },
+    "Dashboard": {
+      "welcomeMessage": "Welcome back, {username}!",
+      "adminWelcomeMessage": "Welcome Admin, {username}!"
+    },
+    "Navbar": {
+      "home": "Home",
+      "courses": "Courses",
+      "dashboard": "Dashboard",
+      "contact": "Contact",
+      "login": "Login",
+      "discoverMore": "Discover More",
+      "openMenu": "Open main menu"
+    }
+  },
+  "Metadata": {
+    "templateTitle": "%s | {tenantName}",
+    "defaultTitle": "Welcome to {tenantName}",
+    "description": "{tenantName} is your premier destination for online learning. Explore our courses today."
+  },
+  "DefaultLandingPage": {
+    "hero": {
+      "badge": "The Future of Online Education",
+      "title": "Elevate Your Learning",
+      "description": "Discover a new way to learn with our modern, interactive learning management system. Access high-quality courses anytime, anywhere.",
+      "exploreButton": "Explore Courses",
+      "signInButton": "Sign In",
+      "dashboardButton": "Go to Dashboard"
+    },
+    "features": {
+      "title": "Why Choose Our Platform?",
+      "description": "Experience the future of education with our comprehensive learning ecosystem",
+      "teaching": {
+        "title": "Empower Your Teaching",
+        "description": "Seamless tools for instructors to create, publish, and manage high-quality educational content with ease."
+      },
+      "learningPath": {
+        "title": "Discover Your Learning Path",
+        "description": "Students easily find relevant courses and engage with modern, interactive content tailored to their needs."
+      },
+      "content": {
+        "title": "Diverse & In-Demand Content",
+        "description": "Access a rich library of specialized courses, continuously updated to align with current industry demands."
+      }
+    },
+    "cta": {
+      "title": "Ready to Start Your Journey?",
+      "description": "Join thousands of learners who have already transformed their careers with our platform",
+      "getStartedButton": "Get Started Today",
+      "exploreMoreButton": "Explore More Courses"
+    }
+  },
+  "Footer": {
+    "newsletterTitle": "Join our learning community and unlock your potential.",
+    "emailPlaceholder": "Email Address*",
+    "subscribeButton": "Subscribe",
+    "connectTitle": "Connect with us",
+    "supportTitle": "Support",
+    "coursesTitle": "Courses",
+    "aboutTitle": "About",
+    "communityTitle": "Community",
+    "supportLinks": {
+      "contact": "Contact us",
+      "help": "Help Center",
+      "faqs": "FAQs",
+      "techSupport": "Technical Support",
+      "chat": "Live Chat"
+    },
+    "coursesLinks": {
+      "browse": "Browse Courses",
+      "free": "Free Courses",
+      "certificates": "Certificates",
+      "catalog": "Course Catalog",
+      "paths": "Learning Paths"
+    },
+    "aboutLinks": {
+      "about": "About us",
+      "mission": "Our Mission",
+      "careers": "Careers",
+      "instructorProgram": "Instructor Program"
+    },
+    "communityLinks": {
+      "students": "Student Community",
+      "forums": "Discussion Forums",
+      "groups": "Study Groups",
+      "stories": "Success Stories"
+    },
+    "benefitsMarquee": [
+      "24/7 Learning Support",
+      "Expert Instructors",
+      "Certificate Programs",
+      "Interactive Learning",
+      "Lifetime Access",
+      "Student Community"
+    ],
+    "bottomLinks": {
+      "terms": "Terms & conditions",
+      "privacy": "Privacy Policy",
+      "agreement": "Student Agreement"
+    },
+    "copyrightTenant": "© {year} {tenantName}.",
+    "copyrightBrand": "All rights reserved for Sahla.",
+    "dialogs": {
+      "successTitle": "🎉 Thank You!",
+      "successDescription": "Your email has been successfully registered to our newsletter. We'll be in touch soon!",
+      "successButton": "Great!",
+      "errorTitle": "⚠️ Invalid Email",
+      "errorDescription": "Please enter a valid email address.",
+      "errorButton": "Try Again"
+    }
+  },
+  "Auth": {
+    "SIGN_IN_WITH": "Sign in with",
+    "SIGN_IN": "Sign In",
+    "SIGN_IN_DESCRIPTION": "Welcome back! Please enter your details.",
+    "SIGN_UP": "Create an Account",
+    "SIGN_UP_DESCRIPTION": "Enter your details to get started.",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "NAME": "Name",
+    "SIGN_IN_ACTION": "Sign In",
+    "SIGN_UP_ACTION": "Sign Up",
+    "MAGIC_LINK_ACTION": "Sign In with Magic Link",
+    "FORGOT_PASSWORD_LINK": "Forgot password?",
+    "OR_CONTINUE_WITH": "OR CONTINUE WITH",
+    "DONT_HAVE_AN_ACCOUNT": "Don't have an account?",
+    "ALREADY_HAVE_AN_ACCOUNT": "Already have an account?",
+    "EMAIL_PLACEHOLDER": "e.g., name@example.com",
+    "PASSWORD_PLACEHOLDER": "Enter your password",
+    "NAME_PLACEHOLDER": "Enter your full name",
+    "FORGOT_PASSWORD": "Forgot Password",
+    "FORGOT_PASSWORD_DESCRIPTION": "Enter your email to receive a reset link.",
+    "FORGOT_PASSWORD_ACTION": "Send Reset Link",
+    "GO_BACK": "Go back",
+    "signOutSuccess": "Signed out successfully!",
+    "signOutError": "Failed to sign out. Please try again.",
+    "Validation": {
+      "EMAIL_REQUIRED": "Email address is required",
+      "PASSWORD_REQUIRED": "Password is required",
+      "IS_INVALID": "is invalid",
+      "PASSWORDS_DO_NOT_MATCH": "Passwords do not match",
+      "PASSWORD_TOO_SHORT": "Password must be at least 8 characters",
+      "INVALID_EMAIL_OR_PASSWORD": "The email or password you entered is incorrect. Please try again.",
+      "IS_REQUIRED": "is required",
+      "USER_ALREADY_EXISTS": "A user with this email already exists. Please sign in."
+    }
+  },
+  "AuthMetadata": {
+    "signInTitle": "Sign In",
+    "signUpTitle": "Create Account",
+    "forgotPasswordTitle": "Reset Password",
+    "defaultTitle": "Authentication"
+  },
+  "ContactPage": {
+    "hero": {
+      "badge": "Contact Us",
+      "title": "Get in Touch",
+      "description": "Have a question or need assistance? Fill out the form below and our team will get back to you as soon as possible."
+    },
+    "contactForm": {
+      "title": "Contact Form",
+      "description": "Tell us how we can help you.",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Enter your full name",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email address",
+      "message": "Your Message",
+      "messagePlaceholder": "Type your message here...",
+      "submitButton": "Send Message",
+      "submittingButton": "Sending..."
+    },
+    "contactMethods": {
+      "email": {
+        "title": "Email Us",
+        "description": "Get in touch via email and we'll respond within 24 hours",
+        "address": "info@example.com"
+      },
+      "phone": {
+        "title": "Call Us",
+        "description": "Speak directly with our team for immediate assistance",
+        "number": "+1 (555) 123-4567"
+      },
+      "chat": {
+        "title": "Live Chat",
+        "description": "Start a conversation with our support team right away",
+        "availability": "Available 9 AM - 5 PM"
+      }
+    },
+    "location": {
+      "office": {
+        "title": "Our Office",
+        "addressLine1": "123 Learning Lane, Suite 400",
+        "addressLine2": "Knowledge City, KC 12345"
+      },
+      "hours": {
+        "title": "Business Hours",
+        "weekdays": "Monday - Friday: 9:00 AM - 5:00 PM",
+        "weekend": "Saturday - Sunday: Closed"
+      }
+    },
+    "successDialog": {
+      "title": "🎉 Thank You!",
+      "description": "We've received your message and will get back to you within 24 hours.",
+      "button": "Great!"
+    },
+    "errorDialog": {
+      "title": "⚠️ Error",
+      "description": "Please fill in all fields before submitting the form.",
+      "button": "OK"
+    }
+  },
+  "HelpCenterPage": {
+    "Metadata": {
+      "title": "Help Center",
+      "description": "Find answers to your questions and get support for the {tenantName} platform."
+    },
+    "hero": {
+      "badge": "Help Center",
+      "title": "How can we help?",
+      "description": "We're here to assist you. Search for a topic or browse the categories below.",
+      "searchPlaceholder": "Search for help..."
+    },
+    "categories": {
+      "faqs": {
+        "title": "FAQs",
+        "description": "Find answers to common questions about accounts, courses, and payments."
+      },
+      "techSupport": {
+        "title": "Technical Support",
+        "description": "Get help with technical issues, bugs, and platform performance."
+      },
+      "contact": {
+        "title": "Contact Us",
+        "description": "Reach out to our support team directly for personalized assistance."
+      }
+    },
+    "faqAccordion": {
+      "title": "Frequently Asked Questions",
+      "items": {
+        "q1": "How do I reset my password?",
+        "a1": "You can reset your password by clicking the 'Forgot Password' link on the login page. We will send a reset link to your registered email address.",
+        "q2": "How do I enroll in a course?",
+        "a2": "To enroll, navigate to the course page you are interested in and click the 'Enroll Now' button. You will be guided through the payment and registration process.",
+        "q3": "Where can I find my enrolled courses?",
+        "a3": "All your enrolled courses are available in your personal Dashboard. You can access it by clicking the 'Dashboard' link in the navigation bar after logging in."
+      }
+    }
+  },
+  "FaqsPage": {
+    "Metadata": {
+      "title": "Frequently Asked Questions ",
+      "description": "Find answers to the most common questions about the {tenantName} platform."
+    },
+    "hero": {
+      "badge": "FAQs",
+      "title": "Frequently Asked Questions",
+      "description": "Have a question? We've probably answered it below.",
+      "searchPlaceholder": "Search questions..."
+    },
+    "categories": {
+      "account": {
+        "title": "Account Management",
+        "q1": "How do I create an account?",
+        "a1": "You can create an account using your email and a password, or by signing in with a social provider like Google or GitHub.",
+        "q2": "How can I update my profile information?",
+        "a2": "Profile information can be updated in your Dashboard under the 'Settings' or 'Profile' section."
+      },
+      "courses": {
+        "title": "Courses & Learning",
+        "q1": "Do I get lifetime access to courses?",
+        "a1": "Yes! Once you enroll in a course, you have lifetime access to all its materials, including future updates.",
+        "q2": "Can I get a certificate after completing a course?",
+        "a2": "Yes, a verifiable certificate of completion is awarded after you successfully complete all modules and quizzes in a course."
+      },
+      "payments": {
+        "title": "Payments & Subscriptions",
+        "q1": "What payment methods do you accept?",
+        "a1": "We accept all major credit cards, PayPal, and other popular payment methods through our secure Stripe integration.",
+        "q2": "Is there a refund policy?",
+        "a2": "Yes, we offer a 30-day money-back guarantee on all our courses. Please check our refund policy page for more details."
+      }
+    },
+    "cta": {
+      "title": "Still have questions?",
+      "description": "Can't find the answer you're looking for? Our support team is here to help.",
+      "button": "Contact Support"
+    }
+  },
+  "TechnicalSupportPage": {
+    "Metadata": {
+      "title": "Technical Support",
+      "description": "Get technical assistance with the {tenantName} platform. Our team is ready to help you with any issues you encounter."
+    },
+    "title": "Technical Support",
+    "description": "This page is under construction. Our dedicated technical support portal will be available soon to help you resolve any platform-related issues.",
+    "badgeText": "Coming Soon"
+  },
+  "LiveChatPage": {
+    "Metadata": {
+      "title": "Live Chat ",
+      "description": "Chat with a {tenantName} support representative in real-time for immediate assistance with your questions."
+    },
+    "title": "Live Chat Support",
+    "description": "This feature is under construction. Soon, you'll be able to connect with our support team instantly via live chat for real-time assistance.",
+    "badgeText": "Coming Soon"
+  },
+  "FreeCoursesPage": {
+    "Metadata": {
+      "title": "Free Courses ",
+      "description": "Explore a selection of free courses on the {tenantName} platform to kickstart your learning journey in various fields without any cost."
+    },
+    "title": "Free Courses",
+    "description": "This page is under construction. We are curating a selection of high-quality introductory courses that will be available completely free of charge.",
+    "badgeText": "Coming Soon"
+  },
+  "CertificatesPage": {
+    "Metadata": {
+      "title": "Your Certificates",
+      "description": "View and download all the certificates you have earned by completing courses on the {tenantName} platform."
+    },
+    "title": "Your Certificates",
+    "description": "This page is under construction. Soon, you'll be able to view, manage, and share all the certificates you've earned on the platform.",
+    "badgeText": "Coming Soon"
+  },
+  "CatalogPage": {
+    "Metadata": {
+      "title": "Course Catalog",
+      "description": "Explore the complete catalog of courses available on {tenantName}. Find your next learning opportunity."
+    },
+    "title": "Course Catalog",
+    "description": "This page is under construction. We are building a comprehensive, filterable catalog of all our courses to help you find the perfect learning path.",
+    "badgeText": "Coming Soon"
+  },
+  "LearningPathsPage": {
+    "Metadata": {
+      "title": "Learning Paths",
+      "description": "Follow curated learning paths designed by experts to master a skill from start to finish on {tenantName}."
+    },
+    "title": "Learning Paths",
+    "description": "This feature is under construction. Soon, you will be able to follow expert-curated learning paths that guide you from beginner to expert in your chosen field.",
+    "badgeText": "Coming Soon"
+  },
+  "CareersPage": {
+    "Metadata": {
+      "title": "Careers",
+      "description": "Explore career opportunities at {tenantName}. Join our mission to revolutionize online education."
+    },
+    "title": "Join Our Team",
+    "description": "This page is under construction. We're always looking for passionate people to join our mission. Our careers page with open positions will be available soon.",
+    "badgeText": "Coming Soon"
+  },
+  "InstructorProgramPage": {
+    "Metadata": {
+      "title": "Become an Instructor",
+      "description": "Share your knowledge with a global audience. Learn about the benefits and tools available to instructors on {tenantName}."
+    },
+    "title": "Become an Instructor",
+    "description": "This page is under construction. Our instructor portal will soon provide all the information and tools you need to create and sell your courses.",
+    "badgeText": "Coming Soon"
+  },
+  "SuccessStoriesPage": {
+    "Metadata": {
+      "title": "Success Stories",
+      "description": "Read inspiring stories from students who have transformed their careers and lives with courses from {tenantName}."
+    },
+    "title": "Success Stories",
+    "description": "This page is under construction. We will soon feature inspiring stories from our students who have achieved their goals with the help of our platform.",
+    "badgeText": "Coming Soon"
+  },
+  "StudyGroupsPage": {
+    "Metadata": {
+      "title": "Study Groups",
+      "description": "Form or join study groups to collaborate with other learners. Enhance your understanding and stay motivated together on {tenantName}."
+    },
+    "title": "Study Groups",
+    "description": "This feature is under construction. Soon you'll be able to form and join study groups to collaborate on courses, projects, and assignments with your peers.",
+    "badgeText": "Coming Soon"
+  },
+  "ForumsPage": {
+    "Metadata": {
+      "title": "Discussion Forums",
+      "description": "Engage in conversations, ask questions, and share your knowledge in the {tenantName} discussion forums."
+    },
+    "title": "Discussion Forums",
+    "description": "This feature is under construction. Our community forums will soon be a place for lively discussions, Q&A with instructors, and peer-to-peer support.",
+    "badgeText": "Coming Soon"
+  },
+  "TermsPage": {
+    "Metadata": {
+      "title": "Terms and Conditions",
+      "description": "Read the terms and conditions for using the {tenantName} learning platform."
+    },
+    "hero": {
+      "badge": "Legal Document",
+      "title": "Terms & Conditions",
+      "description": "Essential terms and guidelines for using the {tenantName} learning platform safely and effectively."
+    },
+    "sections": {
+      "introduction": {
+        "title": "Introduction",
+        "content": "Welcome to our platform. By using our platform, you agree to these terms and conditions."
+      },
+      "accounts": {
+        "title": "User Accounts",
+        "content": "Create an account with accurate information. Keep your login details secure and notify us of any unauthorized access."
+      },
+      "access": {
+        "title": "Course Access",
+        "content": "Enrolled courses are for personal use only. Lifetime access provided unless policy violations occur."
+      },
+      "ip": {
+        "title": "Intellectual Property",
+        "content": "All content is protected by copyright. No reproduction or distribution without written permission."
+      },
+      "payment": {
+        "title": "Payment & Refunds",
+        "content": "Payment required at enrollment. 30-day money-back guarantee if less than 30% completed."
+      },
+      "conduct": {
+        "title": "Code of Conduct",
+        "content": "Maintain respectful behavior. No harassment, hacking, or commercial use without authorization."
+      },
+      "disclaimers": {
+        "title": "Disclaimers",
+        "content": "Platform provided 'as is' without warranties. Our liability is limited to course fees paid."
+      },
+      "updates": {
+        "title": "Contact & Updates",
+        "content": "Terms may be updated with notification. Contact support for questions or concerns."
+      }
+    },
+    "cta": {
+      "title": "Need Clarification?",
+      "description": "Our support team is ready to help you understand these terms and answer any questions you might have.",
+      "contactButton": "Contact Support",
+      "privacyButton": "Privacy Policy"
+    }
+  },
+  "PrivacyPage": {
+    "Metadata": {
+      "title": "Privacy Policy",
+      "description": "Learn how {tenantName} collects, uses, and protects your personal data."
+    },
+    "hero": {
+      "badge": "Privacy & Security",
+      "title": "Privacy Policy",
+      "description": "Your privacy is important to us. This policy explains how we collect, use, and protect your personal information with complete transparency."
+    },
+    "sections": {
+      "collect": {
+        "title": "Information We Collect",
+        "content": "We collect information you provide (name, email, profile), payment details, learning progress, support communications, and technical data (IP address, browser, device info) to improve our services."
+      },
+      "use": {
+        "title": "How We Use Your Information",
+        "content": "We use your data to provide our services, process payments, personalize learning, send updates, provide support, analyze usage, and ensure security."
+      },
+      "sharing": {
+        "title": "Information Sharing",
+        "content": "We share data only with instructors (for course progress), service providers (under confidentiality), for legal compliance, with your consent, or during business transfers."
+      },
+      "security": {
+        "title": "Data Security",
+        "content": "We use encryption, secure authentication, regular audits, and access controls to protect your data. However, no system is 100% secure."
+      },
+      "cookies": {
+        "title": "Cookies & Tracking",
+        "content": "We use essential, performance, functional, and analytics cookies. You can control cookie settings through your browser."
+      },
+      "rights": {
+        "title": "Your Rights",
+        "content": "You can access, update, delete your data, opt out of marketing, request data portability, and withdraw consent through your account dashboard."
+      }
+    },
+    "contact": {
+      "title": "Contact Our Privacy Team",
+      "description": "Have questions about this Privacy Policy? Our dedicated privacy team is here to help you understand how we protect your data.",
+      "emailLabel": "Email:",
+      "emailAddress": "privacy@example.com",
+      "responseTimeLabel": "Response time:",
+      "responseTimeValue": "Within 48 hours"
+    },
+    "cta": {
+      "title": "Manage Your Privacy Settings",
+      "description": "Take control of your data and privacy preferences through your personalized account dashboard.",
+      "settingsButton": "Privacy Settings",
+      "termsButton": "Terms & Conditions"
+    },
+    "settingsDialog": {
+      "title": "Privacy Settings",
+      "comingSoon": "Coming Soon!",
+      "description": "We are working on giving you more control over your data. Stay tuned for updates.",
+      "closeButton": "Close"
+    }
+  },
+  "StudentAgreementPage": {
+    "Metadata": {
+      "title": "Student Agreement",
+      "description": "Student rights and responsibilities on the {tenantName} platform."
+    },
+    "hero": {
+      "badge": "Student Agreement",
+      "title": "Student Agreement",
+      "description": "Your rights and responsibilities as a valued member of the {tenantName} learning community."
+    },
+    "rights": {
+      "title": "Your Rights",
+      "items": [
+        "Access to high-quality educational content",
+        "Responsive customer support and assistance",
+        "Safe and inclusive learning environment",
+        "Complete privacy protection and data security",
+        "Fair assessment and certification processes",
+        "Transparent communication about course updates"
+      ]
+    },
+    "responsibilities": {
+      "title": "Your Responsibilities",
+      "items": [
+        "Maintain academic integrity in all coursework",
+        "Show respectful behavior toward all community members",
+        "Keep account credentials secure and confidential",
+        "Participate actively in learning activities",
+        "Follow platform guidelines and terms of service",
+        "Provide constructive feedback when requested"
+      ]
+    },
+    "guidelines": {
+      "title": "Key Guidelines",
+      "description": "Essential principles that ensure a positive learning experience for everyone",
+      "sections": {
+        "conduct": {
+          "title": "Code of Conduct",
+          "content": "Maintain respectful behavior and academic integrity in all interactions with fellow students, instructors, and platform content."
+        },
+        "learning": {
+          "title": "Learning Responsibilities",
+          "content": "Complete coursework actively and engage meaningfully with the learning materials and community discussions."
+        },
+        "certification": {
+          "title": "Certification Standards",
+          "content": "Work independently and honestly for valid certificates. All assessments must reflect your own understanding and effort."
+        },
+        "security": {
+          "title": "Account Security",
+          "content": "Keep your login credentials secure and report any unauthorized access immediately to our support team."
+        }
+      }
+    },
+    "support": {
+      "title": "Support & Resources",
+      "description": "Access the help and resources you need for a successful learning journey",
+      "cards": {
+        "team": {
+          "title": "Support Team",
+          "description": "Get help when you need it most",
+          "button": "Contact Support"
+        },
+        "guidelines": {
+          "title": "Learning Guidelines",
+          "description": "Best practices for success",
+          "button": "View Guidelines"
+        },
+        "certs": {
+          "title": "Certifications",
+          "description": "Learn about our certification process",
+          "button": "Learn More"
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to Begin Your Journey?",
+      "description": "Join thousands of learners who are already advancing their skills and careers with our platform",
+      "browseButton": "Browse Courses",
+      "dashboardButton": "Go to Dashboard"
+    }
+  },
+  "StudentCommunityPage": {
+    "Metadata": {
+      "title": "Student Community",
+      "description": "Connect with fellow learners, join study groups, and participate in discussions on the {tenantName} platform."
+    },
+    "title": "Student Community Hub",
+    "description": "This feature is under construction. We are building a vibrant community space for you to connect with peers, join discussions, and enhance your learning experience.",
+    "badgeText": "Coming Soon"
+  },
+  "AboutPage": {
+    "Metadata": {
+      "title": "About Us",
+      "description": "Learn more about {tenantName} – our mission, values, and vision."
+    },
+    "hero": {
+      "badge": "About Our Platform",
+      "title": "Transforming Education",
+      "description": "We're on a mission to democratize quality education through innovative technology, expert instruction, and a supportive learning community that empowers students to achieve their goals."
+    },
+    "features": {
+      "title": "What Makes Our Platform Special",
+      "description": "Discover the features and tools that make learning and teaching more effective and enjoyable.",
+      "library": {
+        "title": "Comprehensive Course Library",
+        "description": "Access thousands of courses across various disciplines, from beginner to advanced levels, designed by industry experts and academic professionals."
+      },
+      "instructors": {
+        "title": "Expert Instructors",
+        "description": "Learn from experienced professionals and certified educators who bring real-world expertise and proven teaching methodologies to every course."
+      },
+      "interactive": {
+        "title": "Interactive Learning",
+        "description": "Engage with dynamic content including video lectures, interactive quizzes, hands-on projects, and collaborative discussions with peers."
+      },
+      "certification": {
+        "title": "Certification & Recognition",
+        "description": "Earn industry-recognized certificates upon course completion and showcase your achievements to potential employers and colleagues."
+      }
+    },
+    "benefits": {
+      "title": "How Our Platform Benefits You",
+      "description": "Whether you're here to learn new skills or share your expertise, we provide the tools and community you need to succeed.",
+      "students": {
+        "title": "For Students",
+        "items": [
+          "Access courses anytime, anywhere with our mobile-friendly platform",
+          "Learn at your own pace with flexible scheduling and lifetime access",
+          "Connect with a global community of learners and industry professionals",
+          "Get personalized learning recommendations based on your goals",
+          "Receive direct feedback and support from instructors and mentors",
+          "Build a portfolio of certified skills to advance your career"
+        ]
+      },
+      "instructors": {
+        "title": "For Instructors",
+        "items": [
+          "Reach students worldwide and grow your teaching impact",
+          "Monetize your expertise with competitive revenue sharing",
+          "Access comprehensive tools for course creation and management",
+          "Get marketing support to promote your courses effectively",
+          "Join a community of educators and share best practices",
+          "Receive detailed analytics to track student engagement and success"
+        ]
+      }
+    },
+    "values": {
+      "title": "Our Core Values",
+      "description": "The principles that guide everything we do and shape our approach to education.",
+      "mission": {
+        "title": "Mission-Driven",
+        "content": "We're committed to making quality education accessible to everyone, everywhere."
+      },
+      "innovation": {
+        "title": "Innovation First",
+        "content": "Leveraging cutting-edge technology to create engaging learning experiences."
+      },
+      "community": {
+        "title": "Community Focus",
+        "content": "Building a supportive learning community where students and instructors thrive together."
+      },
+      "impact": {
+        "title": "Global Impact",
+        "content": "Empowering learners worldwide with skills that matter in today's digital economy."
+      }
+    },
+    "cta": {
+      "title": "Ready to Start Your Learning Journey?",
+      "description": "Discover new skills, advance your career, and connect with a global community of learners.",
+      "exploreButton": "Explore Courses",
+      "contactButton": "Contact Us"
+    }
+  }
+}

@@ -2,13 +2,12 @@
 
 import * as React from 'react';
 import {
-  IconCamera,
   IconDashboard,
-  IconFileAi,
-  IconFileDescription,
   IconHelp,
   IconSearch,
   IconSettings,
+  IconBook,
+  IconTrophy,
 } from '@tabler/icons-react';
 import LogoLight from '@/public/logoLight.png';
 import LogoDark from '@/public/logoDark.png';
@@ -28,85 +27,18 @@ import {
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
-const data = {
-  navMain: [
-    {
-      title: 'Dashboard',
-      url: '/dashboard',
-      icon: IconDashboard,
-    },
-  ],
-  navClouds: [
-    {
-      title: 'Capture',
-      icon: IconCamera,
-      isActive: true,
-      url: '#',
-      items: [
-        {
-          title: 'Active Proposals',
-          url: '#',
-        },
-        {
-          title: 'Archived',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Proposal',
-      icon: IconFileDescription,
-      url: '#',
-      items: [
-        {
-          title: 'Active Proposals',
-          url: '#',
-        },
-        {
-          title: 'Archived',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Prompts',
-      icon: IconFileAi,
-      url: '#',
-      items: [
-        {
-          title: 'Active Proposals',
-          url: '#',
-        },
-        {
-          title: 'Archived',
-          url: '#',
-        },
-      ],
-    },
-  ],
-  navSecondary: [
-    {
-      title: 'Settings',
-      url: '/dashboard/settings',
-      icon: IconSettings,
-    },
-    {
-      title: 'Get Help',
-      url: '/faqs',
-      icon: IconHelp,
-    },
-    {
-      title: 'Search',
-      url: '#',
-      icon: IconSearch,
-    },
-  ],
-};
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  side: 'left' | 'right';
+}
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ side, ...props }: AppSidebarProps) {
   const { theme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+
+  const t = useTranslations('TenantPlatform.Sidebar');
+  const tAdmin = useTranslations('AdminSidebar');
 
   useEffect(() => {
     setMounted(true);
@@ -114,10 +46,47 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   const currentTheme = theme === 'system' ? systemTheme : theme;
 
+  const navMain = [
+    {
+      title: t('dashboard'),
+      url: '/dashboard',
+      icon: IconDashboard,
+    },
+    {
+      title: t('myCourses'),
+      url: '/courses',
+      icon: IconBook,
+    },
+    {
+      title: t('leaderboard'),
+      url: '/dashboard/leaderboard',
+      icon: IconTrophy,
+    },
+  ];
+
+  const navSecondary = [
+    {
+      title: tAdmin('navSecondary.settings'),
+      url: '/dashboard/settings',
+      icon: IconSettings,
+    },
+    {
+      title: tAdmin('navSecondary.getHelp'),
+      url: '/faqs',
+      icon: IconHelp,
+    },
+    {
+      title: tAdmin('navSecondary.search'),
+      url: '#',
+      icon: IconSearch,
+    },
+  ];
+
   return (
     <Sidebar
       collapsible='offcanvas'
       className='bg-background border-r'
+      side={side}
       {...props}
     >
       <SidebarHeader className='bg-background border-b'>
@@ -144,8 +113,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent className='bg-background'>
-        <NavMain items={data.navMain} />
-        <NavSecondary items={data.navSecondary} className='mt-auto' />
+        <NavMain items={navMain} />
+        <NavSecondary items={navSecondary} className='mt-auto' />
       </SidebarContent>
       <SidebarFooter className='bg-background border-t'>
         <NavUser />

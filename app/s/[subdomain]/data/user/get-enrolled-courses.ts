@@ -51,3 +51,45 @@ export async function getEnrolledCourses() {
 export type EnrolledCourseType = Awaited<
   ReturnType<typeof getEnrolledCourses>
 >[0];
+
+export async function getContinueLearningCourse() {
+  const user = await requireUser();
+  if (!user) return null;
+
+  const latestEnrollment = await prisma.enrollment.findFirst({
+    where: {
+      userId: user.id,
+      status: 'Active',
+    },
+    orderBy: {
+      updatedAt: 'desc',
+    },
+    select: {
+      lastAccessedLessonId: true,
+      Course: {
+        select: {
+          title: true,
+          slug: true,
+          fileKey: true,
+          chapter: {
+            orderBy: { position: 'asc' },
+            select: {
+              lessons: {
+                orderBy: { position: 'asc' },
+                select: {
+                  id: true,
+                  lessonProgress: {
+                    where: { userId: user.id },
+                    select: { completed: true },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return latestEnrollment;
+}

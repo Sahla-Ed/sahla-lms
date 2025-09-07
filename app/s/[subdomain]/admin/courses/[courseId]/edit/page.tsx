@@ -16,12 +16,17 @@ import { buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
 import { Eye } from 'lucide-react';
 
+import { getTranslations, getLocale } from 'next-intl/server';
+
 interface EditRouteProps {
   params: Promise<{ courseId: string }>;
 }
 
 export default async function EditRoute({ params }: EditRouteProps) {
   const { courseId } = await params;
+  const t = await getTranslations('EditCoursePage');
+  const locale = await getLocale();
+  const isRTL = locale === 'ar';
 
   const [data, planStatus] = await Promise.all([
     adminGetCourse(courseId),
@@ -37,32 +42,40 @@ export default async function EditRoute({ params }: EditRouteProps) {
     <div>
       <div className='mb-8 flex items-center justify-between'>
         <h1 className='text-3xl font-bold'>
-          Edit Course:{' '}
-          <span className='text-primary underline'>{data.title}</span>
+          {t.rich('header', {
+            courseTitle: data.title,
+            title: (chunks) => (
+              <span className='text-primary underline'>{chunks}</span>
+            ),
+          })}
         </h1>
         <Link
           href={previewUrl}
           className={buttonVariants({ variant: 'outline' })}
         >
-          <Eye className='mr-2 size-4' />
-          Preview & Moderate
+          <Eye className={isRTL ? 'ml-2 size-4' : 'mr-2 size-4'} />
+          {t('previewButton')}
         </Link>
       </div>
 
-      <Tabs defaultValue='basic-info' className='w-full'>
+      <Tabs
+        defaultValue='basic-info'
+        className='w-full'
+        dir={isRTL ? 'rtl' : 'ltr'}
+      >
         <TabsList className='grid w-full grid-cols-3'>
-          <TabsTrigger value='basic-info'>Basic Info</TabsTrigger>
-          <TabsTrigger value='course-structure'>Course Structure</TabsTrigger>
-          <TabsTrigger value='test-bank'>Test Bank</TabsTrigger>
+          <TabsTrigger value='basic-info'>{t('tabs.basicInfo')}</TabsTrigger>
+          <TabsTrigger value='course-structure'>
+            {t('tabs.courseStructure')}
+          </TabsTrigger>
+          <TabsTrigger value='test-bank'>{t('tabs.testBank')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value='basic-info'>
           <Card>
             <CardHeader>
-              <CardTitle>Basic Info</CardTitle>
-              <CardDescription>
-                Provide basic information about the course
-              </CardDescription>
+              <CardTitle>{t('basicInfo.title')}</CardTitle>
+              <CardDescription>{t('basicInfo.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               <EditCourseForm data={data} />
@@ -73,9 +86,9 @@ export default async function EditRoute({ params }: EditRouteProps) {
         <TabsContent value='course-structure'>
           <Card>
             <CardHeader>
-              <CardTitle>Course Structure</CardTitle>
+              <CardTitle>{t('courseStructure.title')}</CardTitle>
               <CardDescription>
-                Here you can update your Course Structure
+                {t('courseStructure.description')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -87,10 +100,8 @@ export default async function EditRoute({ params }: EditRouteProps) {
         <TabsContent value='test-bank'>
           <Card>
             <CardHeader>
-              <CardTitle>Test Bank</CardTitle>
-              <CardDescription>
-                Manage the questions for this course.
-              </CardDescription>
+              <CardTitle>{t('testBank.title')}</CardTitle>
+              <CardDescription>{t('testBank.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               <TestBank courseId={courseId} planName={planStatus.planName} />

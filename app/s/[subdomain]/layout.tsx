@@ -4,6 +4,8 @@ import './globals.css';
 import { Toaster } from '@/components/ui/sonner';
 import { Providers } from '@/components/Providers';
 import { getTenantSettings } from './data/admin/get-tenant-settings';
+import { getLocale, getMessages } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -16,26 +18,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Sahla Learning Platform',
-  description: 'Sahla is a web-based Learning Management System',
+  title: 'Learning Platform', // Generic fallback title
 };
 
 export default async function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ subdomain: string }>;
 }>) {
-  const { subdomain } = await params;
-  let tenantSetting;
-  if (subdomain) {
-    tenantSetting = await getTenantSettings();
-  }
-  console.log(tenantSetting);
+  const tenantSetting = await getTenantSettings();
+
+  const locale = await getLocale();
+  const messages = await getMessages();
+  const direction = locale === 'ar' ? 'rtl' : 'ltr';
 
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang={locale} dir={direction} suppressHydrationWarning>
       <head>
         <style
           dangerouslySetInnerHTML={{ __html: tenantSetting?.theme || '' }}
@@ -44,10 +42,12 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>
-          {children}
-          <Toaster closeButton position='bottom-center' />
-        </Providers>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <Providers>
+            {children}
+            <Toaster closeButton position='bottom-center' />
+          </Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

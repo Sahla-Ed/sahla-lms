@@ -27,11 +27,17 @@ import Link from 'next/link';
 import { HomeIcon, Tv2 } from 'lucide-react';
 import { useSignOut } from '@/hooks/use-signout';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import { useLocale, useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
 
 export function NavUser() {
   const { isMobile } = useSidebar();
   const { data: session, isPending } = authClient.useSession();
   const handleSignOut = useSignOut();
+
+  const t = useTranslations('NavUser');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
 
   if (isPending) {
     return (
@@ -69,7 +75,10 @@ export function NavUser() {
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size='lg'
-              className='data-[state=open]:bg-accent data-[state=open]:text-accent-foreground hover:bg-accent hover:text-accent-foreground transition-colors'
+              className={cn(
+                'data-[state=open]:bg-accent data-[state=open]:text-accent-foreground hover:bg-accent hover:text-accent-foreground transition-colors',
+                isRTL && 'flex-row-reverse',
+              )}
             >
               <Avatar className='h-8 w-8 rounded-lg'>
                 <AvatarImage
@@ -83,7 +92,12 @@ export function NavUser() {
                   {userInitial}
                 </AvatarFallback>
               </Avatar>
-              <div className='grid flex-1 text-left text-sm leading-tight'>
+              <div
+                className={cn(
+                  'grid flex-1 text-sm leading-tight',
+                  isRTL ? 'text-right' : 'text-left',
+                )}
+              >
                 <span className='text-foreground truncate font-medium'>
                   {displayName}
                 </span>
@@ -91,7 +105,12 @@ export function NavUser() {
                   {session?.user.email}
                 </span>
               </div>
-              <IconDotsVertical className='text-muted-foreground hover:text-foreground ml-auto size-4 transition-colors' />
+              <IconDotsVertical
+                className={cn(
+                  'text-muted-foreground hover:text-foreground size-4 transition-colors',
+                  isRTL ? 'mr-auto' : 'ml-auto',
+                )}
+              />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -101,7 +120,12 @@ export function NavUser() {
             sideOffset={4}
           >
             <DropdownMenuLabel className='p-0 font-normal'>
-              <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
+              <div
+                className={cn(
+                  'flex items-center gap-2 px-1 py-1.5 text-sm',
+                  isRTL && 'flex-row-reverse text-right',
+                )}
+              >
                 <Avatar className='h-8 w-8 rounded-lg'>
                   <AvatarImage
                     src={
@@ -114,7 +138,7 @@ export function NavUser() {
                     {userInitial}
                   </AvatarFallback>
                 </Avatar>
-                <div className='grid flex-1 text-left text-sm leading-tight'>
+                <div className='grid flex-1 leading-tight'>
                   <span className='text-foreground truncate font-medium'>
                     {displayName}
                   </span>
@@ -130,37 +154,58 @@ export function NavUser() {
                 asChild
                 className='hover:bg-accent hover:text-accent-foreground cursor-pointer transition-colors'
               >
-                <Link href='/' className='flex items-center space-x-2'>
+                <Link
+                  href='/'
+                  className={cn(
+                    'flex items-center space-x-2',
+                    isRTL && 'flex-row-reverse space-x-reverse',
+                  )}
+                >
                   <HomeIcon className='size-4' />
-                  <span>Homepage</span>
+                  <span>{t('homepage')}</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem
                 asChild
                 className='hover:bg-accent hover:text-accent-foreground cursor-pointer transition-colors'
               >
-                <Link href='/dashboard' className='flex items-center space-x-2'>
+                <Link
+                  href='/dashboard'
+                  className={cn(
+                    'flex items-center space-x-2',
+                    isRTL && 'flex-row-reverse space-x-reverse',
+                  )}
+                >
                   <IconDashboard className='size-4' />
-                  <span>Dashboard</span>
+                  <span>{t('dashboard')}</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem
                 asChild
                 className='hover:bg-accent hover:text-accent-foreground cursor-pointer transition-colors'
               >
-                <Link href='/courses' className='flex items-center space-x-2'>
+                <Link
+                  href='/courses'
+                  className={cn(
+                    'flex items-center space-x-2',
+                    isRTL && 'flex-row-reverse space-x-reverse',
+                  )}
+                >
                   <Tv2 className='size-4' />
-                  <span>Courses</span>
+                  <span>{t('courses')}</span>
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={handleSignOut}
-              className='cursor-pointer transition-colors hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950 dark:hover:text-red-400'
+              className={cn(
+                'cursor-pointer text-red-600 focus:bg-red-50 focus:text-red-600 dark:text-red-400 dark:focus:bg-red-950 dark:focus:text-red-400',
+                isRTL && 'flex-row-reverse',
+              )}
             >
-              <IconLogout className='mr-2 size-4' />
-              Log out
+              <IconLogout className='size-4' />
+              <span>{t('logout')}</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

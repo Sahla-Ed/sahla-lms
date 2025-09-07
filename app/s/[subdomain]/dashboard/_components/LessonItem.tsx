@@ -2,6 +2,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Check, HelpCircle, Play, Lock } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 interface iAppProps {
   lesson: {
@@ -26,6 +27,7 @@ export function LessonItem({
   quizFailed,
   isLocked,
 }: iAppProps) {
+  const t = useTranslations('CourseSidebar.lessonItem');
   if (isLocked) {
     return (
       <div
@@ -134,17 +136,17 @@ export function LessonItem({
           </p>
           {completed && !quizFailed && (
             <p className='text-[10px] font-medium text-green-700 dark:text-green-300'>
-              Completed
+              {t('completed')}
             </p>
           )}
           {quizFailed && (
             <p className='text-[10px] font-medium text-red-700 dark:text-red-300'>
-              Try again?
+              {t('tryAgain')}
             </p>
           )}
           {isActive && !completed && !quizFailed && (
             <p className='text-primary font-mediums text-[10px]'>
-              Currently Watching
+              {t('currentlyWatching')}
             </p>
           )}
         </div>
