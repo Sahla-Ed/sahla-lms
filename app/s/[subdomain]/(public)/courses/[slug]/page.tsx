@@ -28,6 +28,7 @@ import { getUserRole } from '@/lib/get-user-session';
 import { Player } from '@/components/player/player';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { LessonItemForPublic } from './_components/LessonItemForPublic';
+import Image from 'next/image';
 
 type PageParams = Promise<{ slug: string }>;
 
