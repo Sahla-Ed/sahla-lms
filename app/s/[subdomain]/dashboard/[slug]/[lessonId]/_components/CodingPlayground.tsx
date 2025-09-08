@@ -514,6 +514,7 @@ export function CodingPlayground({
       const slug = data.Chapter?.Course?.slug;
       console.log('ExecutionStatus:', executionStatus);
       const result = await submitCode(submissionData, slug, executionStatus);
+      console.log('Submission Result:', result);
 
       if (result.status === 'success') {
         toast.success('Code submitted successfully! 🎉');

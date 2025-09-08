@@ -48,7 +48,23 @@ export async function markLessonComplete(
       },
     });
 
-    revalidatePath(`/dashboard/${slug}`);
+    // Get course slug for revalidation
+    const lesson = await prisma.lesson.findUnique({
+      where: { id: lessonId },
+      select: {
+        Chapter: {
+          select: {
+            Course: {
+              select: { slug: true },
+            },
+          },
+        },
+      },
+    });
+
+    if (lesson?.Chapter?.Course?.slug) {
+      revalidatePath(`/dashboard/${lesson.Chapter.Course.slug}`);
+    }
 
     return {
       status: 'success',
@@ -86,7 +102,23 @@ export async function markLessonIncomplete(
       },
     });
 
-    revalidatePath(`/dashboard/${slug}`);
+    // Get course slug for revalidation
+    const lesson = await prisma.lesson.findUnique({
+      where: { id: lessonId },
+      select: {
+        Chapter: {
+          select: {
+            Course: {
+              select: { slug: true },
+            },
+          },
+        },
+      },
+    });
+
+    if (lesson?.Chapter?.Course?.slug) {
+      revalidatePath(`/dashboard/${lesson.Chapter.Course.slug}`);
+    }
 
     return {
       status: 'success',
@@ -152,8 +184,45 @@ export async function submitCode(
       },
     });
 
-    // revalidatePath(`/dashboard/${slug}/${result.data.lessonId}`);
-    revalidatePath(`/dashboard/${slug}`);
+    // mark lesson progress as completed for the user
+    await prisma.lessonProgress.upsert({
+      where: {
+        userId_lessonId: {
+          userId: result.data.userId,
+          lessonId: result.data.lessonId,
+        },
+      },
+      update: {
+        completed: true,
+      },
+      create: {
+        lessonId: result.data.lessonId,
+        userId: result.data.userId,
+        completed: true,
+        tenantId: session?.tenantId ?? '',
+      },
+    });
+
+    // Get course slug for revalidation
+    const lesson = await prisma.lesson.findUnique({
+      where: { id: result.data.lessonId },
+      select: {
+        Chapter: {
+          select: {
+            Course: {
+              select: { slug: true },
+            },
+          },
+        },
+      },
+    });
+
+    if (lesson?.Chapter?.Course?.slug) {
+      revalidatePath(`/dashboard/${lesson.Chapter.Course.slug}`);
+      console.log(
+        `########## revalidated /dashboard/${lesson.Chapter.Course.slug}`,
+      );
+    }
 
     return {
       status: 'success',
