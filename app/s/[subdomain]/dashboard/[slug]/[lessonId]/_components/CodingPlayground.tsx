@@ -195,10 +195,9 @@ int factorial(int n) {
 }
 
 int main() {
-    printf("Factorial calculations:\\n");
-    for(int i = 1; i <= 5; i++) {
-        printf("%d! = %d\\n", i, factorial(i));
-    }
+int n;
+    scanf("%d", &n);
+    printf("%d\n", factorial(n));
     return 0;
 }`,
   javascript: `// JavaScript Example
@@ -260,7 +259,7 @@ export function CodingPlayground({
   const codingExercise = data.codingExercise?.[0];
   const exerciseLanguage = codingExercise?.language || 'web';
 
-  // State for tracking if we&apos;ve loaded user submission
+  // State for tracking if we've loaded user submission
   const [isCodeInitialized, setIsCodeInitialized] = useState(false);
   const [hasUserSubmission, setHasUserSubmission] = useState(false);
   const [lastSubmissionDate, setLastSubmissionDate] = useState<Date | null>(
@@ -321,6 +320,13 @@ export function CodingPlayground({
   // Server-side development state
   const [serverCode, setServerCode] = useState(starterCode.serverCode);
   const [serverLanguage, setServerLanguage] = useState(starterCode.language);
+
+  // Test case results state
+  const [testResults, setTestResults] = useState<any[]>([]);
+  const [isTesting, setIsTesting] = useState(false);
+
+  // Get test cases from codingExercise
+  const testCases = codingExercise?.testCases || [];
 
   // UI state
   const [mode, setMode] = useState<'web' | 'server'>(starterCode.mode);
@@ -472,6 +478,31 @@ export function CodingPlayground({
     }
   }, [serverCode, serverLanguage]);
 
+  // Batch run all test cases via API
+  const runAllTestCases = useCallback(async () => {
+    setIsTesting(true);
+    setTestResults([]);
+    try {
+      const response = await fetch('/api/run-test-cases', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          code: serverCode,
+          language: serverLanguage,
+          testCases,
+        }),
+      });
+      const { results } = await response.json();
+      setTestResults(results);
+      toast.success('Test cases executed!');
+    } catch (error) {
+      toast.error('Failed to run test cases');
+      setTestResults([]);
+    } finally {
+      setIsTesting(false);
+    }
+  }, [serverCode, serverLanguage, testCases]);
+
   const handleRunCode = useCallback(async () => {
     setIsRunning(true);
 
@@ -514,7 +545,6 @@ export function CodingPlayground({
       const slug = data.Chapter?.Course?.slug;
       console.log('ExecutionStatus:', executionStatus);
       const result = await submitCode(submissionData, slug, executionStatus);
-      console.log('Submission Result:', result);
 
       if (result.status === 'success') {
         toast.success('Code submitted successfully! 🎉');
@@ -727,6 +757,30 @@ export function CodingPlayground({
               )}
             </Button>
 
+            {/* Run All Test Cases Button */}
+            {mode === 'server' &&
+              Array.isArray(testCases) &&
+              testCases.length > 0 && (
+                <Button
+                  onClick={runAllTestCases}
+                  disabled={isTesting}
+                  variant='outline'
+                  className='text-green-600 hover:text-green-700'
+                >
+                  {isTesting ? (
+                    <>
+                      <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                      Testing...
+                    </>
+                  ) : (
+                    <>
+                      <Play className='mr-2 h-4 w-4' />
+                      Run All Test Cases
+                    </>
+                  )}
+                </Button>
+              )}
+
             <Button onClick={handleSubmitCode} disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
@@ -906,6 +960,54 @@ export function CodingPlayground({
               </div>
             )}
           </div> */}
+
+        {/* Test Case Results Table */}
+        {mode === 'server' && testResults.length > 0 && (
+          <div className='mt-4 overflow-hidden rounded-md border'>
+            <div className='border-b bg-gray-50 px-4 py-2 text-sm font-medium dark:bg-gray-800 dark:text-gray-200'>
+              🧪 Test Case Results
+            </div>
+            <div className='max-h-[300px] overflow-y-auto p-4'>
+              <table className='w-full border text-xs'>
+                <thead>
+                  <tr>
+                    <th className='border px-2 py-1'>Input</th>
+                    <th className='border px-2 py-1'>Expected Output</th>
+                    <th className='border px-2 py-1'>Actual Output</th>
+                    <th className='border px-2 py-1'>Status</th>
+                    <th className='border px-2 py-1'>Time (s)</th>
+                    <th className='border px-2 py-1'>Memory (KB)</th>
+                    <th className='border px-2 py-1'>Error</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {testResults.map((r, i) => (
+                    <tr
+                      key={i}
+                      className={`mb-3 rounded border p-3 text-sm ${r.status === 'Accepted' ? 'bg-green-100' : 'bg-red-100'} border-blue-200 dark:border-blue-800 dark:bg-blue-950`}
+                    >
+                      <td className='border px-2 py-1'>
+                        <pre>{r.input}</pre>
+                      </td>
+                      <td className='border px-2 py-1'>
+                        <pre>{r.expectedOutput}</pre>
+                      </td>
+                      <td className='border px-2 py-1'>
+                        <pre>{r.actualOutput}</pre>
+                      </td>
+                      <td className='border px-2 py-1'>{r.status}</td>
+                      <td className='border px-2 py-1'>{r.time}</td>
+                      <td className='border px-2 py-1'>{r.memory}</td>
+                      <td className='border px-2 py-1'>
+                        <pre>{r.error}</pre>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
 
         {/* Submissions History */}
         <div className='overflow-hidden rounded-md border'>
