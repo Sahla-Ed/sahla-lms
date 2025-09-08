@@ -401,6 +401,7 @@ export async function updateCodingExercise({
   language,
   starterCode,
   instructions,
+  testCases,
 }: {
   lessonId: string;
   title: string;
@@ -408,6 +409,12 @@ export async function updateCodingExercise({
   language: string;
   starterCode: string;
   instructions?: string;
+  testCases?: Array<{
+    input: string;
+    expectedOutput: string;
+    timeLimit: number;
+    memoryLimit: number;
+  }>;
 }): Promise<ApiResponse> {
   // const { user } = await requireAdmin();
   try {
@@ -460,6 +467,7 @@ export async function updateCodingExercise({
             language: language,
             starterCode: starterCode,
             instructions: instructions || '',
+            testCases: testCases || [],
           },
         });
       } else {
@@ -472,6 +480,7 @@ export async function updateCodingExercise({
             language: language,
             starterCode: starterCode,
             instructions: instructions || '',
+            testCases: testCases || [],
           },
         });
       }

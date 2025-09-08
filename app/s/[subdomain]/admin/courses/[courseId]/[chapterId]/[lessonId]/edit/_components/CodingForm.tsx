@@ -228,6 +228,11 @@ export default function CodingForm({
   // Preview state
   const [showPreview, setShowPreview] = useState(false);
 
+  // Test cases state
+  const [testCases, setTestCases] = useState([
+    { input: '', expectedOutput: '', timeLimit: 2, memoryLimit: 128 },
+  ]);
+
   // Load existing coding exercise data
   useEffect(() => {
     const loadCodingExercise = async () => {
@@ -259,6 +264,9 @@ export default function CodingForm({
           // No existing exercise, use defaults
           setInstructions('Complete the coding exercise below.');
           setLanguage('web');
+          setTestCases([
+            { input: '', expectedOutput: '', timeLimit: 2, memoryLimit: 128 },
+          ]);
         }
       } catch (error) {
         console.error('Failed to load coding exercise:', error);
@@ -303,6 +311,7 @@ export default function CodingForm({
           language,
           starterCode,
           instructions,
+          testCases, // <-- include test cases in save
         }),
       );
 
@@ -627,6 +636,96 @@ export default function CodingForm({
               />
             </div>
           )}
+        </CardContent>
+      </Card>
+
+      {/* Test Cases Section */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Test Cases</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {testCases.map((tc, idx) => (
+            <div key={idx} className='mb-4 rounded border p-3'>
+              <Label>Input</Label>
+              <Textarea
+                value={tc.input}
+                onChange={(e) => {
+                  const arr = [...testCases];
+                  arr[idx].input = e.target.value;
+                  setTestCases(arr);
+                }}
+                className='mb-2'
+              />
+              <Label>Expected Output</Label>
+              <Textarea
+                value={tc.expectedOutput}
+                onChange={(e) => {
+                  const arr = [...testCases];
+                  arr[idx].expectedOutput = e.target.value;
+                  setTestCases(arr);
+                }}
+                className='mb-2'
+              />
+              <div className='flex gap-4'>
+                <div>
+                  <Label>Time Limit (sec)</Label>
+                  <Input
+                    type='number'
+                    value={tc.timeLimit}
+                    min={1}
+                    onChange={(e) => {
+                      const arr = [...testCases];
+                      arr[idx].timeLimit = Number(e.target.value);
+                      setTestCases(arr);
+                    }}
+                    className='w-24'
+                  />
+                </div>
+                <div>
+                  <Label>Memory Limit (MB)</Label>
+                  <Input
+                    type='number'
+                    value={tc.memoryLimit}
+                    min={16}
+                    onChange={(e) => {
+                      const arr = [...testCases];
+                      arr[idx].memoryLimit = Number(e.target.value);
+                      setTestCases(arr);
+                    }}
+                    className='w-24'
+                  />
+                </div>
+              </div>
+              <Button
+                variant='outline'
+                size='sm'
+                className='mt-2'
+                onClick={() =>
+                  setTestCases(testCases.filter((_, i) => i !== idx))
+                }
+              >
+                Remove
+              </Button>
+            </div>
+          ))}
+          <Button
+            variant='secondary'
+            size='sm'
+            onClick={() =>
+              setTestCases([
+                ...testCases,
+                {
+                  input: '',
+                  expectedOutput: '',
+                  timeLimit: 2,
+                  memoryLimit: 128,
+                },
+              ])
+            }
+          >
+            Add Test Case
+          </Button>
         </CardContent>
       </Card>
 
