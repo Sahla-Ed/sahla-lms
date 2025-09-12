@@ -1,5 +1,6 @@
 {
   "SahlaPlatform": {
+   
     "common": {
       "getStarted": "Get Started",
       "explorePlans": "Explore Our Plans",
@@ -7,13 +8,20 @@
       "startFreeTrialToday": "Start Your Free Trial Today",
       "discoverMore": "Discover More",
       "themeToggle": {
-        "toggle": "Toggle theme",
-        "light": "Light",
-        "dark": "Dark",
-        "system": "System"
+        "mode": "Mode",
+    "toggle": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+      },
+      "languageSwitcher": {
+          "language": "Language",
+          "en": "En",
+          "ar": "Ar"
       }
     },
     "Header": {
+      "Sahla":"Sahla",
       "home": "Home",
       "pricing": "Pricing",
       "contact": "Contact",

@@ -7,13 +7,20 @@
       "startFreeTrialToday": "ابدأ تجربتك المجانية اليوم",
       "discoverMore": "اكتشف المزيد",
       "themeToggle": {
+        "mode": "الوضع",
         "toggle": "تغيير المظهر",
         "light": "فاتح",
         "dark": "داكن",
         "system": "النظام"
+      },
+      "languageSwitcher": {
+          "language": "اللغة",
+          "en": "English",
+          "ar": "العربية"
       }
     },
     "Header": {
+      "Sahla":"سهله",
       "home": "الرئيسية",
       "pricing": "الأسعار",
       "contact": "تواصل معنا",
