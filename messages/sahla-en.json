@@ -42,83 +42,90 @@
       "copyright": "© Sahla Learning Platform 2025"
     },
     "HomePage": {
-      "Metadata": {
-        "title": "Sahla LMS | Your All-in-One Learning Platform",
-        "description": "Launch, manage, and scale your online learning business with Sahla, the powerful multi-tenant LMS."
-      },
-      "hero": {
-        "badge": "Your Learning Platform, Reimagined",
-        "title": "Transform Education. Empower Creators.",
-        "description": "Sahla provides a robust, multi-tenant platform for you to launch, manage, and scale your online learning business with unparalleled ease and power."
-      },
-      "trustedBy": {
-        "title": "Trusted by leading academies worldwide",
-        "logo1Alt": "Udemy Logo",
-        "logo2Alt": "Mesq Logo",
-        "logo3Alt": "Tech Stars Logo"
-      },
-      "keyFeatures": {
-        "title": "Key Features",
-        "multiTenancy": {
-          "title": "Multi-Tenancy",
-          "description": "Launch multiple branded learning platforms with unique subdomains, all from one powerful system."
-        },
-        "courseManagement": {
-          "title": "Comprehensive Course Management",
-          "description": "Create and manage courses with rich content, quizzes, and coding playgrounds."
-        },
-        "payments": {
-          "title": "Integrated Payments",
-          "description": "Seamlessly sell courses and manage subscriptions with built-in Stripe integration."
-        }
-      },
-      "howItWorks": {
-        "title": "How It Works",
-        "step1": {
-          "title": "1. Set Up Your Platform",
-          "description": "Quickly create your branded learning environment with our intuitive setup process."
-        },
-        "step2": {
-          "title": "2. Create & Manage Courses",
-          "description": "Populate your platform with engaging courses using our powerful content creation tools."
-        },
-        "step3": {
-          "title": "3. Grow Your Audience",
-          "description": "Attract students and scale your business with integrated marketing and analytics features."
-        }
-      },
-      "whyChooseUs": {
-        "title": "Why Choose Sahla?",
-        "support": {
-          "title": "Award-Winning Support",
-          "description": "Our dedicated support team is always ready to help you succeed."
-        },
-        "features": {
-          "title": "Innovative Features",
-          "description": "Stay ahead with AI-powered tools, interactive coding, and more."
-        },
-        "community": {
-          "title": "Community Driven",
-          "description": "Join a thriving community of educators and learners."
-        }
-      },
-      "testimonials": {
-        "title": "What Our Clients Say",
-        "testimonial1": {
-          "quote": "\"Sahla transformed our online course delivery. The multi-tenancy feature is a game-changer!\"",
-          "author": "- Jane Doe, CEO of EduCorp"
-        },
-        "testimonial2": {
-          "quote": "\"The ease of use and powerful features of Sahla allowed us to launch our academy in record time.\"",
-          "author": "- John Smith, Founder of Tech Academy"
-        }
-      },
-      "cta": {
-        "title": "Ready to Build Your Learning Empire?",
-        "description": "Join countless successful educators and businesses using Sahla to deliver world-class online education.",
-        "button": "Start Your Free Trial"
-      }
-    },
+  "Metadata": {
+    "title": "Sahla LMS | Turn Your Expertise into a Thriving Education Business",
+    "description": "Launch, manage, and scale your own online academy. Sahla gives you the tools, you build the impact."
+  },
+  "hero": {
+    "badge": "More than a creator. You're a business owner.",
+    "title": "Your expertise is your edge. We give you the tools to turn it into an education empire.",
+    "description": "Sahla is your all-in-one platform to create and sell courses, digital downloads, and communities under your own brand."
+  },
+  "trustedBy": {
+  "title": "Powering creators, inspired by the world's best platforms."
+},
+"whySahla": {
+  "pre_title": "Why Sahla?",
+  "title": "Smart features. Efficient workflow.",
+  "feature1_title": "Your Full Brand Identity",
+  "feature1_desc": "Try it yourself! Pick a color or upload a mock logo to see how easily your platform can be customized.",
+  "feature1_interactive": {
+    "colors_label": "Choose your brand color:",
+    "logo_label": "Or upload your logo:",
+    "logo_button": "Choose File",
+    "success_message": "Just like that... your platform is ready with your brand!"
+  },
+  "feature2_title": "Live Interactive Code Editor",
+  "feature2_desc": "Turn theoretical lessons into hands-on experiences. Let your students write and run code directly within the lesson and see the results instantly.",
+  "feature2_interactive": {
+    "run_code": "Run Code",
+    "running": "Running...",
+    "error_message": "Oops, an error! 🤓 Try that again.",
+    "success_message": "That's it! ✅ Code executed successfully."
+  },
+  "feature3_title": "Focus on Creating. We'll Handle the Rest.",
+  "feature3_desc": "Whatever your field, we provide the tools and ideas to help you succeed. Just focus on benefiting your students."
+},
+"finalCta": {
+  "title": "Everything You Need to Succeed in One Place",
+  "description": "We provide the entire technical infrastructure, from student management to secure payment gateways, so you can focus on creating exceptional educational content.",
+  "your_product": "Your Educational Product",
+  "learn_more": "Learn how Sahla works",
+  "features": {
+    "students": "Student Management",
+    "quizzes": "Interactive Quizzes",
+    "payments": "Payment Gateways",
+    "analytics": "Analytics & Reports",
+    "certificates": "Certificates",
+    "branding": "Your Own Branding"
+  }
+},
+  "difference": {
+    "title": "Skip years of work. Start where others finish.",
+    "without_title": "The challenges without Sahla",
+    "without_steps": "Finding developers, building infrastructure, complex design, catching up with updates.",
+    "without_time": "1-3 Years",
+    "with_title": "Launching with Sahla",
+    "with_steps": "Customize identity, upload content, launch your academy, welcome students.",
+    "with_time": "1 Week"
+  },
+  "dashboard": {
+    "title": "A smart dashboard for smarter decisions.",
+    "description": "With a single glance, get all the insights you need. Focus on making a real impact on minds, and leave the rest to us."
+  },
+  "tools": {
+  "title": "Tools designed for your success. Not just features.",
+  "description": "Every part of Sahla is built to solve a real problem you face as an educational content creator.",
+  "ai_bank": {
+    "title": "Create interactive quizzes in seconds",
+    "description": "Turn your content into engaging quizzes with the click of a button. Just provide the topic, and let AI build a comprehensive test bank for you. You can also easily import your existing questions.",
+    "cta": "Discover AI Power"
+  },
+  "secure_video": {
+    "title": "Your content is completely secure. Always.",
+    "description": "Never worry about your hard work being stolen. We use state-of-the-art protection to prevent downloads and screen recording, ensuring your content reaches only your paying students.",
+    "cta": "Learn About Security"
+  },
+  "engagement": {
+    "title": "Build a community, not just a course",
+    "description": "Learning is a social experience. Enable your students to interact through comments, messages, and spark competition with a leaderboard that motivates them to complete courses.",
+    "cta": "See Engagement Tools"
+  }
+},
+  "testimonials": {
+    "title": "Success stories from creators like you"
+  }
+},
 
     "PricingPage": {
       "Metadata": {
