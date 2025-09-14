@@ -28,6 +28,7 @@ import { getUserRole } from '@/lib/get-user-session';
 import { Player } from '@/components/player/player';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { LessonItemForPublic } from './_components/LessonItemForPublic';
+import Image from 'next/image';
 
 type PageParams = Promise<{ slug: string }>;
 
@@ -86,11 +87,19 @@ export default async function SlugPage({ params }: { params: PageParams }) {
           <div className='grid grid-cols-1 gap-8 lg:grid-cols-12'>
             <div className='lg:col-span-8'>
               <div className='group shadow-primary/10 border-border/50 relative aspect-video w-full overflow-hidden rounded-2xl border shadow-2xl'>
-                {course.videoKey && (
+                {course.videoKey ? (
                   <Player
                     src={constructUrl(course.videoKey)}
                     coverSrc={constructUrl(course.fileKey!)}
                     coverAlt={course.title + ' cover'}
+                  />
+                ) : (
+                  <Image
+                    src={constructUrl(course.fileKey!)}
+                    alt={course.title}
+                    fill
+                    className='object-cover transition-transform duration-700 group-hover:scale-105'
+                    priority
                   />
                 )}
               </div>

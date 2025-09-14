@@ -17,7 +17,7 @@ index a3719d8c3c7807c9822ad266ebab5dd91a570892..4aec1f28e7e5732250380230fda17766
  interface PrismaClient {
  }
 diff --git a/dist/adapters/prisma-adapter/index.mjs b/dist/adapters/prisma-adapter/index.mjs
-index de2150464d8c3205ad55a5f4a91b16b7e9e40698..ee0899261f48f3ba2733aa7515b020fffdf54b02 100644
+index de2150464d8c3205ad55a5f4a91b16b7e9e40698..daceca01604e63a99182a0ccb262ec294402415c 100644
 --- a/dist/adapters/prisma-adapter/index.mjs
 +++ b/dist/adapters/prisma-adapter/index.mjs
 @@ -18,12 +18,31 @@ import '@better-auth/utils/hex';
@@ -91,16 +91,15 @@ index de2150464d8c3205ad55a5f4a91b16b7e9e40698..ee0899261f48f3ba2733aa7515b020ff
          if (!db[model]) {
            throw new BetterAuthError(
              `Model ${model} does not exist in the database. If you haven't generated the Prisma client, you need to run 'npx prisma generate'`
-@@ -141,14 +164,16 @@ const prismaAdapter = (prisma, config) => createAdapter({
+@@ -141,6 +164,7 @@ const prismaAdapter = (prisma, config) => createAdapter({
              `Model ${model} does not exist in the database. If you haven't generated the Prisma client, you need to run 'npx prisma generate'`
            );
          }
--        const whereClause = convertWhereClause(model, where);
-+        const whereWithTanentId = addTenantIdCondetion(where , config.tenantId) 
-+        const whereClause = convertWhereClause(model, whereWithTanentId);
++        //WARN:this could leak but i changed it fix a bug with session any way idd should be unique
+         const whereClause = convertWhereClause(model, where);
          return await db[model].update({
            where: whereClause,
-           data: update
+@@ -148,7 +172,8 @@ const prismaAdapter = (prisma, config) => createAdapter({
          });
        },
        async updateMany({ model, where, update }) {
