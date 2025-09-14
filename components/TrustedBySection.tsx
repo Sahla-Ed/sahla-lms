@@ -21,7 +21,7 @@ export default function TrustedBySection() {
   const displayedLogos = locale === 'ar' ? [...logos].reverse() : logos;
 
   return (
-    <section className='py-16'>
+    <section className='bg-accent py-16'>
       <div className='container mx-auto text-center'>
         <ScrollAnimate>
           <h3 className='text-foreground mb-4 text-xl font-bold tracking-tight'>
@@ -47,7 +47,7 @@ export default function TrustedBySection() {
                     alt={logo.name}
                     width={140}
                     height={40}
-                    className='h-8 w-auto object-contain opacity-60 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0'
+                    className='h-8 w-auto object-contain opacity-100 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0'
                   />
                 </div>
               ))}
