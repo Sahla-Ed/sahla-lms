@@ -43,15 +43,10 @@ export default function Error({ error, reset }: ErrorProps) {
           </CardDescription>
         </CardHeader>
         <CardContent className='space-y-4'>
-          <div className='bg-muted rounded-lg p-4 text-left'>
+          <div className='bg-muted rounded-lg p-4 text-center'>
             <p className='text-muted-foreground text-sm'>
-              <strong>Error:</strong> {error.message}
+              We're working to fix this issue. Please try again in a moment.
             </p>
-            {error.digest && (
-              <p className='text-muted-foreground mt-2 text-xs'>
-                <strong>Error ID:</strong> {error.digest}
-              </p>
-            )}
           </div>
 
           <div className='flex flex-col gap-3 sm:flex-row'>
