@@ -23,7 +23,6 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import { cn } from '@/lib/utils';
 import { ScrollAnimate } from '@/components/general/ScrollAnimate';
 
-
 const Scribble = ({
   className,
   shape = 'swoosh',
@@ -272,10 +271,7 @@ export default async function PricingPage() {
             </ScrollAnimate>
             <Accordion type='single' collapsible className='w-full space-y-4'>
               {pricingFaqs.map((faq, index) => (
-                <ScrollAnimate
-                key={index}
-                delay={(index * 100).toString()}
-              >
+                <ScrollAnimate key={index} delay={(index * 100).toString()}>
                   <AccordionItem
                     value={`item-${index}`}
                     className='bg-card/50 rounded-lg border'

@@ -10,14 +10,18 @@ interface ScrollAnimateProps {
   delay?: string;
 }
 
-export function ScrollAnimate({ children, direction = 'up', delay = '100' }: ScrollAnimateProps) {
+export function ScrollAnimate({
+  children,
+  direction = 'up',
+  delay = '100',
+}: ScrollAnimateProps) {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
   const baseClasses = `transition-all duration-700 ease-out delay-${delay}`;
-  
+
   const directionClasses = {
     up: 'translate-y-10',
     left: '-translate-x-10',
@@ -29,7 +33,9 @@ export function ScrollAnimate({ children, direction = 'up', delay = '100' }: Scr
       ref={ref}
       className={cn(
         baseClasses,
-        inView ? 'opacity-100 translate-x-0 translate-y-0' : `opacity-0 ${directionClasses[direction]}`
+        inView
+          ? 'translate-x-0 translate-y-0 opacity-100'
+          : `opacity-0 ${directionClasses[direction]}`,
       )}
     >
       {children}

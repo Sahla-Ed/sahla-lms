@@ -24,7 +24,7 @@ export function ThemeToggle({ translationNamespace }: ThemeToggleProps) {
 
   const toggleTheme = () => {
     setIsClicked(true);
-    
+
     if (theme === 'light') {
       setTheme('dark');
     } else if (theme === 'dark') {
@@ -38,7 +38,6 @@ export function ThemeToggle({ translationNamespace }: ThemeToggleProps) {
     }, 100);
 
     setTimeout(() => setIsClicked(false), 150);
-    
 
     setTimeout(() => {
       setShowText(false);
@@ -50,7 +49,7 @@ export function ThemeToggle({ translationNamespace }: ThemeToggleProps) {
 
     const iconClass = cn(
       'h-4 w-4 transition-all duration-300',
-      isClicked && 'scale-110 rotate-12'
+      isClicked && 'scale-110 rotate-12',
     );
 
     if (resolvedTheme === 'dark') {
@@ -65,7 +64,7 @@ export function ThemeToggle({ translationNamespace }: ThemeToggleProps) {
   if (!mounted) {
     return (
       <Button variant='outline' size='icon' className='relative'>
-        <div className='h-4 w-4 bg-gray-300 rounded-full animate-pulse' />
+        <div className='h-4 w-4 animate-pulse rounded-full bg-gray-300' />
       </Button>
     );
   }
@@ -76,43 +75,46 @@ export function ThemeToggle({ translationNamespace }: ThemeToggleProps) {
       size='icon'
       onClick={toggleTheme}
       className={cn(
-        'relative overflow-hidden transition-all duration-700 ease-in-out group',
-        showText ? 'w-[110px] px-4 rounded-full' : 'w-10',
-        'hover:scale-105 active:scale-95'
+        'group relative overflow-hidden transition-all duration-700 ease-in-out',
+        showText ? 'w-[110px] rounded-full px-4' : 'w-10',
+        'hover:scale-105 active:scale-95',
       )}
     >
-      <div className='flex items-center justify-center relative z-10'>
-        <div className={cn(
-          'transition-all duration-300 flex-shrink-0',
-          showText && (isRTL ? 'ml-3' : 'mr-3')
-        )}>
+      <div className='relative z-10 flex items-center justify-center'>
+        <div
+          className={cn(
+            'flex-shrink-0 transition-all duration-300',
+            showText && (isRTL ? 'ml-3' : 'mr-3'),
+          )}
+        >
           <ThemeIcon />
         </div>
         <div
           className={cn(
             'overflow-hidden transition-all duration-700 ease-out',
-            showText 
-              ? 'max-w-[70px] opacity-100 transform translate-x-0' 
-              : 'max-w-0 opacity-0 transform translate-x-4'
+            showText
+              ? 'max-w-[70px] translate-x-0 transform opacity-100'
+              : 'max-w-0 translate-x-4 transform opacity-0',
           )}
         >
-          <span className={cn(
-            'text-xs font-semibold whitespace-nowrap',
-            isRTL ? 'pr-1' : 'pl-1'
-          )}>
+          <span
+            className={cn(
+              'text-xs font-semibold whitespace-nowrap',
+              isRTL ? 'pr-1' : 'pl-1',
+            )}
+          >
             {t(theme as 'light' | 'dark' | 'system')}
           </span>
         </div>
       </div>
 
-
       <div
         className={cn(
           'absolute inset-0 bg-gradient-to-r transition-all duration-500',
-          resolvedTheme === 'dark' 
+          resolvedTheme === 'dark'
             ? 'from-blue-500/0 via-purple-500/0 to-blue-500/0'
             : 'from-yellow-500/0 via-orange-500/0 to-yellow-500/0',
-          showText && 'from-blue-500/5 via-purple-500/10 to-blue-500/5'
+          showText && 'from-blue-500/5 via-purple-500/10 to-blue-500/5',
         )}
       />
     </Button>

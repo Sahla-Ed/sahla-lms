@@ -1,6 +1,5 @@
 {
   "SahlaPlatform": {
-   
     "common": {
       "getStarted": "Get Started",
       "explorePlans": "Explore Our Plans",
@@ -9,19 +8,19 @@
       "discoverMore": "Discover More",
       "themeToggle": {
         "mode": "Mode",
-    "toggle": "Toggle theme",
-    "light": "Light",
-    "dark": "Dark",
-    "system": "System"
+        "toggle": "Toggle theme",
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System"
       },
       "languageSwitcher": {
-          "language": "Language",
-          "en": "En",
-          "ar": "Ar"
+        "language": "Language",
+        "en": "En",
+        "ar": "Ar"
       }
     },
     "Header": {
-      "Sahla":"Sahla",
+      "Sahla": "Sahla",
       "home": "Home",
       "pricing": "Pricing",
       "contact": "Contact",
@@ -42,90 +41,90 @@
       "copyright": "© Sahla Learning Platform 2025"
     },
     "HomePage": {
-  "Metadata": {
-    "title": "Sahla LMS | Turn Your Expertise into a Thriving Education Business",
-    "description": "Launch, manage, and scale your own online academy. Sahla gives you the tools, you build the impact."
-  },
-  "hero": {
-    "badge": "More than a creator. You're a business owner.",
-    "title": "Your expertise is your edge. We give you the tools to turn it into an education empire.",
-    "description": "Sahla is your all-in-one platform to create and sell courses, digital downloads, and communities under your own brand."
-  },
-  "trustedBy": {
-  "title": "Powering creators, inspired by the world's best platforms."
-},
-"whySahla": {
-  "pre_title": "Why Sahla?",
-  "title": "Smart features. Efficient workflow.",
-  "feature1_title": "Your Full Brand Identity",
-  "feature1_desc": "Try it yourself! Pick a color or upload a mock logo to see how easily your platform can be customized.",
-  "feature1_interactive": {
-    "colors_label": "Choose your brand color:",
-    "logo_label": "Or upload your logo:",
-    "logo_button": "Choose File",
-    "success_message": "Just like that... your platform is ready with your brand!"
-  },
-  "feature2_title": "Live Interactive Code Editor",
-  "feature2_desc": "Turn theoretical lessons into hands-on experiences. Let your students write and run code directly within the lesson and see the results instantly.",
-  "feature2_interactive": {
-    "run_code": "Run Code",
-    "running": "Running...",
-    "error_message": "Oops, an error! 🤓 Try that again.",
-    "success_message": "That's it! ✅ Code executed successfully."
-  },
-  "feature3_title": "Focus on Creating. We'll Handle the Rest.",
-  "feature3_desc": "Whatever your field, we provide the tools and ideas to help you succeed. Just focus on benefiting your students."
-},
-"finalCta": {
-  "title": "Everything You Need to Succeed in One Place",
-  "description": "We provide the entire technical infrastructure, from student management to secure payment gateways, so you can focus on creating exceptional educational content.",
-  "your_product": "Your Educational Product",
-  "learn_more": "Learn how Sahla works",
-  "features": {
-    "students": "Student Management",
-    "quizzes": "Interactive Quizzes",
-    "payments": "Payment Gateways",
-    "analytics": "Analytics & Reports",
-    "certificates": "Certificates",
-    "branding": "Your Own Branding"
-  }
-},
-  "difference": {
-    "title": "Skip years of work. Start where others finish.",
-    "without_title": "The challenges without Sahla",
-    "without_steps": "Finding developers, building infrastructure, complex design, catching up with updates.",
-    "without_time": "1-3 Years",
-    "with_title": "Launching with Sahla",
-    "with_steps": "Customize identity, upload content, launch your academy, welcome students.",
-    "with_time": "1 Week"
-  },
-  "dashboard": {
-    "title": "A smart dashboard for smarter decisions.",
-    "description": "With a single glance, get all the insights you need. Focus on making a real impact on minds, and leave the rest to us."
-  },
-  "tools": {
-  "title": "Tools designed for your success. Not just features.",
-  "description": "Every part of Sahla is built to solve a real problem you face as an educational content creator.",
-  "ai_bank": {
-    "title": "Create interactive quizzes in seconds",
-    "description": "Turn your content into engaging quizzes with the click of a button. Just provide the topic, and let AI build a comprehensive test bank for you. You can also easily import your existing questions.",
-    "cta": "Discover AI Power"
-  },
-  "secure_video": {
-    "title": "Your content is completely secure. Always.",
-    "description": "Never worry about your hard work being stolen. We use state-of-the-art protection to prevent downloads and screen recording, ensuring your content reaches only your paying students.",
-    "cta": "Learn About Security"
-  },
-  "engagement": {
-    "title": "Build a community, not just a course",
-    "description": "Learning is a social experience. Enable your students to interact through comments, messages, and spark competition with a leaderboard that motivates them to complete courses.",
-    "cta": "See Engagement Tools"
-  }
-},
-  "testimonials": {
-    "title": "Success stories from creators like you"
-  }
-},
+      "Metadata": {
+        "title": "Sahla LMS | Turn Your Expertise into a Thriving Education Business",
+        "description": "Launch, manage, and scale your own online academy. Sahla gives you the tools, you build the impact."
+      },
+      "hero": {
+        "badge": "More than a creator. You're a business owner.",
+        "title": "Your expertise is your edge. We give you the tools to turn it into an education empire.",
+        "description": "Sahla is your all-in-one platform to create and sell courses, digital downloads, and communities under your own brand."
+      },
+      "trustedBy": {
+        "title": "Powering creators, inspired by the world's best platforms."
+      },
+      "whySahla": {
+        "pre_title": "Why Sahla?",
+        "title": "Smart features. Efficient workflow.",
+        "feature1_title": "Your Full Brand Identity",
+        "feature1_desc": "Try it yourself! Pick a color or upload a mock logo to see how easily your platform can be customized.",
+        "feature1_interactive": {
+          "colors_label": "Choose your brand color:",
+          "logo_label": "Or upload your logo:",
+          "logo_button": "Choose File",
+          "success_message": "Just like that... your platform is ready with your brand!"
+        },
+        "feature2_title": "Live Interactive Code Editor",
+        "feature2_desc": "Turn theoretical lessons into hands-on experiences. Let your students write and run code directly within the lesson and see the results instantly.",
+        "feature2_interactive": {
+          "run_code": "Run Code",
+          "running": "Running...",
+          "error_message": "Oops, an error! 🤓 Try that again.",
+          "success_message": "That's it! ✅ Code executed successfully."
+        },
+        "feature3_title": "Focus on Creating. We'll Handle the Rest.",
+        "feature3_desc": "Whatever your field, we provide the tools and ideas to help you succeed. Just focus on benefiting your students."
+      },
+      "finalCta": {
+        "title": "Everything You Need to Succeed in One Place",
+        "description": "We provide the entire technical infrastructure, from student management to secure payment gateways, so you can focus on creating exceptional educational content.",
+        "your_product": "Your Educational Product",
+        "learn_more": "Learn how Sahla works",
+        "features": {
+          "students": "Student Management",
+          "quizzes": "Interactive Quizzes",
+          "payments": "Payment Gateways",
+          "analytics": "Analytics & Reports",
+          "certificates": "Certificates",
+          "branding": "Your Own Branding"
+        }
+      },
+      "difference": {
+        "title": "Skip years of work. Start where others finish.",
+        "without_title": "The challenges without Sahla",
+        "without_steps": "Finding developers, building infrastructure, complex design, catching up with updates.",
+        "without_time": "1-3 Years",
+        "with_title": "Launching with Sahla",
+        "with_steps": "Customize identity, upload content, launch your academy, welcome students.",
+        "with_time": "1 Week"
+      },
+      "dashboard": {
+        "title": "A smart dashboard for smarter decisions.",
+        "description": "With a single glance, get all the insights you need. Focus on making a real impact on minds, and leave the rest to us."
+      },
+      "tools": {
+        "title": "Tools designed for your success. Not just features.",
+        "description": "Every part of Sahla is built to solve a real problem you face as an educational content creator.",
+        "ai_bank": {
+          "title": "Create interactive quizzes in seconds",
+          "description": "Turn your content into engaging quizzes with the click of a button. Just provide the topic, and let AI build a comprehensive test bank for you. You can also easily import your existing questions.",
+          "cta": "Discover AI Power"
+        },
+        "secure_video": {
+          "title": "Your content is completely secure. Always.",
+          "description": "Never worry about your hard work being stolen. We use state-of-the-art protection to prevent downloads and screen recording, ensuring your content reaches only your paying students.",
+          "cta": "Learn About Security"
+        },
+        "engagement": {
+          "title": "Build a community, not just a course",
+          "description": "Learning is a social experience. Enable your students to interact through comments, messages, and spark competition with a leaderboard that motivates them to complete courses.",
+          "cta": "See Engagement Tools"
+        }
+      },
+      "testimonials": {
+        "title": "Success stories from creators like you"
+      }
+    },
 
     "PricingPage": {
       "Metadata": {
@@ -180,68 +179,68 @@
       }
     },
     "AboutPage": {
-  "Metadata": {
-    "title": "Our Story | Sahla LMS",
-    "description": "Learn the story behind Sahla, and how it all started from a simple idea by a group of passionate young developers."
-  },
-  "hero": {
-    "badge": "Who We Are",
-    "title": "Not just a company, but a dream that started with an idea.",
-    "description": "We are a group of young individuals who saw a gap in the digital education world and decided to fill it. This is the story of how passion turned into a reality called 'Sahla'."
-  },
-  "story": {
-    "title": "How It All Began",
-    "content": "Every great story starts with a question. Ours was: 'Why does creating a professional online learning platform have to be so complicated and expensive?' We saw talented creators and educators with valuable knowledge facing huge technical barriers. From there, the idea of 'Sahla' was born. We didn't start in a fancy boardroom; we started from our endless discussions and our shared passion for code and education. We decided to build the tool we wished existed: a platform that empowers the creator and makes technology their ally, not their obstacle."
-  },
-  "mission": {
-    "title": "Our Core Mission",
-    "items": {
-      "empower": {
-        "title": "Empower Creators",
-        "description": "We believe everyone with knowledge deserves to share it. Our mission is to remove every technical hurdle."
+      "Metadata": {
+        "title": "Our Story | Sahla LMS",
+        "description": "Learn the story behind Sahla, and how it all started from a simple idea by a group of passionate young developers."
       },
-      "simplify": {
-        "title": "Simplicity is Power",
-        "description": "We design simple yet powerful tools because the focus should be on the content, not the complexities of code."
+      "hero": {
+        "badge": "Who We Are",
+        "title": "Not just a company, but a dream that started with an idea.",
+        "description": "We are a group of young individuals who saw a gap in the digital education world and decided to fill it. This is the story of how passion turned into a reality called 'Sahla'."
       },
-      "grow": {
-        "title": "Grow Together",
-        "description": "Your success is our success. We build a true partnership with you to help you grow and shine."
+      "story": {
+        "title": "How It All Began",
+        "content": "Every great story starts with a question. Ours was: 'Why does creating a professional online learning platform have to be so complicated and expensive?' We saw talented creators and educators with valuable knowledge facing huge technical barriers. From there, the idea of 'Sahla' was born. We didn't start in a fancy boardroom; we started from our endless discussions and our shared passion for code and education. We decided to build the tool we wished existed: a platform that empowers the creator and makes technology their ally, not their obstacle."
+      },
+      "mission": {
+        "title": "Our Core Mission",
+        "items": {
+          "empower": {
+            "title": "Empower Creators",
+            "description": "We believe everyone with knowledge deserves to share it. Our mission is to remove every technical hurdle."
+          },
+          "simplify": {
+            "title": "Simplicity is Power",
+            "description": "We design simple yet powerful tools because the focus should be on the content, not the complexities of code."
+          },
+          "grow": {
+            "title": "Grow Together",
+            "description": "Your success is our success. We build a true partnership with you to help you grow and shine."
+          }
+        }
+      },
+      "teamSection": {
+        "title": "The Passionate Minds Behind Sahla",
+        "description": "Meet the team that turns ideas into tangible reality.",
+        "members": {
+          "badran": {
+            "name": "Mohamed Badran",
+            "role": "Full-Stack Developer",
+            "bio": "The passionate coder driving the technical vision forward."
+          },
+          "saleh": {
+            "name": "Mohammed Saleh",
+            "role": "Full-Stack Developer",
+            "bio": "The architect who builds the platform's foundations with precision."
+          },
+          "rizk": {
+            "name": "Eslam Rizk",
+            "role": "Full-Stack Developer",
+            "bio": "The creative mind who adds the magic touches to the user experience."
+          },
+          "ibrahim": {
+            "name": "Amr Ibrahim",
+            "role": "Full-Stack Developer",
+            "bio": "The problem-solver who ensures everything runs smoothly."
+          },
+          "elnagar": {
+            "name": "Mohamed Elnagar",
+            "role": "Full-Stack Developer",
+            "bio": "The developer who blends design and code to create unique experiences."
+          }
+        }
       }
-    }
-  },
-  "teamSection": {
-    "title": "The Passionate Minds Behind Sahla",
-    "description": "Meet the team that turns ideas into tangible reality.",
-    "members": {
-    "badran": {
-  "name": "Mohamed Badran",
-  "role": "Full-Stack Developer",
-  "bio": "The passionate coder driving the technical vision forward."
-},
-      "saleh": {
-        "name": "Mohammed Saleh",
-        "role": "Full-Stack Developer",
-        "bio": "The architect who builds the platform's foundations with precision."
-      },
-      "rizk": {
-        "name": "Eslam Rizk",
-        "role": "Full-Stack Developer",
-        "bio": "The creative mind who adds the magic touches to the user experience."
-      },
-      "ibrahim": {
-        "name": "Amr Ibrahim",
-        "role": "Full-Stack Developer",
-        "bio": "The problem-solver who ensures everything runs smoothly."
-      },
-      "elnagar": {
-        "name": "Mohamed Elnagar",
-        "role": "Full-Stack Developer",
-        "bio": "The developer who blends design and code to create unique experiences."
-      }
-    }
-  }
-},
+    },
     "ContactPage": {
       "Metadata": {
         "title": "Contact Us | Sahla LMS",

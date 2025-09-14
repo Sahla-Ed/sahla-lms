@@ -13,7 +13,6 @@ import { cn } from '@/lib/utils';
 import LanguageSwitcher from './LanguageSwitcher';
 import { ThemeToggle } from './themeToggle';
 
-
 export function MainSiteHeader() {
   const { theme, systemTheme } = useTheme();
   const pathname = usePathname();
@@ -42,7 +41,7 @@ export function MainSiteHeader() {
     return (
       <header className='sticky top-0 z-50 w-full py-4'>
         <div className='container mx-auto px-6 lg:px-8'>
-          <div className='h-[68px] animate-pulse rounded-full bg-muted'></div>
+          <div className='bg-muted h-[68px] animate-pulse rounded-full'></div>
         </div>
       </header>
     );
@@ -52,19 +51,19 @@ export function MainSiteHeader() {
     <header className='sticky top-0 z-50 w-full py-4'>
       <div className='absolute inset-0 bg-black/5 dark:bg-white/5'></div>
 
-      <div className='container relative mx-auto px-6 lg:px-8'>
+      <div className='relative container mx-auto px-6 lg:px-8'>
         <div className='flex items-center justify-between gap-4'>
           {/* left */}
           <div
             className={cn(
-              'rounded-full border border-border/30 bg-card/80 shadow-lg backdrop-blur-lg',
+              'border-border/30 bg-card/80 rounded-full border shadow-lg backdrop-blur-lg',
               isRTL ? 'order-1' : 'order-2',
             )}
           >
             <div
               className={cn(
                 'flex items-center px-6 py-3',
-                isRTL ? 'space-x-reverse gap-6' : 'gap-6',
+                isRTL ? 'gap-6 space-x-reverse' : 'gap-6',
               )}
             >
               <Link href='/'>
@@ -79,7 +78,7 @@ export function MainSiteHeader() {
               <nav
                 className={cn(
                   'hidden items-center lg:flex',
-                  isRTL ? 'space-x-reverse gap-6' : 'gap-6',
+                  isRTL ? 'gap-6 space-x-reverse' : 'gap-6',
                 )}
               >
                 {navigationItems.map((item) => (
@@ -87,9 +86,9 @@ export function MainSiteHeader() {
                     key={item.name}
                     href={item.href}
                     className={cn(
-                      'relative whitespace-nowrap py-2 text-sm font-medium transition-colors duration-200 hover:text-foreground',
+                      'hover:text-foreground relative py-2 text-sm font-medium whitespace-nowrap transition-colors duration-200',
                       pathname === item.href
-                        ? 'text-foreground after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:rounded-full after:bg-primary'
+                        ? 'text-foreground after:bg-primary after:absolute after:right-0 after:bottom-0 after:left-0 after:h-0.5 after:rounded-full'
                         : 'text-muted-foreground',
                     )}
                   >
@@ -103,26 +102,26 @@ export function MainSiteHeader() {
           {/* right */}
           <div
             className={cn(
-              'rounded-full border border-border/30 bg-card/80 px-6 py-3 shadow-lg backdrop-blur-lg',
+              'border-border/30 bg-card/80 rounded-full border px-6 py-3 shadow-lg backdrop-blur-lg',
               isRTL ? 'order-1' : 'order-2',
             )}
           >
             <div
               className={cn(
                 'flex items-center',
-                isRTL ? 'space-x-reverse gap-4' : 'gap-4',
+                isRTL ? 'gap-4 space-x-reverse' : 'gap-4',
               )}
             >
               <div
                 className={cn(
                   'hidden items-center md:flex',
-                  isRTL ? 'space-x-reverse gap-4' : 'gap-4',
+                  isRTL ? 'gap-4 space-x-reverse' : 'gap-4',
                 )}
               >
                 <div
                   className={cn(
                     'flex items-center',
-                    isRTL ? 'space-x-reverse gap-2' : 'gap-2',
+                    isRTL ? 'gap-2 space-x-reverse' : 'gap-2',
                   )}
                 >
                   <LanguageSwitcher />
@@ -131,15 +130,14 @@ export function MainSiteHeader() {
 
                 <Link
                   href='/start'
-                
-                  className='whitespace-nowrap rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-transform duration-200 hover:scale-105 hover:bg-primary/90'
+                  className='bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-5 py-2.5 text-sm font-medium whitespace-nowrap transition-transform duration-200 hover:scale-105'
                 >
                   {tCommon('getStarted')}
                 </Link>
 
                 <Link
                   href='/contact'
-                  className='whitespace-nowrap rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground transition-transform duration-200 hover:scale-105 hover:bg-accent'
+                  className='border-border text-foreground hover:bg-accent rounded-full border px-5 py-2.5 text-sm font-medium whitespace-nowrap transition-transform duration-200 hover:scale-105'
                 >
                   {t('contact')}
                 </Link>
@@ -148,7 +146,7 @@ export function MainSiteHeader() {
               <div className='md:hidden'>
                 <button
                   onClick={toggleMobileMenu}
-                  className='text-muted-foreground hover:bg-accent inline-flex items-center justify-center rounded-lg p-2.5 transition-colors hover:text-accent-foreground'
+                  className='text-muted-foreground hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center rounded-lg p-2.5 transition-colors'
                   aria-expanded={isMobileMenuOpen}
                 >
                   <span className='sr-only'>
@@ -169,7 +167,7 @@ export function MainSiteHeader() {
       {/* Mobile menu */}
       {isMobileMenuOpen && (
         <div className='mt-4 md:hidden'>
-          <div className='mx-6 rounded-2xl border border-border/30 bg-card/95 shadow-xl backdrop-blur-lg lg:mx-8'>
+          <div className='border-border/30 bg-card/95 mx-6 rounded-2xl border shadow-xl backdrop-blur-lg lg:mx-8'>
             <div className='px-6 py-6'>
               <div className='space-y-3'>
                 {navigationItems.map((item) => (
@@ -193,7 +191,7 @@ export function MainSiteHeader() {
                 <div
                   className={cn(
                     'flex items-center justify-center',
-                    isRTL ? 'space-x-reverse gap-4' : 'gap-4',
+                    isRTL ? 'gap-4 space-x-reverse' : 'gap-4',
                   )}
                 >
                   <LanguageSwitcher />
@@ -204,7 +202,7 @@ export function MainSiteHeader() {
               <div className='border-border mt-6 space-y-3 border-t pt-4'>
                 <Link
                   href='/start'
-                  className='flex w-full justify-center rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors'
+                  className='bg-primary text-primary-foreground flex w-full justify-center rounded-full px-6 py-3 text-sm font-medium transition-colors'
                   onClick={toggleMobileMenu}
                 >
                   {tCommon('getStarted')}
