@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { ScrollAnimate } from '@/components/general/ScrollAnimate';
 import React from 'react';
+import ShinyText from '@/components/ShinyText';
 
 import BuildYourWaySection from '@/components/BuildYourWaySection';
 import FinalCtaSection from '@/components/FinalCtaSection';
@@ -91,7 +92,12 @@ async function HeroSection() {
         <div className='grid grid-cols-1 items-center gap-12 lg:grid-cols-2'>
           <div className='relative z-10'>
             <Badge variant='outline' className='relative mb-4'>
-              {t('badge')}
+              <ShinyText
+                text={t('badge')}
+                disabled={false}
+                speed={3}
+                className='custom-class'
+              />
               <Scribble
                 shape='circle'
                 className='-end-6 top-0 h-8 w-8'
