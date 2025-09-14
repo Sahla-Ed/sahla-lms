@@ -12,9 +12,9 @@ export default function TrustedBySection() {
   const logos = [
     { src: '/logosss/coursera.png', name: 'Coursera' },
     { src: '/logosss/udemy.webp', name: 'Udemy' },
-    { src: '/logosss/teachable.png', name: 'Teachable' },
+    { src: '/logosss/Teachable.png', name: 'Teachable' },
     { src: '/logosss/mesq.png', name: 'Mesq' },
-    { src: '/logosss/kajabi.png', name: 'Kajabi' },
+    { src: '/logosss/Kajabi.png', name: 'Kajabi' },
     { src: '/logosss/thinkific.png', name: 'Thinkific' },
   ];
 
