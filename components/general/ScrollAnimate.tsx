@@ -7,7 +7,7 @@ import { ReactNode } from 'react';
 interface ScrollAnimateProps {
   children: ReactNode;
   direction?: 'left' | 'right' | 'up';
-  delay?: '100' | '200' | '300' | '500';
+  delay?: string;
 }
 
 export function ScrollAnimate({ children, direction = 'up', delay = '100' }: ScrollAnimateProps) {

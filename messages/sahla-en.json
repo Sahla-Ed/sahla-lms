@@ -180,84 +180,68 @@
       }
     },
     "AboutPage": {
-      "Metadata": {
-        "title": "About Us | Sahla LMS",
-        "description": "Learn more about Sahla Learning Platform, our mission, vision, and the team behind our innovative LMS solution."
+  "Metadata": {
+    "title": "Our Story | Sahla LMS",
+    "description": "Learn the story behind Sahla, and how it all started from a simple idea by a group of passionate young developers."
+  },
+  "hero": {
+    "badge": "Who We Are",
+    "title": "Not just a company, but a dream that started with an idea.",
+    "description": "We are a group of young individuals who saw a gap in the digital education world and decided to fill it. This is the story of how passion turned into a reality called 'Sahla'."
+  },
+  "story": {
+    "title": "How It All Began",
+    "content": "Every great story starts with a question. Ours was: 'Why does creating a professional online learning platform have to be so complicated and expensive?' We saw talented creators and educators with valuable knowledge facing huge technical barriers. From there, the idea of 'Sahla' was born. We didn't start in a fancy boardroom; we started from our endless discussions and our shared passion for code and education. We decided to build the tool we wished existed: a platform that empowers the creator and makes technology their ally, not their obstacle."
+  },
+  "mission": {
+    "title": "Our Core Mission",
+    "items": {
+      "empower": {
+        "title": "Empower Creators",
+        "description": "We believe everyone with knowledge deserves to share it. Our mission is to remove every technical hurdle."
       },
-      "hero": {
-        "badge": "About Us",
-        "title": "Our Story",
-        "description": "At Sahla, we believe in empowering knowledge. Our mission is to provide a seamless and powerful platform for educators and organizations to share their expertise with the world."
+      "simplify": {
+        "title": "Simplicity is Power",
+        "description": "We design simple yet powerful tools because the focus should be on the content, not the complexities of code."
       },
-      "visionMission": {
-        "vision": {
-          "title": "Our Vision",
-          "description": "To be the leading platform for online education, fostering a global community of learners and instructors."
-        },
-        "team": {
-          "title": "Our Team",
-          "description": "A dedicated group of passionate individuals committed to innovation and excellence in e-learning."
-        },
-        "reach": {
-          "title": "Our Reach",
-          "description": "Connecting learners and educators across the globe with a platform that knows no boundaries."
-        }
-      },
-      "history": {
-        "title": "Our History",
-        "description": "Founded in 2023, Sahla began with a simple idea: to make online education accessible and powerful for everyone. We started as a small team with a big vision, and through dedication and innovation, we've grown into a leading multi-tenant LMS provider. Over the years, we've continuously evolved our platform, adding features like integrated payments, AI-powered tools, and robust analytics, all while maintaining our commitment to user-friendliness and scalability. Our journey is a testament to our belief in the transformative power of education."
-      },
-      "values": {
-        "title": "Our Values",
-        "integrity": {
-          "title": "Integrity",
-          "description": "We operate with honesty and transparency in all our dealings."
-        },
-        "innovation": {
-          "title": "Innovation",
-          "description": "We constantly strive to bring new and better solutions to our users."
-        },
-        "community": {
-          "title": "Community",
-          "description": "We foster a supportive and collaborative environment for all."
-        },
-        "excellence": {
-          "title": "Excellence",
-          "description": "We are committed to delivering high-quality products and services."
-        }
-      },
-      "teamSection": {
-        "title": "Meet Our Team",
-        "description": "The passionate individuals behind Sahla's success",
-        "members": {
-          "badran": {
-            "name": "Mohamed Badran",
-            "role": "Founder & CEO",
-            "bio": "Visionary leader passionate about accessible education."
-          },
-          "saleh": {
-            "name": "Mohammed Saleh",
-            "role": "Full-Stack Developer",
-            "bio": "Full-Stack Developer with MERN specialization"
-          },
-          "rizk": {
-            "name": "Eslam Rizk",
-            "role": "Full-Stack Developer",
-            "bio": "Full-Stack Developer with MERN specialization"
-          },
-          "ibrahim": {
-            "name": "Amr Ibrahim",
-            "role": "Full-Stack Developer",
-            "bio": "Full-Stack Developer with MERN specialization"
-          },
-          "elnagar": {
-            "name": "Mohamed Elnagar",
-            "role": "Full-Stack Developer",
-            "bio": "Full-Stack Developer with MERN specialization"
-          }
-        }
+      "grow": {
+        "title": "Grow Together",
+        "description": "Your success is our success. We build a true partnership with you to help you grow and shine."
       }
-    },
+    }
+  },
+  "teamSection": {
+    "title": "The Passionate Minds Behind Sahla",
+    "description": "Meet the team that turns ideas into tangible reality.",
+    "members": {
+    "badran": {
+  "name": "Mohamed Badran",
+  "role": "Full-Stack Developer",
+  "bio": "The passionate coder driving the technical vision forward."
+},
+      "saleh": {
+        "name": "Mohammed Saleh",
+        "role": "Full-Stack Developer",
+        "bio": "The architect who builds the platform's foundations with precision."
+      },
+      "rizk": {
+        "name": "Eslam Rizk",
+        "role": "Full-Stack Developer",
+        "bio": "The creative mind who adds the magic touches to the user experience."
+      },
+      "ibrahim": {
+        "name": "Amr Ibrahim",
+        "role": "Full-Stack Developer",
+        "bio": "The problem-solver who ensures everything runs smoothly."
+      },
+      "elnagar": {
+        "name": "Mohamed Elnagar",
+        "role": "Full-Stack Developer",
+        "bio": "The developer who blends design and code to create unique experiences."
+      }
+    }
+  }
+},
     "ContactPage": {
       "Metadata": {
         "title": "Contact Us | Sahla LMS",
