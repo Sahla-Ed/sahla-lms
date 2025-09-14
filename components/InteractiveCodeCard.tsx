@@ -48,7 +48,7 @@ export function InteractiveCodeCard() {
         <div>
           <span className='text-purple-400'>console</span>.
           <span className='text-yellow-300'>log</span>(
-          <span className='text-green-400'>"Hello, Sahla!"</span>);
+          <span className='text-green-400'>{'"Hello, Sahla!"'}</span>
         </div>
       </div>
 
