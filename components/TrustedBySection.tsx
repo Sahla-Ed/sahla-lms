@@ -34,6 +34,7 @@ export default function TrustedBySection() {
               gradient={true}
               gradientColor='hsl(var(--background))'
               speed={40}
+              className='flex w-full justify-evenly'
               direction={locale === 'ar' ? 'right' : 'left'}
             >
               {displayedLogos.map((logo, index) => (
@@ -45,9 +46,9 @@ export default function TrustedBySection() {
                   <Image
                     src={logo.src}
                     alt={logo.name}
-                    width={140}
+                    width={100}
                     height={40}
-                    className='h-8 w-auto object-contain opacity-100 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0'
+                    className='h-16 w-fit object-contain opacity-100 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0'
                   />
                 </div>
               ))}
