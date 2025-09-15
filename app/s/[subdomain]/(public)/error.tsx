@@ -39,7 +39,8 @@ export default function Error({ error, reset }: ErrorProps) {
         <CardContent className='space-y-4'>
           <div className='bg-muted rounded-lg p-4 text-center'>
             <p className='text-muted-foreground text-sm'>
-              We're working to fix this issue. Please try again in a moment.
+              We&lsquo;re working to fix this issue. Please try again in a
+              moment.
             </p>
           </div>
 
