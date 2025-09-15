@@ -25,7 +25,7 @@ export default function LanguageSwitcher() {
   const handleMouseLeave = () => setIsPressed(false);
 
   return (
-    <div className='border-border relative flex rounded-full border bg-slate-900 p-1 shadow-sm transition-shadow duration-200 hover:shadow-md dark:bg-slate-100'>
+    <div className='border-border relative flex rounded-full border bg-black p-1 shadow-sm transition-shadow duration-200 hover:shadow-md dark:bg-slate-100'>
       <div
         className={cn(
           'absolute top-1 bottom-1 rounded-full shadow-lg transition-all duration-300 ease-out',
@@ -45,11 +45,10 @@ export default function LanguageSwitcher() {
         disabled={isPending}
         className={cn(
           'relative z-10 rounded-full px-4 py-1.5 text-sm font-semibold transition-all duration-300 ease-out',
-          'hover:scale-[1.02] active:scale-[0.98]',
-          'focus:ring-ring focus:ring-offset-background focus:ring-2 focus:ring-offset-2 focus:outline-none',
+
           locale === 'en'
-            ? 'text-slate-900 dark:text-white'
-            : 'text-slate-400 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100',
+            ? 'text-slate-800 hover:text-black dark:text-slate-100 dark:hover:text-slate-300'
+            : 'text-slate-800 hover:text-black dark:text-slate-100 dark:hover:text-slate-300',
           isPending && 'cursor-not-allowed opacity-70',
         )}
       >
@@ -64,11 +63,10 @@ export default function LanguageSwitcher() {
         disabled={isPending}
         className={cn(
           'relative z-10 rounded-full px-4 py-1.5 text-sm font-semibold transition-all duration-300 ease-out',
-          'hover:scale-[1.02] active:scale-[0.98]',
-          'focus:ring-ring focus:ring-offset-background focus:ring-2 focus:ring-offset-2 focus:outline-none',
+
           locale === 'ar'
-            ? 'text-white dark:text-slate-900'
-            : 'text-slate-400 hover:text-white dark:text-slate-400 dark:hover:text-slate-900',
+            ? 'text-white hover:text-slate-300 dark:text-slate-800 dark:hover:text-black'
+            : 'text-slate-100 hover:text-white dark:text-slate-800 dark:hover:text-black',
           isPending && 'cursor-not-allowed opacity-70',
         )}
       >
@@ -77,7 +75,7 @@ export default function LanguageSwitcher() {
 
       {isPending && (
         <div className='bg-background/80 absolute inset-0 z-30 flex items-center justify-center rounded-full backdrop-blur-[1px]'>
-          <Loader2 className='h-4 w-4 animate-spin text-slate-600 dark:text-slate-400' />
+          <Loader2 className='h-4 w-4 animate-spin text-slate-600 dark:text-slate-100' />
         </div>
       )}
     </div>

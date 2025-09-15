@@ -14,6 +14,7 @@ import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { useTranslations } from 'next-intl';
+import { useTenantLogo } from '@/hooks/use-tenant-logo';
 
 export function Navbar() {
   const { data: session, isPending } = authClient.useSession();
@@ -21,6 +22,7 @@ export function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const { tenantLogo, loading } = useTenantLogo();
   const t = useTranslations('TenantPlatform.Navbar');
 
   // Mount state for hydration
@@ -31,6 +33,18 @@ export function Navbar() {
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   const currentTheme = theme === 'system' ? systemTheme : theme;
+
+  const getLogoSrc = () => {
+    if (loading || !tenantLogo) {
+      return currentTheme === 'dark' ? LogoDark : LogoLight;
+    }
+
+    if (currentTheme === 'dark' && tenantLogo.logoDark) {
+      return tenantLogo.logoDark;
+    }
+
+    return tenantLogo.logo || (currentTheme === 'dark' ? LogoDark : LogoLight);
+  };
 
   // Dynamic navigation items based on session and translations
   const navigationItems = [
@@ -50,12 +64,7 @@ export function Navbar() {
           className='mr-4 flex items-center space-x-2'
         >
           {mounted ? (
-            <Image
-              src={currentTheme === 'dark' ? LogoDark : LogoLight}
-              alt='Logo'
-              className='size-20'
-              priority
-            />
+            <Image src={getLogoSrc()} alt='Logo' className='size-20' priority />
           ) : (
             <div className='bg-muted size-20 animate-pulse rounded-md' />
           )}
