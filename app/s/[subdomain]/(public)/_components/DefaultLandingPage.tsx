@@ -50,7 +50,7 @@ export function DefaultLandingPage() {
           loop
           muted
           playsInline
-          preload='none'
+          preload='metadata'
           aria-hidden='true'
           className='absolute top-0 left-0 z-0 h-full w-full object-cover'
         >

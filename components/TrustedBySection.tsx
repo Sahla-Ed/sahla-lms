@@ -15,7 +15,7 @@ export default function TrustedBySection() {
     { src: '/logosss/Teachable.png', name: 'Teachable' },
     { src: '/logosss/mesq.png', name: 'Mesq' },
     { src: '/logosss/Kajabi.png', name: 'Kajabi' },
-    { src: '/logosss/thinkific.png', name: 'Thinkific' },
+    { src: '/logosss/thinkific.jpeg', name: 'Thinkific' },
   ];
 
   const displayedLogos = locale === 'ar' ? [...logos].reverse() : logos;
