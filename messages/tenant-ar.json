@@ -8,7 +8,7 @@
 
   "AdminIndexPage": {
     "welcomeMessage": "مرحبًا بعودتك، {username}!",
-    "welcomeDescription": "إليك نظرة عامة سريعة على أداء منصتك اليوم.",
+    "welcomeDescription": "إليك نظرة عامة سريعة على أداء منصتك.",
     "recentCoursesTitle": "أحدث الدورات",
     "viewAllCoursesButton": "عرض كل الدورات",
     "emptyState": {
