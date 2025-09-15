@@ -44,7 +44,11 @@ export function Navbar() {
   return (
     <header className='bg-background backdrop-blur-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b'>
       <div className='container mx-auto flex min-h-16 items-center px-4 md:px-6 lg:px-8'>
-        <Link href='/' className='mr-4 flex items-center space-x-2'>
+        <Link
+          href='/'
+          aria-label='Home'
+          className='mr-4 flex items-center space-x-2'
+        >
           {mounted ? (
             <Image
               src={currentTheme === 'dark' ? LogoDark : LogoLight}
@@ -133,9 +137,9 @@ export function Navbar() {
           <button
             onClick={toggleMobileMenu}
             className='text-foreground hover:text-primary hover:bg-accent focus:ring-primary inline-flex items-center justify-center rounded-md p-2 focus:ring-2 focus:outline-none focus:ring-inset'
-            aria-expanded='false'
+            aria-expanded={isMobileMenuOpen}
+            aria-label={isMobileMenuOpen ? t('closeMenu') : t('openMenu')}
           >
-            <span className='sr-only'>{t('openMenu')}</span>
             {isMobileMenuOpen ? (
               <X className='block h-6 w-6' aria-hidden='true' />
             ) : (

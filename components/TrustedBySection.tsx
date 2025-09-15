@@ -15,7 +15,7 @@ export default function TrustedBySection() {
     { src: '/logosss/Teachable.png', name: 'Teachable' },
     { src: '/logosss/mesq.png', name: 'Mesq' },
     { src: '/logosss/Kajabi.png', name: 'Kajabi' },
-    { src: '/logosss/thinkific.png', name: 'Thinkific' },
+    { src: '/logosss/thinkific.jpeg', name: 'Thinkific' },
   ];
 
   const displayedLogos = locale === 'ar' ? [...logos].reverse() : logos;
@@ -24,9 +24,9 @@ export default function TrustedBySection() {
     <section className='bg-accent py-16'>
       <div className='container mx-auto text-center'>
         <ScrollAnimate>
-          <h3 className='text-foreground mb-4 text-xl font-bold tracking-tight'>
+          <h2 className='text-foreground mb-4 text-xl font-bold tracking-tight'>
             {t('title')}
-          </h3>
+          </h2>
         </ScrollAnimate>
         <div className='mt-8'>
           <div dir='ltr'>
