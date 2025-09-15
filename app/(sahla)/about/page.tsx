@@ -68,14 +68,6 @@ export default async function AboutUsPage() {
 
   const teamMembers = [
     {
-      name: t('teamSection.members.saleh.name'),
-      role: t('teamSection.members.saleh.role'),
-      image: '/team/saled.jpg',
-      bio: t('teamSection.members.saleh.bio'),
-      github: 'https://github.com/mosaleh-dev',
-      linkedin: 'https://www.linkedin.com/in/mosaleh-dev/',
-    },
-    {
       name: t('teamSection.members.badran.name'),
       role: t('teamSection.members.badran.role'),
       image: '/team/badran.jpeg',
@@ -84,12 +76,12 @@ export default async function AboutUsPage() {
       linkedin: 'https://www.linkedin.com/in/mohamed-ahmed-badran/',
     },
     {
-      name: t('teamSection.members.rizk.name'),
-      role: t('teamSection.members.rizk.role'),
-      image: '/team/rizkk.jpeg',
-      bio: t('teamSection.members.rizk.bio'),
-      github: 'https://github.com/Eslam-Rizk',
-      linkedin: 'https://www.linkedin.com/in/eslam-rizk-6a029a145/',
+      name: t('teamSection.members.saleh.name'),
+      role: t('teamSection.members.saleh.role'),
+      image: '/team/saled.jpg',
+      bio: t('teamSection.members.saleh.bio'),
+      github: 'https://github.com/mosaleh-dev',
+      linkedin: 'https://www.linkedin.com/in/mosaleh-dev/',
     },
     {
       name: t('teamSection.members.ibrahim.name'),
@@ -98,6 +90,14 @@ export default async function AboutUsPage() {
       bio: t('teamSection.members.ibrahim.bio'),
       github: 'https://github.com/amr-ibrahim7',
       linkedin: 'https://www.linkedin.com/in/amribrahimwebdev/',
+    },
+    {
+      name: t('teamSection.members.rizk.name'),
+      role: t('teamSection.members.rizk.role'),
+      image: '/team/rizkk.jpeg',
+      bio: t('teamSection.members.rizk.bio'),
+      github: 'https://github.com/Eslam-Rizk',
+      linkedin: 'https://www.linkedin.com/in/eslam-rizk-6a029a145/',
     },
     {
       name: t('teamSection.members.elnagar.name'),
