@@ -7,7 +7,7 @@
   },
   "AdminIndexPage": {
     "welcomeMessage": "Welcome back, {username}!",
-    "welcomeDescription": "Here's a quick overview of your platform's performance today.",
+    "welcomeDescription": "Here's a quick overview of your platform's performance.",
     "recentCoursesTitle": "Recent Courses",
     "viewAllCoursesButton": "View All Courses",
     "emptyState": {
