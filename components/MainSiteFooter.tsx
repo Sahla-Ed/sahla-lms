@@ -31,7 +31,7 @@ export function MainSiteFooter() {
       <div className='mx-auto max-w-7xl px-6 py-16'>
         <div className='grid grid-cols-1 gap-16 lg:grid-cols-12'>
           <div className='lg:col-span-5'>
-            <Link href='/' className='mb-4 flex items-center'>
+            <Link href='/' aria-label='Home' className='mb-4 flex items-center'>
               <Image
                 src={currentTheme === 'dark' ? LogoDark : LogoLight}
                 alt='Sahla Logo'
@@ -40,27 +40,31 @@ export function MainSiteFooter() {
               />
             </Link>
             <p className='text-muted-foreground max-w-md'>{t('tagline')}</p>
-            <div className='mt-6 flex gap-4'>
+            <div className='mt-6 flex gap-4' aria-label='Social media links'>
               <a
                 href='#'
+                aria-label='Facebook'
                 className='text-muted-foreground hover:text-primary hover:bg-accent transform rounded-full p-2 transition-all duration-300 ease-in-out hover:scale-110'
               >
                 <Facebook className='h-6 w-6' />
               </a>
               <a
                 href='#'
+                aria-label='Twitter'
                 className='text-muted-foreground hover:text-primary hover:bg-accent transform rounded-full p-2 transition-all duration-300 ease-in-out hover:scale-110'
               >
                 <Twitter className='h-6 w-6' />
               </a>
               <a
                 href='#'
+                aria-label='Instagram'
                 className='text-muted-foreground hover:text-primary hover:bg-accent transform rounded-full p-2 transition-all duration-300 ease-in-out hover:scale-110'
               >
                 <Instagram className='h-6 w-6' />
               </a>
               <a
                 href='#'
+                aria-label='YouTube'
                 className='text-muted-foreground hover:text-primary hover:bg-accent transform rounded-full p-2 transition-all duration-300 ease-in-out hover:scale-110'
               >
                 <Youtube className='h-6 w-6' />

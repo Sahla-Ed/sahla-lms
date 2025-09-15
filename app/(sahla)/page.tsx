@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { MessageSquare, ArrowRight, Bot, Shield } from 'lucide-react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { ScrollAnimate } from '@/components/general/ScrollAnimate';
@@ -106,7 +107,7 @@ async function HeroSection() {
                 color='blue'
               />
             </h1>
-            <p className='text-muted-foreground mx-auto mb-10 max-w-2xl text-lg lg:mx-0'>
+            <p className='text-foreground mx-auto mb-10 max-w-2xl text-lg lg:mx-0'>
               {t('description')}
             </p>
             <div className='flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start'>
@@ -116,15 +117,12 @@ async function HeroSection() {
             </div>
           </div>
           <div className='relative h-64 lg:h-auto lg:self-stretch'>
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className='h-full w-full rounded-lg object-cover shadow-2xl'
-            >
-              <source src='/videos/sahla_prev.mp4' type='video/mp4' />
-            </video>
+            {/** @ts-expect-error Async dynamic import type */}
+            {dynamic(() => import('@/components/HeroVideo'))({
+              posterSrc: '/herovidimg.png',
+              videoSrc: '/videos/sahla_prev.mp4',
+              className: 'rounded-lg',
+            })}
           </div>
         </div>
       </div>
@@ -264,6 +262,7 @@ async function ToolsSection() {
                             src={tool.imageSrc}
                             alt={tool.title}
                             fill
+                            sizes='(min-width: 1024px) 560px, 90vw'
                             className='object-cover transition-transform duration-500 group-hover:scale-105'
                           />
                         </div>

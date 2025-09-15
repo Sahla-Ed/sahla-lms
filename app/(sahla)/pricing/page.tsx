@@ -84,7 +84,7 @@ export default async function PricingPage() {
 
   const pricingFaqs = [
     { q: t('faq.q1'), a: t('faq.a1') },
-    { q: t('faq.q2'), a: t('faq.q2') },
+    { q: t('faq.q2'), a: t('faq.a2') },
     { q: t('faq.q3'), a: t('faq.a3') },
   ];
 
