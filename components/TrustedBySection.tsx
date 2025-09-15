@@ -24,9 +24,9 @@ export default function TrustedBySection() {
     <section className='bg-accent py-16'>
       <div className='container mx-auto text-center'>
         <ScrollAnimate>
-          <h3 className='text-foreground mb-4 text-xl font-bold tracking-tight'>
+          <h2 className='text-foreground mb-4 text-xl font-bold tracking-tight'>
             {t('title')}
-          </h3>
+          </h2>
         </ScrollAnimate>
         <div className='mt-8'>
           <div dir='ltr'>

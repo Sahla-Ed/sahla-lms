@@ -81,6 +81,7 @@ export function InteractiveCard({
                         ? 'border-foreground'
                         : 'border-transparent',
                     )}
+                    aria-label={`Select brand color ${color}`}
                     style={{ backgroundColor: color }}
                   />
                 ))}

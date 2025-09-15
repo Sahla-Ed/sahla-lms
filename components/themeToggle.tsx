@@ -63,7 +63,12 @@ export function ThemeToggle({ translationNamespace }: ThemeToggleProps) {
 
   if (!mounted) {
     return (
-      <Button variant='outline' size='icon' className='relative'>
+      <Button
+        variant='outline'
+        size='icon'
+        className='relative'
+        aria-label='Toggle theme'
+      >
         <div className='h-4 w-4 animate-pulse rounded-full bg-gray-300' />
       </Button>
     );
@@ -74,6 +79,7 @@ export function ThemeToggle({ translationNamespace }: ThemeToggleProps) {
       variant='outline'
       size='icon'
       onClick={toggleTheme}
+      aria-label={t(theme as 'light' | 'dark' | 'system')}
       className={cn(
         'group relative overflow-hidden transition-all duration-700 ease-in-out',
         showText ? 'w-[110px] rounded-full px-4' : 'w-10',

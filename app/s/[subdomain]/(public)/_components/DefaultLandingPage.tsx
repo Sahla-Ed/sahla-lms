@@ -50,6 +50,8 @@ export function DefaultLandingPage() {
           loop
           muted
           playsInline
+          preload='none'
+          aria-hidden='true'
           className='absolute top-0 left-0 z-0 h-full w-full object-cover'
         >
           <source src='/shlavv.mp4' type='video/mp4' />

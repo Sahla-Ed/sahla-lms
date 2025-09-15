@@ -60,7 +60,7 @@ export function DeleteChapter({
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant='ghost' size='icon'>
+        <Button variant='ghost' size='icon' aria-label={t('deleteButton')}>
           <Trash2 className='size-4' />
         </Button>
       </AlertDialogTrigger>

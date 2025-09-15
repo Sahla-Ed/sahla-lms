@@ -43,7 +43,11 @@ export function AdminCourseCard({ data }: iAppProps) {
       <div className={`absolute top-2 z-10 ${isRTL ? 'left-2' : 'right-2'}`}>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant='secondary' size='icon'>
+            <Button
+              variant='secondary'
+              size='icon'
+              aria-label={t('moreActions')}
+            >
               <MoreVertical className='size-4' />
             </Button>
           </DropdownMenuTrigger>

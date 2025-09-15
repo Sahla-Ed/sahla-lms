@@ -66,7 +66,7 @@ export function MainSiteHeader() {
                 isRTL ? 'gap-6 space-x-reverse' : 'gap-6',
               )}
             >
-              <Link href='/'>
+              <Link href='/' aria-label='Home'>
                 <Image
                   src={currentTheme === 'dark' ? LogoDark : LogoLight}
                   alt='Sahla Logo'
@@ -148,10 +148,10 @@ export function MainSiteHeader() {
                   onClick={toggleMobileMenu}
                   className='text-muted-foreground hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center rounded-lg p-2.5 transition-colors'
                   aria-expanded={isMobileMenuOpen}
+                  aria-label={
+                    isMobileMenuOpen ? 'Close main menu' : 'Open main menu'
+                  }
                 >
-                  <span className='sr-only'>
-                    {isMobileMenuOpen ? 'Close main menu' : 'Open main menu'}
-                  </span>
                   {isMobileMenuOpen ? (
                     <X className='h-5 w-5' />
                   ) : (

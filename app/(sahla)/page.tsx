@@ -106,7 +106,7 @@ async function HeroSection() {
                 color='blue'
               />
             </h1>
-            <p className='text-muted-foreground mx-auto mb-10 max-w-2xl text-lg lg:mx-0'>
+            <p className='text-foreground mx-auto mb-10 max-w-2xl text-lg lg:mx-0'>
               {t('description')}
             </p>
             <div className='flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start'>
@@ -121,6 +121,8 @@ async function HeroSection() {
               loop
               muted
               playsInline
+              preload='none'
+              aria-hidden='true'
               className='h-full w-full rounded-lg object-cover shadow-2xl'
             >
               <source src='/videos/sahla_prev.mp4' type='video/mp4' />
