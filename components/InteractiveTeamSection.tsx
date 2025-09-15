@@ -28,7 +28,8 @@ export const InteractiveTeamSection: React.FC<InteractiveTeamSectionProps> = ({
   title,
   description,
 }) => {
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState(Math.floor(Math.random() * 3));
+
   const locale = useLocale();
   const isRTL = locale === 'ar';
 
