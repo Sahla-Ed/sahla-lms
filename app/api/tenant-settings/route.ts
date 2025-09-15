@@ -12,7 +12,11 @@ export async function GET(request: Request) {
   try {
     const tenant = await prismaUnscoped.tenants.findUnique({
       where: { slug },
-      select: { defaultLanguage: true },
+      select: {
+        defaultLanguage: true,
+        logo: true,
+        logoDark: true,
+      },
     });
 
     if (!tenant) {

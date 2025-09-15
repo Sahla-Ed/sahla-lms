@@ -28,6 +28,7 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { useTenantLogo } from '@/hooks/use-tenant-logo';
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   side: 'left' | 'right';
@@ -36,6 +37,7 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 export function AppSidebar({ side, ...props }: AppSidebarProps) {
   const { theme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { tenantLogo, loading } = useTenantLogo();
 
   const t = useTranslations('TenantPlatform.Sidebar');
   const tAdmin = useTranslations('AdminSidebar');
@@ -45,6 +47,18 @@ export function AppSidebar({ side, ...props }: AppSidebarProps) {
   }, []);
 
   const currentTheme = theme === 'system' ? systemTheme : theme;
+
+  const getLogoSrc = () => {
+    if (loading || !tenantLogo) {
+      return currentTheme === 'dark' ? LogoDark : LogoLight;
+    }
+
+    if (currentTheme === 'dark' && tenantLogo.logoDark) {
+      return tenantLogo.logoDark;
+    }
+
+    return tenantLogo.logo || (currentTheme === 'dark' ? LogoDark : LogoLight);
+  };
 
   const navMain = [
     {
@@ -99,7 +113,7 @@ export function AppSidebar({ side, ...props }: AppSidebarProps) {
               >
                 {mounted ? (
                   <Image
-                    src={currentTheme === 'dark' ? LogoDark : LogoLight}
+                    src={getLogoSrc()}
                     alt='Logo'
                     className='h-16 w-16 object-cover'
                     priority
