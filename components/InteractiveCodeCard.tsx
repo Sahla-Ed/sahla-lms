@@ -34,7 +34,7 @@ export function InteractiveCodeCard() {
   };
 
   return (
-    <div className='relative mt-8 flex h-full flex-col rounded-2xl bg-gray-900 p-6 text-white shadow-lg'>
+    <div className='relative mt-8 flex h-full w-full max-w-full flex-col overflow-hidden rounded-2xl bg-gray-900 p-6 text-white shadow-lg'>
       <div className='mb-4 flex flex-shrink-0 gap-2'>
         <div className='h-3 w-3 rounded-full bg-red-500'></div>
         <div className='h-3 w-3 rounded-full bg-yellow-500'></div>

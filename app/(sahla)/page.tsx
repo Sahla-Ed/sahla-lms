@@ -52,7 +52,7 @@ const Scribble = ({
   return (
     <svg
       className={cn(
-        'pointer-events-none absolute h-24 w-24',
+        'pointer-events-none absolute h-24 w-24 overflow-visible',
         colors[color],
         className,
       )}
@@ -76,19 +76,19 @@ async function HeroSection() {
   const tCommon = await getTranslations('SahlaPlatform.common');
 
   return (
-    <section className='bg-background text-foreground relative flex min-h-screen items-center'>
+    <section className='bg-background text-foreground relative flex min-h-screen items-center overflow-x-hidden'>
       <Scribble
         shape='circle'
-        className='end-10 top-10 h-20 w-20'
+        className='end-10 top-10 hidden h-20 w-20 sm:block'
         color='blue'
       />
       <Scribble
         shape='swoosh'
-        className='start-20 top-32 h-16 w-16'
+        className='start-20 top-32 hidden h-16 w-16 sm:block'
         color='orange'
       />
 
-      <div className='container mx-auto px-6 text-center lg:text-start'>
+      <div className='container mx-auto w-full px-6 text-center lg:text-start'>
         <div className='grid grid-cols-1 items-center gap-12 lg:grid-cols-2'>
           <div className='relative z-10'>
             <Badge variant='outline' className='relative mb-4'>
@@ -160,8 +160,8 @@ async function ToolsSection() {
   ];
 
   return (
-    <section className='bg-muted/30 py-20 lg:py-32'>
-      <div className='container mx-auto px-4'>
+    <section className='bg-muted/30 overflow-x-hidden py-20 lg:py-32'>
+      <div className='container mx-auto w-full px-4'>
         <ScrollAnimate>
           <div className='relative mb-20 text-center'>
             <h2 className='relative mb-6 text-3xl font-bold md:text-4xl lg:text-5xl'>

@@ -37,6 +37,7 @@ export function ScrollAnimate({
           ? 'translate-x-0 translate-y-0 opacity-100'
           : `opacity-0 ${directionClasses[direction]}`,
       )}
+      style={{ contain: 'layout' }}
     >
       {children}
     </div>
