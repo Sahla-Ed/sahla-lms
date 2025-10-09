@@ -29,15 +29,11 @@ export async function adminGetStudentAnalytics(userId: string) {
               title: true,
               chapter: {
                 select: {
-                  // --- START: FIX ---
-                  // Select the actual lesson records (specifically their IDs)
-                  // instead of just the count. This is needed for progress calculation.
                   lessons: {
                     select: {
                       id: true,
                     },
                   },
-                  // --- END: FIX ---
                 },
               },
             },

@@ -22,7 +22,9 @@ export default function SahlaLayoutContent({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <div
+      className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden antialiased`}
+    >
       <ThemeProvider
         attribute='class'
         defaultTheme='system'
@@ -30,7 +32,7 @@ export default function SahlaLayoutContent({
         disableTransitionOnChange
       >
         <MainSiteHeader />
-        <main className='flex-1'>{children}</main>
+        <main className='flex-1 overflow-x-hidden'>{children}</main>
         <MainSiteFooter />
       </ThemeProvider>
     </div>

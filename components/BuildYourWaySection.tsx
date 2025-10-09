@@ -19,7 +19,7 @@ export default function BuildYourWaySection() {
       className='relative overflow-hidden py-20 transition-colors duration-500 lg:py-32'
       style={{ backgroundColor: `${brandColor}1A` }}
     >
-      <div className='container mx-auto px-6'>
+      <div className='container mx-auto w-full px-6'>
         {/* Title Section */}
         <ScrollAnimate>
           <div

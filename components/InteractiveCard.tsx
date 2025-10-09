@@ -56,7 +56,7 @@ export function InteractiveCard({
   };
 
   return (
-    <div className='relative mt-8 min-h-[284px] rounded-2xl bg-white p-6 shadow-lg dark:bg-gray-900'>
+    <div className='relative mt-8 min-h-[284px] w-full max-w-full overflow-hidden rounded-2xl bg-white p-6 shadow-lg dark:bg-gray-900'>
       <AnimatePresence mode='wait'>
         {!showSuccess ? (
           <motion.div

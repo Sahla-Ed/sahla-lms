@@ -74,7 +74,7 @@ export default function FinalCtaSection() {
 
   return (
     <section className='bg-background overflow-hidden py-20 lg:py-32'>
-      <div className='container mx-auto px-6 text-center'>
+      <div className='container mx-auto w-full px-6 text-center'>
         <ScrollAnimate>
           <h2 className='text-foreground text-4xl font-bold tracking-tight lg:text-6xl'>
             {t('title')
