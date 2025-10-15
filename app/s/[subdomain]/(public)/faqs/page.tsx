@@ -9,40 +9,18 @@ import {
 import { Book, Search } from 'lucide-react';
 import { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
-import {
-  getTenantSettingsBySlug,
-  getAllTenantSlugs,
-} from '@/lib/get-tenant-settings-static';
+import { getTenantSettings } from '../../data/admin/get-tenant-settings';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
-// Enable ISR with 60 second revalidation
-export const revalidate = 60;
-
-// Generate static params for all tenants *This could be a performance issue if there are a lot of tenants*
-export async function generateStaticParams() {
-  const slugs = await getAllTenantSlugs();
-
-  return slugs.map((slug) => ({
-    subdomain: slug,
-  }));
-}
-
-type Params = Promise<{ subdomain: string }>;
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Params;
-}): Promise<Metadata> {
-  const { subdomain } = await params;
+export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const t = await getTranslations({
     locale,
     namespace: 'FaqsPage.Metadata',
   });
-  const tenant = await getTenantSettingsBySlug(subdomain);
+  const tenant = await getTenantSettings();
 
   return {
     title: t('title'),
@@ -50,8 +28,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function FaqsPage({ params }: { params: Params }) {
-  const { subdomain } = await params;
+export default async function FaqsPage() {
   const t = await getTranslations('FaqsPage');
   const locale = await getLocale();
   const isRTL = locale === 'ar';
