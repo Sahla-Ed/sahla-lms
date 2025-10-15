@@ -31,3 +31,23 @@ export default getRequestConfig(async () => {
     };
   }
 });
+
+// Export a static version for ISR pages
+export async function getStaticMessages(locale: string, subdomain?: string) {
+  const messageFileName = subdomain
+    ? `tenant-${locale}.json`
+    : `sahla-${locale}.json`;
+
+  try {
+    const messages = (await import(`./messages/${messageFileName}`)).default;
+    return { locale, messages };
+  } catch (error) {
+    console.error(
+      `[i18n] Could not load messages from ${messageFileName}. Falling back to default.`,
+    );
+    return {
+      locale,
+      messages: (await import(`./messages/sahla-ar.json`)).default,
+    };
+  }
+}
