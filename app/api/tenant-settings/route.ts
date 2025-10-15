@@ -23,7 +23,13 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Tenant not found' }, { status: 404 });
     }
 
-    return NextResponse.json(tenant);
+    return NextResponse.json(tenant, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+        'CDN-Cache-Control': 'public, s-maxage=300',
+        'Vercel-CDN-Cache-Control': 'public, s-maxage=300',
+      },
+    });
   } catch (error) {
     console.error('[API/TENANT-SETTINGS] Error:', error);
     return NextResponse.json(
