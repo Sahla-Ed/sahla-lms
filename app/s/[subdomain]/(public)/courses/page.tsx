@@ -4,37 +4,15 @@ import { Suspense } from 'react';
 import { CourseSearchWrapper } from '../_components/CourseSearchWrapperProps';
 import { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
-import {
-  getTenantSettingsBySlug,
-  getAllTenantSlugs,
-} from '@/lib/get-tenant-settings-static';
+import { getTenantSettings } from '../../data/admin/get-tenant-settings';
 
-// Enable ISR with 60 second revalidation
-export const revalidate = 60;
-
-// Generate static params for all tenants *This could be a performance issue if there are a lot of tenants*
-export async function generateStaticParams() {
-  const slugs = await getAllTenantSlugs();
-
-  return slugs.map((slug) => ({
-    subdomain: slug,
-  }));
-}
-
-type Params = Promise<{ subdomain: string }>;
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Params;
-}): Promise<Metadata> {
-  const { subdomain } = await params;
+export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const t = await getTranslations({
     locale,
     namespace: 'CoursesPage.metadata',
   });
-  const tenant = await getTenantSettingsBySlug(subdomain);
+  const tenant = await getTenantSettings();
 
   return {
     title: t('title'),
@@ -42,21 +20,20 @@ export async function generateMetadata({
   };
 }
 
+export const dynamic = 'force-dynamic';
+
 interface PublicCoursesRouteProps {
-  params: Params;
   searchParams: Promise<{ q?: string; category?: string }>;
 }
 
 export default async function PublicCoursesroute({
-  params,
   searchParams,
 }: PublicCoursesRouteProps) {
-  const { subdomain } = await params;
   const resolvedSearchParams = await searchParams;
 
   const tHero = await getTranslations('CoursesPage.hero');
   const tHeader = await getTranslations('CoursesPage.header');
-  const tenant = await getTenantSettingsBySlug(subdomain);
+  const tenant = await getTenantSettings();
 
   return (
     <div className='from-background via-secondary/10 to-background min-h-screen bg-gradient-to-b'>

@@ -4,27 +4,8 @@ import { Mail, Phone, MessageCircle, MapPin, Clock } from 'lucide-react';
 import { ContactForm } from './_components/ContactForm';
 import { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
-import { getAllTenantSlugs } from '@/lib/get-tenant-settings-static';
 
-// Enable ISR with 60 second revalidation
-export const revalidate = 60;
-
-// Generate static params for all tenants *This could be a performance issue if there are a lot of tenants*
-export async function generateStaticParams() {
-  const slugs = await getAllTenantSlugs();
-
-  return slugs.map((slug) => ({
-    subdomain: slug,
-  }));
-}
-
-type Params = Promise<{ subdomain: string }>;
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Params;
-}): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const t = await getTranslations({
     locale,
@@ -37,7 +18,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function ContactUsPage({ params }: { params: Params }) {
+export default async function ContactUsPage() {
   const t = await getTranslations('ContactPage');
   const locale = await getLocale();
   const isRTL = locale === 'ar';
