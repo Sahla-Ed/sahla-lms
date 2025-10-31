@@ -154,16 +154,6 @@ The application will be available at `http://localhost:3000`. You can create you
 - `messages/`: Internationalization (i18n) translation files for English and Arabic.
 - `middleware.ts`: The heart of the multi-tenancy and i18n routing, responsible for URL rewriting and locale detection.
 
-## 🤝 Contributing
-
-Contributions are welcome! If you'd like to contribute, please fork the repository and use a feature branch. Pull requests are warmly welcome.
-
-1.  Fork the repository.
-2.  Create your feature branch (`git checkout -b feature/amazing-feature`).
-3.  Commit your changes (`git commit -m 'Add some amazing feature'`).
-4.  Push to the branch (`git push origin feature/amazing-feature`).
-5.  Open a Pull Request.
-
 ## 📜 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This repository is public for viewing only. All rights reserved—no modifications, distribution, or use without written permission. Contact [mohamed.ahmed.badran0@gmail.com] for inquiries.
