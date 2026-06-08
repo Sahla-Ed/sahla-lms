@@ -125,7 +125,6 @@
         "title": "Success stories from creators like you"
       }
     },
-
     "PricingPage": {
       "Metadata": {
         "title": "Pricing & Plans | Sahla LMS",
@@ -213,30 +212,20 @@
         "title": "The Passionate Minds Behind Sahla",
         "description": "Meet the team that turns ideas into tangible reality.",
         "members": {
-          "badran": {
-            "name": "Mohamed Badran",
-            "role": "Full-Stack Developer",
-            "bio": "The passionate coder driving the technical vision forward."
-          },
           "saleh": {
             "name": "Mohammed Saleh",
             "role": "Full-Stack Developer",
             "bio": "The architect who builds the platform's foundations with precision."
           },
-          "rizk": {
-            "name": "Eslam Rizk",
-            "role": "Full-Stack Developer",
-            "bio": "The creative mind who adds the magic touches to the user experience."
+          "eltohamy": {
+            "name": "Mahmoud Eltohamy",
+            "role": "Backend Developer / DevOps",
+            "bio": "The engineer who powers the backend and keeps the infrastructure running smoothly."
           },
-          "ibrahim": {
-            "name": "Amr Ibrahim",
-            "role": "Full-Stack Developer",
-            "bio": "The problem-solver who ensures everything runs smoothly."
-          },
-          "elnagar": {
-            "name": "Mohamed Elnagar",
-            "role": "Full-Stack Developer",
-            "bio": "The developer who blends design and code to create unique experiences."
+          "gado": {
+            "name": "Randa Gado",
+            "role": "Frontend & UI/UX Designer / Tester",
+            "bio": "The creative who shapes the interface and makes sure everything works flawlessly."
           }
         }
       }
