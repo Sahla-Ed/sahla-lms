@@ -68,6 +68,14 @@ export default async function AboutUsPage() {
 
   const teamMembers = [
     {
+      name: t('teamSection.members.badran.name'),
+      role: t('teamSection.members.badran.role'),
+      image: '/team/badran.jpeg',
+      bio: t('teamSection.members.badran.bio'),
+      github: 'https://github.com/B-a-d-r-a-n',
+      linkedin: 'https://www.linkedin.com/in/mohamed-ahmed-badran/',
+    },
+    {
       name: t('teamSection.members.saleh.name'),
       role: t('teamSection.members.saleh.role'),
       image: '/team/saled.jpg',
