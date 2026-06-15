@@ -60,7 +60,7 @@ Follow these steps to get a local instance of Sahla up and running.
 
 ### Prerequisites
 
-- Node.js (v18 or later)
+- Node.js (v20 or later)
 - pnpm
 - PostgreSQL database (e.g., via Docker, Neon, or a local installation)
 
