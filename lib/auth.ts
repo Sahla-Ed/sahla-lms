@@ -25,6 +25,7 @@ export const auth = (tenantId?: string | null) =>
       `*.localhost:3000`,
       `https${env.VERCEL_URL}`,
       `*.sahlah.tech`,
+      `*.sahla.fyi`,
       '*',
     ],
     socialProviders: {
